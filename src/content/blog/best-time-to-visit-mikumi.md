@@ -17,7 +17,7 @@ Book early for this period, especially the school holidays. Our two Mountain Vie
 
 ## November and December: the short rains
 
-Short, dramatic afternoon showers roll in from the Uluguru Mountains, the floodplain turns green within days and the migrant birds arrive. Game viewing is still good, the park is quiet, and the ridge view after a storm is the best of the year. Christmas and New Year are busy; the rest of these months are not.
+Short, dramatic afternoon showers roll in from the Uluguru Mountains, the floodplain turns green within days and the migrant birds arrive. Game viewing is still good, the park is quiet, and the view of the Mikumi mountain ridge after a storm is the best of the year. Christmas and New Year are busy; the rest of these months are not.
 
 ## January and February: the dry spell
 

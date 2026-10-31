@@ -12,7 +12,7 @@ import { site } from '../data/site';
 
 const title = 'Camp Lilac | Mikumi\'s Only Luxury Tented Camp, Tanzania';
 const description =
-  'Mikumi\'s only luxury tented camp: Serengeti-level tents and cabins with en-suite bathrooms, A/C and the one mountain-ridge view in Mikumi. 3.5 h from Dar by train. Stays and safaris from US$140.';
+  'Mikumi\'s only luxury tented camp: Serengeti-level tents and cabins with private bathrooms, A/C and the only view of the Mikumi mountain ridge. 3.5 h from Dar by train. Stays and safaris from US$140.';
 
 const tileImage: Record<string, string> = { 'mountain-view-cabin': '/images/rooms/mv-cabin-4-1600.jpg', 'luxury-jungle-tent': '/images/rooms/jungle-tent-2-1600.jpg', 'jungle-cabin': '/images/rooms/jungle-cabin-3-1600.jpg' };
 const featured = ['mountain-view-cabin', 'luxury-jungle-tent', 'jungle-cabin'].map((s) => rooms.find((r) => r.slug === s)!);
@@ -41,7 +41,7 @@ const words = (s: string) => s.split(' ');
           {words('luxury tented').map((w, i) => <span class="w"><span style={`transition-delay:${0.26 + i * 0.08}s`}>{w}&nbsp;</span></span>)}
           <span class="w"><em style="transition-delay:0.42s;color:#e4d9f7">camp</em></span>
         </h1>
-        <p class="lead">Serengeti-level tents and cabins, en-suite and air-conditioned, with the one mountain-ridge view in Mikumi. 3.5 hours from Dar es Salaam by train and transfer, a short flight from Zanzibar.</p>
+        <p class="lead">Serengeti-level tents and cabins with private bathrooms and air conditioning — the only camp in Mikumi with a view of the Mikumi mountain ridge. 3.5 hours from Dar es Salaam by train and transfer, a short flight from Zanzibar.</p>
 
       </div>
     </div>
@@ -79,7 +79,7 @@ const words = (s: string) => s.split(' ');
           <span class="label">From Zanzibar</span>
           <h3>A real safari, not a 4 a.m. day trip</h3>
           <p class="from">From US${s2.price}<small>per person + flights</small></p>
-          <p>Morning ferry or flight to Dar, train to Morogoro, two days of game drives and a night under canvas facing the ridge. Back on the beach by the next evening.</p>
+          <p>Morning ferry or flight to Dar, train to Morogoro, two days of game drives and a night under canvas facing the Mikumi mountain ridge. Back on the beach by the next evening.</p>
           <div class="actions"><a class="btn" href="/getting-here">How it works</a><a class="link" href={site.whatsapp} rel="noopener">WhatsApp</a></div>
         </div>
         <div class="aud rv rv-d2">
@@ -97,8 +97,8 @@ const words = (s: string) => s.split(' ');
     <div class="wrap split">
       <div>
         <h2 class="rv">Most of Mikumi sleeps by the highway. <em>We don’t.</em></h2>
-        <p class="lead rv rv-d1">Camp Lilac is set back in the bush, facing the ridge. En-suite canvas tents with air conditioning and private decks, a restaurant that looks straight at the mountains, and nothing to hear at night but the bush itself.</p>
-        <p class="rv rv-d2">We are the only camp in Mikumi with a view of the mountain ridge, and the only one offering true luxury tented rooms. Impala, warthog and monkeys wander through the camp. Our own guides run the game drives, and we arrange your transfers from Morogoro SGR station or Dar es Salaam.</p>
+        <p class="lead rv rv-d1">Camp Lilac is set back in the bush, facing the Mikumi mountain ridge. Canvas tents with private bathrooms, with air conditioning and private decks, a restaurant that looks straight at the mountains, and nothing to hear at night but the bush itself.</p>
+        <p class="rv rv-d2">We are the only camp in Mikumi with a view of the Mikumi mountain ridge, and the only one offering true luxury tented rooms. Impala, warthog and monkeys wander through the camp. Our own guides run the game drives, and we arrange your transfers from Morogoro SGR station or Dar es Salaam.</p>
         <a class="link rv rv-d3" href="/about">The camp</a>
       </div>
       <div class="rv rv-d1">
@@ -181,10 +181,10 @@ const words = (s: string) => s.split(' ');
   <section class="section section--tight">
     <div class="wrap split">
       <div class="rv">
-        <Photo src="/images/rooms/restaurant-dusk-1200.jpg" alt="Tables set in the open-sided Camp Lilac restaurant as the sky turns pink over the Mikumi ridge" caption="The restaurant, 18:40" ratio="landscape" zoom />
+        <Photo src="/images/rooms/restaurant-dusk-1200.jpg" alt="Tables set in the open-sided Camp Lilac restaurant as the sky turns pink over the Mikumi mountain ridge" caption="The restaurant, 18:40" ratio="landscape" zoom />
       </div>
       <div>
-        <h2 class="rv">Every meal facing <em>the ridge</em></h2>
+        <h2 class="rv">Every meal facing <em>the Mikumi mountain ridge</em></h2>
         <p class="rv rv-d1">Breakfast, lunch and dinner are all served in our open-sided restaurant, the one dining room in Mikumi with a mountain view. Breakfast is included; lunch and dinner are cooked fresh — Tanzanian and international dishes — and the bar deck is where everyone ends up at sunset.</p>
         <a class="link rv rv-d2" href="/restaurant">The restaurant &amp; bar</a>
       </div>

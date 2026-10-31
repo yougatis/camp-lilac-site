@@ -50,7 +50,7 @@ export const rooms: Room[] = [
       'Faces the Mikumi mountain ridge',
       'Wide private deck for sunsets',
       'Freestanding bathtub with a view',
-      'King four-poster, air conditioning, en-suite',
+      'King four-poster, air conditioning, private bathroom',
       'Breakfast included',
     ],
     keywords: 'luxury cabin Mikumi with mountain view',
@@ -98,15 +98,15 @@ export const rooms: Room[] = [
     imageAlt: 'Luxury safari tent at Camp Lilac on a raised wooden deck under the trees near Mikumi National Park',
     caption: 'Tent two, late morning',
     summary:
-      'The classic safari stay: a canvas tent on a raised hardwood deck, with a four-poster bed, en-suite bathroom, air conditioning and wildlife walking past the steps.',
+      'The classic safari stay: a canvas tent on a raised hardwood deck, with a four-poster bed, private bathroom, air conditioning and wildlife walking past the steps.',
     description: [
-      'The Luxury Jungle Tents are what Camp Lilac is known for — spacious canvas safari tents on elevated polished wooden decks, with the comforts most tented camps in Mikumi do not offer: an en-suite bathroom with a walk-in rain shower, air conditioning and the softest beds in the region.',
+      'The Luxury Jungle Tents are what Camp Lilac is known for — spacious canvas safari tents on elevated polished wooden decks, with the comforts most tented camps in Mikumi do not offer: an private bathroom with a walk-in rain shower, air conditioning and the softest beds in the region.',
       'Each tent has a plush king-sized bed under a mosquito net, large mesh windows for the natural breeze, smooth timber floors and warm ambient lighting — rustic and elegant at once. The private veranda has handcrafted chairs facing the bush; impala, warthog and monkeys regularly pass right by, and at night the only sound is the wildlife.',
       'If you want the real safari feeling without giving up a good night’s sleep, this is the tent to book.',
     ],
     highlights: [
       'Canvas safari tent on a raised deck',
-      'En-suite bathroom and air conditioning',
+      'Private bathroom and air conditioning',
       'Plush king bed under a mosquito net, mesh windows',
       'Private deck — wildlife passes right by',
       'Breakfast included',
@@ -125,18 +125,18 @@ export const rooms: Room[] = [
     tier: 'tent',
     images: [], // TODO: photos coming
     imageAlt: 'Luxury Mountain View Tent at Camp Lilac facing the Mikumi mountain ridge',
-    caption: 'Facing the ridge',
+    caption: 'Facing the Mikumi mountain ridge',
     summary:
       'Our newest tents: the same luxury canvas tent as the Jungle Tents, turned to face the Mikumi mountain ridge — with the best sunset in Mikumi from your own deck.',
     description: [
-      'The Luxury Mountain View Tents opened in late 2026. They combine the authentic tented experience of the Jungle Tents with the ridge view of the Mountain View Cabin.',
-      'Each tent sits on a raised hardwood deck facing the mountains, with a four-poster bed, a full en-suite bathroom, air conditioning and very comfortable beds. In the evening the ridge turns gold and then lilac — the view the camp is named after.',
+      'The Luxury Mountain View Tents opened in late 2026. They combine the authentic tented experience of the Jungle Tents with the Mikumi mountain ridge view of the Mountain View Cabin.',
+      'Each tent sits on a raised hardwood deck facing the mountains, with a four-poster bed, a full private bathroom, air conditioning and very comfortable beds. In the evening the Mikumi mountain ridge turns gold and then lilac — the view the camp is named after.',
       'Ideal for couples who want the safari feeling of a tent and the scenery of the mountains.',
     ],
     highlights: [
       'Faces the Mikumi mountain ridge',
       'Canvas tent on a raised deck',
-      'En-suite bathroom and air conditioning',
+      'Private bathroom and air conditioning',
       'Opened late 2026',
       'Breakfast included',
     ],
@@ -156,16 +156,16 @@ export const rooms: Room[] = [
     imageAlt: 'Luxury Family Tent at Camp Lilac with space for parents and children',
     caption: 'Room for four',
     summary:
-      'A spacious luxury safari tent for families: room for parents and two children, an en-suite bathroom, air conditioning and a private deck. Children under 4 stay free; ages 4–11 at half the adult rate.',
+      'A spacious luxury safari tent for families: room for parents and two children, an private bathroom, air conditioning and a private deck. Children under 4 stay free; ages 4–11 at half the adult rate.',
     description: [
       'The Luxury Family Tents are built for parents who want their children to experience a real safari camp without compromising on comfort. Each tent sleeps up to four, with a double bed and two single beds in one spacious canvas tent on a raised deck.',
-      'There is a full en-suite bathroom, air conditioning and a private deck where the kids can spot impala and monkeys before breakfast. The camp is quiet and set away from the highway, so children sleep well.',
+      'There is a full private bathroom, air conditioning and a private deck where the kids can spot impala and monkeys before breakfast. The camp is quiet and set away from the highway, so children sleep well.',
       'Children aged 0–3 stay free. Ages 4–11 pay half the adult rate, and from 12 they are priced as adults. Breakfast is included; lunch and dinner are charged per meal. Our guides are used to families on game drives and adjust the pace for younger travellers.',
     ],
     highlights: [
       'Sleeps up to 4 — one family in one tent',
       'Under-4s free, ages 4–11 half price',
-      'En-suite bathroom and air conditioning',
+      'Private bathroom and air conditioning',
       'Private deck on a raised platform',
       'Family-friendly safari guides',
     ],

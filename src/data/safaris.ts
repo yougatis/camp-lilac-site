@@ -160,7 +160,7 @@ export const safaris: Safari[] = [
     itinerary: [
       {
         title: 'Day 1 — Dar es Salaam to Mikumi, Maasai boma visit',
-        text: 'A private jeep transfer of about five hours from Dar es Salaam, with a lunch stop in Morogoro. On arrival you visit a Maasai boma near the park before settling into the camp for dinner facing the ridge.',
+        text: 'A private jeep transfer of about five hours from Dar es Salaam, with a lunch stop in Morogoro. On arrival you visit a Maasai boma near the park before settling into the camp for dinner facing the Mikumi mountain ridge.',
         meals: 'Lunch and dinner, water',
         stay,
       },

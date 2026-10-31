@@ -38,7 +38,7 @@ export const site = {
     'Breakfast included',
     'Restaurant and bar',
     'Air conditioning in every room, tents included',
-    'En-suite bathrooms',
+    'Private bathrooms',
     'Private decks',
     'Free parking',
     'Wi-Fi at the restaurant',

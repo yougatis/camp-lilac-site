@@ -35,7 +35,7 @@ Kilosa is the SGR stop closest to the park as the crow flies, and TANAPA is buil
 
 The classic weekend itinerary from Dar es Salaam looks like this:
 
-- **Saturday:** morning train, pickup, lunch at the camp, afternoon game drive, dinner facing the ridge.
+- **Saturday:** morning train, pickup, lunch at the camp, afternoon game drive, dinner facing the Mikumi mountain ridge.
 - **Sunday:** dawn game drive while the lions are still active, late breakfast, transfer back to Morogoro for an afternoon train. Home for dinner.
 
 That is the [2-Day Mikumi Safari](/safaris/2-day-mikumi-safari) on our safaris page, and it is the trip most of our Dar es Salaam guests take.

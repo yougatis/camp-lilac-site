@@ -16,7 +16,7 @@ export const faqs: Faq[] = [
   },
   {
     q: 'Do the tents have bathrooms and air conditioning?',
-    a: 'Yes. Every tent has a private en-suite bathroom, air conditioning, a private deck and very comfortable beds.',
+    a: 'Yes. Every tent has a private bathroom, air conditioning, a private deck and very comfortable beds.',
   },
   {
     q: 'Do children stay free?',
