@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import Price from '../../components/Price.astro';
 import Photo from '../../components/Photo.astro';
-import { safaris } from '../../data/safaris';
+import { safaris, byRoadNote } from '../../data/safaris';
 import { site } from '../../data/site';
 
 export function getStaticPaths() {
@@ -49,6 +49,12 @@ const schema = {
     <div class="wrap split--aside" style="display:grid">
       <div class="article">
         {safari.offer && <p><strong>Direct-booking offer:</strong> {safari.offer}</p>}
+        {safari.variants && (
+          <>
+            <h2>Options</h2>
+            <ul>{safari.variants.map((v) => <li><strong>{v.name}</strong>{v.price && <> — {v.price}</>}<br />{v.text}</li>)}</ul>
+          </>
+        )}
         <h2>Itinerary</h2>
         <ol class="itinerary">
           {safari.itinerary.map((d) => (
@@ -72,6 +78,9 @@ const schema = {
         <ul>{safari.included.map((i) => <li>{i}</li>)}</ul>
         <h2>Not included</h2>
         <ul>{safari.excluded.map((i) => <li>{i}</li>)}</ul>
+        <p>
+          {byRoadNote}
+        </p>
         <p>
           Game drives are in an open-roof 4×4 with one of our own guides. We adjust timings to your train or flight and to the
           season. Children under 2 cannot join game drives. Dates are flexible — tell us when you want to come.

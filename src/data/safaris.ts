@@ -13,6 +13,7 @@ export type Safari = {
   bestFor: string;
   offer?: string;
   start: string;
+  variants?: { name: string; text: string; price?: string }[];
   itinerary: { title: string; text: string; meals?: string; stay?: string }[];
   included: string[];
   excluded: string[];
@@ -20,6 +21,8 @@ export type Safari = {
 };
 
 const stay = 'Camp Lilac — luxury tent or cabin, just outside the park';
+export const byRoadNote =
+  'Prefer to come by road? We can arrange a private jeep from Dar es Salaam, but we do not recommend it: it is 5–6 hours of driving to Morogoro and another 2 hours to Mikumi, against 1.5 hours on the SGR train. Ask us for the road price.';
 const commonIncluded = [
   'Mikumi National Park entry fees (non-residents)',
   'Private open-roof 4×4 safari jeep for your group only',
@@ -44,16 +47,18 @@ export const safaris: Safari[] = [
     price: 214,
     tiers: [
       { people: '1 person', price: 394 },
-      { people: '2 people', price: 230 },
-      { people: '3 people', price: 225 },
-      { people: '4 or more', price: 214 },
+      { people: '2 or more', price: 214 },
+    ],
+    variants: [
+      { name: 'From Morogoro or the camp', text: 'Pickup from your hotel in Morogoro, the SGR station or Camp Lilac. Full day in the park, back by evening.', price: 'from US$214 per person' },
+      { name: 'From Dar es Salaam by SGR train — same day', text: 'Early SGR train from Dar es Salaam to Morogoro (1.5 hours), our driver on the platform, a full day in Mikumi, and the evening train back. Long day, no overnight needed.', price: 'from US$230 per person' },
     ],
     image: '/images/rooms/jungle-tent-7-1600.jpg',
     imageAlt: 'Luxury safari tent at Camp Lilac under a blue Mikumi sky',
     summary:
-      'A full day in Mikumi National Park in a private open jeep with our own guide: morning game drive, hot bush lunch, afternoon drive until 16:30. Pickup from Morogoro, Mikumi or the camp.',
-    bestFor: 'Day trips from Morogoro and guests staying one night',
-    start: 'Morogoro town, Morogoro SGR station, or Camp Lilac',
+      'A full day in Mikumi National Park in a private open jeep with our own guide: morning game drive, hot bush lunch, afternoon drive until 16:30. From Morogoro, from the camp, or as a same-day trip from Dar es Salaam by SGR train.',
+    bestFor: 'Day trips from Morogoro or Dar es Salaam, and guests staying one night',
+    start: 'Morogoro, Camp Lilac, or Dar es Salaam SGR station',
     itinerary: [
       {
         title: 'Morning — pickup and first game drive',
@@ -66,7 +71,7 @@ export const safaris: Safari[] = [
       },
     ],
     included: [...commonIncluded],
-    excluded: ['Accommodation — book a tent or cabin at Camp Lilac separately', 'Airport transfers (available on request)', ...commonExcluded],
+    excluded: ['Accommodation — book a tent or cabin at Camp Lilac separately', 'SGR train tickets for the same-day trip from Dar es Salaam', 'Airport transfers (available on request)', ...commonExcluded],
     keywords: 'Mikumi day safari from Morogoro',
   },
   {
@@ -88,7 +93,7 @@ export const safaris: Safari[] = [
     itinerary: [
       {
         title: 'Day 1 — Dar es Salaam to Mikumi National Park',
-        text: 'We collect you from your hotel or the ferry and drive you to the SGR station for the train to Morogoro (1–2 hours). Your driver-guide meets you on the platform and takes you straight to Mikumi for a late-morning game drive that runs into the afternoon. Lunch, a rest at the camp, then an afternoon-to-evening game drive as the floodplain cools down.',
+        text: 'We collect you from your hotel or the ferry and drive you to the SGR station for the train to Morogoro (1.5 hours). Your driver-guide meets you on the platform and takes you straight to Mikumi for a late-morning game drive that runs into the afternoon. Lunch, a rest at the camp, then an afternoon-to-evening game drive as the floodplain cools down.',
         meals: 'Lunch and dinner, water and soft drinks',
         stay,
       },
@@ -106,22 +111,26 @@ export const safaris: Safari[] = [
     slug: '3-day-mikumi-safari',
     name: '3-Day Mikumi Safari',
     days: 3,
-    price: 411,
+    price: 473,
     tiers: [
       { people: '1 person', price: 675 },
-      { people: '2 or more', price: 411 },
+      { people: '2 or more', price: 473 },
+    ],
+    variants: [
+      { name: 'Classic', text: 'Two full days of game drives, two nights at Camp Lilac.' },
+      { name: 'With a cultural visit', text: 'Swap part of day 2 for a visit to a Maasai boma or a nearby village with your guide. Same price — just tell us when you book.' },
     ],
     image: '/images/rooms/jungle-tent-8-1600.jpg',
     imageAlt: 'Private deck chairs at a Camp Lilac tent, looking into the Mikumi bush',
     summary:
-      'Three days, two nights: driven from Dar es Salaam by private jeep, a sunset game drive on arrival, a full day on the Mikumi floodplain, and the drive back through the park. Two nights in a luxury tent at Camp Lilac.',
+      'Three days, two nights: SGR train from Dar es Salaam, a sunset game drive on arrival, a full day on the Mikumi floodplain, and a last drive through the park on the way home. Two nights in a luxury tent at Camp Lilac.',
     bestFor: 'Travellers who want to see the whole park without rushing',
     offer: 'Free SGR train tickets from Dar es Salaam to Morogoro and free Morogoro–Mikumi transfer when you book this safari directly with Camp Lilac.',
-    start: 'Dar es Salaam, around 07:00',
+    start: 'Dar es Salaam SGR station, morning train',
     itinerary: [
       {
         title: 'Day 1 — Dar es Salaam to Mikumi National Park',
-        text: 'Depart Dar es Salaam at about 07:00 and drive 300 km on paved road via Morogoro, with a short lunch stop. The highway runs through the park itself, so keep your camera ready for baboons, giraffe, elephant, zebra and buffalo by the road. After check-in at the gate, a game drive across the plains to the hippo pools — lions, elephant, eland, warthog, hippo, crocodile and water birds — until sunset, then a short drive to the camp.',
+        text: 'Morning SGR train from Dar es Salaam to Morogoro (1.5 hours). Your driver-guide meets you on the platform for the 2-hour drive to Mikumi — the highway runs through the park itself, so keep your camera ready for baboons, giraffe, elephant, zebra and buffalo by the road. Lunch, then a game drive across the plains to the hippo pools — lions, elephant, eland, warthog, hippo, crocodile and water birds — until sunset, then a short drive to the camp.',
         meals: 'Lunch and dinner, water and soft drinks',
         stay,
       },
@@ -133,22 +142,22 @@ export const safaris: Safari[] = [
       },
       {
         title: 'Day 3 — Mikumi to Dar es Salaam',
-        text: 'Breakfast, check-out, and one more drive through the park on the way out. Lunch in Morogoro, then about two hours on to Dar es Salaam, where we drop you at your hotel, the ferry or the airport.',
+        text: 'Breakfast, check-out, and one more drive through the park on the way out. Lunch, then the drive to Morogoro for the afternoon train to Dar es Salaam, where we drop you at your hotel, the ferry or the airport.',
         meals: 'Breakfast and lunch, water and soft drinks',
       },
     ],
-    included: ['Two nights at Camp Lilac in a luxury tent or cabin', 'Private jeep from Dar es Salaam and back', ...commonIncluded],
-    excluded: ['Dinner on day 3', ...commonExcluded],
+    included: ['Two nights at Camp Lilac in a luxury tent or cabin', 'Transfers between Morogoro SGR station and the camp', ...commonIncluded],
+    excluded: ['SGR train tickets (free when you book directly — see offer)', 'Dinner on day 3', ...commonExcluded],
     keywords: '3 day Mikumi safari from Dar es Salaam',
   },
   {
     slug: '4-day-mikumi-udzungwa-safari',
     name: '4-Day Mikumi & Udzungwa Waterfalls',
     days: 4,
-    price: 600,
+    price: 619,
     tiers: [
       { people: '1 person', price: 844 },
-      { people: '2 or more', price: 600 },
+      { people: '2 or more', price: 619 },
     ],
     image: '/images/rooms/mv-cabin-6-1600.jpg',
     imageAlt: 'The Mountain View Cabin at Camp Lilac in evening light',
@@ -156,11 +165,11 @@ export const safaris: Safari[] = [
       'Wildlife and rainforest in one trip: a Maasai boma visit, a full day of game drives in Mikumi, the five-hour hike to Sanje Waterfall in the Udzungwa Mountains, and three nights at Camp Lilac.',
     bestFor: 'Active travellers and families with older children',
     offer: 'Free SGR train tickets from Dar es Salaam to Morogoro and free Morogoro–Mikumi transfer when you book this safari directly with Camp Lilac.',
-    start: 'Dar es Salaam',
+    start: 'Dar es Salaam SGR station, morning train',
     itinerary: [
       {
         title: 'Day 1 — Dar es Salaam to Mikumi, Maasai boma visit',
-        text: 'A private jeep transfer of about five hours from Dar es Salaam, with a lunch stop in Morogoro. On arrival you visit a Maasai boma near the park before settling into the camp for dinner facing the Mikumi mountain ridge.',
+        text: 'Morning SGR train to Morogoro (1.5 hours), then our jeep for the 2-hour drive to Mikumi, with lunch on the way. On arrival you visit a Maasai boma near the park before settling into the camp for dinner facing the Mikumi mountain ridge.',
         meals: 'Lunch and dinner, water',
         stay,
       },
@@ -178,12 +187,12 @@ export const safaris: Safari[] = [
       },
       {
         title: 'Day 4 — Mikumi to Dar es Salaam',
-        text: 'A morning drive back through Mikumi National Park, with a last chance to spot animals from the road, then on to Dar es Salaam. We drop you at the ferry, your hotel or the airport.',
+        text: 'A morning drive back through Mikumi National Park, with a last chance to spot animals from the road, then to Morogoro for the afternoon train to Dar es Salaam. We drop you at the ferry, your hotel or the airport.',
         meals: 'Breakfast and lunch, water',
       },
     ],
-    included: ['Three nights at Camp Lilac in a luxury tent or cabin', 'Private jeep from Dar es Salaam and back', 'Udzungwa Mountains park entry and ranger-guided hike', ...commonIncluded],
-    excluded: ['Dinner on day 4', ...commonExcluded],
+    included: ['Three nights at Camp Lilac in a luxury tent or cabin', 'Transfers between Morogoro SGR station and the camp', 'Udzungwa Mountains park entry and ranger-guided hike', ...commonIncluded],
+    excluded: ['SGR train tickets (free when you book directly — see offer)', 'Dinner on day 4', ...commonExcluded],
     keywords: 'Mikumi Udzungwa safari 4 days',
   },
 ];
