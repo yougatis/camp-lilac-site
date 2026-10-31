@@ -446,23 +446,24 @@ a .ph:hover img, .ph.zoom:hover img { transform: scale(1.04); }
 .hero-form { margin-top: 0; flex: 1 1 auto; }
 .hero-side--form { text-align: right; opacity: 1; transform: none; flex: 0 0 auto; padding-bottom: 6px; order: 2; }
 .hero-form { order: 1; max-width: 760px; }
-.hero-content { padding-bottom: 20px; grid-template-columns: 1fr; }
+.hero:not(.hero--inner) .hero-content { padding-bottom: 20px; grid-template-columns: 1fr; }
+.hero--inner .hero-content { grid-template-columns: 1fr auto; align-items: end; padding-bottom: clamp(32px, 5vw, 64px); }
 @media (max-width: 900px) {
-  .hero { --hero-h: max(62svh, 440px); display: flex; flex-direction: column; background: var(--paper); min-height: 0; }
-  .hero-media { position: relative; height: var(--hero-h); order: 0; }
-  .hero-media img { object-position: 50% 48%; }
-  .hero::after { height: var(--hero-h); bottom: auto; background: linear-gradient(to top, rgba(16, 38, 58, 0.92) 0%, rgba(16, 38, 58, 0.5) 45%, rgba(16, 38, 58, 0.15) 70%, rgba(16, 38, 58, 0.3) 100%); }
-  .hero-content { position: absolute; top: 0; left: 0; right: 0; height: var(--hero-h); display: flex; flex-direction: column; justify-content: flex-end; padding-top: 0; padding-bottom: 84px; }
-  .hero-content > div:first-child { width: 100%; }
-  .hero h1 { max-width: none; font-size: 2.2rem; margin-bottom: 8px; }
-  .hero .label { margin-bottom: 10px; }
-  .hero .lead { font-size: 0.93rem; line-height: 1.5; margin-top: 0; margin-bottom: 0; }
-  .hero-form-wrap { order: 2; flex-direction: column; align-items: stretch; background: var(--paper); width: 100%; padding: 16px var(--gutter) 22px; gap: 10px; }
-  .hero-side--form { position: absolute; z-index: 2; bottom: 100%; margin-bottom: 16px; left: var(--gutter); right: var(--gutter); row-gap: 2px; text-align: left; order: 0; color: var(--paper); font-size: 0.74rem; line-height: 1.7; padding: 0; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-  .hero-side--form b { font-size: 1.3rem; display: inline; margin: 0; }
-  .hero-side--form br { display: none; }
-  .hero-form { order: 1; background: var(--paper); padding: 0; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
-  .hero-form .btn { grid-column: 1 / -1; text-align: center; }
+  .hero:not(.hero--inner) { --hero-h: max(62svh, 440px); display: flex; flex-direction: column; background: var(--paper); min-height: 0; }
+  .hero:not(.hero--inner) .hero-media { position: relative; height: var(--hero-h); order: 0; }
+  .hero:not(.hero--inner) .hero-media img { object-position: 50% 48%; }
+  .hero:not(.hero--inner)::after { height: var(--hero-h); bottom: auto; background: linear-gradient(to top, rgba(16, 38, 58, 0.92) 0%, rgba(16, 38, 58, 0.5) 45%, rgba(16, 38, 58, 0.15) 70%, rgba(16, 38, 58, 0.3) 100%); }
+  .hero:not(.hero--inner) .hero-content { position: absolute; top: 0; left: 0; right: 0; height: var(--hero-h); display: flex; flex-direction: column; justify-content: flex-end; padding-top: 0; padding-bottom: 84px; }
+  .hero:not(.hero--inner) .hero-content > div:first-child { width: 100%; }
+  .hero:not(.hero--inner) h1 { max-width: none; font-size: 2.2rem; margin-bottom: 8px; }
+  .hero:not(.hero--inner) .label { margin-bottom: 10px; }
+  .hero:not(.hero--inner) .lead { font-size: 0.93rem; line-height: 1.5; margin-top: 0; margin-bottom: 0; }
+  .hero:not(.hero--inner) .hero-form-wrap { order: 2; flex-direction: column; align-items: stretch; background: var(--paper); width: 100%; padding: 16px var(--gutter) 22px; gap: 10px; }
+  .hero:not(.hero--inner) .hero-side--form { position: absolute; z-index: 2; bottom: 100%; margin-bottom: 16px; left: var(--gutter); right: var(--gutter); row-gap: 2px; text-align: left; order: 0; color: var(--paper); font-size: 0.74rem; line-height: 1.7; padding: 0; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .hero:not(.hero--inner) .hero-side--form b { font-size: 1.3rem; display: inline; margin: 0; }
+  .hero:not(.hero--inner) .hero-side--form br { display: none; }
+  .hero:not(.hero--inner) .hero-form { order: 1; background: var(--paper); padding: 0; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
+  .hero:not(.hero--inner) .hero-form .btn { grid-column: 1 / -1; text-align: center; }
 }
 
 /* SafariBookings badge logo */
@@ -472,3 +473,8 @@ a .ph:hover img, .ph.zoom:hover img { transform: scale(1.04); }
 .hero-logos img.sb { height: 17px; filter: brightness(0) invert(1); }
 .site-header .badge { gap: 6px; margin-right: 8px; }
 .site-header .badge .stars { display: none; }
+
+@media (max-width: 900px) {
+  .hero--inner .hero-content { grid-template-columns: 1fr; gap: 18px; padding-bottom: 36px; }
+  .hero--inner .hero-side { text-align: left; }
+}
