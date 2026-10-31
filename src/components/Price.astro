@@ -1,0 +1,5 @@
+---
+interface Props { price: number | null; unit?: string; prefix?: string }
+const { price, unit = 'night', prefix = 'From' } = Astro.props;
+---
+{price ? <span>{prefix} US${price} <small>per {unit}</small></span> : <span>Rates on request</span>}

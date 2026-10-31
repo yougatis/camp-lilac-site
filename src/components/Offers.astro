@@ -1,0 +1,24 @@
+---
+// Direct-booking deals. Edit the text here; it shows on the home page and the safaris page.
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+const offers = [
+  { title: 'Free Morogoro–Mikumi transfer', text: 'Book a safari of 2 days or more with us and we collect you from Morogoro SGR station and bring you back — free.' },
+  { title: 'Free train tickets from Dar es Salaam', text: 'Book a safari of 3 days or more and we also cover your SGR train tickets from Dar es Salaam to Morogoro, plus the transfer.' },
+];
+---
+<section class={`section ${compact ? 'section--tight' : ''} section--sand`}>
+  <div class="wrap">
+    <p class="label rv" style="color:var(--lilac-deep);margin-bottom:12px">Book direct</p>
+    <h2 class="rv" style="margin-bottom:36px">Two deals when you book <em>with us</em></h2>
+    <div class="offers">
+      {offers.map((o, i) => (
+        <div class={`offer rv rv-d${i + 1}`}>
+          <h3>{o.title}</h3>
+          <p>{o.text}</p>
+        </div>
+      ))}
+    </div>
+    <div class="btn-row rv rv-d3"><a class="btn btn--fill" href="/safaris">See the safaris</a></div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+---
+import { site } from '../data/site';
+interface Props { title?: string; text?: string; }
+const { title = 'Dinner facing the ridge. Then only the bush.', text = 'Tell us your dates and who is coming. We reply the same day with availability, the total price and a safari suggestion.' } = Astro.props;
+---
+<section class="section on-dark band">
+  <div class="wrap">
+    <h2 class="rv">{title}</h2>
+    <p class="lead rv rv-d1">{text}</p>
+    <div class="btn-row rv rv-d2">
+      <a class="btn btn--fill" href="/book">Plan your stay</a>
+      <a class="btn btn--light" href={site.whatsapp} rel="noopener">WhatsApp {site.phoneDisplay}</a>
+    </div>
+  </div>
+</section>

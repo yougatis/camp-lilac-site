@@ -1,0 +1,80 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Price from '../../components/Price.astro';
+import Photo from '../../components/Photo.astro';
+import Offers from '../../components/Offers.astro';
+import { safaris } from '../../data/safaris';
+import { site } from '../../data/site';
+
+const title = 'Mikumi Safari Packages from Dar es Salaam | Camp Lilac';
+const description =
+  'Mikumi National Park safaris with our own guides and 4x4s: 1-day game drives, 2- and 3-day safaris with free SGR station pickup, and Mikumi + Udzungwa combinations.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Mikumi safari packages',
+  itemListElement: safaris.map((s, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}/safaris/${s.slug}`, name: s.name })),
+};
+---
+
+<Base {title} {description} {schema} breadcrumbs={[{ name: 'Safaris', href: '/safaris' }]} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src="/images/rooms/hero-deck-1600.webp" srcset="/images/rooms/hero-deck-800.webp 800w, /images/rooms/hero-deck-1600.webp 1600w" sizes="100vw" alt="Evening on a Camp Lilac deck after a Mikumi game drive" width="2000" height="1125" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <p class="label">Safaris</p>
+        <h1><span class="w"><span>Mikumi, with&nbsp;</span></span><span class="w"><em style="color:#e4d9f7">our own guides</em></span></h1>
+        <p class="lead">We don’t hand you to an outside operator. Camp Lilac has its own guides and 4×4s, so your game drives start at the camp, run on your schedule, and end with dinner facing the ridge.</p>
+      </div>
+      <div class="hero-side"><b>US$35.40</b>park fee per adult per day<br />included in every package</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <ul class="room-rows">
+        {safaris.map((s) => (
+          <li class="room-row">
+            <a class="room-row-media rv" href={`/safaris/${s.slug}`}><Photo src={s.image} alt={s.imageAlt} caption={`${s.days} ${s.days === 1 ? 'day' : 'days'}`} /></a>
+            <div>
+              <h2 class="rv"><a href={`/safaris/${s.slug}`} style="color:inherit">{s.name}</a></h2>
+              <p class="meta rv rv-d1">{s.days} {s.days === 1 ? 'day' : 'days'} · {s.bestFor}</p>
+              <p class="price rv rv-d1"><Price price={s.price} unit="person" /></p>
+              <p>{s.summary}</p>
+              {s.offer && <p><strong>Offer:</strong> {s.offer}</p>}
+              <a class="link rv rv-d2" href={`/safaris/${s.slug}`}>Itinerary &amp; what’s included</a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--sand section--tight">
+    <div class="wrap split--aside" style="display:grid">
+      <div class="article">
+        <h2>Why Mikumi is the easy safari</h2>
+        <p>
+          Mikumi National Park is the closest big-game park to Dar es Salaam and the simplest to reach from Zanzibar. Part of the
+          Nyerere (Selous) ecosystem, it has elephants, lions, giraffes, zebras, buffalo, hippos and over 400 bird species, on
+          open floodplain where animals are easy to see. There are no crowds — on most drives you will have the sightings to
+          yourself.
+        </p>
+        <p>
+          Park fees are among Tanzania’s lowest, and because the camp is minutes from the gate you spend your time in the park,
+          not driving to it. Read the <a href="/mikumi-national-park">full Mikumi guide</a> or <a href="/getting-here">how to get here</a>.
+        </p>
+      </div>
+      <aside class="aside">
+        <h3>Custom itineraries</h3>
+        <p>Travelling onward to Ruaha, Iringa or Udzungwa? Coming from Zanzibar? Tell us your route and we will build the safari around it.</p>
+        <a class="btn btn--fill" href="/book">Plan with us</a>
+      </aside>
+    </div>
+  </section>
+
+  <Offers />
+  <CtaBand title="Book a safari with your stay" text="Tell us your dates and group size. We reply the same day with a quote, including the direct-booking deals." />
+</Base>

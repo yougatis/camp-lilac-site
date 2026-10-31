@@ -1,0 +1,231 @@
+---
+import { site, nav } from '../data/site';
+import { reviewScore, sources } from '../data/reviews';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
+  breadcrumbs?: { name: string; href: string }[];
+  dark?: boolean; // true when the page starts with a full-bleed photo hero (transparent light nav)
+}
+
+const { title, description, canonical, ogImage = site.defaultOgImage, ogType = 'website', schema, noindex = false, breadcrumbs, dark = false } = Astro.props;
+
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, site.url).href;
+const ogImageUrl = new URL(ogImage, site.url).href;
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['LodgingBusiness', 'Hotel'],
+  '@id': `${site.url}/#camp`,
+  name: site.name,
+  legalName: site.legalName,
+  url: site.url,
+  logo: new URL('/images/logo-round.png', site.url).href,
+  image: ogImageUrl,
+  description: site.tagline,
+  telephone: site.phone,
+  email: site.email,
+  address: { '@type': 'PostalAddress', ...site.address },
+  geo: { '@type': 'GeoCoordinates', ...site.geo },
+  hasMap: `https://www.google.com/maps/search/?api=1&query=${site.geo.latitude},${site.geo.longitude}`,
+  checkinTime: site.checkIn,
+  checkoutTime: site.checkOut,
+  priceRange: site.priceRange,
+  currenciesAccepted: 'USD, TZS',
+  paymentAccepted: 'Cash, Credit Card',
+  petsAllowed: false,
+  numberOfRooms: site.units,
+  availableLanguage: site.languages,
+  amenityFeature: site.amenities.map((a) => ({ '@type': 'LocationFeatureSpecification', name: a, value: true })),
+  containedInPlace: { '@type': 'TouristDestination', name: 'Mikumi National Park', sameAs: 'https://en.wikipedia.org/wiki/Mikumi_National_Park' },
+  sameAs: [site.instagram, site.facebook, site.tripadvisorCamp, site.tripadvisorSafari, 'https://www.safaribookings.com/p6212', site.bookingCom].filter(Boolean),
+};
+
+const breadcrumbSchema = breadcrumbs && {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [{ name: 'Home', href: '/' }, ...breadcrumbs].map((b, i) => ({ '@type': 'ListItem', position: i + 1, name: b.name, item: new URL(b.href, site.url).href })),
+};
+
+const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema : schema ? [schema] : [])].filter(Boolean);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content="#10263a" />
+    <link rel="icon" href="/images/logo-round.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/images/logo-round.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+    {schemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+  </head>
+  <body class="is-loading">
+    <div class="preloader" id="preloader" aria-hidden="true">
+      <div class="inner">
+        <img class="mark" src="/images/bird-circle.webp" alt="" width="480" height="480" />
+        <div class="wm" style="aspect-ratio:805/208">
+          <img src="/images/wm/c0.png" alt="" style="left:1.24%;width:8.70%;animation-delay:0.45s" />
+          <img src="/images/wm/c1.png" alt="" style="left:13.66%;width:8.94%;animation-delay:0.53s" />
+          <img src="/images/wm/c2.png" alt="" style="left:25.47%;width:11.80%;animation-delay:0.61s" />
+          <img src="/images/wm/c3.png" alt="" style="left:40.37%;width:7.08%;animation-delay:0.69s" />
+          <img src="/images/wm/c4.png" alt="" style="left:57.27%;width:6.83%;animation-delay:0.77s" />
+          <img src="/images/wm/c5.png" alt="" style="left:67.58%;width:2.61%;animation-delay:0.85s" />
+          <img src="/images/wm/c6.png" alt="" style="left:73.17%;width:3.85%;animation-delay:0.93s" />
+          <img src="/images/wm/c7.png" alt="" style="left:80.37%;width:8.20%;animation-delay:1.01s" />
+          <img src="/images/wm/c8.png" alt="" style="left:91.93%;width:6.83%;animation-delay:1.09s" />
+        </div>
+        <div class="wm-sub" style="aspect-ratio:650/220">
+          <img src="/images/wm/m0.png" alt="" style="left:8.31%;width:17.38%;animation-delay:1.30s" />
+          <img src="/images/wm/m1.png" alt="" style="left:30.15%;width:3.54%;animation-delay:1.36s" />
+          <img src="/images/wm/m2.png" alt="" style="left:38.15%;width:9.69%;animation-delay:1.42s" />
+          <img src="/images/wm/m3.png" alt="" style="left:52.31%;width:10.77%;animation-delay:1.48s" />
+          <img src="/images/wm/m4.png" alt="" style="left:67.54%;width:15.38%;animation-delay:1.54s" />
+          <img src="/images/wm/m5.png" alt="" style="left:87.38%;width:3.38%;animation-delay:1.60s" />
+        </div>
+      </div>
+      <div class="sub">A luxury tented camp · Tanzania</div>
+    </div>
+
+    <a class="skip" href="#main">Skip to content</a>
+    <header class={`site-header${dark ? '' : ' on-light'}`} id="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/" aria-label="Camp Lilac home">
+          <img class="wide" src="/images/logo-wide.png" alt="Camp Lilac" width="156" height="44" />
+        </a>
+        <a class="badge" href={reviewScore.url} rel="noopener" title={sources.map((s) => `${s.platform} ${s.score}/5 (${s.count})`).join(' · ')}><img src="/images/logo-google.png" alt="Google" width="18" height="18" /><img src="/images/logo-tripadvisor.png" alt="Tripadvisor" width="22" height="22" class="ta" /><img src="/images/logo-safaribookings.png" alt="SafariBookings" width="18" height="18" class="sb" /><span class="stars">★★★★★</span><b>{reviewScore.score} / 5</b> · {reviewScore.count} reviews</a>
+        <nav class="main-nav" aria-label="Main">
+          <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list">Menu</button>
+          <ul id="nav-list">
+            {nav.map((n) => (
+              <li><a href={n.href} aria-current={Astro.url.pathname.startsWith(n.href) ? 'page' : undefined}>{n.label}</a></li>
+            ))}
+            <li class="nav-wa"><a href={site.whatsapp} rel="noopener" aria-label="WhatsApp us"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L0 24l6.5-1.7a11.8 11.8 0 0 0 5.6 1.4c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.4-8.4zM12.1 21.7c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.8 9.8 0 0 1-1.5-5.2c0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.4 9.9-9.8 9.9zm5.4-7.3c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4z"/></svg><span>WhatsApp</span></a></li>
+            <li class="nav-cta"><a href="/book">Plan my stay</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <a class="wa-float" href={site.whatsapp} rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L0 24l6.5-1.7a11.8 11.8 0 0 0 5.6 1.4c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.4-8.4zM12.1 21.7c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.8 9.8 0 0 1-1.5-5.2c0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.4 9.9-9.8 9.9zm5.4-7.3c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4z"/></svg></a>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <svg class="ridge" viewBox="0 0 1600 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70 C 200 50, 320 20, 480 40 S 760 10, 920 30 S 1200 0, 1600 40 L1600 90 L0 90Z" fill="#1f4e6e"/></svg>
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <img src="/images/logo-wide.png" alt="Camp Lilac Mikumi" width="220" height="62" />
+          <p>Luxury tented safari camp, Mikumi, Morogoro Region, Tanzania.</p>
+          <p>{site.geo.latitude.toFixed(4)}° S · {site.geo.longitude.toFixed(4)}° E</p>
+        </div>
+        <div>
+          <h4>Stay</h4>
+          <a href="/rooms">Tents &amp; cabins</a>
+          <a href="/rates">Rates</a>
+          <a href="/restaurant">Restaurant &amp; bar</a>
+          <a href="/book">Check availability</a>
+          <a href="/faq">Questions</a>
+        </div>
+        <div>
+          <h4>Mikumi</h4>
+          <a href="/safaris">Safaris</a>
+          <a href="/mikumi-national-park">Park guide</a>
+          <a href="/getting-here">Getting here</a>
+          <a href="/blog">Journal</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href={site.whatsapp} rel="noopener">WhatsApp {site.phoneDisplay}</a>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <a href={site.instagram} rel="noopener">Instagram</a>
+          <a href={site.facebook} rel="noopener">Facebook</a>
+        </div>
+        <div>
+          <h4>Reviews</h4>
+          {sources.map((s) => <a href={s.url} rel="noopener">{s.platform} {s.score}/5 · {s.count}</a>)}
+        </div>
+      </div>
+      <div class="wrap footer-legal">
+        <span>© {new Date().getFullYear()} {site.legalName}</span>
+        <span>Check-in {site.checkIn} · Check-out {site.checkOut}</span>
+      </div>
+    </footer>
+
+    <script>
+      // Preloader: once per session, ~1.3 s, then reveal hero.
+      const pre = document.getElementById('preloader');
+      const body = document.body;
+      const hero = document.querySelector('.hero');
+      const seen = (() => { try { return sessionStorage.getItem('cl-pre'); } catch { return '1'; } })();
+      const finish = () => {
+        pre?.classList.add('done');
+        body.classList.remove('is-loading');
+        requestAnimationFrame(() => hero?.classList.add('revealed'));
+        try { sessionStorage.setItem('cl-pre', '1'); } catch {}
+      };
+      if (seen || matchMedia('(prefers-reduced-motion: reduce)').matches) { pre?.remove(); body.classList.remove('is-loading'); requestAnimationFrame(() => hero?.classList.add('revealed')); }
+      else setTimeout(finish, 2800);
+
+      // Header: transparent over hero, solid after scrolling.
+      const header = document.getElementById('site-header');
+      const onScroll = () => header?.classList.toggle('solid', scrollY > (hero ? innerHeight * 0.75 : 10));
+      onScroll(); addEventListener('scroll', onScroll, { passive: true });
+
+      // Mobile nav
+      const btn = document.querySelector('.nav-toggle');
+      const list = document.getElementById('nav-list');
+      btn?.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        btn.textContent = open ? 'Menu' : 'Close';
+        list?.classList.toggle('open', !open);
+        body.classList.toggle('nav-open', !open);
+      });
+
+      // Reveal on scroll
+      const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
+      document.querySelectorAll('.rv').forEach((el) => io.observe(el));
+
+      // Drag-to-scroll galleries
+      document.querySelectorAll<HTMLElement>('.gallery').forEach((g) => {
+        let down = false, startX = 0, left = 0;
+        g.addEventListener('pointerdown', (e) => { down = true; startX = e.clientX; left = g.scrollLeft; g.setPointerCapture(e.pointerId); });
+        g.addEventListener('pointermove', (e) => { if (down) g.scrollLeft = left - (e.clientX - startX); });
+        g.addEventListener('pointerup', () => (down = false));
+        g.addEventListener('pointercancel', () => (down = false));
+      });
+    </script>
+  </body>
+</html>

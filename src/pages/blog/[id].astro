@@ -1,0 +1,66 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Photo from '../../components/Photo.astro';
+import { getCollection, render } from 'astro:content';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const url = `${site.url}/blog/${post.id}`;
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const schema: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.data.title,
+    description: post.data.description,
+    image: new URL(post.data.cover, site.url).href,
+    datePublished: post.data.pubDate.toISOString(),
+    dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+    author: { '@type': 'Organization', name: site.name, url: site.url },
+    publisher: { '@id': `${site.url}/#camp` },
+    mainEntityOfPage: url,
+    keywords: post.data.tags.join(', '),
+  },
+];
+if (post.data.youtube) {
+  schema.push({
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: post.data.title,
+    description: post.data.description,
+    thumbnailUrl: `https://i.ytimg.com/vi/${post.data.youtube}/hqdefault.jpg`,
+    uploadDate: post.data.pubDate.toISOString(),
+    embedUrl: `https://www.youtube.com/embed/${post.data.youtube}`,
+  });
+}
+---
+<Base title={`${post.data.title} | Camp Lilac`} description={post.data.description} {schema} ogType="article" ogImage={post.data.cover} breadcrumbs={[{ name: 'Blog', href: '/blog' }, { name: post.data.title, href: `/blog/${post.id}` }]}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/">Home</a> / <a href="/blog">Blog</a> / {post.data.title}</p>
+    <h1>{post.data.title}</h1>
+    <p class="lead">{post.data.description}</p>
+    <p class="meta">Published {fmt(post.data.pubDate)}{post.data.updatedDate ? ` · updated ${fmt(post.data.updatedDate)}` : ''} · by the Camp Lilac team</p>
+  </div>
+  <div class="wrap split--aside" style="display:grid">
+    <article class="article">
+      {post.data.youtube
+        ? <iframe class="video" src={`https://www.youtube-nocookie.com/embed/${post.data.youtube}`} title={post.data.title} loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+        : <Photo src={post.data.cover} alt={post.data.coverAlt} ratio="wide" loading="eager" />}
+      <Content />
+    </article>
+    <aside class="aside">
+      <h3>Stay at Camp Lilac</h3>
+      <p>Luxury tents and cabins minutes from the Mikumi gate, with our own safari guides.</p>
+      <ul><li><a href="/rooms">Rooms &amp; rates</a></li><li><a href="/safaris">Safari packages</a></li><li><a href="/mikumi-national-park">Mikumi guide</a></li></ul>
+      <a class="btn btn--fill" href="/book">Check availability</a>
+    </aside>
+  </div>
+  <CtaBand />
+</Base>

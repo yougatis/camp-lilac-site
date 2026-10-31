@@ -1,0 +1,8 @@
+---
+const items = ['Breakfast included', 'Air-conditioned tents & cabins', 'Our own guides & 4×4s', 'The only ridge view in Mikumi', 'Quiet — away from the highway', 'Minutes from the park gate'];
+---
+<div class="ribbon" aria-hidden="true">
+  <div class="ribbon-track">
+    {[...items, ...items].map((t) => <span>{t}</span>)}
+  </div>
+</div>

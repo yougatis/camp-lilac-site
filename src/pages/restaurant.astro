@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Photo from '../components/Photo.astro';
+
+const title = 'Restaurant & Bar with Mountain Views in Mikumi | Camp Lilac';
+const description =
+  'The Camp Lilac restaurant faces the Mikumi mountain ridge. Breakfast included for guests, fresh Tanzanian and international lunch and dinner, full bar and Wi-Fi.';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  name: 'Camp Lilac Restaurant & Bar',
+  servesCuisine: ['Tanzanian', 'International'],
+  parentOrganization: { '@id': 'https://www.camp-lilac.com/#camp' },
+  priceRange: '$$',
+};
+---
+<Base {title} {description} {schema} breadcrumbs={[{ name: 'Restaurant', href: '/restaurant' }]}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/">Home</a> / Restaurant</p>
+    <h1>The restaurant with Mikumi’s best view</h1>
+    <p class="lead">Our restaurant and bar look straight at the Mikumi mountain ridge. It is where the camp gathers at sunset, and the only dining room in Mikumi with this view.</p>
+  </div>
+  <div class="wrap rv"><Photo src="/images/rooms/restaurant-dusk-2000.jpg" alt="The Camp Lilac restaurant at dusk, looking out to the Mikumi mountain ridge" caption="Sundowners, 18:10" ratio="wide" loading="eager" /></div>
+  <section class="section section--tight">
+    <div class="wrap split--aside" style="display:grid">
+      <article class="article">
+        <h2>Breakfast, included</h2>
+        <p>Every stay includes breakfast: fresh fruit, eggs the way you like them, Tanzanian chapati and mandazi, good coffee and tea. Early safari? We serve it before first light.</p>
+        <h2>Lunch and dinner</h2>
+        <p>Lunch and dinner are cooked fresh each day — a mix of Tanzanian dishes (nyama choma, pilau, coconut fish, ugali with greens) and international favourites, with vegetarian options always available. Meals are charged per person per meal; tell us about allergies or dietary needs when you book. Children under 4 stay free and ages 4–11 are half price; meals for children are charged per meal.</p>
+        <h2>The bar</h2>
+        <p>Cold Kilimanjaro and Serengeti beers, Tanzanian Konyagi, a short wine list, soft drinks and fresh juice. The bar deck is the sunset spot. Wi-Fi is available here (the tents are intentionally offline).</p>
+        <h2>Not staying with us?</h2>
+        <p>Safari visitors and people passing through Mikumi are welcome for lunch or dinner with the view — please message us in advance so the kitchen is ready.</p>
+      </article>
+      <aside class="aside">
+        <h3>Quick facts</h3>
+        <ul><li>Breakfast included for all guests</li><li>Lunch &amp; dinner charged per meal</li><li>Vegetarian options daily</li><li>Full bar, Wi-Fi</li><li>Ridge view from every table</li></ul>
+        <a class="btn btn--fill" href="/book">Book a stay</a>
+      </aside>
+    </div>
+  </section>
+  <CtaBand title="Dinner with the ridge view" />
+</Base>

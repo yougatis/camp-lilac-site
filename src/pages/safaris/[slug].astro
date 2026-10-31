@@ -1,0 +1,110 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Price from '../../components/Price.astro';
+import Photo from '../../components/Photo.astro';
+import { safaris } from '../../data/safaris';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return safaris.map((s) => ({ params: { slug: s.slug }, props: { safari: s } }));
+}
+const { safari } = Astro.props;
+const others = safaris.filter((s) => s.slug !== safari.slug);
+
+const title = `${safari.name} | Mikumi National Park Safari with Camp Lilac`;
+const description = safari.summary.slice(0, 160);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'TouristTrip',
+  name: safari.name,
+  description: safari.summary,
+  image: new URL(safari.image, site.url).href,
+  url: `${site.url}/safaris/${safari.slug}`,
+  touristType: ['Wildlife safari', 'Families', 'Couples'],
+  itinerary: {
+    '@type': 'ItemList',
+    itemListElement: safari.itinerary.map((d, i) => ({ '@type': 'ListItem', position: i + 1, name: d.title, description: d.text })),
+  },
+  provider: { '@id': `${site.url}/#camp` },
+  ...(safari.price && { offers: { '@type': 'Offer', price: safari.price, priceCurrency: 'USD', url: `${site.url}/book` } }),
+};
+---
+
+<Base {title} {description} {schema} ogImage={safari.image} breadcrumbs={[{ name: 'Safaris', href: '/safaris' }, { name: safari.name, href: `/safaris/${safari.slug}` }]} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src={safari.image.replace(/-(1600|2000)\.jpg$/, "-1600.webp")} srcset={`${safari.image.replace(/-(1600|2000)\.jpg$/, "")}-800.webp 800w, ${safari.image.replace(/-(1600|2000)\.jpg$/, "")}-1600.webp 1600w`} sizes="100vw" alt={safari.imageAlt} width="1600" height="1200" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <p class="label">{safari.days} {safari.days === 1 ? 'day' : 'days'} · {safari.bestFor}</p>
+        <h1><span class="w"><span>{safari.name}</span></span></h1>
+        <p class="lead">{safari.summary}</p>
+      </div>
+      <div class="hero-side"><b><Price price={safari.price} unit="person" /></b>Private 4×4 and guide<br />Starts and ends at the camp</div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap split--aside" style="display:grid">
+      <div class="article">
+        {safari.offer && <p><strong>Direct-booking offer:</strong> {safari.offer}</p>}
+        <h2>Itinerary</h2>
+        <ol class="itinerary">
+          {safari.itinerary.map((d) => (
+            <li>
+              <h4>{d.title}</h4>
+              <p>{d.text}</p>
+              {(d.meals || d.stay) && <p class="meta">{d.meals && <span>Meals: {d.meals}</span>}{d.meals && d.stay && <br />}{d.stay && <span>Stay: {d.stay}</span>}</p>}
+            </li>
+          ))}
+        </ol>
+        {safari.tiers && (
+          <>
+            <h2>Price per person</h2>
+            <table>
+              {safari.tiers.map((t) => <tr><th>{t.people}</th><td>US${t.price} per person</td></tr>)}
+            </table>
+            <p>Private vehicle and guide for your group only. Park fees are included.</p>
+          </>
+        )}
+        <h2>Included</h2>
+        <ul>{safari.included.map((i) => <li>{i}</li>)}</ul>
+        <h2>Not included</h2>
+        <ul>{safari.excluded.map((i) => <li>{i}</li>)}</ul>
+        <p>
+          Game drives are in an open-roof 4×4 with one of our own guides. We adjust timings to your train or flight and to the
+          season. Children under 2 cannot join game drives. Dates are flexible — tell us when you want to come.
+        </p>
+      </div>
+      <aside class="aside">
+        <h3><Price price={safari.price} unit="person" /></h3>
+        <ul>
+          <li>{safari.days} {safari.days === 1 ? 'day' : 'days'}</li>
+          <li>Best for: {safari.bestFor}</li>
+          <li>Private vehicle and guide</li>
+          <li>Starts: {safari.start}</li>
+        </ul>
+        <a class="btn btn--fill" href={`/book?safari=${safari.slug}`}>Request this safari</a>
+        <p style="margin-top:12px;font-size:0.9rem">or <a href={site.whatsapp}>message us on WhatsApp</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="wrap">
+      <h2 class="rv" style="margin-bottom:40px">Other safaris</h2>
+      <div class="tiles tiles--3">
+        {others.map((s, i) => (
+          <a class={`tile rv rv-d${i}`} href={`/safaris/${s.slug}`}>
+            <Photo src={s.image} alt={s.imageAlt} caption={`${s.days} ${s.days === 1 ? 'day' : 'days'}`} />
+            <h3>{s.name}</h3>
+            <p>{s.bestFor}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title={`Book the ${safari.name}`} />
+</Base>

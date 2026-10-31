@@ -1,0 +1,176 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site } from '../data/site';
+
+const title = 'Mikumi National Park Guide 2026: Animals, Fees, Best Time | Camp Lilac';
+const description =
+  'Plan a Mikumi National Park safari: wildlife, best time to visit, 2026 park fees, getting there from Dar es Salaam and Zanzibar, and how Mikumi compares with Selous and Ruaha.';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'TouristDestination',
+    name: 'Mikumi National Park',
+    description: 'Tanzania’s most accessible big-game national park, 300 km west of Dar es Salaam in the Morogoro Region.',
+    sameAs: 'https://en.wikipedia.org/wiki/Mikumi_National_Park',
+    touristType: ['Wildlife safari', 'Weekend safari from Dar es Salaam'],
+    includesAttraction: [
+      { '@type': 'TouristAttraction', name: 'Mkata floodplain' },
+      { '@type': 'TouristAttraction', name: 'Mikumi hippo pools' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Mikumi National Park: the complete visitor guide',
+    description,
+    author: { '@type': 'Organization', name: site.name },
+    publisher: { '@id': `${site.url}/#camp` },
+    datePublished: '2026-10-28',
+    dateModified: '2026-10-28',
+    mainEntityOfPage: `${site.url}/mikumi-national-park`,
+  },
+];
+---
+
+<Base {title} {description} {schema} ogType="article" breadcrumbs={[{ name: 'Mikumi National Park guide', href: '/mikumi-national-park' }]}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/">Home</a> / Mikumi National Park guide</p>
+    <h1>Mikumi National Park: the complete visitor guide</h1>
+    <p class="lead">
+      Written by the team at Camp Lilac, who live next to the park. Updated for the 2026 season.
+    </p>
+  </div>
+
+  <div class="wrap split--aside" style="display:grid">
+    <article class="article">
+      <p>
+        Mikumi National Park is Tanzania’s fourth-largest national park and by far its most accessible. It lies about 300 km west
+        of Dar es Salaam on the Dar–Mbeya highway, in the Morogoro Region, and borders the enormous Nyerere (Selous) ecosystem,
+        which is why a park this easy to reach still has such dense wildlife.
+      </p>
+      <p>
+        For many visitors it is the first — or only — safari they do in Tanzania: a long weekend from Dar es Salaam or Zanzibar,
+        or a stop on the way south to Ruaha, Iringa and Mbeya. This guide covers what you will see, when to come, what it costs,
+        and how to get here.
+      </p>
+
+      <h2>Quick facts</h2>
+      <table>
+        <tr><th>Size</th><td>3,230 km²</td></tr>
+        <tr><th>Location</th><td>Morogoro Region, ~300 km west of Dar es Salaam</td></tr>
+        <tr><th>Main gate</th><td>On the A7 highway at Mikumi town; the park is bisected by the highway</td></tr>
+        <tr><th>Ecosystem</th><td>Part of the Nyerere–Selous ecosystem; Mkata floodplain in the north, miombo woodland in the south</td></tr>
+        <tr><th>Nearest towns</th><td>Mikumi (gate), Morogoro (120 km, SGR station)</td></tr>
+        <tr><th>Best known for</th><td>Elephants, lions, giraffes, buffalo and big plains herds, easy to see from the road network</td></tr>
+      </table>
+
+      <h2>Wildlife in Mikumi</h2>
+      <p>
+        The Mkata floodplain, just inside the main gate, is where most of the action happens. It is open grassland dotted with
+        acacia and baobab, and animals are visible from a long way off. Expect:
+      </p>
+      <ul>
+        <li><strong>Elephants</strong> — large family groups, especially in the dry season around the waterholes.</li>
+        <li><strong>Lions</strong> — Mikumi’s lions are famous for climbing into the trees when the ground gets hot.</li>
+        <li><strong>Giraffe, zebra, buffalo, wildebeest, impala and eland</strong> — in big numbers on the floodplain.</li>
+        <li><strong>Hippos</strong> — at the hippo pools, about 5 km from the gate.</li>
+        <li><strong>Rarer sightings</strong> — sable antelope, Lichtenstein’s hartebeest, greater kudu and, with luck, African wild dogs and leopard in the southern woodland.</li>
+        <li><strong>Birds</strong> — more than 400 species, including lilac-breasted rollers, bateleur eagles, marabou storks and, in the rains, European migrants.</li>
+      </ul>
+      <p>
+        Around our camp itself impala, warthog and vervet monkeys are daily visitors,.
+      </p>
+
+      <h2>Best time to visit Mikumi</h2>
+      <table>
+        <tr><th>June – October (dry)</th><td>Best game viewing. Short grass, animals concentrated at water, cool mornings. Peak season — book ahead.</td></tr>
+        <tr><th>November – December (short rains)</th><td>Green and quiet. Showers are usually brief; birding is excellent.</td></tr>
+        <tr><th>January – February (dry spell)</th><td>Hot but dry and very good for wildlife. Fewer visitors than July–August.</td></tr>
+        <tr><th>March – May (long rains)</th><td>Lush scenery, newborn animals, lowest prices. Some southern tracks become muddy; the floodplain circuit stays open.</td></tr>
+      </table>
+      <p>
+        Mikumi is a year-round park. Unlike parks that close in the rains, the main floodplain circuit is drivable in every month,
+        which is one reason it works so well for a weekend trip.
+      </p>
+
+      <h2>Mikumi National Park fees (2026)</h2>
+      <p>
+        Entry fees are set by TANAPA and charged per 24 hours. Mikumi sits in TANAPA’s lower price band, which makes it
+        one of the cheapest big-game safaris in East Africa:
+      </p>
+      <table>
+        <tr><th>Non-resident adult</th><td>US$30 + 18% VAT (US$35.40) per 24 hours</td></tr>
+        <tr><th>Non-resident child (5–15)</th><td>US$10 + 18% VAT (US$11.80) per 24 hours</td></tr>
+        <tr><th>Children under 5</th><td>Free</td></tr>
+        <tr><th>East African residents / citizens</th><td>Lower rates in TZS — ask us</td></tr>
+        <tr><th>Vehicle fee</th><td>Charged per vehicle per day (included in our safari packages)</td></tr>
+      </table>
+      <p>
+        Park fees are included in all our safari packages. Rates usually change on 1 July; check the
+        <a href="https://www.tanzaniaparks.go.tz" rel="noopener">TANAPA website</a> for the current schedule before you travel.
+        If you visit the park on your own, fees are paid at the gate by card or mobile money, not cash.
+      </p>
+
+      <h2>How to get to Mikumi</h2>
+      <ul>
+        <li><strong>SGR train from Dar es Salaam</strong> — about 1.5 hours to Morogoro, then a 2-hour road transfer to the camp — 3.5 hours in total. The most comfortable option. We provide the 2-hour transfer; it is free when you book a 2+ day safari with us.</li>
+        <li><strong>By road from Dar es Salaam</strong> — about 300 km, 5–6 hours on the A7 depending on traffic leaving Dar.</li>
+        <li><strong>From Zanzibar</strong> — morning ferry to Dar es Salaam (2 hours), then the SGR train or road. You can be at the camp by late afternoon.</li>
+        <li><strong>By air</strong> — charter flights land at the Mikumi airstrip; scheduled flights go to Iringa or Dar es Salaam.</li>
+      </ul>
+      <p>Full details, timings and prices on our <a href="/getting-here">Getting here</a> page.</p>
+
+      <h2>Where to stay in Mikumi</h2>
+      <p>
+        Accommodation falls into three groups: a handful of camps inside the park (remote, expensive, with concession fees on
+        top of entry fees), basic guesthouses in Mikumi town, and a few camps and lodges in the bush around the park. Most of
+        the camps and lodges outside the park sit in town or directly on the highway, which means truck noise at night.
+      </p>
+      <p>
+        <a href="/">Camp Lilac</a> is in the third group but set away from the road, with en-suite luxury tents, air conditioning
+        and the only mountain-ridge view in Mikumi. Being minutes from the gate, you lose no safari time, and you do not pay
+        in-park concession fees. See our <a href="/rooms">rooms and tents</a>.
+      </p>
+
+      <h2>Mikumi vs Selous (Nyerere) vs Ruaha</h2>
+      <table>
+        <tr><th></th><th>Mikumi</th><th>Nyerere / Selous</th><th>Ruaha</th></tr>
+        <tr><th>From Dar es Salaam</th><td>5–6 h road / 3.5 h by train + transfer</td><td>Fly-in or 6–8 h rough road</td><td>Fly-in or 10+ h road</td></tr>
+        <tr><th>Park fee (adult)</th><td>US$35.40</td><td>US$82.60</td><td>US$35.40</td></tr>
+        <tr><th>Game viewing</th><td>Very good, easy, open plains</td><td>Excellent, boat safaris, more remote</td><td>Excellent, wild, big elephant and lion numbers</td></tr>
+        <tr><th>Typical trip</th><td>1–3 days</td><td>3–4 days</td><td>3–5 days</td></tr>
+        <tr><th>Budget</th><td>Lowest</td><td>High</td><td>Medium–high</td></tr>
+      </table>
+      <p>
+        Mikumi is the park to choose when time or budget is limited, when you are travelling with children, or when you are
+        passing through on the way south. It also combines well with a waterfall hike in the Udzungwa Mountains, an hour away —
+        see our <a href="/safaris/4-day-mikumi-udzungwa-safari">Mikumi &amp; Udzungwa safari</a>.
+      </p>
+
+      <h2>Practical tips</h2>
+      <ul>
+        <li>Game drives are best at 06:30–10:00 and 15:30–18:30; the floodplain is empty in the midday heat.</li>
+        <li>Bring a light fleece for early mornings June–August, and neutral-coloured clothes.</li>
+        <li>Malaria prophylaxis is recommended; the camp has mosquito nets and air conditioning.</li>
+        <li>Mobile data works around Mikumi town and the camp; inside the park it is patchy.</li>
+        <li>Driving through the park on the highway at night is prohibited for a reason: animals cross the road. Plan to arrive before dark.</li>
+      </ul>
+    </article>
+
+    <aside class="aside">
+      <h3>Stay next to the park</h3>
+      <p>Luxury tents and cabins minutes from the Mikumi gate, with our own guides and vehicles.</p>
+      <ul>
+        <li><a href="/rooms">Rooms &amp; rates</a></li>
+        <li><a href="/safaris">Safari packages</a></li>
+        <li><a href="/getting-here">Getting here</a></li>
+        <li><a href="/faq">FAQ</a></li>
+      </ul>
+      <a class="btn btn--fill" href="/book">Check availability</a>
+    </aside>
+  </div>
+
+  <CtaBand title="See Mikumi from the quiet side" />
+</Base>

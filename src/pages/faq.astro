@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { faqs } from '../data/faqs';
+
+const title = 'Mikumi Safari & Camp Lilac FAQ: Fees, Getting There, Kids, Check-in';
+const description =
+  'Answers to the questions we get most: reaching Mikumi from Dar es Salaam, park fees, tents with bathrooms and A/C, children, meals, Wi-Fi, check-in times and payment.';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<Base {title} {description} {schema} breadcrumbs={[{ name: 'FAQ', href: '/faq' }]}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/">Home</a> / FAQ</p>
+    <h1>Questions &amp; answers</h1>
+    <p class="lead">Everything guests ask before booking a stay or a safari at Camp Lilac.</p>
+  </div>
+  <div class="wrap split--aside" style="display:grid">
+    <div class="faq">
+      {faqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+    </div>
+    <aside class="aside">
+      <h3>Something else?</h3>
+      <p>Message us on WhatsApp and we answer the same day.</p>
+      <a class="btn" href="/contact">Contact us</a>
+    </aside>
+  </div>
+  <CtaBand />
+</Base>

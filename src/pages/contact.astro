@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const title = 'Contact Camp Lilac, Mikumi – WhatsApp, Email, Directions';
+const description =
+  'Contact Camp Lilac in Mikumi, Tanzania: WhatsApp +255 740 036 915, info@camp-lilac.com. Directions from Dar es Salaam and Morogoro SGR station, check-in times.';
+---
+<Base {title} {description} breadcrumbs={[{ name: 'Contact', href: '/contact' }]}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/">Home</a> / Contact</p>
+    <h1>Contact us</h1>
+    <p class="lead">Fastest is WhatsApp — we usually reply within the hour during the day.</p>
+  </div>
+  <div class="wrap split" style="padding-bottom:var(--section)">
+    <div class="article">
+      <h2>Talk to us</h2>
+      <p><a href={site.whatsapp}>WhatsApp {site.phoneDisplay}</a><br /><a href={`tel:${site.phone.replace(/\s/g, '')}`}>Call {site.phoneDisplay}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+      <p><a href={site.instagram} rel="noopener">Instagram @camplilacmikumi</a> · <a href={site.facebook} rel="noopener">Facebook</a></p>
+      <h2>Find us</h2>
+      <p>Camp Lilac, Mikumi, Morogoro Region, Tanzania. Postal code 67440.<br />A short drive from the Mikumi National Park main gate, off the Dar es Salaam–Mbeya highway.</p>
+      <p class="todo">TODO: paste a Google Maps embed here once the pin is set (Share → Embed a map). Also add the camp to Google Business Profile — it is the single biggest local-SEO win.</p>
+      <p>Check-in from {site.checkIn}, check-out {site.checkOut}. See <a href="/getting-here">getting here</a> for trains, transfers and driving.</p>
+    </div>
+    <aside class="aside">
+      <h3>Want to book?</h3>
+      <p>Use the booking form and we come back with availability, rates and a safari suggestion.</p>
+      <a class="btn btn--fill" href="/book">Request a booking</a>
+    </aside>
+  </div>
+</Base>

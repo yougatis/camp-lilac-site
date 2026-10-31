@@ -1,0 +1,13 @@
+# Old Squarespace URLs -> new pages (301 keeps whatever ranking the old pages had)
+/services              /rooms                         301
+/jungle-tent           /rooms/luxury-jungle-tent             301
+/jungle-house          /rooms/jungle-cabin            301
+/mountain-view-cabin   /rooms/mountain-view-cabin     301
+/reserve               /book                          301
+/contact-us            /contact                       301
+/cart                  /                              301
+/rooms/jungle-tent          /rooms/luxury-jungle-tent         301
+/rooms/mountain-view-tent   /rooms/luxury-mountain-view-tent  301
+/rooms/family-tent          /rooms/luxury-family-tent         301
+/safaris/mikumi-udzungwa-safari   /safaris/4-day-mikumi-udzungwa-safari  301
+/safaris/4-day-mikumi-safari      /safaris/4-day-mikumi-udzungwa-safari  301

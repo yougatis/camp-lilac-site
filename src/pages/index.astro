@@ -1,0 +1,203 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Ribbon from '../components/Ribbon.astro';
+import Offers from '../components/Offers.astro';
+import Photo from '../components/Photo.astro';
+import Price from '../components/Price.astro';
+import { rooms, cover } from '../data/rooms';
+import { safaris } from '../data/safaris';
+import { reviews, reviewScore, sources } from '../data/reviews';
+import { site } from '../data/site';
+
+const title = 'Camp Lilac | Mikumi\'s Only Luxury Tented Camp, Tanzania';
+const description =
+  'Mikumi\'s only luxury tented camp: Serengeti-level tents and cabins with en-suite bathrooms, A/C and the one mountain-ridge view in Mikumi. 3.5 h from Dar by train. Stays and safaris from US$140.';
+
+const tileImage: Record<string, string> = { 'mountain-view-cabin': '/images/rooms/mv-cabin-4-1600.jpg', 'luxury-jungle-tent': '/images/rooms/jungle-tent-2-1600.jpg', 'jungle-cabin': '/images/rooms/jungle-cabin-3-1600.jpg' };
+const featured = ['mountain-view-cabin', 'luxury-jungle-tent', 'jungle-cabin'].map((s) => rooms.find((r) => r.slug === s)!);
+const by = (slug: string) => safaris.find((s) => s.slug === slug)!;
+const s2 = by('2-day-mikumi-safari'), s3 = by('3-day-mikumi-safari'), s4 = by('4-day-mikumi-udzungwa-safari');
+const minRoom = Math.min(...rooms.map((r) => r.price ?? Infinity));
+
+const schema = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${site.url}/#website`, url: site.url, name: site.name, publisher: { '@id': `${site.url}/#camp` } },
+  { '@context': 'https://schema.org', '@type': 'LodgingBusiness', '@id': `${site.url}/#camp`, name: site.name, aggregateRating: { '@type': 'AggregateRating', ratingValue: sources[0].score, reviewCount: sources[0].count, bestRating: 5 } },
+];
+const words = (s: string) => s.split(' ');
+---
+
+<Base {title} {description} {schema} dark>
+  <section class="hero">
+    <div class="hero-media">
+      <img src="/images/rooms/restaurant-dusk-1600.webp" srcset="/images/rooms/restaurant-dusk-800.webp 800w, /images/rooms/restaurant-dusk-1600.webp 1600w" sizes="100vw" alt="The Camp Lilac restaurant at dusk, open to the Mikumi mountain ridge under a pink sky" width="2000" height="1370" fetchpriority="high" />
+    </div>
+    <div class="wrap hero-content">
+      <div>
+        <p class="label">Mikumi National Park · Tanzania</p>
+        <h1>
+          {words("Mikumi’s only").map((w, i) => <span class="w"><span style={`transition-delay:${0.1 + i * 0.08}s`}>{w}&nbsp;</span></span>)}
+          <br />
+          {words('luxury tented').map((w, i) => <span class="w"><span style={`transition-delay:${0.26 + i * 0.08}s`}>{w}&nbsp;</span></span>)}
+          <span class="w"><em style="transition-delay:0.42s;color:#e4d9f7">camp</em></span>
+        </h1>
+        <p class="lead">Serengeti-level tents and cabins, en-suite and air-conditioned, with the one mountain-ridge view in Mikumi. 3.5 hours from Dar es Salaam by train and transfer, a short flight from Zanzibar.</p>
+
+      </div>
+    </div>
+    <div class="wrap hero-form-wrap">
+      <div class="hero-side hero-side--form">
+        <b>{reviewScore.score} / 5</b>
+        <span class="hero-logos"><img src="/images/logo-google.png" alt="Google" /><img src="/images/logo-tripadvisor.png" alt="Tripadvisor" class="ta" /><img src="/images/logo-safaribookings.png" alt="SafariBookings" class="sb" />{reviewScore.count} reviews</span><br />10 tents &amp; cabins · Open all year
+      </div>
+
+      <form class="hero-form" id="hero-form" action="/book" method="get">
+        <label>Check-in <input type="date" name="checkin" required /></label>
+        <label>Check-out <input type="date" name="checkout" required /></label>
+        <label>Guests <select name="adults"><option value="2">2 adults</option><option value="1">1 adult</option><option value="3">3 adults</option><option value="4">4 adults</option><option value="5">5+ adults</option></select></label>
+        <button class="btn btn--fill" type="submit">Get a free quote</button>
+        <small>No payment now. We reply {site.replyTime} with availability and the total price.</small>
+      </form>
+    </div>
+  </section>
+
+  <Ribbon />
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="rv" style="margin-bottom:12px">Three ways people come to <em>Camp Lilac</em></h2>
+      <p class="lead rv rv-d1" style="margin-bottom:40px">Pick the one that sounds like you. Every package includes park fees, a private open jeep with our own guide, and meals.</p>
+      <div class="audience">
+        <div class="aud rv">
+          <span class="label">From Dar es Salaam</span>
+          <h3>Weekend in the wild by SGR train</h3>
+          <p class="from">From US${s2.price}<small>per person</small></p>
+          <p>Leave Dar on the morning train, game drive the same afternoon, sleep in a luxury tent, dawn drive, home by evening. Free Morogoro transfer.</p>
+          <div class="actions"><a class="btn" href={`/safaris/${s2.slug}`}>2-day safari</a><a class="link" href={site.whatsapp} rel="noopener">WhatsApp</a></div>
+        </div>
+        <div class="aud rv rv-d1">
+          <span class="label">From Zanzibar</span>
+          <h3>A real safari, not a 4 a.m. day trip</h3>
+          <p class="from">From US${s2.price}<small>per person + flights</small></p>
+          <p>Morning ferry or flight to Dar, train to Morogoro, two days of game drives and a night under canvas facing the ridge. Back on the beach by the next evening.</p>
+          <div class="actions"><a class="btn" href="/getting-here">How it works</a><a class="link" href={site.whatsapp} rel="noopener">WhatsApp</a></div>
+        </div>
+        <div class="aud rv rv-d2">
+          <span class="label">Southern circuit</span>
+          <h3>Mikumi, Udzungwa waterfalls and the quiet south</h3>
+          <p class="from">From US${s3.price}<small>per person</small></p>
+          <p>Three or four days: the Mikumi floodplain, the hippo pools, the Sanje waterfall hike — with free train tickets from Dar when you book direct.</p>
+          <div class="actions"><a class="btn" href={`/safaris/${s4.slug}`}>3–4 day safaris</a><a class="link" href={site.whatsapp} rel="noopener">WhatsApp</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="wrap split">
+      <div>
+        <h2 class="rv">Most of Mikumi sleeps by the highway. <em>We don’t.</em></h2>
+        <p class="lead rv rv-d1">Camp Lilac is set back in the bush, facing the ridge. En-suite canvas tents with air conditioning and private decks, a restaurant that looks straight at the mountains, and nothing to hear at night but the bush itself.</p>
+        <p class="rv rv-d2">We are the only camp in Mikumi with a view of the mountain ridge, and the only one offering true luxury tented rooms. Impala, warthog and monkeys wander through the camp. Our own guides run the game drives, and we arrange your transfers from Morogoro SGR station or Dar es Salaam.</p>
+        <a class="link rv rv-d3" href="/about">The camp</a>
+      </div>
+      <div class="rv rv-d1">
+        <Photo src="/images/rooms/mv-cabin-3-1600.jpg" alt="Sunrise light falling across the four-poster bed in the Mountain View Cabin" caption="Mountain View Cabin, 06:40" ratio="portrait" zoom />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:48px;flex-wrap:wrap">
+        <div><h2 class="rv" style="margin:0 0 6px">Tents &amp; cabins</h2><p class="rv rv-d1" style="margin:0">From US${minRoom} per night, breakfast included. <a class="link" href="/rates" style="margin-left:10px">Rates &amp; seasons</a></p></div>
+        <a class="link rv rv-d1" href="/rooms">All five room types</a>
+      </div>
+      <div class="tiles">
+        {featured.map((r, i) => (
+          <a class={`tile rv rv-d${i}`} href={`/rooms/${r.slug}`}>
+            <Photo src={tileImage[r.slug] ?? cover(r)} alt={r.imageAlt} caption={r.numeral} />
+            <h3>{r.name}</h3>
+            <p><Price price={r.price} /> · {r.sleeps}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-dark">
+    <div class="wrap">
+      <div class="split" style="align-items:end;margin-bottom:56px">
+        <h2 class="rv">Safaris in Mikumi, with <em>our own</em> guides</h2>
+        <p class="lead rv rv-d1">Elephants, lions, giraffe and the great herds of the Mkata floodplain — minutes from the camp gate. Park fees, private jeep, guide and meals included in every package.</p>
+      </div>
+      <div class="tiles tiles--3">
+        {[s2, s3, s4].map((s, i) => (
+          <div class={`tile rv rv-d${i}`}>
+            <a href={`/safaris/${s.slug}`}><Photo src={s.image} alt={s.imageAlt} caption={`${s.days} days`} ratio="landscape" /></a>
+            <h3><a href={`/safaris/${s.slug}`} style="color:inherit">{s.name}</a></h3>
+            <p><Price price={s.price} unit="person" /></p>
+            <div class="tile-actions"><a class="link" href={`/safaris/${s.slug}`}>Itinerary</a><a class="link" href={site.whatsapp} rel="noopener">WhatsApp us</a></div>
+          </div>
+        ))}
+      </div>
+      <div class="btn-row rv"><a class="btn btn--light" href="/safaris">All safari packages</a></div>
+    </div>
+  </section>
+
+  <Offers compact />
+
+  <section class="section">
+    <div class="wrap">
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:40px;flex-wrap:wrap">
+        <h2 class="rv" style="margin:0">What guests say</h2>
+        <div class="rv rv-d1" style="display:flex;gap:22px;flex-wrap:wrap">{sources.filter((src) => src.logo).map((src) => <a class="badge badge--lg" href={src.url} rel="noopener" style="display:inline-flex"><img src={src.logo} alt={src.platform} class={src.platform === 'Tripadvisor' ? 'ta' : src.platform === 'SafariBookings' ? 'sb' : ''} /><span class="stars">★★★★★</span><b>{src.score} / 5</b> · {src.count} reviews</a>)}</div>
+      </div>
+      <div class="reviews">
+        {reviews.slice(0, 3).map((r, i) => (
+          <div class={`review rv rv-d${i}`}>
+            <div class="stars">★★★★★</div>
+            <h3>{r.title}</h3>
+            <p>“{r.text}”</p>
+            <div class="who">{r.name}{r.country ? ` · ${r.country}` : ''} · {r.date} · {r.platform}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand section--tight">
+    <div class="wrap owner">
+      <div class="ph rv"><div class="placeholder" style="position:absolute;inset:0">Photo of Gatis<br />coming soon</div></div>
+      <div>
+        <p class="label rv" style="color:var(--lilac-deep)">Owner-run</p>
+        <h2 class="rv rv-d1">Built by someone who actually sleeps here</h2>
+        <p class="lead rv rv-d2">I’m Gatis. I built Camp Lilac because Mikumi deserved one place where the tents are as good as the park. Message me or the team on WhatsApp — we reply {site.replyTime}, and we will tell you honestly which room and which safari fit your trip.</p>
+        <div class="btn-row rv rv-d3"><a class="btn btn--fill" href={site.whatsapp} rel="noopener">WhatsApp us</a><a class="btn" href="/book">Request a quote</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap split">
+      <div class="rv">
+        <Photo src="/images/rooms/restaurant-dusk-1200.jpg" alt="Tables set in the open-sided Camp Lilac restaurant as the sky turns pink over the Mikumi ridge" caption="The restaurant, 18:40" ratio="landscape" zoom />
+      </div>
+      <div>
+        <h2 class="rv">Every meal facing <em>the ridge</em></h2>
+        <p class="rv rv-d1">Breakfast, lunch and dinner are all served in our open-sided restaurant, the one dining room in Mikumi with a mountain view. Breakfast is included; lunch and dinner are cooked fresh — Tanzanian and international dishes — and the bar deck is where everyone ends up at sunset.</p>
+        <a class="link rv rv-d2" href="/restaurant">The restaurant &amp; bar</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand section--tight">
+    <div class="wrap tiles tiles--3" style="align-items:start">
+      <a class="tile rv" href="/getting-here"><h3>Getting here</h3><p>Train 1.5 h + drive 2 h · from Zanzibar</p></a>
+      <a class="tile rv rv-d1" href="/mikumi-national-park"><h3>Mikumi National Park guide</h3><p>Animals · best time · park fees</p></a>
+      <a class="tile rv rv-d2" href="/faq"><h3>Questions</h3><p>Costs · children · what’s included</p></a>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

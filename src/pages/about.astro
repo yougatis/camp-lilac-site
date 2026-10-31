@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const title = 'About Camp Lilac – A Quiet Luxury Camp Near Mikumi National Park';
+const description =
+  "Camp Lilac is an owner-run luxury tented camp near Mikumi National Park: quiet, off the highway, with en-suite tents, our own safari guides and Mikumi's only ridge view.";
+---
+<Base {title} {description} breadcrumbs={[{ name: 'About', href: '/about' }]}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/">Home</a> / About</p>
+    <h1>The quiet camp in Mikumi</h1>
+    <p class="lead">Camp Lilac was built on a simple idea: Mikumi deserves a place where comfort and the wild are not a trade-off.</p>
+  </div>
+  <div class="wrap split--aside" style="display:grid">
+    <article class="article">
+      <p>Mikumi is Tanzania’s most accessible national park, and for years most of the accommodation around it has competed on one thing: price. Camps in town, rooms on the highway, generators and trucks all night.</p>
+      <p>We chose a different spot — a piece of bush away from the road, facing the Mikumi mountain ridge — and a different standard. Every tent has a real bathroom, air conditioning, a private deck and a bed you will remember. Our restaurant faces the ridge. Our guides are our own, so a safari here starts the moment you finish your coffee.</p>
+      <p>The camp opened with five units and grew to ten in late 2026: the Mountain View Cabin, the Jungle Cabin, three Jungle Tents, two Mountain View Tents and three Family Tents, for up to 26 guests. It is owner-run, and small enough that we know your name and your plans.</p>
+      <h2>What we care about</h2>
+      <ul>
+        <li><strong>Quiet.</strong> At night you hear crickets and nightjars, not the highway.</li>
+        <li><strong>Comfort that fits the bush.</strong> Canvas, decks and the view — with A/C and hot showers.</li>
+        <li><strong>Our own guides.</strong> No hand-offs to outside operators.</li>
+        <li><strong>Honest pricing.</strong> Breakfast included, children under 4 free, park fees included in every safari.</li>
+      </ul>
+      <p class="todo">TODO for Gatis: add 2–3 sentences in your own voice about how the camp started, and a photo of the team. Guests book people, not tents.</p>
+    </article>
+    <aside class="aside">
+      <h3>Camp Lilac Mikumi Company Limited</h3>
+      <ul><li>Mikumi, Morogoro Region, Tanzania, 67440</li><li>10 units, up to 26 guests</li><li>Own safari vehicles and guides</li><li>Listed on Booking.com, Tripadvisor and SafariBookings</li></ul>
+      <a class="btn" href="/contact">Contact us</a>
+    </aside>
+  </div>
+  <CtaBand />
+</Base>

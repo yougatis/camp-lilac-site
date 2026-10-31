@@ -1,0 +1,110 @@
+---
+import Base from '../layouts/Base.astro';
+import { rooms } from '../data/rooms';
+import { safaris } from '../data/safaris';
+import { site } from '../data/site';
+
+const title = 'Book a Stay or Safari at Camp Lilac, Mikumi';
+const description =
+  'Request availability for luxury tents and cabins at Camp Lilac plus a Mikumi safari. Same-day reply with rates. Free SGR station pickup with a 2+ day safari.';
+
+// Where the form sends its data. Leave empty to fall back to a pre-filled WhatsApp message.
+// Recommended: a Make.com "Custom webhook" URL that emails you + logs to Google Sheets.
+const FORM_ENDPOINT = '';
+---
+
+<Base {title} {description} breadcrumbs={[{ name: 'Book', href: '/book' }]}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/">Home</a> / Book</p>
+    <h1>Request a booking</h1>
+    <p class="lead">
+      No payment now. Tell us your dates and we reply {site.replyTime} with availability, one total price and a safari suggestion.
+      Direct bookings get the free station pickup and train-ticket offers.
+    </p>
+  </div>
+
+  <div class="wrap split" style="padding-bottom:var(--section)">
+    <form class="form" id="booking-form" method="post" action="/thank-you" data-endpoint={FORM_ENDPOINT} data-whatsapp={site.whatsapp}>
+      <div class="row">
+        <label>Name <input name="name" required autocomplete="name" /></label>
+        <label>Email <input name="email" type="email" required autocomplete="email" /></label>
+      </div>
+      <div class="row">
+        <label>WhatsApp number <input name="phone" type="tel" autocomplete="tel" placeholder="+..." /></label>
+        <label>Country <input name="country" autocomplete="country-name" /></label>
+      </div>
+      <div class="row">
+        <label>Check-in <input name="checkin" type="date" required /></label>
+        <label>Check-out <input name="checkout" type="date" required /></label>
+      </div>
+      <div class="row">
+        <label>Adults <input name="adults" type="number" min="1" value="2" required /></label>
+        <label>Children (ages) <input name="children" placeholder="e.g. 2 (ages 6 and 10)" /></label>
+      </div>
+      <label>Room
+        <select name="room">
+          <option value="">Let us suggest</option>
+          {rooms.map((r) => <option value={r.slug}>{r.name}{r.price ? ` — from US$${r.price}/night` : ''}</option>)}
+        </select>
+      </label>
+      <label>Safari
+        <select name="safari">
+          <option value="none">No safari, stay only</option>
+          {safaris.map((s) => <option value={s.slug}>{s.name}</option>)}
+          <option value="custom">Custom — I’ll describe it below</option>
+        </select>
+      </label>
+      <label>Arriving by
+        <select name="arrival">
+          <option>SGR train to Morogoro (please collect me)</option>
+          <option>Own car</option>
+          <option>Need a transfer from Dar es Salaam</option>
+          <option>Need an airport pickup</option>
+          <option>Bus to Mikumi town</option>
+          <option>Not sure yet</option>
+        </select>
+      </label>
+      <label>Anything else <textarea name="message" placeholder="Dietary needs, special occasion, onward travel plans…"></textarea></label>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
+      <button class="btn" type="submit">Send request</button>
+      <p class="meta">Free, no obligation. We reply {site.replyTime} with availability and one total price. We only use your details to answer this request.</p>
+    </form>
+
+    <aside class="aside">
+      <h3>Prefer to chat?</h3>
+      <p><a href={site.whatsapp}>WhatsApp {site.phoneDisplay}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+      <h3>Direct-booking offers</h3>
+      <ul>
+        <li>2+ day safari: free Morogoro SGR transfer</li>
+        <li>3+ day safari: plus free train tickets from Dar es Salaam</li>
+        <li>Children under 4 stay free, 4–11 half price</li>
+      </ul>
+    </aside>
+  </div>
+
+  <script>
+    const form = document.getElementById('booking-form') as HTMLFormElement;
+    const params = new URLSearchParams(location.search);
+    for (const key of ['room', 'safari', 'checkin', 'checkout', 'adults']) {
+      const v = params.get(key);
+      const el = form.elements.namedItem(key) as HTMLInputElement | HTMLSelectElement | null;
+      if (v && el) el.value = v;
+    }
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      if (data.website) return; // honeypot
+      const endpoint = form.dataset.endpoint;
+      if (endpoint) {
+        try {
+          await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, source: 'camp-lilac.com', sentAt: new Date().toISOString() }) });
+          location.href = '/thank-you';
+          return;
+        } catch {}
+      }
+      // Fallback: open WhatsApp with the request pre-filled
+      const text = `Booking request from camp-lilac.com\nName: ${data.name}\nEmail: ${data.email}\nWhatsApp: ${data.phone || '-'}\nCountry: ${data.country || '-'}\nDates: ${data.checkin} to ${data.checkout}\nAdults: ${data.adults}, children: ${data.children || '0'}\nRoom: ${data.room || 'suggest'}\nSafari: ${data.safari}\nArriving by: ${data.arrival}\nNotes: ${data.message || '-'}`;
+      location.href = `${form.dataset.whatsapp}?text=${encodeURIComponent(text)}`;
+    });
+  </script>
+</Base>
