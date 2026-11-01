@@ -479,3 +479,25 @@ a .ph:hover img, .ph.zoom:hover img { transform: scale(1.04); }
   .hero--inner .hero-content { grid-template-columns: 1fr; gap: 18px; padding-bottom: 36px; }
   .hero--inner .hero-side { text-align: left; }
 }
+
+/* About — story timeline */
+.story { list-style: none; margin: 0; padding: 0 0 0 28px; border-left: 1px solid rgba(16, 38, 58, 0.18); display: grid; gap: 64px; }
+.story-item { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px; align-items: start; }
+.story-item::before { content: ''; position: absolute; left: -34px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: var(--lilac-deep, #7a5ea8); box-shadow: 0 0 0 4px var(--sand, #efe6d6); }
+.story-item--text { grid-template-columns: minmax(0, 7fr); }
+.story-year { display: block; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lilac-deep, #7a5ea8); margin-bottom: 8px; }
+.story-text h3 { font-family: var(--font-display); font-size: 1.7rem; font-weight: 400; margin: 0 0 12px; line-height: 1.2; }
+.story-text p { margin: 0; max-width: 46ch; }
+.story-photos { display: grid; gap: 16px; }
+.story-photos--2 { grid-template-columns: 1fr 1fr; }
+.story-photos--3 { grid-template-columns: 1fr 1fr; }
+.story-photos--3 .ph--wide { grid-column: 1 / -1; }
+.story-photos .ph { margin: 0; }
+.story-photos--1 .ph--portrait { max-width: 380px; }
+.story-photos .ph--landscape img[alt^="Floor plan"] { object-fit: contain; background: #fff; }
+@media (max-width: 760px) {
+  .story { padding-left: 20px; gap: 48px; }
+  .story-item { grid-template-columns: 1fr; gap: 20px; }
+  .story-item::before { left: -26px; }
+  .story-photos--1 .ph--portrait { max-width: none; }
+}

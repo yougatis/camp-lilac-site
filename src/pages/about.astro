@@ -1,6 +1,18 @@
 ---
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
+import Photo from '../components/Photo.astro';
+
+const story = [
+  { year: '2022', title: 'Madagascar was closed. Tanzania wasn’t.', text: 'A group of us — about 40 friends — had planned a trip to Madagascar, but COVID restrictions shut it. We came to Tanzania instead. The plan was Zanzibar, but we wanted a real safari on the mainland first. It was organised by Isaya Kihindo, who was just starting his own safari company. He did an amazing job.', photos: [{ src: '/images/story/story-isaya-1600.jpg', alt: 'Isaya Kihindo relaxing in a camp chair in the bush', caption: 'Isaya Kihindo', ratio: 'portrait' }] },
+  { year: '2022', title: 'A conversation at a party', text: 'After the three-day safari we went on to Zanzibar, and Isaya came to visit. We were in the middle of a party, a few drinks in, and I ended up asking him about investing in Tanzania. I had a very good feeling about him: genuine and trustworthy. So I invested a small amount, and we bought a car for his safaris.', photos: [] },
+  { year: '2022–2024', title: 'One car, then four', text: 'The partnership worked. Isaya earned back the investment within a year, so we bought another car — and another. By 2024 there were four, and his company, Kihindo Safaris, had grown into one of the leading safari operators on the Southern Circuit.', photos: [{ src: '/images/story/story-road-1600.jpg', alt: 'Gatis and Isaya on the road in Tanzania', caption: 'On the road, 2024', ratio: 'portrait' }, { src: '/images/story/story-flight-1600.jpg', alt: 'Gatis and Isaya on a flight together', caption: 'Travelling together, 2024', ratio: 'portrait' }] },
+  { year: '2024', title: 'The land', text: 'Kihindo Safaris was bringing more and more guests to Mikumi, and there was nowhere quiet and special for them to stay. So we bought land — two kilometres off the highway, in the bush, facing the Mikumi Mountains — to host them ourselves. Looking back, it feels a bit like fate.', photos: [{ src: '/images/story/story-plan-1600.jpg', alt: 'Floor plan sketch of a Camp Lilac cabin', caption: 'First cabin plan', ratio: 'landscape' }] },
+  { year: 'January 2025', title: 'Building starts', text: 'We broke ground in January 2025 with a local crew, building everything on raised timber decks so the camp sits in the bush rather than replacing it. Thatch for the roofs, wood for the frames, and as few trees cut as possible.', photos: [{ src: '/images/story/story-frame-1600.jpg', alt: 'Timber frame of a Camp Lilac cabin rising on stilts in the bush', caption: 'The first frame, Jan 2025', ratio: 'portrait' }, { src: '/images/story/story-crew-1600.jpg', alt: 'The Camp Lilac build crew in work uniforms', caption: 'The build crew', ratio: 'portrait' }] },
+  { year: '2025', title: 'Roofs, decks and a restaurant', text: 'The cabins took shape on their stilts, the restaurant got its thatched roof, and the decks were turned to face the mountains.', photos: [{ src: '/images/story/story-cabin-frame-1600.jpg', alt: 'Thatched cabin frame on stilts at sunset', caption: 'A cabin at sunset', ratio: 'wide' }, { src: '/images/story/story-thatch-1600.jpg', alt: 'The Camp Lilac restaurant roof being thatched', caption: 'Thatching the restaurant', ratio: 'landscape' }, { src: '/images/story/story-cabin-1600.jpg', alt: 'A Camp Lilac cabin almost finished, with timber stairs and deck', caption: 'Almost there, April 2025', ratio: 'portrait' }] },
+  { year: 'August 2025', title: 'Open for guests', text: 'Camp Lilac opened in August 2025. Our safaris are organised together with Kihindo Safaris — the company where this whole story began.', photos: [] },
+  { year: '2026', title: 'Growing, carefully', text: 'In 2026 we added the Luxury Mountain View Tents, still built into the bush on raised decks. And the team that makes the place what it is keeps growing too.', photos: [{ src: '/images/story/story-tent-1600.jpg', alt: 'A new Luxury Mountain View Tent on its raised deck at Camp Lilac', caption: 'A new Mountain View Tent', ratio: 'portrait' }, { src: '/images/story/story-team-1600.jpg', alt: 'The Camp Lilac team in the restaurant', caption: 'Our team', ratio: 'portrait' }] },
+];
 
 const title = 'About Camp Lilac – A Quiet Luxury Camp Near Mikumi National Park';
 const description =
@@ -14,9 +26,6 @@ const description =
   </div>
   <div class="wrap split--aside" style="display:grid">
     <article class="article">
-      <h2>How it started</h2>
-      <p>Camp Lilac’s roots go back to 2022, when I met Isaiah. He came across as genuine and trustworthy, so I decided to invest in him, and slowly we started doing business together. Three years later we bought a piece of land near Mikumi National Park and built a safari camp on it. We opened in August 2025.</p>
-
       <h2>The quiet side of Mikumi</h2>
       <p>Most accommodation in Mikumi is in town, along the highway — a busy road with trucks and traffic day and night. We wanted the opposite. Camp Lilac is about 2 km from the road, in the bush, in a secluded and safe spot where we found the most incredible view of the Mikumi Mountains. Honestly, we were very lucky to find this place. It all came together.</p>
 
@@ -33,7 +42,7 @@ const description =
       <ul>
         <li><strong>Quiet.</strong> At night you hear the bush, not the highway.</li>
         <li><strong>Comfort that fits the bush.</strong> Luxury canvas tents, decks and the view — with A/C and hot showers.</li>
-        <li><strong>Our own guides.</strong> No hand-offs to outside operators.</li>
+        <li><strong>Safaris with people we trust.</strong> Organised with Kihindo Safaris, our partner from the very start.</li>
         <li><strong>Our people.</strong> Fair pay, training and care for the team.</li>
         <li><strong>Honest pricing.</strong> Breakfast and dinner included, children under 4 free, park fees included in every safari.</li>
       </ul>
@@ -45,5 +54,27 @@ const description =
       <a class="btn" href="/contact">Contact us</a>
     </aside>
   </div>
+  <section class="section section--sand">
+    <div class="wrap">
+      <p class="label rv">Our story</p>
+      <h2 class="rv rv-d1" style="margin-bottom:56px">From a cancelled trip <em>to a camp in the bush</em></h2>
+      <ol class="story">
+        {story.map((s, i) => (
+          <li class={`story-item rv ${s.photos.length ? '' : 'story-item--text'}`}>
+            <div class="story-text">
+              <span class="story-year">{s.year}</span>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </div>
+            {s.photos.length > 0 && (
+              <div class={`story-photos story-photos--${s.photos.length}`}>
+                {s.photos.map((ph) => <Photo src={ph.src} alt={ph.alt} caption={ph.caption} ratio={ph.ratio as any} sizes="(max-width: 760px) 100vw, 33vw" />)}
+              </div>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
   <CtaBand />
 </Base>
