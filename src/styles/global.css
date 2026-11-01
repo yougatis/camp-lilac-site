@@ -449,8 +449,9 @@ a .ph:hover img, .ph.zoom:hover img { transform: scale(1.04); }
 .hero:not(.hero--inner) .hero-content { padding-bottom: 20px; grid-template-columns: 1fr; }
 .hero--inner .hero-content { grid-template-columns: 1fr auto; align-items: end; padding-bottom: clamp(32px, 5vw, 64px); }
 @media (max-width: 900px) {
-  .hero:not(.hero--inner) { --hero-h: max(62svh, 440px); display: flex; flex-direction: column; background: var(--paper); min-height: 0; }
-  .hero:not(.hero--inner) .hero-media { position: relative; height: var(--hero-h); order: 0; }
+  .hero:not(.hero--inner) { --hero-h: max(62svh, 440px); display: flex; flex-direction: column; align-items: stretch; width: 100%; background: var(--paper); min-height: 0; }
+  .hero:not(.hero--inner) .hero-media { position: relative; width: 100%; height: var(--hero-h); order: 0; overflow: hidden; }
+  .hero:not(.hero--inner) .hero-media img { width: 100%; height: 100%; display: block; }
   .hero:not(.hero--inner) .hero-media img { object-position: 50% 48%; }
   .hero:not(.hero--inner)::after { height: var(--hero-h); bottom: auto; background: linear-gradient(to top, rgba(16, 38, 58, 0.92) 0%, rgba(16, 38, 58, 0.5) 45%, rgba(16, 38, 58, 0.15) 70%, rgba(16, 38, 58, 0.3) 100%); }
   .hero:not(.hero--inner) .hero-content { position: absolute; top: 0; left: 0; right: 0; height: var(--hero-h); display: flex; flex-direction: column; justify-content: flex-end; padding-top: 0; padding-bottom: 84px; }
