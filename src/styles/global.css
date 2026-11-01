@@ -504,3 +504,8 @@ a .ph:hover img, .ph.zoom:hover img { transform: scale(1.04); }
   .story-item::before { left: -26px; }
   .story-photos--1 .ph--portrait { max-width: none; }
 }
+
+/* Wildlife gallery */
+.wild-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.wild-grid .ph { margin: 0; aspect-ratio: 4 / 3; }
+@media (max-width: 760px) { .wild-grid { grid-template-columns: 1fr 1fr; gap: 10px; } }

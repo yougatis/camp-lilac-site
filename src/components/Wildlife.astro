@@ -1,0 +1,35 @@
+---
+import Photo from './Photo.astro';
+interface Props { pick?: string[]; title?: string; label?: string }
+const all: Record<string, string> = {
+  'lion-pride': 'A pride of lions asleep in the grass in Mikumi National Park',
+  'elephant': 'An African elephant among the trees in Mikumi National Park',
+  'giraffe-sunset': 'A giraffe crossing the plains at sunset in Mikumi',
+  'zebras-impala': 'Plains zebras and an impala in the green season in Mikumi',
+  'elephants-road': 'Elephants walking down a dirt track in Mikumi National Park',
+  'giraffe-portraits': 'Two Maasai giraffes looking at the camera in Mikumi',
+  'hippo-calf': 'A hippo calf resting on its mother in a Mikumi hippo pool',
+  'lioness': 'Portrait of a lioness in Mikumi National Park',
+  'zebra-herd': 'A close group of plains zebras in Mikumi',
+  'buffalo': 'A Cape buffalo in the dry woodland of Mikumi',
+  'impala': 'A male impala in the long grass of Mikumi',
+  'lion': 'A lion asleep in the grass, close up, in Mikumi',
+  'giraffes-impala': 'Giraffes and impala together on the Mikumi plains',
+  'elephant-herd': 'A herd of elephants marching across the Mikumi floodplain',
+  'giraffes-evening': 'Giraffes in evening light in Mikumi National Park',
+  'zebras-grazing': 'Plains zebras grazing in Mikumi',
+};
+const { pick = ['lion-pride', 'elephant', 'giraffe-sunset', 'zebras-impala'], title, label } = Astro.props;
+---
+<section class="section section--tight">
+  <div class="wrap">
+    {label && <p class="label rv">{label}</p>}
+    {title && <h2 class="rv rv-d1" style="margin-bottom:32px">{title}</h2>}
+    <div class="wild-grid">
+      {pick.map((k, i) => (
+        <div class={`rv rv-d${i % 4}`}><Photo src={`/images/wild/${k}-1600.jpg`} alt={all[k]} ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
+      ))}
+    </div>
+    <p class="meta" style="margin-top:14px;font-size:0.75rem">Wildlife photos taken in Mikumi National Park · <a href="/mikumi-national-park#photo-credits">Photo credits</a></p>
+  </div>
+</section>

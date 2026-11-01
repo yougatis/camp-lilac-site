@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
+import Wildlife from '../components/Wildlife.astro';
+import credits from '../data/photo-credits.json';
 import { site } from '../data/site';
 
 const title = 'Mikumi National Park Guide 2026: Animals, Fees, Best Time | Camp Lilac';
@@ -34,15 +36,18 @@ const schema = [
 ];
 ---
 
-<Base {title} {description} {schema} ogType="article" breadcrumbs={[{ name: 'Mikumi National Park guide', href: '/mikumi-national-park' }]}>
-  <div class="wrap page-head">
-    <p class="crumbs"><a href="/">Home</a> / Mikumi National Park guide</p>
-    <h1>Mikumi National Park: the complete visitor guide</h1>
-    <p class="lead">
-      Written by the team at Camp Lilac, who live next to the park. Updated for the 2026 season.
-    </p>
-  </div>
-
+<Base {title} {description} {schema} ogType="article" breadcrumbs={[{ name: 'Mikumi National Park guide', href: '/mikumi-national-park' }]} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src="/images/wild/giraffe-sunset-1600.webp" srcset="/images/wild/giraffe-sunset-800.webp 800w, /images/wild/giraffe-sunset-1600.webp 1600w" sizes="100vw" alt="A giraffe crossing the plains at sunset in Mikumi National Park" width="1600" height="1067" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <p class="label">Visitor guide</p>
+        <h1><span class="w"><span>Mikumi National Park:&nbsp;</span></span><span class="w"><em style="color:#e4d9f7">the complete guide</em></span></h1>
+        <p class="lead">Written by the team at Camp Lilac, who live next to the park. Updated for the 2026 season.</p>
+      </div>
+      <div class="hero-side"><b>3,230 km²</b>4 of the Big Five<br />minutes from the camp</div>
+    </div>
+  </section>
   <div class="wrap split--aside" style="display:grid">
     <article class="article">
       <p>
@@ -172,5 +177,14 @@ const schema = [
     </aside>
   </div>
 
+  <Wildlife label="Wildlife" title="Mikumi in pictures" pick={['lion-pride','elephant','giraffe-portraits','hippo-calf','zebras-impala','lioness','elephant-herd','buffalo','impala']} />
+  <section class="section section--tight" id="photo-credits">
+    <div class="wrap">
+      <h3>Photo credits</h3>
+      <p class="meta" style="font-size:0.8rem;line-height:1.7">Wildlife photos from Wikimedia Commons, used under Creative Commons licences:
+        {credits.map((c, i) => <span>{i > 0 && ' · '}{c.title.replace(/\.jpe?g$/i, '')} — {c.artist} ({c.license})</span>)}.
+        Licences: <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA</a>.</p>
+    </div>
+  </section>
   <CtaBand title="See Mikumi from the quiet side" />
 </Base>

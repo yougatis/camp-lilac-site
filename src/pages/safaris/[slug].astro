@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import Price from '../../components/Price.astro';
 import Photo from '../../components/Photo.astro';
+import Wildlife from '../../components/Wildlife.astro';
 import { safaris, byRoadNote } from '../../data/safaris';
 import { site } from '../../data/site';
 
@@ -99,6 +100,8 @@ const schema = {
       </aside>
     </div>
   </section>
+
+  <Wildlife label="On your game drives" title="What lives in Mikumi" pick={safari.days === 1 ? ['elephant','giraffe-sunset','zebras-impala'] : safari.days === 2 ? ['lion','giraffes-evening','buffalo'] : safari.days === 3 ? ['lion-pride','giraffe-portraits','hippo-calf'] : ['elephant-herd','lioness','zebras-grazing']} />
 
   <section class="section section--sand">
     <div class="wrap">
