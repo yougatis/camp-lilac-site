@@ -1,7 +1,7 @@
 // One page per ROOM TYPE (not per physical unit) — Google treats near-identical pages
 // as duplicates, so "Luxury Family Tent" is one strong page covering Family Tents 1–3.
 // units = how many physical units of that type exist.
-// price = USD per night, breakfast included. null = "rates on request" until you set it.
+// price = USD per night, full board (all meals) when booked direct. null = "rates on request" until you set it.
 // images = /images/rooms/<name>-N-1600.jpg (a -900 version of each also exists).
 
 export type Room = {
@@ -44,21 +44,50 @@ export const rooms: Room[] = [
     description: [
       'The Mountain View Cabin is the most luxurious accommodation in Mikumi and the wider Morogoro region, in a one-of-a-kind position with uninterrupted views of the mountain range. You wake up to the hills and end the day watching the sunset from the deck or from the bath.',
       'Natural wood details and wide windows bring the landscape inside. There is a plush king four-poster under the thatched roof, modern air conditioning, and a beautifully designed bathroom with a freestanding bathtub set against a window onto the bush. From the deck you watch impala, warthog and monkeys wander past — a safari experience without leaving the cabin.',
-      'Wilderness, exclusivity and indulgence in one place: for couples who want the comfort of a lodge with the setting of a safari camp. Breakfast is included; lunch and dinner are served in our restaurant, which shares the same ridge view.',
+      'Wilderness, exclusivity and indulgence in one place: for couples who want the comfort of a lodge with the setting of a safari camp. Booked direct, the rate is full board — breakfast, lunch and dinner in our restaurant are included (drinks extra), which shares the same ridge view.',
     ],
     highlights: [
       'Faces the Mikumi mountain ridge',
       'Wide private deck for sunsets',
       'Freestanding bathtub with a view',
       'King four-poster, air conditioning, private bathroom',
-      'Breakfast included',
+      'Full board — breakfast, lunch and dinner included',
     ],
     keywords: 'luxury cabin Mikumi with mountain view',
   },
   {
+    slug: 'luxury-mountain-view-tent',
+    name: 'Luxury Mountain View Tent',
+    numeral: 'ii',
+    units: 2,
+    price: 150,
+    sleeps: '2 adults',
+    bed: 'King four-poster (or twin on request)',
+    view: 'mountain',
+    tier: 'tent',
+    images: img('mv-tent', 11),
+    imageAlt: 'Luxury Mountain View Tent at Camp Lilac facing the Mikumi mountain ridge',
+    caption: 'Facing the Mikumi mountain ridge',
+    summary:
+      'Our newest tents: the same luxury canvas tent as the Luxury Jungle Tents, turned to face the Mikumi mountain ridge — with the best sunset in Mikumi from your own deck.',
+    description: [
+      'The Luxury Mountain View Tents opened in late 2026. They combine the authentic tented experience of the Luxury Jungle Tents with the Mikumi mountain ridge view of the Mountain View Cabin.',
+      'Each tent sits on a raised hardwood deck facing the mountains, with a four-poster bed, a full private bathroom, air conditioning and very comfortable beds. In the evening the Mikumi mountain ridge turns gold and then lilac — the view the camp is named after.',
+      'Ideal for couples who want the safari feeling of a tent and the scenery of the mountains.',
+    ],
+    highlights: [
+      'Faces the Mikumi mountain ridge',
+      'Luxury canvas tent on a raised deck',
+      'Private bathroom and air conditioning',
+      'Opened late 2026',
+      'Full board — breakfast, lunch and dinner included',
+    ],
+    keywords: 'tented camp Mikumi mountain view',
+  },
+  {
     slug: 'jungle-cabin',
     name: 'Jungle Cabin',
-    numeral: 'ii',
+    numeral: 'iii',
     units: 1,
     price: 160,
     sleeps: '2 adults',
@@ -80,14 +109,14 @@ export const rooms: Room[] = [
       'Wraparound deck with table and chairs',
       'Marble bathroom with rain shower',
       'King four-poster, air conditioning',
-      'Breakfast included',
+      'Full board — breakfast, lunch and dinner included',
     ],
     keywords: 'private cabin near Mikumi National Park',
   },
   {
     slug: 'luxury-jungle-tent',
     name: 'Luxury Jungle Tent',
-    numeral: 'iii',
+    numeral: 'iv',
     units: 3,
     price: 140,
     sleeps: '2 adults',
@@ -98,49 +127,20 @@ export const rooms: Room[] = [
     imageAlt: 'Luxury safari tent at Camp Lilac on a raised wooden deck under the trees near Mikumi National Park',
     caption: 'Tent two, late morning',
     summary:
-      'The classic safari stay: a canvas tent on a raised hardwood deck, with a four-poster bed, private bathroom, air conditioning and wildlife walking past the steps.',
+      'The classic safari stay: a luxury canvas tent on a raised hardwood deck, with a four-poster bed, private bathroom, air conditioning and wildlife walking past the steps.',
     description: [
       'The Luxury Jungle Tents are what Camp Lilac is known for — spacious canvas safari tents on elevated polished wooden decks, with the comforts most tented camps in Mikumi do not offer: an private bathroom with a walk-in rain shower, air conditioning and the softest beds in the region.',
       'Each tent has a plush king-sized bed under a mosquito net, large mesh windows for the natural breeze, smooth timber floors and warm ambient lighting — rustic and elegant at once. The private veranda has handcrafted chairs facing the bush; impala, warthog and monkeys regularly pass right by, and at night the only sound is the wildlife.',
       'If you want the real safari feeling without giving up a good night’s sleep, this is the tent to book.',
     ],
     highlights: [
-      'Canvas safari tent on a raised deck',
+      'Luxury canvas safari tent on a raised deck',
       'Private bathroom and air conditioning',
       'Plush king bed under a mosquito net, mesh windows',
       'Private deck — wildlife passes right by',
-      'Breakfast included',
+      'Full board — breakfast, lunch and dinner included',
     ],
     keywords: 'luxury safari tent Mikumi',
-  },
-  {
-    slug: 'luxury-mountain-view-tent',
-    name: 'Luxury Mountain View Tent',
-    numeral: 'iv',
-    units: 2,
-    price: 150,
-    sleeps: '2 adults',
-    bed: 'King four-poster (or twin on request)',
-    view: 'mountain',
-    tier: 'tent',
-    images: img('mv-tent', 11),
-    imageAlt: 'Luxury Mountain View Tent at Camp Lilac facing the Mikumi mountain ridge',
-    caption: 'Facing the Mikumi mountain ridge',
-    summary:
-      'Our newest tents: the same luxury canvas tent as the Jungle Tents, turned to face the Mikumi mountain ridge — with the best sunset in Mikumi from your own deck.',
-    description: [
-      'The Luxury Mountain View Tents opened in late 2026. They combine the authentic tented experience of the Jungle Tents with the Mikumi mountain ridge view of the Mountain View Cabin.',
-      'Each tent sits on a raised hardwood deck facing the mountains, with a four-poster bed, a full private bathroom, air conditioning and very comfortable beds. In the evening the Mikumi mountain ridge turns gold and then lilac — the view the camp is named after.',
-      'Ideal for couples who want the safari feeling of a tent and the scenery of the mountains.',
-    ],
-    highlights: [
-      'Faces the Mikumi mountain ridge',
-      'Canvas tent on a raised deck',
-      'Private bathroom and air conditioning',
-      'Opened late 2026',
-      'Breakfast included',
-    ],
-    keywords: 'tented camp Mikumi mountain view',
   },
   {
     slug: 'luxury-family-tent',
@@ -160,7 +160,7 @@ export const rooms: Room[] = [
     description: [
       'The Luxury Family Tents are built for parents who want their children to experience a real safari camp without compromising on comfort. Each tent sleeps up to four, with a double bed and two single beds in one spacious canvas tent on a raised deck.',
       'There is a full private bathroom, air conditioning and a private deck where the kids can spot impala and monkeys before breakfast. The camp is quiet and set away from the highway, so children sleep well.',
-      'Children aged 0–3 stay free. Ages 4–11 pay half the adult rate, and from 12 they are priced as adults. Breakfast is included; lunch and dinner are charged per meal. Our guides are used to families on game drives and adjust the pace for younger travellers.',
+      'Children aged 0–3 stay free. Ages 4–11 pay half the adult rate, and from 12 they are priced as adults. Booked direct, all meals are included (drinks extra). Our guides are used to families on game drives and adjust the pace for younger travellers.',
     ],
     highlights: [
       'Sleeps up to 4 — one family in one tent',

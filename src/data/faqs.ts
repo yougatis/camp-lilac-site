@@ -11,8 +11,8 @@ export const faqs: Faq[] = [
     a: 'By road it is about 300 km (5–6 hours). The quickest comfortable option is the SGR train from Dar es Salaam to Morogoro (about 1.5 hours), then a 2-hour road transfer — 3.5 hours door to door, which we provide. Book a safari of two or more days with us and the Morogoro–Mikumi transfer is free; with three or more days we also cover your train tickets from Dar es Salaam.',
   },
   {
-    q: 'Is breakfast included?',
-    a: 'Yes. Every room and tent rate includes breakfast. Lunch and dinner are served in our restaurant and charged per meal.',
+    q: 'Are meals included?',
+    a: 'Yes. When you book directly with us, every room and tent rate is full board: breakfast, lunch and dinner in our restaurant. Drinks are charged separately.',
   },
   {
     q: 'Do the tents have bathrooms and air conditioning?',
@@ -20,7 +20,7 @@ export const faqs: Faq[] = [
   },
   {
     q: 'Do children stay free?',
-    a: 'Children aged 0–3 stay free. Ages 4–11 pay 50% of the adult rate. From 12 upwards children are priced as adults. Breakfast is included for everyone; lunch and dinner are charged per meal. Tell us the ages when you book and we will quote exactly.',
+    a: 'Children aged 0–3 stay free. Ages 4–11 pay 50% of the adult rate. From 12 upwards children are priced as adults. Meals are included for everyone when you book direct. Tell us the ages when you book and we will quote exactly.',
   },
   {
     q: 'What are the check-in and check-out times?',
@@ -44,7 +44,7 @@ export const faqs: Faq[] = [
   },
   {
     q: 'Do you accept card payments?',
-    a: 'Yes, we accept cash and cards at the camp. Online payment for bookings is coming soon.',
+    a: 'Yes, we accept cash and cards at the camp. Once we confirm availability, a deposit secures your booking — online deposit payment is coming soon.',
   },
   {
     q: 'Can I bring my dog?',

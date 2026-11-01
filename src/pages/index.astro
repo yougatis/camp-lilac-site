@@ -15,7 +15,7 @@ const description =
   'Mikumi\'s only luxury tented camp: Serengeti-level tents and cabins with private bathrooms, A/C and the only view of the Mikumi mountain ridge. 3.5 h from Dar by train. Stays and safaris from US$140.';
 
 const tileImage: Record<string, string> = {};
-const featured = ['mountain-view-cabin', 'luxury-jungle-tent', 'jungle-cabin'].map((s) => rooms.find((r) => r.slug === s)!);
+const featured = ['mountain-view-cabin', 'luxury-mountain-view-tent', 'jungle-cabin'].map((s) => rooms.find((r) => r.slug === s)!);
 const by = (slug: string) => safaris.find((s) => s.slug === slug)!;
 const s2 = by('2-day-mikumi-safari'), s3 = by('3-day-mikumi-safari'), s4 = by('4-day-mikumi-udzungwa-safari');
 const minRoom = Math.min(...rooms.map((r) => r.price ?? Infinity));
@@ -56,7 +56,7 @@ const words = (s: string) => s.split(' ');
         <label>Check-out <input type="date" name="checkout" required /></label>
         <label>Guests <select name="adults"><option value="2">2 adults</option><option value="1">1 adult</option><option value="3">3 adults</option><option value="4">4 adults</option><option value="5">5+ adults</option></select></label>
         <button class="btn btn--fill" type="submit">Get a free quote</button>
-        <small>No payment now. We reply {site.replyTime} with availability and the total price.</small>
+        <small>Nothing to pay yet. We reply {site.replyTime} with availability and the total price; a deposit then secures your room.</small>
       </form>
     </div>
   </section>
@@ -72,7 +72,7 @@ const words = (s: string) => s.split(' ');
           <span class="label">From Dar es Salaam</span>
           <h3>Weekend in the wild by SGR train</h3>
           <p class="from">From US${s2.price}<small>per person</small></p>
-          <p>Leave Dar on the morning train, game drive the same afternoon, sleep in a luxury tent, dawn drive, home by evening. Free Morogoro transfer.</p>
+          <p>Leave Dar on the morning train, game drive the same afternoon, sleep in a luxury tent, dawn drive, home by evening. Free transfer from Morogoro to Mikumi.</p>
           <div class="actions"><a class="btn" href={`/safaris/${s2.slug}`}>2-day safari</a><a class="link" href={site.whatsapp} rel="noopener">WhatsApp</a></div>
         </div>
         <div class="aud rv rv-d1">
@@ -86,7 +86,7 @@ const words = (s: string) => s.split(' ');
           <span class="label">Southern circuit</span>
           <h3>Mikumi, Udzungwa waterfalls and the quiet south</h3>
           <p class="from">From US${s3.price}<small>per person</small></p>
-          <p>Three or four days: the Mikumi floodplain, the hippo pools, the Sanje waterfall hike — with free train tickets from Dar when you book direct.</p>
+          <p>Three or four days: the Mikumi floodplain, the hippo pools, the Sanje waterfall hike — with a free train ticket from Dar and transfer to the camp when you book direct.</p>
           <div class="actions"><a class="btn" href={`/safaris/${s4.slug}`}>3–4 day safaris</a><a class="link" href={site.whatsapp} rel="noopener">WhatsApp</a></div>
         </div>
       </div>
@@ -97,8 +97,8 @@ const words = (s: string) => s.split(' ');
     <div class="wrap split">
       <div>
         <h2 class="rv">Most of Mikumi sleeps by the highway. <em>We don’t.</em></h2>
-        <p class="lead rv rv-d1">Camp Lilac is set back in the bush, facing the Mikumi mountain ridge. Canvas tents with private bathrooms, with air conditioning and private decks, a restaurant that looks straight at the mountains, and nothing to hear at night but the bush itself.</p>
-        <p class="rv rv-d2">We are the only camp with a view of the Mikumi mountain ridge, and the only one offering true luxury tented rooms. Impala, warthog and monkeys wander through the camp. Our own guides run the game drives, and we arrange your transfers from Morogoro SGR station or Dar es Salaam.</p>
+        <p class="lead rv rv-d1">Camp Lilac is set back in the bush, facing the Mikumi mountain ridge. Luxury canvas tents built to the same standard as the Serengeti’s best camps — private bathrooms, air conditioning and private decks — a restaurant that looks straight at the mountains, and nothing to hear at night but the bush itself.</p>
+        <p class="rv rv-d2">We are Mikumi’s only luxury tented camp, and the only camp with a view of the Mikumi mountain ridge. Impala, warthog and monkeys wander through the camp. Our own guides run the game drives, and we arrange your transfers from Morogoro SGR station or Dar es Salaam.</p>
         <a class="link rv rv-d3" href="/about">The camp</a>
       </div>
       <div class="rv rv-d1">
@@ -110,7 +110,7 @@ const words = (s: string) => s.split(' ');
   <section class="section">
     <div class="wrap">
       <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:48px;flex-wrap:wrap">
-        <div><h2 class="rv" style="margin:0 0 6px">Tents &amp; cabins</h2><p class="rv rv-d1" style="margin:0">From US${minRoom} per night, breakfast included. <a class="link" href="/rates" style="margin-left:10px">Rates &amp; seasons</a></p></div>
+        <div><h2 class="rv" style="margin:0 0 6px">Tents &amp; cabins</h2><p class="rv rv-d1" style="margin:0">From US${minRoom} per night, all meals included. <a class="link" href="/rates" style="margin-left:10px">Rates &amp; seasons</a></p></div>
         <a class="link rv rv-d1" href="/rooms">All five room types</a>
       </div>
       <div class="tiles">
@@ -129,7 +129,7 @@ const words = (s: string) => s.split(' ');
     <div class="wrap">
       <div class="split" style="align-items:end;margin-bottom:56px">
         <h2 class="rv">Safaris in Mikumi, with <em>our own</em> guides</h2>
-        <p class="lead rv rv-d1">Elephants, lions, giraffe and the great herds of the Mkata floodplain — minutes from the camp gate. Park fees, private jeep, guide and meals included in every package.</p>
+        <p class="lead rv rv-d1">Elephants, lions, giraffes, hippos and the great herds of the Mkata floodplain — minutes from the camp gate. Park fees, private jeep, guide and meals included in every package.</p>
       </div>
       <div class="tiles tiles--3">
         {[s2, s3, s4].map((s, i) => (
@@ -171,7 +171,7 @@ const words = (s: string) => s.split(' ');
       <div class="ph rv"><div class="placeholder" style="position:absolute;inset:0">Photo of Gatis<br />coming soon</div></div>
       <div>
         <p class="label rv" style="color:var(--lilac-deep)">Owner-run</p>
-        <h2 class="rv rv-d1">Built by someone who actually sleeps here</h2>
+        <h2 class="rv rv-d1">Run by the owner, not a hotel chain</h2>
         <p class="lead rv rv-d2">I’m Gatis. I built Camp Lilac because Mikumi deserved one place where the tents are as good as the park. Message me or the team on WhatsApp — we reply {site.replyTime}, and we will tell you honestly which room and which safari fit your trip.</p>
         <div class="btn-row rv rv-d3"><a class="btn btn--fill" href={site.whatsapp} rel="noopener">WhatsApp us</a><a class="btn" href="/book">Request a quote</a></div>
       </div>
@@ -185,7 +185,7 @@ const words = (s: string) => s.split(' ');
       </div>
       <div>
         <h2 class="rv">Every meal facing <em>the Mikumi mountain ridge</em></h2>
-        <p class="rv rv-d1">Breakfast, lunch and dinner are all served in our open-sided restaurant, the one dining room in Mikumi with a mountain view. Breakfast is included; lunch and dinner are cooked fresh — Tanzanian and international dishes — and the bar deck is where everyone ends up at sunset.</p>
+        <p class="rv rv-d1">Breakfast, lunch and dinner are all served in our open-sided restaurant, the one dining room in Mikumi with a mountain view. When you book direct, breakfast, lunch and dinner are all included — cooked fresh, Tanzanian and international dishes — and the bar deck is where everyone ends up at sunset.</p>
         <a class="link rv rv-d2" href="/restaurant">The restaurant &amp; bar</a>
       </div>
     </div>

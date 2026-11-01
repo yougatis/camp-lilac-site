@@ -6,7 +6,7 @@ import { site } from '../data/site';
 
 const title = 'Book a Stay or Safari at Camp Lilac, Mikumi';
 const description =
-  'Request availability for luxury tents and cabins at Camp Lilac plus a Mikumi safari. Same-day reply with rates. Free SGR station pickup with a 2+ day safari.';
+  'Request availability for luxury tents and cabins at Camp Lilac plus a Mikumi safari. Same-day reply with rates. Free one-way SGR station transfer with a 2-day safari.';
 
 // Where the form sends its data. Leave empty to fall back to a pre-filled WhatsApp message.
 // Recommended: a Make.com "Custom webhook" URL that emails you + logs to Google Sheets.
@@ -18,7 +18,7 @@ const FORM_ENDPOINT = '';
     <p class="crumbs"><a href="/">Home</a> / Book</p>
     <h1>Request a booking</h1>
     <p class="lead">
-      No payment now. Tell us your dates and we reply {site.replyTime} with availability, one total price and a safari suggestion.
+      Nothing to pay yet. Tell us your dates and we reply {site.replyTime} with availability, one total price and a safari suggestion. A deposit then secures your room.
       Direct bookings get the free station pickup and train-ticket offers.
     </p>
   </div>
@@ -75,8 +75,8 @@ const FORM_ENDPOINT = '';
       <p><a href={site.whatsapp}>WhatsApp {site.phoneDisplay}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
       <h3>Direct-booking offers</h3>
       <ul>
-        <li>2+ day safari: free Morogoro SGR transfer</li>
-        <li>3+ day safari: plus free train tickets from Dar es Salaam</li>
+        <li>2-day safari: free transfer Morogoro SGR → Mikumi (one way)</li>
+        <li>3+ day safari: free train ticket Dar → Morogoro + transfer (one way)</li>
         <li>Children under 4 stay free, 4–11 half price</li>
       </ul>
     </aside>

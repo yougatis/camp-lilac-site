@@ -3,8 +3,8 @@
 interface Props { compact?: boolean }
 const { compact = false } = Astro.props;
 const offers = [
-  { title: 'Free Morogoro–Mikumi transfer', text: 'Book a safari of 2 days or more with us and we collect you from Morogoro SGR station and bring you back — free.' },
-  { title: 'Free train tickets from Dar es Salaam', text: 'Book a safari of 3 days or more and we also cover your SGR train tickets from Dar es Salaam to Morogoro, plus the transfer.' },
+  { title: '2-day safari: free transfer to Mikumi', text: 'Book a 2-day safari with us and we pick you up at Morogoro SGR station and drive you to Mikumi for free. One way — the return transfer to Morogoro is charged.' },
+  { title: '3+ day safari: free train ticket and transfer', text: 'Book a safari of 3 days or more and we pay your SGR train ticket from Dar es Salaam to Morogoro and the transfer on to Mikumi. One way — the return journey is charged.' },
 ];
 ---
 <section class={`section ${compact ? 'section--tight' : ''} section--sand`}>
