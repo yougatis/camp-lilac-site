@@ -2,7 +2,7 @@
 title: "Dar es Salaam to Mikumi by SGR train: the easiest safari in Tanzania"
 description: "Step-by-step guide to reaching Mikumi National Park from Dar es Salaam by SGR train: tickets, timings, the Morogoro transfer, costs, and how to make it a 2-day safari."
 pubDate: 2026-10-28
-cover: /images/rooms/mv-cabin-6-1600.jpg
+cover: /images/rooms/mv-cabin-3-1600.jpg
 coverAlt: "Camp Lilac cabin deck at sunrise, the reward at the end of the train journey"
 tags: ["getting there", "SGR train", "Dar es Salaam"]
 ---

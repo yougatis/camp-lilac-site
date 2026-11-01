@@ -53,7 +53,7 @@ export const safaris: Safari[] = [
       { name: 'From Morogoro or the camp', text: 'Pickup from your hotel in Morogoro, the SGR station or Camp Lilac. Full day in the park, back by evening.', price: 'from US$214 per person' },
       { name: 'From Dar es Salaam by SGR train — same day', text: 'Early SGR train from Dar es Salaam to Morogoro (1.5 hours), our driver on the platform, a full day in Mikumi, and the evening train back. Long day, no overnight needed.', price: 'from US$230 per person' },
     ],
-    image: '/images/rooms/jungle-tent-7-1600.jpg',
+    image: '/images/rooms/jungle-tent-3-1600.jpg',
     imageAlt: 'Luxury safari tent at Camp Lilac under a blue Mikumi sky',
     summary:
       'A full day in Mikumi National Park in a private open jeep with our own guide: morning game drive, hot bush lunch, afternoon drive until 16:30. From Morogoro, from the camp, or as a same-day trip from Dar es Salaam by SGR train.',
@@ -120,7 +120,7 @@ export const safaris: Safari[] = [
       { name: 'Classic', text: 'Two full days of game drives, two nights at Camp Lilac.' },
       { name: 'With a cultural visit', text: 'Swap part of day 2 for a visit to a Maasai boma or a nearby village with your guide. Same price — just tell us when you book.' },
     ],
-    image: '/images/rooms/jungle-tent-8-1600.jpg',
+    image: '/images/rooms/jungle-tent-2-1600.jpg',
     imageAlt: 'Private deck chairs at a Camp Lilac tent, looking into the Mikumi bush',
     summary:
       'Three days, two nights: SGR train from Dar es Salaam, a sunset game drive on arrival, a full day on the Mikumi floodplain, and a last drive through the park on the way home. Two nights in a luxury tent at Camp Lilac.',
@@ -159,7 +159,7 @@ export const safaris: Safari[] = [
       { people: '1 person', price: 844 },
       { people: '2 or more', price: 619 },
     ],
-    image: '/images/rooms/mv-cabin-6-1600.jpg',
+    image: '/images/rooms/mv-cabin-3-1600.jpg',
     imageAlt: 'The Mountain View Cabin at Camp Lilac in evening light',
     summary:
       'Wildlife and rainforest in one trip: a Maasai boma visit, a full day of game drives in Mikumi, the five-hour hike to Sanje Waterfall in the Udzungwa Mountains, and three nights at Camp Lilac.',

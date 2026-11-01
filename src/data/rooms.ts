@@ -36,9 +36,9 @@ export const rooms: Room[] = [
     bed: 'King four-poster',
     view: 'mountain',
     tier: 'suite',
-    images: img('mv-cabin', 7),
-    imageAlt: 'Mountain View Cabin deck at Camp Lilac in golden evening light, looking over the Mikumi bush',
-    caption: 'The deck, 17:50',
+    images: img('mv-cabin', 10),
+    imageAlt: 'Freestanding bathtub in the Mountain View Cabin at Camp Lilac, with the Mikumi mountain ridge through the window',
+    caption: 'The bathroom, 17:50',
     summary:
       'Our best room: a private thatched cabin facing the Mikumi mountain ridge, with a wide deck, a four-poster king bed and a bathtub with a view.',
     description: [
@@ -65,7 +65,7 @@ export const rooms: Room[] = [
     bed: 'King four-poster',
     view: 'jungle',
     tier: 'cabin',
-    images: img('jungle-cabin', 8),
+    images: img('jungle-cabin', 11),
     imageAlt: 'Jungle Cabin at Camp Lilac with its thatched roof and wooden stairs, set among miombo trees',
     caption: 'From the path, 07:15',
     summary:
@@ -123,7 +123,7 @@ export const rooms: Room[] = [
     bed: 'King four-poster (or twin on request)',
     view: 'mountain',
     tier: 'tent',
-    images: [], // TODO: photos coming
+    images: img('mv-tent', 11),
     imageAlt: 'Luxury Mountain View Tent at Camp Lilac facing the Mikumi mountain ridge',
     caption: 'Facing the Mikumi mountain ridge',
     summary:

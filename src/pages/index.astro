@@ -14,7 +14,7 @@ const title = 'Camp Lilac | Mikumi\'s Only Luxury Tented Camp, Tanzania';
 const description =
   'Mikumi\'s only luxury tented camp: Serengeti-level tents and cabins with private bathrooms, A/C and the only view of the Mikumi mountain ridge. 3.5 h from Dar by train. Stays and safaris from US$140.';
 
-const tileImage: Record<string, string> = { 'mountain-view-cabin': '/images/rooms/mv-cabin-4-1600.jpg', 'luxury-jungle-tent': '/images/rooms/jungle-tent-2-1600.jpg', 'jungle-cabin': '/images/rooms/jungle-cabin-3-1600.jpg' };
+const tileImage: Record<string, string> = {};
 const featured = ['mountain-view-cabin', 'luxury-jungle-tent', 'jungle-cabin'].map((s) => rooms.find((r) => r.slug === s)!);
 const by = (slug: string) => safaris.find((s) => s.slug === slug)!;
 const s2 = by('2-day-mikumi-safari'), s3 = by('3-day-mikumi-safari'), s4 = by('4-day-mikumi-udzungwa-safari');
@@ -102,7 +102,7 @@ const words = (s: string) => s.split(' ');
         <a class="link rv rv-d3" href="/about">The camp</a>
       </div>
       <div class="rv rv-d1">
-        <Photo src="/images/rooms/mv-cabin-3-1600.jpg" alt="Sunrise light falling across the four-poster bed in the Mountain View Cabin" caption="Mountain View Cabin, 06:40" ratio="portrait" zoom />
+        <Photo src="/images/rooms/mv-cabin-2-1600.jpg" alt="Four-poster bed in the Mountain View Cabin at Camp Lilac, looking out to the Mikumi mountain ridge" caption="Mountain View Cabin, 06:40" ratio="portrait" zoom />
       </div>
     </div>
   </section>
