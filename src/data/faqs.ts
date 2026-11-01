@@ -12,7 +12,7 @@ export const faqs: Faq[] = [
   },
   {
     q: 'Are meals included?',
-    a: 'Yes. When you book directly with us, every room and tent rate is full board: breakfast, lunch and dinner in our restaurant. Drinks are charged separately.',
+    a: 'When you book directly with us, every room and tent rate includes breakfast and dinner in our restaurant. Any extra meal, such as lunch, is US$15 per person. Drinks are charged separately. On our safari packages all meals are included (full board).',
   },
   {
     q: 'Do the tents have bathrooms and air conditioning?',
@@ -20,7 +20,7 @@ export const faqs: Faq[] = [
   },
   {
     q: 'Do children stay free?',
-    a: 'Children aged 0–3 stay free. Ages 4–11 pay 50% of the adult rate. From 12 upwards children are priced as adults. Meals are included for everyone when you book direct. Tell us the ages when you book and we will quote exactly.',
+    a: 'Children aged 0–3 stay free. Ages 4–11 pay 50% of the adult rate. From 12 upwards children are priced as adults. Breakfast and dinner are included for everyone when you book direct; extra meals are US$15 per person (free for children under 4). Tell us the ages when you book and we will quote exactly.',
   },
   {
     q: 'What are the check-in and check-out times?',

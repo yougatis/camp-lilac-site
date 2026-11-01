@@ -28,7 +28,7 @@ const commonIncluded = [
   'Private open-roof 4×4 safari jeep for your group only',
   'Professional English-speaking driver-guide',
   'All transport as described',
-  'Meals as listed day by day, with water and soft drinks',
+  'Full board on safari — all meals as listed day by day, with water and soft drinks',
   'All taxes and VAT',
 ];
 const commonExcluded = [

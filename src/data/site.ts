@@ -35,7 +35,7 @@ export const site = {
   defaultOgImage: '/images/rooms/restaurant-dusk-1200.jpg',
   languages: ['English'],
   amenities: [
-    'Full board — all meals included',
+    'Breakfast and dinner included (book direct)',
     'Restaurant and bar',
     'Air conditioning in every room, tents included',
     'Private bathrooms',

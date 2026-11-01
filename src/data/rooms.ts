@@ -1,7 +1,7 @@
 // One page per ROOM TYPE (not per physical unit) — Google treats near-identical pages
 // as duplicates, so "Luxury Family Tent" is one strong page covering Family Tents 1–3.
 // units = how many physical units of that type exist.
-// price = USD per night, full board (all meals) when booked direct. null = "rates on request" until you set it.
+// price = USD per night, breakfast and dinner included when booked direct; lunch US$15 pp. null = "rates on request" until you set it.
 // images = /images/rooms/<name>-N-1600.jpg (a -900 version of each also exists).
 
 export type Room = {
@@ -44,14 +44,14 @@ export const rooms: Room[] = [
     description: [
       'The Mountain View Cabin is the most luxurious accommodation in Mikumi and the wider Morogoro region, in a one-of-a-kind position with uninterrupted views of the mountain range. You wake up to the hills and end the day watching the sunset from the deck or from the bath.',
       'Natural wood details and wide windows bring the landscape inside. There is a plush king four-poster under the thatched roof, modern air conditioning, and a beautifully designed bathroom with a freestanding bathtub set against a window onto the bush. From the deck you watch impala, warthog and monkeys wander past — a safari experience without leaving the cabin.',
-      'Wilderness, exclusivity and indulgence in one place: for couples who want the comfort of a lodge with the setting of a safari camp. Booked direct, the rate is full board — breakfast, lunch and dinner in our restaurant are included (drinks extra), which shares the same ridge view.',
+      'Wilderness, exclusivity and indulgence in one place: for couples who want the comfort of a lodge with the setting of a safari camp. Booked direct, breakfast and dinner in our restaurant are included; lunch is US$15 per person (drinks extra), which shares the same ridge view.',
     ],
     highlights: [
       'Faces the Mikumi mountain ridge',
       'Wide private deck for sunsets',
       'Freestanding bathtub with a view',
       'King four-poster, air conditioning, private bathroom',
-      'Full board — breakfast, lunch and dinner included',
+      'Breakfast and dinner included — lunch US$15 per person',
     ],
     keywords: 'luxury cabin Mikumi with mountain view',
   },
@@ -80,7 +80,7 @@ export const rooms: Room[] = [
       'Luxury canvas tent on a raised deck',
       'Private bathroom and air conditioning',
       'Opened late 2026',
-      'Full board — breakfast, lunch and dinner included',
+      'Breakfast and dinner included — lunch US$15 per person',
     ],
     keywords: 'tented camp Mikumi mountain view',
   },
@@ -109,7 +109,7 @@ export const rooms: Room[] = [
       'Wraparound deck with table and chairs',
       'Marble bathroom with rain shower',
       'King four-poster, air conditioning',
-      'Full board — breakfast, lunch and dinner included',
+      'Breakfast and dinner included — lunch US$15 per person',
     ],
     keywords: 'private cabin near Mikumi National Park',
   },
@@ -138,7 +138,7 @@ export const rooms: Room[] = [
       'Private bathroom and air conditioning',
       'Plush king bed under a mosquito net, mesh windows',
       'Private deck — wildlife passes right by',
-      'Full board — breakfast, lunch and dinner included',
+      'Breakfast and dinner included — lunch US$15 per person',
     ],
     keywords: 'luxury safari tent Mikumi',
   },
@@ -160,7 +160,7 @@ export const rooms: Room[] = [
     description: [
       'The Luxury Family Tents are built for parents who want their children to experience a real safari camp without compromising on comfort. Each tent sleeps up to four, with a double bed and two single beds in one spacious canvas tent on a raised deck.',
       'There is a full private bathroom, air conditioning and a private deck where the kids can spot impala and monkeys before breakfast. The camp is quiet and set away from the highway, so children sleep well.',
-      'Children aged 0–3 stay free. Ages 4–11 pay half the adult rate, and from 12 they are priced as adults. Booked direct, all meals are included (drinks extra). Our guides are used to families on game drives and adjust the pace for younger travellers.',
+      'Children aged 0–3 stay free. Ages 4–11 pay half the adult rate, and from 12 they are priced as adults. Booked direct, breakfast and dinner are included; lunch is US$15 per person, free for under-4s. Our guides are used to families on game drives and adjust the pace for younger travellers.',
     ],
     highlights: [
       'Sleeps up to 4 — one family in one tent',
