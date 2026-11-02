@@ -129,7 +129,7 @@ export const rooms: Room[] = [
     summary:
       'The classic safari stay: a luxury canvas tent on a raised hardwood deck, with a four-poster bed, private bathroom, air conditioning and wildlife walking past the steps.',
     description: [
-      'The Luxury Jungle Tents are what Camp Lilac is known for — spacious canvas safari tents on elevated polished wooden decks, with the comforts most tented camps in Mikumi do not offer: an private bathroom with a walk-in rain shower, air conditioning and the softest beds in the region.',
+      'The Luxury Jungle Tents are what Camp Lilac is known for — spacious canvas safari tents on elevated polished wooden decks, with the comforts most tented camps in Mikumi do not offer: a private bathroom with a walk-in rain shower, air conditioning and the softest beds in the region.',
       'Each tent has a plush king-sized bed under a mosquito net, large mesh windows for the natural breeze, smooth timber floors and warm ambient lighting — rustic and elegant at once. The private veranda has handcrafted chairs facing the bush; impala, warthog and monkeys regularly pass right by, and at night the only sound is the wildlife.',
       'If you want the real safari feeling without giving up a good night’s sleep, this is the tent to book.',
     ],
@@ -152,11 +152,11 @@ export const rooms: Room[] = [
     bed: 'Double bed plus two single beds',
     view: 'jungle',
     tier: 'tent',
-    images: [], // TODO: photos coming
-    imageAlt: 'Luxury Family Tent at Camp Lilac with space for parents and children',
+    images: img('family-tent', 9),
+    imageAlt: 'The private deck of a Luxury Family Tent at Camp Lilac, looking into the bush',
     caption: 'Room for four',
     summary:
-      'A spacious luxury safari tent for families: room for parents and two children, an private bathroom, air conditioning and a private deck. Children under 4 stay free; ages 4–11 at half the adult rate.',
+      'A spacious luxury safari tent for families: room for parents and two children, a private bathroom, air conditioning and a private deck. Children under 4 stay free; ages 4–11 at half the adult rate.',
     description: [
       'The Luxury Family Tents are built for parents who want their children to experience a real safari camp without compromising on comfort. Each tent sleeps up to four, with a double bed and two single beds in one spacious canvas tent on a raised deck.',
       'There is a full private bathroom, air conditioning and a private deck where the kids can spot impala and monkeys before breakfast. The camp is quiet and set away from the highway, so children sleep well.',
