@@ -1,0 +1,19 @@
+---
+// "How to get here" options — every safari can start from Dar es Salaam or Zanzibar, by train, car, ferry or plane.
+import { travelOptions } from '../data/safaris';
+interface Props { heading?: string; tight?: boolean }
+const { heading = 'Travel your way — we organise it', tight = false } = Astro.props;
+---
+<div class={`travel ${tight ? 'travel--tight' : ''}`}>
+  <h2 class="rv">{heading}</h2>
+  <p class="rv rv-d1">Every safari can start in Dar es Salaam or Zanzibar. Choose how you want to travel and we arrange the whole journey — tickets, pickups and transfers. Just tell us on the booking form.</p>
+  <div class="travel-grid">
+    {travelOptions.map((o, i) => (
+      <div class={`travel-item rv rv-d${Math.min(i, 3)}`}>
+        <h3>{o.title}{o.tag && <span class="tag">{o.tag}</span>}</h3>
+        <p>{o.text}</p>
+      </div>
+    ))}
+  </div>
+  <p class="anything rv"><strong>Anything else your heart desires?</strong> Ask us. A birthday dinner, a night in Zanzibar on the way, a guide who speaks your language, a different route, a longer stay — we organise it. Never be shy to tell us exactly what you want and how you want to travel.</p>
+</div>

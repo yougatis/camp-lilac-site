@@ -4,6 +4,7 @@ import CtaBand from '../../components/CtaBand.astro';
 import Price from '../../components/Price.astro';
 import Photo from '../../components/Photo.astro';
 import Offers from '../../components/Offers.astro';
+import TravelOptions from '../../components/TravelOptions.astro';
 import Wildlife from '../../components/Wildlife.astro';
 import { safaris } from '../../data/safaris';
 import { site } from '../../data/site';
@@ -77,6 +78,8 @@ const schema = {
   </section>
 
   <Wildlife label="What you’ll see" title="Mikumi, up close" pick={['leopard-drive','elephant-family','giraffe-group','lioness-cubs','zebra-line','buffalo-herd']} />
+  <section class="section section--tight"><div class="wrap"><TravelOptions tight /></div></section>
+
   <Offers />
   <CtaBand title="Book a safari with your stay" text="Tell us your dates and group size. We reply the same day with a quote, including the direct-booking deals." />
 </Base>

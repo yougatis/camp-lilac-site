@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import TravelOptions from '../components/TravelOptions.astro';
+import { offers } from '../data/offers';
+import { safaris } from '../data/safaris';
+import { site } from '../data/site';
+
+const title = 'Direct-Booking Offers: Free Train Ticket & Transfer to Mikumi | Camp Lilac';
+const description =
+  'Book a Mikumi safari directly with Camp Lilac: free transfer from Morogoro SGR station (worth US$75) with the 2-day safari, plus free SGR train tickets from Dar es Salaam with 3+ days.';
+const qualifying = (id: string) => (id === 'free-transfer' ? safaris.filter((s) => s.days === 2) : safaris.filter((s) => s.days >= 3));
+---
+
+<Base {title} {description} breadcrumbs={[{ name: 'Offers', href: '/offers' }]} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src="/images/wild/jeep-giraffes-1600.webp" srcset="/images/wild/jeep-giraffes-800.webp 800w, /images/wild/jeep-giraffes-1600.webp 1600w" sizes="100vw" alt="A safari jeep stopped beside giraffes in Mikumi National Park" width="1600" height="1067" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <p class="label">Book direct</p>
+        <h1><span class="w"><span>Your way in&nbsp;</span></span><span class="w"><em style="color:#e4d9f7">is on us</em></span></h1>
+        <p class="lead">Book your Mikumi safari directly with Camp Lilac and we cover the journey to the park — no codes, no small print beyond what is on this page.</p>
+      </div>
+      <div class="hero-side"><b>Free transfer</b>worth US$75<br />+ train tickets with 3+ days</div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="offers">
+        {offers.map((o, i) => (
+          <div class={`offer rv rv-d${i + 1}`}>
+            <p class="label" style="margin:0 0 10px">{o.who}</p>
+            <h2 style="font-size:2rem;margin:0 0 8px">{o.title}</h2>
+            <p class="worth">{o.worth}</p>
+            <p>{o.text}</p>
+            <p class="meta">Applies to: {qualifying(o.id).map((s, j) => <>{j > 0 && ' · '}<a href={`/safaris/${s.slug}`}>{s.name}</a></>)}</p>
+            <a class="btn btn--fill" href={`/book?safari=${o.safari}&offer=${o.id}`}>Claim this offer</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand section--tight">
+    <div class="wrap">
+      <h2 class="rv" style="margin-bottom:28px">How to claim</h2>
+      <ol class="offer-steps">
+        <li><h3>Request your safari</h3><p>Press “Claim this offer” or fill in the <a href="/book">booking form</a> — choose the safari and how you want to travel.</p></li>
+        <li><h3>We confirm</h3><p>We reply {site.replyTime} with availability and one total price, with the offer already taken off.</p></li>
+        <li><h3>Secure it</h3><p>Pay the deposit through our secure card link. We book your train ticket and send you the details.</p></li>
+        <li><h3>Travel</h3><p>Our driver waits for you on the platform at Morogoro with a name board.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <TravelOptions heading="Coming from Zanzibar, or prefer the road?" tight />
+      <h2 class="rv" style="margin-top:56px">The fine print</h2>
+      <ul class="rv">
+        <li>For safaris booked directly with Camp Lilac — on this website, by WhatsApp or by email. Not for bookings made through other agents or websites.</li>
+        <li>One way, Dar es Salaam → Morogoro → Mikumi. The return journey is charged.</li>
+        <li>Train tickets are economy class on the SGR. Business class is possible — you pay the difference.</li>
+        <li>Travelling by car, ferry or plane instead? Tell us your route and we will price the whole journey for you.</li>
+        <li>One offer per booking. Subject to train seats and availability.</li>
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand title="Claim your free transfer" />
+</Base>

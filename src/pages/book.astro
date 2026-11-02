@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import { rooms } from '../data/rooms';
 import { safaris } from '../data/safaris';
 import { site } from '../data/site';
+import { offers } from '../data/offers';
 
 const title = 'Book a Stay or Safari at Camp Lilac, Mikumi';
 const description =
@@ -28,7 +29,9 @@ const FORM_ENDPOINT = '';
 
   <div style="height:56px"></div>
   <div class="wrap split" style="padding-bottom:var(--section)">
-    <form class="form" id="booking-form" method="post" action="/thank-you" data-endpoint={FORM_ENDPOINT} data-whatsapp={site.whatsapp}>
+    <form class="form" id="booking-form" method="post" action="/thank-you" data-endpoint={FORM_ENDPOINT} data-whatsapp={site.whatsapp} data-offers={JSON.stringify(offers.map((o) => ({ title: o.title, text: o.text })))}>
+      <p class="offer-banner" id="offer-banner" hidden></p>
+      <input type="hidden" name="offer" value="" />
       <div class="row">
         <label>Name <input name="name" required autocomplete="name" /></label>
         <label>Email <input name="email" type="email" required autocomplete="email" /></label>
@@ -60,15 +63,18 @@ const FORM_ENDPOINT = '';
       </label>
       <label>Arriving by
         <select name="arrival">
-          <option>SGR train to Morogoro (please collect me)</option>
-          <option>Own car</option>
-          <option>Need a transfer from Dar es Salaam</option>
-          <option>Need an airport pickup</option>
+          <option>From Dar es Salaam by SGR train (please collect me in Morogoro)</option>
+          <option>From Dar es Salaam by car (please arrange it)</option>
+          <option>From Zanzibar by ferry, then train</option>
+          <option>From Zanzibar by ferry, then car</option>
+          <option>From Zanzibar by plane (please book the flight)</option>
+          <option>From the airport in Dar es Salaam</option>
+          <option>Own car / self-drive</option>
           <option>Bus to Mikumi town</option>
-          <option>Not sure yet</option>
+          <option>Not sure yet — please advise</option>
         </select>
       </label>
-      <label>Anything else <textarea name="message" placeholder="Dietary needs, special occasion, onward travel plans…"></textarea></label>
+      <label>Anything else you would like us to organise <textarea name="message" placeholder="Anything at all — a birthday dinner, a night in Zanzibar, a different route, dietary needs, onward travel… We can organise it."></textarea></label>
       <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
       <button class="btn" type="submit">Send request</button>
       <p class="meta">Free, no obligation. We reply {site.replyTime} with availability and one total price. We only use your details to answer this request.</p>
@@ -79,10 +85,13 @@ const FORM_ENDPOINT = '';
       <p><a href={site.whatsapp}>WhatsApp {site.phoneDisplay}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
       <h3>Direct-booking offers</h3>
       <ul>
-        <li>2-day safari: free transfer Morogoro SGR → Mikumi (one way)</li>
-        <li>3+ day safari: free train ticket Dar → Morogoro + transfer (one way)</li>
+        <li>2-day safari: free transfer Morogoro SGR → Mikumi, worth US$75 (one way)</li>
+        <li>3+ day safari: free economy train tickets Dar → Morogoro + transfer (one way)</li>
         <li>Children under 4 stay free, 4–11 half price</li>
       </ul>
+      <p style="font-size:0.95rem"><a href="/offers" style="border-bottom:1px solid var(--lilac)">How the offers work</a></p>
+      <h3>We organise anything</h3>
+      <p style="font-size:0.95rem">Train, car, ferry or flights from Zanzibar, extra nights, special occasions — don’t be shy to ask. Tell us what you want and how you want to travel, and we arrange it.</p>
     </aside>
   </div>
 
@@ -94,6 +103,20 @@ const FORM_ENDPOINT = '';
       const el = form.elements.namedItem(key) as HTMLInputElement | HTMLSelectElement | null;
       if (v && el) el.value = v;
     }
+    const OFFERS = JSON.parse(form.dataset.offers || '[]');
+    const banner = document.getElementById('offer-banner') as HTMLElement;
+    const offerField = form.elements.namedItem('offer') as HTMLInputElement;
+    const safariSel = form.elements.namedItem('safari') as HTMLSelectElement;
+    const daysOf = (slug: string) => parseInt(slug, 10) || 0;
+    const showOffer = () => {
+      const d = daysOf(safariSel.value);
+      const o = d >= 3 ? OFFERS[1] : d === 2 ? OFFERS[0] : null;
+      offerField.value = o ? o.title : '';
+      banner.hidden = !o;
+      if (o) banner.innerHTML = `<strong>Offer applied: ${o.title}</strong> — ${o.text}`;
+    };
+    safariSel.addEventListener('change', showOffer);
+    showOffer();
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const data = Object.fromEntries(new FormData(form).entries());
@@ -107,7 +130,7 @@ const FORM_ENDPOINT = '';
         } catch {}
       }
       // Fallback: open WhatsApp with the request pre-filled
-      const text = `Booking request from camp-lilac.com\nName: ${data.name}\nEmail: ${data.email}\nWhatsApp: ${data.phone || '-'}\nCountry: ${data.country || '-'}\nDates: ${data.checkin} to ${data.checkout}\nAdults: ${data.adults}, children: ${data.children || '0'}\nRoom: ${data.room || 'suggest'}\nSafari: ${data.safari}\nArriving by: ${data.arrival}\nNotes: ${data.message || '-'}`;
+      const text = `Booking request from camp-lilac.com\nName: ${data.name}\nEmail: ${data.email}\nWhatsApp: ${data.phone || '-'}\nCountry: ${data.country || '-'}\nDates: ${data.checkin} to ${data.checkout}\nAdults: ${data.adults}, children: ${data.children || '0'}\nRoom: ${data.room || 'suggest'}\nSafari: ${data.safari}\nOffer: ${data.offer || '-'}\nArriving by: ${data.arrival}\nNotes: ${data.message || '-'}`;
       location.href = `${form.dataset.whatsapp}?text=${encodeURIComponent(text)}`;
     });
   </script>

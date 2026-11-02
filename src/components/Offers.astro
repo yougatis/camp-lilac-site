@@ -1,11 +1,8 @@
 ---
-// Direct-booking deals. Edit the text here; it shows on the home page and the safaris page.
+// Direct-booking deals band. Wording lives in src/data/offers.ts.
+import { offers } from '../data/offers';
 interface Props { compact?: boolean }
 const { compact = false } = Astro.props;
-const offers = [
-  { title: '2-day safari: free transfer to Mikumi', text: 'Book a 2-day safari with us and we pick you up at Morogoro SGR station and drive you to Mikumi for free. One way — the return transfer to Morogoro is charged.' },
-  { title: '3+ day safari: free train ticket and transfer', text: 'Book a safari of 3 days or more and we pay your SGR train ticket from Dar es Salaam to Morogoro and the transfer on to Mikumi. One way — the return journey is charged.' },
-];
 ---
 <section class={`section ${compact ? 'section--tight' : ''} section--sand`}>
   <div class="wrap">
@@ -14,11 +11,14 @@ const offers = [
     <div class="offers">
       {offers.map((o, i) => (
         <div class={`offer rv rv-d${i + 1}`}>
+          <p class="label" style="margin:0 0 10px">{o.who}</p>
           <h3>{o.title}</h3>
+          <p class="worth">{o.worth}</p>
           <p>{o.text}</p>
+          <a class="btn btn--fill" href={`/book?safari=${o.safari}&offer=${o.id}`}>Claim this offer</a>
         </div>
       ))}
     </div>
-    <div class="btn-row rv rv-d3"><a class="btn btn--fill" href="/safaris">See the safaris</a></div>
+    <div class="btn-row rv rv-d3"><a class="link" href="/offers">How the offers work</a></div>
   </div>
 </section>
