@@ -13,16 +13,20 @@ const description =
 const FORM_ENDPOINT = '';
 ---
 
-<Base {title} {description} breadcrumbs={[{ name: 'Book', href: '/book' }]}>
-  <div class="wrap page-head">
-    <p class="crumbs"><a href="/">Home</a> / Book</p>
-    <h1>Request a booking</h1>
-    <p class="lead">
-      Nothing to pay yet. Tell us your dates and we reply {site.replyTime} with availability, one total price and a safari suggestion. A deposit then secures your room.
-      Direct bookings get the free station pickup and train-ticket offers.
-    </p>
-  </div>
+<Base {title} {description} breadcrumbs={[{ name: 'Book', href: '/book' }]} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src="/images/rooms/mv-cabin-1-1600.webp" srcset="/images/rooms/mv-cabin-1-800.webp 800w, /images/rooms/mv-cabin-1-1600.webp 1600w" sizes="100vw" alt="The bathtub in the Mountain View Cabin at Camp Lilac, looking out to the Mikumi mountain ridge" width="1600" height="1200" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <p class="label">Book direct</p>
+        <h1><span class="w"><span>Request a booking</span></span></h1>
+        <p class="lead">Nothing to pay yet. Tell us your dates and we reply {site.replyTime} with availability, one total price and a safari suggestion. A deposit then secures your room.</p>
+      </div>
+      <div class="hero-side"><b>Direct bookings</b>get the free station pickup<br />and train-ticket offers</div>
+    </div>
+  </section>
 
+  <div style="height:56px"></div>
   <div class="wrap split" style="padding-bottom:var(--section)">
     <form class="form" id="booking-form" method="post" action="/thank-you" data-endpoint={FORM_ENDPOINT} data-whatsapp={site.whatsapp}>
       <div class="row">
