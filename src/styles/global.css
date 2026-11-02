@@ -574,3 +574,18 @@ a .ph:hover img, .ph.zoom:hover img { transform: scale(1.04); }
 .offer-steps li { counter-increment: s; border-top: 1px solid rgba(16, 38, 58, 0.2); padding-top: 16px; }
 .offer-steps li::before { content: counter(s, decimal-leading-zero); display: block; font-family: var(--font-display); font-size: 2rem; color: var(--lilac-deep); }
 .anything { margin-top: 24px; padding: 20px 24px; border: 1px dashed var(--lilac-deep); max-width: none; }
+
+/* Slim deals bar under the homepage ribbon */
+.deal-bar { display: block; background: rgba(179, 157, 219, 0.2); border-bottom: 1px solid rgba(125, 99, 168, 0.25); color: var(--ink); transition: background 0.3s var(--ease); }
+.deal-bar:hover { background: rgba(179, 157, 219, 0.32); }
+.deal-bar-in { display: flex; align-items: center; gap: 18px; padding-top: 14px; padding-bottom: 14px; font-size: 0.98rem; }
+.deal-tag { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; background: var(--lilac-deep); color: #fff; padding: 4px 10px; white-space: nowrap; }
+.deal-text { flex: 1; }
+.deal-text b { font-weight: 500; color: var(--lilac-deep); }
+.deal-cta { white-space: nowrap; font-weight: 500; color: var(--lilac-deep); border-bottom: 1px solid var(--lilac-deep); }
+@media (max-width: 760px) {
+  .deal-bar-in { flex-wrap: wrap; gap: 8px 12px; font-size: 0.92rem; line-height: 1.45; }
+  .deal-text { flex-basis: 100%; order: 2; }
+  .deal-text .sep { display: block; height: 0; overflow: hidden; }
+  .deal-cta { order: 3; }
+}
