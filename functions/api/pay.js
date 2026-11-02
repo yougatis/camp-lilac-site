@@ -12,7 +12,7 @@ export async function onRequestPost({ request, env }) {
   const what = p.type === 'safari' ? 'Safari' : 'Stay';
   const r = await createToken(env, {
     ...p,
-    description: `Camp Lilac deposit — ${what}${p.desc ? ': ' + p.desc : ''} (ref ${p.ref})`,
+    description: `Deposit ${p.ref}${p.desc ? " - " + p.desc : " - " + what}`,
     redirectUrl: `${origin}/api/payment-return`,
     backUrl: back,
   });
