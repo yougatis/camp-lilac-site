@@ -22,7 +22,7 @@ export type Safari = {
 
 const stay = 'Camp Lilac — luxury tent or cabin, just outside the park';
 export const byRoadNote =
-  'Prefer to come by road? We can arrange a private jeep from Dar es Salaam, but we do not recommend it: it is 5–6 hours of driving to Morogoro and another 2 hours to Mikumi, against 1.5 hours on the SGR train. Ask us for the road price.';
+  'Prefer to come by road? We can arrange a private jeep from Dar es Salaam, but we do not recommend it: it costs more than the train, is more tiring, and takes 5–6 hours of driving to Morogoro and another 2 hours to Mikumi, against 1.5 hours on the SGR train. Ask us for the road price.';
 const commonIncluded = [
   'Mikumi National Park entry fees (non-residents)',
   'Private open-roof 4×4 safari jeep for your group only',
@@ -42,9 +42,9 @@ const commonExcluded = [
 // How guests can reach the camp — shown on every safari page, the safaris hub and the booking form.
 export const travelOptions = [
   { title: 'From Dar es Salaam by SGR train', tag: 'Recommended', text: 'Morning train to Morogoro (1.5 hours). Our driver meets you on the platform and drives you 2 hours to Mikumi — about 3.5 hours in all.' },
-  { title: 'From Dar es Salaam by car', text: 'Private car or jeep from your hotel or the airport, door to door. Possible, but it takes 7–8 hours, so we only suggest it when the train times do not fit.' },
+  { title: 'From Dar es Salaam by car', text: 'A private transfer car from your hotel or the airport, door to door. Compared with the train it is more expensive, slower (7–8 hours instead of about 3.5) and much more tiring, so we only suggest it when the train times do not fit.' },
   { title: 'From Zanzibar by ferry', text: 'Fast ferry from Stone Town to Dar es Salaam (about 2 hours). We meet you at the ferry terminal and take you on by train or by car.' },
-  { title: 'From Zanzibar by plane', text: 'A short flight to Dar es Salaam, then on by train or car with us — or a light-aircraft flight straight to the Mikumi airstrip. Flights are about US$160–200 each way and not included; we can book them for you.' },
+  { title: 'From Zanzibar by plane', text: 'A short flight to Dar es Salaam, then on by train or car with us — or a light-aircraft flight straight to the Mikumi airstrip. Flights cost US$160–200 per person each way, depending on the day and which airline is flying. Not included; we book them for you.' },
   { title: 'Already on the road', text: 'Coming from Morogoro, Iringa, Ruaha or by bus? We collect you from your hotel, Morogoro station or Mikumi town. Self-drive guests are welcome too.' },
 ];
 
