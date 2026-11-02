@@ -18,6 +18,34 @@ const all: Record<string, string> = {
   'elephant-herd': 'A herd of elephants marching across the Mikumi floodplain',
   'giraffes-evening': 'Giraffes in evening light in Mikumi National Park',
   'zebras-grazing': 'Plains zebras grazing in Mikumi',
+  'first-1': 'A lion and lioness resting on the savannah',
+  'first-2': 'A leopard lying in the grass',
+  'first-3': 'Two hippos sparring in a river',
+  'first-4': 'Two elephants on the plains',
+  'road-sunset': 'Sunset over the road through Mikumi National Park',
+  'giraffes-dusk': 'Giraffes at dusk in Mikumi National Park',
+  'zebra-line': 'A line of zebras crossing golden grass',
+  'elephants-plain': 'Elephants on the open plains below the mountains',
+  'giraffe-face': 'A giraffe looking at the camera',
+  'giraffe-group': 'A group of giraffes on the plains',
+  'own-giraffes': 'Giraffes under a blue sky, seen on a Camp Lilac safari',
+  'own-giraffe': 'A giraffe on the green plains, seen on a Camp Lilac safari',
+  'elephant-family': 'An elephant family walking along a riverbank',
+  'wildebeest': 'A large herd of wildebeest',
+  'lioness-cubs': 'A lioness with her cubs',
+  'plains-herds': 'Impala, zebras and a marabou stork on the green plains of Mikumi',
+  'zebras-pair': 'Two zebras grazing on green grassland in Mikumi',
+  'leopard-drive': 'A leopard in a tree beside a safari jeep',
+  'lion-track': 'A lion walking along a track towards a safari jeep',
+  'buffalo-pair': 'Two Cape buffalo',
+  'elephants-storm': 'Elephants in green grass under storm clouds in Mikumi',
+  'buffalo-herd': 'A herd of Cape buffalo',
+  'lions-tree': 'Lions sleeping under a tree in Mikumi',
+  'cheetahs': 'Two cheetahs resting on a log',
+  'zebras-hills': 'Zebras grazing below the hills of Mikumi',
+  'elephants-walk': 'A family of elephants walking in a line',
+  'jeep-giraffes': 'A safari jeep with giraffes and impala',
+  'leopard-face': 'Close portrait of a leopard',
 };
 const { pick = ['lion-pride', 'elephant', 'giraffe-sunset', 'zebras-impala'], title, label } = Astro.props;
 ---
@@ -30,6 +58,6 @@ const { pick = ['lion-pride', 'elephant', 'giraffe-sunset', 'zebras-impala'], ti
         <div class={`rv rv-d${i % 4}`}><Photo src={`/images/wild/${k}-1600.jpg`} alt={all[k]} ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
       ))}
     </div>
-    <p class="meta" style="margin-top:14px;font-size:0.75rem">Wildlife photos taken in Mikumi National Park · <a href="/mikumi-national-park#photo-credits">Photo credits</a></p>
+    <p class="meta" style="margin-top:14px;font-size:0.75rem"><a href="/mikumi-national-park#photo-credits">Photo credits</a></p>
   </div>
 </section>

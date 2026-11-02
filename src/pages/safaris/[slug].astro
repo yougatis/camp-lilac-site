@@ -12,6 +12,12 @@ export function getStaticPaths() {
 }
 const { safari } = Astro.props;
 const others = safaris.filter((s) => s.slug !== safari.slug);
+const galleries: Record<number, string[]> = {
+  1: ['first-1', 'leopard-face', 'elephants-walk', 'giraffes-dusk', 'zebras-pair', 'buffalo-pair'],
+  2: ['first-2', 'lions-tree', 'elephants-plain', 'giraffe-face', 'plains-herds', 'road-sunset'],
+  3: ['first-3', 'cheetahs', 'elephants-storm', 'jeep-giraffes', 'wildebeest', 'own-giraffes'],
+  4: ['first-4', 'lion-track', 'elephants-road', 'own-giraffe', 'zebras-hills', 'lion-pride'],
+};
 
 const title = `${safari.name} | Mikumi National Park Safari with Camp Lilac`;
 const description = safari.summary.slice(0, 160);
@@ -101,7 +107,7 @@ const schema = {
     </div>
   </section>
 
-  <Wildlife label="On your game drives" title="What lives in Mikumi" pick={safari.days === 1 ? ['elephant','giraffe-sunset','zebras-impala'] : safari.days === 2 ? ['lion','giraffes-evening','buffalo'] : safari.days === 3 ? ['lion-pride','giraffe-portraits','hippo-calf'] : ['elephant-herd','lioness','zebras-grazing']} />
+  <Wildlife label="On your game drives" title="What lives in Mikumi" pick={galleries[safari.days] ?? galleries[1]} />
 
   <section class="section section--sand">
     <div class="wrap">

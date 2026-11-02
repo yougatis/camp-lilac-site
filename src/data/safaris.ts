@@ -53,8 +53,8 @@ export const safaris: Safari[] = [
       { name: 'From Morogoro or the camp', text: 'Pickup from your hotel in Morogoro, the SGR station or Camp Lilac. Full day in the park, back by evening.', price: 'from US$214 per person' },
       { name: 'From Dar es Salaam by SGR train — same day', text: 'Early SGR train from Dar es Salaam to Morogoro (1.5 hours), our driver on the platform, a full day in Mikumi, and the evening train back. Long day, no overnight needed.', price: 'from US$230 per person' },
     ],
-    image: '/images/wild/lion-pride-1600.jpg',
-    imageAlt: 'A pride of lions asleep in the grass in Mikumi National Park',
+    image: '/images/wild/pkg-1-1600.jpg',
+    imageAlt: 'Giraffes grazing near a safari jeep on the savannah',
     summary:
       'A full day in Mikumi National Park in a private open jeep with our own guide: morning game drive, hot bush lunch, afternoon drive until 16:30. From Morogoro, from the camp, or as a same-day trip from Dar es Salaam by SGR train.',
     bestFor: 'Day trips from Morogoro or Dar es Salaam, and guests staying one night',
@@ -83,8 +83,8 @@ export const safaris: Safari[] = [
       { people: '1 person', price: 619 },
       { people: '2 or more', price: 394 },
     ],
-    image: '/images/wild/giraffe-sunset-1600.jpg',
-    imageAlt: 'A giraffe crossing the plains at sunset in Mikumi',
+    image: '/images/wild/pkg-2-1600.jpg',
+    imageAlt: 'A guest watching elephants up close from a safari jeep',
     summary:
       'The weekend classic from Dar es Salaam: SGR train to Morogoro, two days of game drives in a private open jeep, and a night in a luxury tent at Camp Lilac. Back in Dar by evening on day two.',
     bestFor: 'Weekend safaris from Dar es Salaam and Zanzibar',
@@ -120,8 +120,8 @@ export const safaris: Safari[] = [
       { name: 'Classic', text: 'Two full days of game drives, two nights at Camp Lilac.' },
       { name: 'With a cultural visit', text: 'Swap part of day 2 for a visit to a Maasai boma or a nearby village with your guide. Same price — just tell us when you book.' },
     ],
-    image: '/images/wild/elephant-1600.jpg',
-    imageAlt: 'An African elephant among the trees in Mikumi National Park',
+    image: '/images/wild/pkg-3-1600.jpg',
+    imageAlt: 'A cheetah sitting in front of a safari jeep',
     summary:
       'Three days, two nights: SGR train from Dar es Salaam, a sunset game drive on arrival, a full day on the Mikumi floodplain, and a last drive through the park on the way home. Two nights in a luxury tent at Camp Lilac.',
     bestFor: 'Travellers who want to see the whole park without rushing',
@@ -159,8 +159,8 @@ export const safaris: Safari[] = [
       { people: '1 person', price: 844 },
       { people: '2 or more', price: 619 },
     ],
-    image: '/images/wild/giraffes-impala-1600.jpg',
-    imageAlt: 'Giraffes and impala together on the Mikumi plains',
+    image: '/images/wild/pkg-4-1600.jpg',
+    imageAlt: 'A lion walking through tall grass in front of a safari jeep',
     summary:
       'Wildlife and rainforest in one trip: a Maasai boma visit, a full day of game drives in Mikumi, the five-hour hike to Sanje Waterfall in the Udzungwa Mountains, and three nights at Camp Lilac.',
     bestFor: 'Active travellers and families with older children',
