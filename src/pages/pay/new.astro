@@ -1,0 +1,59 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Create a deposit link – Camp Lilac staff" description="Staff tool" noindex>
+  <div class="wrap page-head pay-page">
+    <p class="label">Staff only</p>
+    <h1>Create a deposit link</h1>
+    <p class="test-banner" id="test-banner" hidden>TEST MODE — links charge nothing. Staff PIN in test mode: 0000.</p>
+    <form id="mk" class="pay-card mk-form">
+      <label>Booking reference<input name="ref" required placeholder="e.g. CL-2611-SMITH" /></label>
+      <label>Guest full name<input name="name" required /></label>
+      <label>Guest email<input name="email" type="email" required /></label>
+      <label>What it is for<input name="desc" placeholder="e.g. MV Cabin 12–14 Dec, 2 adults" /></label>
+      <div class="mk-row">
+        <label>Type<select name="type"><option value="accommodation">Stay</option><option value="safari">Safari</option></select></label>
+        <label>Currency<select name="currency"><option>USD</option><option>TZS</option></select></label>
+      </div>
+      <div class="mk-row">
+        <label>Total booking amount<input name="total" type="number" min="1" step="0.01" required /></label>
+        <label>Deposit %<input name="pct" type="number" min="1" max="100" value="10" required /></label>
+      </div>
+      <label>Staff PIN<input name="pin" type="password" required autocomplete="off" /></label>
+      <button class="btn btn--fill" type="submit">Create link</button>
+      <p class="mk-msg" id="mk-msg"></p>
+    </form>
+    <div id="mk-out" class="pay-card" hidden>
+      <p><strong>Deposit:</strong> <span id="mk-amount"></span></p>
+      <input id="mk-url" readonly onclick="this.select()" />
+      <div class="btn-row">
+        <button class="btn" type="button" id="mk-copy">Copy link</button>
+        <a class="btn btn--fill" id="mk-wa" target="_blank" rel="noopener">Send on WhatsApp</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    const form = document.getElementById('mk') as HTMLFormElement;
+    const msg = document.getElementById('mk-msg')!;
+    fetch('/api/mode').then((r) => r.json()).then((m) => { if (m.test) document.getElementById('test-banner')!.hidden = false; }).catch(() => {});
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = 'Creating…';
+      const body = Object.fromEntries(new FormData(form).entries());
+      const r = await fetch('/api/make-link', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const d = await r.json().catch(() => ({ error: 'Something went wrong' }));
+      if (!r.ok) { msg.textContent = d.error || 'Something went wrong'; return; }
+      msg.textContent = '';
+      (document.getElementById('mk-url') as HTMLInputElement).value = d.url;
+      document.getElementById('mk-amount')!.textContent = `${d.currency} ${d.amount}`;
+      const text = `Hello ${body.name}, your booking at Camp Lilac is confirmed. Please pay the ${d.currency} ${d.amount} deposit here to secure it: ${d.url}`;
+      (document.getElementById('mk-wa') as HTMLAnchorElement).href = 'https://wa.me/?text=' + encodeURIComponent(text);
+      document.getElementById('mk-out')!.hidden = false;
+    });
+    document.getElementById('mk-copy')!.addEventListener('click', () => {
+      const v = (document.getElementById('mk-url') as HTMLInputElement).value;
+      navigator.clipboard?.writeText(v);
+      (document.getElementById('mk-copy') as HTMLButtonElement).textContent = 'Copied';
+    });
+  </script>
+</Base>

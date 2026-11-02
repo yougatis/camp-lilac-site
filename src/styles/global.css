@@ -542,3 +542,13 @@ a .ph:hover img, .ph.zoom:hover img { transform: scale(1.04); }
   .lb-prev { left: calc(50% - 64px); }
   .lb-next { right: calc(50% - 64px); }
 }
+
+/* Deposit payment pages */
+.pay-page { max-width: 640px; }
+.pay-card { margin-top: 24px; display: grid; gap: 16px; }
+.pay-card .rates td, .pay-card .rates th { text-align: left; }
+.test-banner { background: #f9eeda; color: #7a4b00; padding: 10px 14px; font-size: 0.85rem; letter-spacing: 0.04em; }
+.mk-form label { display: grid; gap: 6px; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; }
+.mk-form input, .mk-form select, #mk-url { font: inherit; font-size: 1rem; letter-spacing: 0; text-transform: none; padding: 10px 12px; border: 1px solid rgba(16, 38, 58, 0.25); background: #fff; width: 100%; box-sizing: border-box; }
+.mk-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.mk-msg { color: #b0304a; min-height: 1.2em; margin: 0; }

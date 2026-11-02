@@ -11,7 +11,7 @@ export default defineConfig({
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),
-      filter: (page) => !page.includes('/thank-you'),
+      filter: (page) => !/\/(thank-you|pay|payment-)/.test(page),
     }),
   ],
 });

@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /thank-you
+Disallow: /pay
+Disallow: /payment-
 
 Sitemap: https://www.camp-lilac.com/sitemap-index.xml

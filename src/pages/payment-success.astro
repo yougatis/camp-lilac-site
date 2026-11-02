@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+<Base title="Deposit received – Camp Lilac" description="Your deposit has been received." noindex>
+  <div class="wrap page-head" style="min-height:50vh">
+    <p class="label">Payment confirmed</p>
+    <h1>Thank you — your deposit is paid</h1>
+    <p class="lead" id="ps-line">Your booking is secured. DPO Pay has emailed you a receipt, and our team will confirm the details with you shortly.</p>
+    <p>Questions? <a href={site.whatsapp}>WhatsApp {site.phoneDisplay}</a> or <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+    <a class="link" href="/getting-here">How to get to the camp</a>
+  </div>
+  <script>
+    const q = new URLSearchParams(location.search);
+    if (q.get('ref') && q.get('amount')) document.getElementById('ps-line')!.textContent = `We received ${q.get('currency') || ''} ${q.get('amount')} for booking ${q.get('ref')}. Your booking is secured — DPO Pay has emailed you a receipt, and our team will confirm the details with you shortly.`;
+  </script>
+</Base>

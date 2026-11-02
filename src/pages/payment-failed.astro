@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+<Base title="Payment not completed – Camp Lilac" description="The payment was not completed." noindex>
+  <div class="wrap page-head" style="min-height:50vh">
+    <p class="label">Payment not completed</p>
+    <h1>Your deposit didn't go through</h1>
+    <p class="lead" id="pf-line">No money was taken. You can go back and try again, or contact us and we'll help.</p>
+    <div class="btn-row"><a class="btn btn--fill" href={site.whatsapp}>WhatsApp us</a><button class="btn" type="button" onclick="history.go(-2)">Try again</button></div>
+  </div>
+  <script>
+    const r = new URLSearchParams(location.search).get('reason');
+    if (r === 'link') document.getElementById('pf-line')!.textContent = 'This payment link is not valid or was changed. Please use the exact link our team sent you, or contact us for a new one.';
+  </script>
+</Base>

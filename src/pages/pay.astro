@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+<Base title="Pay your deposit – Camp Lilac" description="Secure deposit payment for your Camp Lilac booking." noindex>
+  <div class="wrap page-head pay-page">
+    <p class="label">Secure payment</p>
+    <h1>Pay your deposit</h1>
+    <p class="test-banner" id="test-banner" hidden>TEST MODE — no real money is charged. Use a DPO test card.</p>
+    <div id="pay-box" class="pay-card" hidden>
+      <table class="rates">
+        <tr><th>Booking reference</th><td id="f-ref"></td></tr>
+        <tr><th>Guest</th><td id="f-name"></td></tr>
+        <tr><th>For</th><td id="f-desc"></td></tr>
+        <tr><th>Deposit due now</th><td class="price" id="f-amount"></td></tr>
+      </table>
+      <form method="post" action="/api/pay" id="pay-form">
+        <input type="hidden" name="ref" /><input type="hidden" name="amount" /><input type="hidden" name="currency" />
+        <input type="hidden" name="type" /><input type="hidden" name="name" /><input type="hidden" name="email" />
+        <input type="hidden" name="desc" /><input type="hidden" name="sig" />
+        <button class="btn btn--fill" type="submit">Pay deposit securely</button>
+      </form>
+      <p class="meta">You'll go to DPO Pay's secure page to pay by card (Visa, Mastercard, Amex) or mobile money. Camp Lilac never sees your card details. The balance is paid at the camp or before arrival, as agreed with our team.</p>
+    </div>
+    <div id="pay-missing" hidden>
+      <p class="lead">This payment link is incomplete. Please use the link our team sent you, or <a href={site.whatsapp}>message us on WhatsApp</a>.</p>
+    </div>
+  </div>
+  <script>
+    const q = new URLSearchParams(location.search);
+    const keys = ['ref', 'amount', 'currency', 'type', 'name', 'email', 'desc', 'sig'];
+    const ok = ['ref', 'amount', 'currency', 'name', 'email', 'sig'].every((k) => q.get(k));
+    const $ = (id: string) => document.getElementById(id)!;
+    if (ok) {
+      const f = document.getElementById('pay-form') as HTMLFormElement;
+      keys.forEach((k) => ((f.elements.namedItem(k) as HTMLInputElement).value = q.get(k) || ''));
+      $('f-ref').textContent = q.get('ref');
+      $('f-name').textContent = q.get('name');
+      $('f-desc').textContent = (q.get('type') === 'safari' ? 'Safari' : 'Stay') + (q.get('desc') ? ' — ' + q.get('desc') : '');
+      $('f-amount').textContent = `${q.get('currency')} ${Number(q.get('amount')).toLocaleString('en-US', { minimumFractionDigits: q.get('currency') === 'USD' ? 2 : 0 })}`;
+      $('pay-box').hidden = false;
+    } else $('pay-missing').hidden = false;
+    fetch('/api/mode').then((r) => r.json()).then((m) => { if (m.test) $('test-banner').hidden = false; }).catch(() => {});
+  </script>
+</Base>
