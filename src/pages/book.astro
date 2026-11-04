@@ -23,7 +23,7 @@ const FORM_ENDPOINT = '';
         <h1><span class="w"><span>Request a booking</span></span></h1>
         <p class="lead">Nothing to pay yet. Tell us your dates and we reply {site.replyTime} with availability, one total price and a safari suggestion. A deposit then secures your room.</p>
       </div>
-      <div class="hero-side"><b>Direct bookings</b>get the free station pickup<br />and train-ticket offers</div>
+      <div class="hero-side"><b>Safari deals</b>2-day safari: free pickup from Morogoro<br />3–4 day safari: free train ticket + pickup</div>
     </div>
   </section>
 
@@ -83,13 +83,15 @@ const FORM_ENDPOINT = '';
     <aside class="aside">
       <h3>Prefer to chat?</h3>
       <p><a href={site.whatsapp}>WhatsApp {site.phoneDisplay}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
-      <h3>Direct-booking offers</h3>
+      <h3>Safari deals</h3>
       <ul>
         <li>2-day safari: free transfer Morogoro SGR → Mikumi, worth US$75 (one way)</li>
-        <li>3+ day safari: free economy train tickets Dar → Morogoro + transfer (one way)</li>
-        <li>Children under 4 stay free, 4–11 half price</li>
+        <li>3- or 4-day safari: free economy train tickets Dar → Morogoro + transfer (one way)</li>
+        <li>Only when you book one of these safaris direct. Room-only stays don’t include free transfers.</li>
       </ul>
       <p style="font-size:0.95rem"><a href="/offers" style="border-bottom:1px solid var(--lilac)">How the offers work</a></p>
+      <h3>Children</h3>
+      <p style="font-size:0.95rem">Under 4 stay free, ages 4–11 half price.</p>
       <h3>We organise anything</h3>
       <p style="font-size:0.95rem">Train, car, ferry or flights from Zanzibar, extra nights, special occasions — don’t be shy to ask. Tell us what you want and how you want to travel, and we arrange it.</p>
     </aside>

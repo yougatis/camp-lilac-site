@@ -6,7 +6,7 @@ import { offers } from '../data/offers';
 import { safaris } from '../data/safaris';
 import { site } from '../data/site';
 
-const title = 'Direct-Booking Offers: Free Train Ticket & Transfer to Mikumi | Camp Lilac';
+const title = 'Safari Deals: Free Train Ticket & Transfer to Mikumi | Camp Lilac';
 const description =
   'Book a Mikumi safari directly with Camp Lilac: free transfer from Morogoro SGR station (worth US$75) with the 2-day safari, plus free SGR train tickets from Dar es Salaam with 3+ days.';
 const qualifying = (id: string) => (id === 'free-transfer' ? safaris.filter((s) => s.days === 2) : safaris.filter((s) => s.days >= 3));
@@ -17,11 +17,11 @@ const qualifying = (id: string) => (id === 'free-transfer' ? safaris.filter((s) 
     <div class="hero-media"><img src="/images/wild/jeep-giraffes-1600.webp" srcset="/images/wild/jeep-giraffes-800.webp 800w, /images/wild/jeep-giraffes-1600.webp 1600w" sizes="100vw" alt="A safari jeep stopped beside giraffes in Mikumi National Park" width="1600" height="1067" fetchpriority="high" /></div>
     <div class="wrap hero-content">
       <div>
-        <p class="label">Book direct</p>
+        <p class="label">Safari deals</p>
         <h1><span class="w"><span>Your way in&nbsp;</span></span><span class="w"><em style="color:#e4d9f7">is on us</em></span></h1>
         <p class="lead">Book your Mikumi safari directly with Camp Lilac and we cover the journey to the park — no codes, no small print beyond what is on this page.</p>
       </div>
-      <div class="hero-side"><b>Free transfer</b>worth US$75<br />+ train tickets with 3+ days</div>
+      <div class="hero-side"><b>With your safari</b>2 days: free transfer (US$75)<br />3–4 days: train ticket + transfer</div>
     </div>
   </section>
 
@@ -59,6 +59,7 @@ const qualifying = (id: string) => (id === 'free-transfer' ? safaris.filter((s) 
       <TravelOptions heading="Coming from Zanzibar, or prefer the road?" tight />
       <h2 class="rv" style="margin-top:56px">The fine print</h2>
       <ul class="rv">
+        <li><strong>Only with a safari of 2 days or more.</strong> Room-only stays (a tent or cabin without a safari) don’t include the free transfer or train ticket.</li>
         <li>For safaris booked directly with Camp Lilac — on this website, by WhatsApp or by email. Not for bookings made through other agents or websites.</li>
         <li>One way, Dar es Salaam → Morogoro → Mikumi. The return journey is charged.</li>
         <li>Train tickets are economy class on the SGR. Business class is possible — you pay the difference.</li>
@@ -68,5 +69,5 @@ const qualifying = (id: string) => (id === 'free-transfer' ? safaris.filter((s) 
     </div>
   </section>
 
-  <CtaBand title="Claim your free transfer" />
+  <CtaBand title="Book your safari, claim your free transfer" />
 </Base>

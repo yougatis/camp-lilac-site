@@ -8,7 +8,7 @@ export const faqs: Faq[] = [
   },
   {
     q: 'How do I get to Mikumi from Dar es Salaam?',
-    a: 'By road it is about 300 km (5–6 hours). The quickest comfortable option is the SGR train from Dar es Salaam to Morogoro (about 1.5 hours), then a 2-hour road transfer — 3.5 hours door to door, which we provide. Book a safari of two or more days with us and the Morogoro–Mikumi transfer is free; with three or more days we also cover your train tickets from Dar es Salaam.',
+    a: 'By road it is about 300 km (5–6 hours). The quickest comfortable option is the SGR train from Dar es Salaam to Morogoro (about 1.5 hours), then a 2-hour road transfer — 3.5 hours door to door, which we provide. Book a safari of two or more days with us and the Morogoro–Mikumi transfer is free; with three or more days we also cover your train tickets from Dar es Salaam. Booking a room only? Then the transfer is charged; ask us for the price.',
   },
   {
     q: 'Are meals included?',
