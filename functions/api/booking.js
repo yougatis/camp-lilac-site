@@ -13,7 +13,7 @@ export async function onRequestPost({ request, env }) {
   if (d.website) return json({ ok: true }); // honeypot: bots get a fake success
   const clean = {};
   for (const k of FIELDS) clean[k] = String(d[k] ?? '').trim().slice(0, k === 'message' ? 2000 : 200);
-  if (!clean.name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean.email) || !clean.checkin) {
+  if (!clean.name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean.email) || !clean.checkin || !clean.phone || !clean.country) {
     return json({ ok: false, error: 'missing-fields' }, 400);
   }
   try {
