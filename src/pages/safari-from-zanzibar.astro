@@ -13,6 +13,7 @@ const title = 'Safari from Zanzibar: 2–3 Day Mikumi Trips | Camp Lilac';
 const description =
   'A real safari from Zanzibar in two or three days: ferry or flight to Dar es Salaam, SGR train, our pickup, luxury tents facing the Mikumi Mountains. Prices, timings, how it works.';
 const crumbs = [{ name: 'Safaris', href: '/safaris' }, { name: 'Safari from Zanzibar', href: '/safari-from-zanzibar' }];
+const alternates = [{ lang: 'en', href: '/safari-from-zanzibar' }, { lang: 'it', href: '/it/safari-da-zanzibar' }];
 const s2 = safariBySlug('2-day-mikumi-safari')!, s3 = safariBySlug('3-day-mikumi-safari')!, s4 = safariBySlug('4-day-mikumi-udzungwa-safari')!;
 
 const faqs = [
@@ -30,7 +31,7 @@ const schema = {
 };
 ---
 
-<Base {title} {description} {schema} ogImage="/images/wild/elephants-plain-1600.jpg" breadcrumbs={crumbs} dark>
+<Base {title} {description} {schema} {alternates} ogImage="/images/wild/elephants-plain-1600.jpg" breadcrumbs={crumbs} dark>
   <section class="hero hero--inner">
     <div class="hero-media"><img src="/images/wild/elephants-plain-1600.webp" srcset="/images/wild/elephants-plain-800.webp 800w, /images/wild/elephants-plain-1200.webp 1200w, /images/wild/elephants-plain-1600.webp 1600w" sizes="100vw" alt="Elephants on the Mkata floodplain in Mikumi National Park with the Mikumi Mountains behind" width="1600" height="1067" fetchpriority="high" /></div>
     <div class="wrap hero-content">
@@ -115,7 +116,7 @@ const schema = {
         </ul>
 
         <div class="anything">
-          <p style="margin:0 0 8px"><strong>Italiano:</strong> Vacanza a Zanzibar? Aggiungete due o tre giorni di vero safari a Mikumi: traghetto o volo per Dar es Salaam, treno, il nostro transfer, tenda di lusso con bagno privato e aria condizionata, safari in jeep privata con le nostre guide. Organizziamo tutto noi — <a href={site.whatsapp} rel="noopener">scriveteci su WhatsApp</a>.</p>
+          <p style="margin:0 0 8px"><strong>Italiano:</strong> Vacanza a Zanzibar? Aggiungete due o tre giorni di vero safari a Mikumi: traghetto o volo per Dar es Salaam, treno, il nostro transfer, tenda di lusso con bagno privato e aria condizionata, safari in jeep privata con le nostre guide. Organizziamo tutto noi — <a href="/it/safari-da-zanzibar">leggete questa pagina in italiano</a> o <a href={site.whatsapp} rel="noopener">scriveteci su WhatsApp</a>.</p>
           <p style="margin:0"><strong>Français :</strong> En vacances à Zanzibar ? Ajoutez deux ou trois jours de vrai safari à Mikumi : ferry ou vol vers Dar es Salaam, train, notre transfert, tente de luxe avec salle de bain privée et climatisation, safari en jeep privée avec nos guides. Nous organisons tout — <a href={site.whatsapp} rel="noopener">écrivez-nous sur WhatsApp</a>.</p>
         </div>
 

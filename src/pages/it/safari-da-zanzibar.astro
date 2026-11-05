@@ -1,0 +1,148 @@
+---
+// Italian version of /safari-from-zanzibar. Hand-written; ask an Italian speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import Photo from '../../components/Photo.astro';
+import { safariBySlug } from '../../data/safaris';
+import { site } from '../../data/site';
+
+const title = 'Safari da Zanzibar: 2–3 giorni a Mikumi in tenda di lusso | Camp Lilac';
+const description =
+  'Un vero safari da Zanzibar in due o tre giorni: traghetto o volo per Dar es Salaam, treno SGR, il nostro transfer, tende di lusso di fronte ai monti Mikumi. Prezzi, orari, come funziona.';
+const crumbs = [{ name: 'Safari', href: '/safaris' }, { name: 'Safari da Zanzibar', href: '/it/safari-da-zanzibar' }];
+const alternates = [{ lang: 'en', href: '/safari-from-zanzibar' }, { lang: 'it', href: '/it/safari-da-zanzibar' }];
+const s2 = safariBySlug('2-day-mikumi-safari')!, s3 = safariBySlug('3-day-mikumi-safari')!, s4 = safariBySlug('4-day-mikumi-udzungwa-safari')!;
+const wa = `${site.whatsapp}?text=${encodeURIComponent('Buongiorno! Siamo a Zanzibar e vorremmo informazioni sul safari a Mikumi di 2 o 3 giorni. Siamo in ... persone, date: ...')}`;
+
+const faqs = [
+  { q: 'Serve un nuovo visto per passare da Zanzibar alla terraferma?', a: 'No. Zanzibar fa parte della Tanzania: il visto con cui siete entrati vale anche per Dar es Salaam e Mikumi. Portate il passaporto per il traghetto e per l’ingresso al parco.' },
+  { q: 'Due giorni bastano?', a: 'Per un primo safari sì: un game drive nel pomeriggio e uno all’alba sulla piana del Mkata, dove elefanti, giraffe, zebre e leoni si vedono facilmente. Con un terzo giorno avete una giornata intera nel parco e un ritmo molto più rilassato: è la versione che consigliamo.' },
+  { q: 'Parlate italiano?', a: 'Il nostro team parla inglese e swahili. Scriveteci pure in italiano su WhatsApp: rispondiamo in inglese semplice e, se serve, con l’aiuto di un traduttore. Le guide parlano inglese; molti ospiti italiani se la cavano benissimo.' },
+  { q: 'Quanto bagaglio portare?', a: 'Una borsa piccola. Lasciate la valigia grande nel vostro hotel a Zanzibar (quasi tutti la custodiscono gratis) e portate abiti dai colori neutri, un pile per le mattine di giugno–agosto, protezione solare e la macchina fotografica. Nelle tende c’è tutto il resto.' },
+  { q: 'Mikumi è zona malarica?', a: 'Sì, come Zanzibar e tutta la costa tanzaniana: la profilassi che fate per Zanzibar copre anche Mikumi. Le tende hanno zanzariere e aria condizionata.' },
+  { q: 'E se il volo di ritorno parte da Dar es Salaam?', a: 'Allora chiudete la vacanza con il safari: venite a Mikumi da Zanzibar e l’ultimo giorno vi portiamo a Dar es Salaam o direttamente all’aeroporto internazionale Julius Nyerere, invece che sull’isola.' },
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'it',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+
+<Base {title} {description} {schema} lang="it" {alternates} ogImage="/images/wild/elephants-plain-1600.jpg" breadcrumbs={crumbs} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src="/images/wild/elephants-plain-1600.webp" srcset="/images/wild/elephants-plain-800.webp 800w, /images/wild/elephants-plain-1200.webp 1200w, /images/wild/elephants-plain-1600.webp 1600w" sizes="100vw" alt="Elefanti sulla piana del Mkata nel Parco Nazionale di Mikumi, con i monti Mikumi sullo sfondo" width="1600" height="1067" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <Crumbs items={crumbs} />
+        <h1 style="max-width:17ch"><span class="w"><span>Safari da Zanzibar:&nbsp;</span></span><br /><span class="w"><em style="color:#e4d9f7">un vero safari in due giorni</em></span></h1>
+        <p class="lead">Il Parco Nazionale di Mikumi è il grande parco più vicino a Zanzibar che si raggiunge senza voli charter: traghetto o 20 minuti di volo fino a Dar es Salaam, un’ora e mezza di treno SGR, e il nostro autista vi aspetta sul binario. Elefanti nel pomeriggio, una tenda di lusso di fronte ai monti Mikumi la notte.</p>
+      </div>
+      <div class="hero-side"><b>Da US${s2.price}</b>a persona, 2 giorni<br />traghetto o volo esclusi</div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap split--aside" style="display:grid">
+      <article class="article">
+        <p class="meta"><a href="/safari-from-zanzibar">Read this page in English</a> · Il resto del sito è in inglese.</p>
+        <h2>Perché Mikumi è il safari giusto da Zanzibar</h2>
+        <p>
+          Quasi tutte le offerte di “safari da Zanzibar” sono gite di un giorno: sveglia alle quattro, volo verso il Selous (Nyerere) o Mikumi, qualche ora in macchina e volo di ritorno la sera stessa. Stancante, costoso, e vi perdete le due ore migliori di qualsiasi safari: l’alba e il tramonto. L’alternativa è una breve vacanza nella vacanza, sulla terraferma. Mikumi è sulla linea ferroviaria principale da Dar es Salaam, la sua piana aperta rende gli animali facili da vedere in poco tempo, le tariffe d’ingresso sono le più basse della Tanzania e Camp Lilac è a pochi minuti dall’ingresso del parco. Dormite nella savana, uscite alle prime luci e la sera dopo siete di nuovo in spiaggia — o due sere dopo, se seguite il nostro consiglio e restate due notti.
+        </p>
+        <p>
+          Il safari lo facciamo noi, con le nostre guide e le nostre jeep con tetto apribile, e organizziamo tutto il viaggio dal vostro hotel a Zanzibar: biglietti del traghetto o del volo, treno, pickup alla stazione di Morogoro e transfer di ritorno. Un solo prezzo totale e un solo numero WhatsApp.
+        </p>
+
+        <h2 id="come">Come funziona, ora per ora</h2>
+        <ol class="itinerary">
+          <li><h3>Mattina — da Zanzibar a Dar es Salaam</h3><p>Traghetto veloce delle 07:00 da Stone Town (1,5–2 ore; circa 35–70 dollari a persona per tratta, secondo la classe) oppure un volo di 20 minuti (160–200 dollari a persona per tratta, secondo il giorno e la compagnia). Vi aspettiamo al terminal del traghetto o in aeroporto.</p></li>
+          <li><h3>Tarda mattinata — il treno SGR per Morogoro</h3><p>Vi accompagniamo alla stazione SGR di Dar es Salaam: circa un’ora e mezza di treno moderno e climatizzato fino a Morogoro. La classe economica va benissimo; la business ha più spazio. I biglietti li compriamo noi.</p></li>
+          <li><h3>Primo pomeriggio — il nostro autista sul binario</h3><p>La vostra guida-autista di Camp Lilac vi aspetta a Morogoro con un cartello. Le due ore di strada verso ovest costeggiano i monti Uluguru ed entrano nel Parco di Mikumi lungo la strada principale: le prime giraffe spesso compaiono prima del check-in.</p></li>
+          <li><h3>Pomeriggio — primo game drive, poi cena di fronte ai monti</h3><p>Pranzo al campo, poi nella piana del Mkata quando l’aria si rinfresca: elefanti, giraffe, zebre, bufali, le pozze degli ippopotami e, con un po’ di fortuna, i leoni sugli alberi. Cena nel nostro ristorante aperto con vista sulla catena dei monti Mikumi; la notte in una tenda di lusso con bagno privato e aria condizionata.</p></li>
+          <li><h3>Giorno 2 — game drive all’alba, poi ritorno sulla costa (o un giorno in più)</h3><p>Si esce alle prime luci, quando i predatori sono ancora in movimento, e si rientra per una colazione tardiva. Con il safari di 2 giorni vi portiamo poi a Morogoro per il treno verso Dar es Salaam, da dove prendete un volo serale per Zanzibar o il traghetto del mattino dopo. Con il safari di 3 giorni passate l’intera giornata nel parco e tornate il terzo giorno: è la versione che consigliamo, se avete il tempo.</p></li>
+        </ol>
+        <p>Gli orari dipendono dal treno che prendete e dalla scelta tra volo e traghetto. Diteci in quale giorno volete essere di nuovo in spiaggia e noi incastriamo treno, traghetto o volo: è il nostro lavoro, non il vostro.</p>
+
+        <h2 id="pacchetti">Scegliete il vostro safari</h2>
+        <table>
+          <thead><tr><th scope="col">Pacchetto</th><th scope="col">A persona</th><th scope="col">Per chi</th></tr></thead>
+          <tbody>
+            <tr><th scope="row"><a href={`/safaris/${s2.slug}`}>Safari a Mikumi di 2 giorni, 1 notte</a></th><td>Da US${s2.price}</td><td>Un primo safari nel minor tempo possibile lontano dall’isola</td></tr>
+            <tr><th scope="row"><a href={`/safaris/${s3.slug}`}>Safari a Mikumi di 3 giorni, 2 notti</a></th><td>Da US${s3.price}</td><td>Il nostro consiglio: una giornata intera nel parco, ritmo rilassato, due notti nella savana</td></tr>
+            <tr><th scope="row"><a href={`/safaris/${s4.slug}`}>Mikumi e cascate di Udzungwa, 4 giorni, 3 notti</a></th><td>Da US${s4.price}</td><td>Fauna selvatica più il trekking alla cascata nella foresta pluviale dei monti Udzungwa</td></tr>
+          </tbody>
+        </table>
+        <p>
+          I prezzi sono a persona per due o più persone che viaggiano insieme e comprendono le tariffe d’ingresso al parco, una jeep privata con tetto apribile e una nostra guida, tutti i pasti e le notti a Camp Lilac. Traghetto o volo e treno sono esclusi (li prenotiamo noi al prezzo di costo), così come il transfer di ritorno dal campo alla stazione di Morogoro (75 dollari a veicolo). Prima di confermare qualsiasi cosa vi mandiamo una cifra esatta.
+        </p>
+
+        <h3>Un esempio concreto: due persone, due giorni</h3>
+        <ul>
+          <li>Safari di 2 giorni: US${s2.price} a persona — ingressi al parco, game drive, una notte, pasti, transfer a Dar es Salaam</li>
+          <li>Traghetto veloce Zanzibar ⇄ Dar es Salaam: circa 35–70 dollari a persona per tratta</li>
+          <li>Treno SGR Dar es Salaam ⇄ Morogoro: pochi dollari per tratta in economica</li>
+          <li>Transfer di ritorno campo → stazione di Morogoro: 75 dollari a veicolo, cioè circa 38 a testa in due</li>
+        </ul>
+        <p>In tutto circa 520–600 dollari a persona per i due giorni con il traghetto; aggiungete 320–400 dollari a persona se preferite volare in entrambe le direzioni.</p>
+
+        <h2 id="volo">Traghetto o volo?</h2>
+        <p>
+          Il <strong>traghetto</strong> costa meno ed è affidabile, e la partenza delle 07:00 si collega bene con un treno di tarda mattinata. Il <strong>volo</strong> fa risparmiare circa due ore per tratta, e conta soprattutto al ritorno: con un volo serale arrivate da Dar es Salaam al vostro hotel di Zanzibar la sera stessa, mentre l’ultimo traghetto di solito è già partito quando arriva il treno del pomeriggio. Molti ospiti vanno in traghetto e tornano in aereo.
+        </p>
+
+        <h2 id="per-chi">A chi è adatto</h2>
+        <ul>
+          <li><strong>Coppie e viaggi di nozze</strong> che vogliono un ricordo indimenticabile oltre alla spiaggia: chiedete la Mountain View Cabin con la vasca da bagno di fronte ai monti.</li>
+          <li><strong>Famiglie</strong>: i bambini sotto i 4 anni non pagano e dai 4 agli 11 pagano la metà, la Luxury Family Tent ospita quattro persone, e la piana aperta significa uscite brevi con tanto da vedere. I bambini sotto i 2 anni non possono partecipare ai game drive.</li>
+          <li><strong>Chi riparte da Dar es Salaam</strong>: il safari diventa l’ultimo capitolo del viaggio e da Mikumi si va dritti in aeroporto.</li>
+        </ul>
+
+        <h2 id="domande">Le domande degli ospiti italiani</h2>
+        <div class="faq">
+          {faqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+        </div>
+        <p style="margin-top:28px">In inglese, per approfondire: <a href="/safari-from-zanzibar">la versione inglese di questa pagina</a> · <a href="/blog/mikumi-safari-cost">quanto costa un safari a Mikumi</a> · <a href="/mikumi-national-park">la guida al Parco Nazionale di Mikumi</a> · <a href="/rooms">tende e cabin</a>.</p>
+      </article>
+
+      <aside class="aside">
+        <p class="aside-price">Da US${s2.price} <small>a persona</small></p>
+        <ul>
+          <li>2 o 3 giorni da Zanzibar</li>
+          <li>Traghetto o volo di 20 min + 1,5 h di treno</li>
+          <li>Jeep privata e una nostra guida</li>
+          <li>Tenda di lusso · bagno privato · aria condizionata</li>
+          <li>Prenotiamo noi traghetti, voli e treni</li>
+        </ul>
+        <a class="btn btn--fill" href={wa} rel="noopener">Scriveteci su WhatsApp</a>
+        <p style="margin-top:12px;font-size:0.9rem">oppure <a href={`/book?safari=${s2.slug}`}>compilate il modulo di richiesta</a> (in inglese)</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--sand section--tight">
+    <div class="wrap">
+      <div class="split" style="align-items:center">
+        <div class="rv">
+          <Photo src="/images/rooms/mv-cabin-1-1600.jpg" alt="Vasca da bagno nella Mountain View Cabin di Camp Lilac, con i monti Mikumi dalla finestra" caption="Mountain View Cabin" ratio="landscape" zoom />
+        </div>
+        <div>
+          <h2 class="rv">Dove dormite</h2>
+          <p class="rv rv-d1">Camp Lilac è un campo tendato di lusso appena fuori dal Parco Nazionale di Mikumi, a 2 km dalla strada principale, di fronte alla catena dei monti Mikumi. Tende di lusso in tela e due cabin con tetto di paglia, ognuna con bagno privato, aria condizionata e terrazza privata; un ristorante con l’unica vista sui monti di tutta Mikumi; impala e facoceri che passeggiano nel campo. Guardate le <a href="/rooms">tende e le cabin</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-dark band">
+    <div class="wrap">
+      <h2 class="rv">Due giorni lontano dalla spiaggia. Foto per una vita.</h2>
+      <p class="lead rv rv-d1">Diteci le date e dove alloggiate a Zanzibar. Rispondiamo in giornata con gli orari, un unico prezzo totale e le opzioni di traghetto o volo.</p>
+      <div class="btn-row rv rv-d2">
+        <a class="btn btn--fill" href={wa} rel="noopener">WhatsApp {site.phoneDisplay}</a>
+        <a class="btn btn--light" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+    </div>
+  </section>
+</Base>
