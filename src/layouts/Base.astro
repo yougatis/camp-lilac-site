@@ -324,6 +324,18 @@ const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema
         lb.addEventListener('touchend', (e) => { const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 40) show(idx + (dx < 0 ? 1 : -1)); });
       })();
     </script>
+    <!-- Meta Pixel: PageView on every page, Lead on the thank-you page, Contact on any WhatsApp link. Loads after the page. -->
+    <script is:inline>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1131227682887375');
+      fbq('track', 'PageView');
+      if (location.pathname.replace(/\.html$/, '') === '/thank-you') fbq('track', 'Lead', { content_name: 'booking-request' });
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href*="wa.me"], a[href*="whatsapp"]') : null;
+        if (a) fbq('track', 'Contact', { content_name: 'whatsapp' });
+      }, true);
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1131227682887375&ev=PageView&noscript=1" alt="" /></noscript>
     <!-- Cloudflare Web Analytics (privacy-friendly, no cookies). Token is public by design. -->
     <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "043b0bff8afd4c0abf6280c0f18dae2f"}'></script>
   </body>
