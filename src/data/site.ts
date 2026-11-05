@@ -18,6 +18,7 @@ export const site = {
   mapsUrl: 'https://www.google.com/maps/place/Camp+Lilac+Mikumi/@-7.3937545,37.028689,17z/data=!4m2!3m1!1s0x18574b730f6e30bb:0xe634ecb2de857e92',
   mapsSearchUrl: 'https://www.google.com/maps/search/?api=1&query=-7.393652721809862,37.02873796174662',
   safariBookings: 'https://www.safaribookings.com/p6212',
+  tiktok: 'https://www.tiktok.com/@camp.lilac.mikumi',
   instagram: 'https://www.instagram.com/camplilacmikumi/',
   facebook: 'https://www.facebook.com/profile.php?id=61580083590694',
   tripadvisorCamp: 'https://www.tripadvisor.com/Hotel_Review-g14050057-d27434393-Reviews-Camp_Lilac_Mikumi-Mikumi_Morogoro_Region.html',

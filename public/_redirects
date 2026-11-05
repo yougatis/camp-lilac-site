@@ -11,3 +11,5 @@
 /rooms/family-tent          /rooms/luxury-family-tent         301
 /safaris/mikumi-udzungwa-safari   /safaris/4-day-mikumi-udzungwa-safari  301
 /safaris/4-day-mikumi-safari      /safaris/4-day-mikumi-udzungwa-safari  301
+# Old sitemap address still registered in Search Console
+/sitemap.xml  /sitemap-index.xml  301
