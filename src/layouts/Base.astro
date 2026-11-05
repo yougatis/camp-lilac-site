@@ -328,11 +328,27 @@ const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema
     <script is:inline>
       !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '1131227682887375');
-      fbq('track', 'PageView');
-      if (location.pathname.replace(/\.html$/, '') === '/thank-you') fbq('track', 'Lead', { content_name: 'booking-request' });
+      // Each event goes to the browser pixel and to our server (/api/meta -> Conversions API) with the same
+      // eventID, so Meta counts it once but still sees it when the pixel is blocked.
+      function cookie(n) { var m = document.cookie.match('(?:^|; )' + n + '=([^;]*)'); return m ? decodeURIComponent(m[1]) : ''; }
+      function track(name, data) {
+        var id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2);
+        fbq('track', name, data || {}, { eventID: id });
+        var send = function () {
+          var body = JSON.stringify({ event_name: name, event_id: id, url: location.href, fbp: cookie('_fbp'), fbc: cookie('_fbc'), content_name: data && data.content_name });
+          try {
+            if (navigator.sendBeacon) navigator.sendBeacon('/api/meta', new Blob([body], { type: 'application/json' }));
+            else fetch('/api/meta', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true });
+          } catch (err) {}
+        };
+        // Short wait so the pixel has set its _fbp cookie, which lets Meta match the two copies.
+        if (name === 'PageView') setTimeout(send, 600); else send();
+      }
+      track('PageView');
+      if (location.pathname.replace(/\.html$/, '') === '/thank-you') track('Lead', { content_name: 'booking-request' });
       document.addEventListener('click', function (e) {
         var a = e.target && e.target.closest ? e.target.closest('a[href*="wa.me"], a[href*="whatsapp"]') : null;
-        if (a) fbq('track', 'Contact', { content_name: 'whatsapp' });
+        if (a) track('Contact', { content_name: 'whatsapp' });
       }, true);
     </script>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1131227682887375&ev=PageView&noscript=1" alt="" /></noscript>
