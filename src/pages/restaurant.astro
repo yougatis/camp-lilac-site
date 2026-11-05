@@ -2,25 +2,37 @@
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Photo from '../components/Photo.astro';
+import Crumbs from '../components/Crumbs.astro';
+import { site } from '../data/site';
 
 const title = 'Restaurant & Bar with Mountain Views in Mikumi | Camp Lilac';
 const description =
-  'The Camp Lilac restaurant faces the Mikumi mountain ridge. Breakfast and dinner included for guests who book direct, lunch US$15: fresh Tanzanian and international food, full bar and Wi-Fi.';
+  'The Camp Lilac restaurant faces the Mikumi mountain ridge. Breakfast and dinner included when you book direct, lunch US$15: Tanzanian and international food, full bar.';
+const crumbs = [{ name: 'Restaurant & bar', href: '/restaurant' }];
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'Restaurant',
+  '@id': `${site.url}/restaurant#restaurant`,
   name: 'Camp Lilac Restaurant & Bar',
+  url: `${site.url}/restaurant`,
+  image: `${site.url}/images/rooms/restaurant-dusk-2000.jpg`,
+  telephone: site.phoneE164,
+  email: site.email,
+  address: { '@type': 'PostalAddress', ...site.address },
+  geo: { '@type': 'GeoCoordinates', ...site.geo },
   servesCuisine: ['Tanzanian', 'International'],
-  parentOrganization: { '@id': 'https://www.camp-lilac.com/#camp' },
-  priceRange: '$$',
+  priceRange: 'US$15 per meal',
+  acceptsReservations: 'True',
+  containedInPlace: { '@id': `${site.url}/#camp` },
+  parentOrganization: { '@id': `${site.url}/#camp` },
 };
 ---
-<Base {title} {description} {schema} breadcrumbs={[{ name: 'Restaurant', href: '/restaurant' }]} dark>
+<Base {title} {description} {schema} breadcrumbs={crumbs} dark>
   <section class="hero hero--inner">
-    <div class="hero-media"><img src="/images/rooms/restaurant-dusk-1600.webp" srcset="/images/rooms/restaurant-dusk-800.webp 800w, /images/rooms/restaurant-dusk-1600.webp 1600w" sizes="100vw" alt="The Camp Lilac restaurant at dusk, looking out to the Mikumi mountain ridge" width="1600" height="900" fetchpriority="high" /></div>
+    <div class="hero-media"><img src="/images/rooms/restaurant-dusk-1600.webp" srcset="/images/rooms/restaurant-dusk-800.webp 800w, /images/rooms/restaurant-dusk-1200.webp 1200w, /images/rooms/restaurant-dusk-1600.webp 1600w, /images/rooms/restaurant-dusk-2000.webp 2000w" sizes="100vw" alt="The Camp Lilac restaurant at dusk, looking out to the Mikumi mountain ridge" width="2000" height="1365" fetchpriority="high" /></div>
     <div class="wrap hero-content">
       <div>
-        <p class="label">Restaurant &amp; bar</p>
+        <Crumbs items={crumbs} />
         <h1><span class="w"><span>Every meal with&nbsp;</span></span><span class="w"><em style="color:#e4d9f7">the view</em></span></h1>
         <p class="lead">Our restaurant and bar look straight at the Mikumi mountain ridge. It is where the camp gathers at sunset, and the only dining room in Mikumi with this view.</p>
       </div>
@@ -36,8 +48,10 @@ const schema = {
         <p>Lunch and dinner are cooked fresh each day — a mix of Tanzanian dishes (nyama choma, pilau, coconut fish, ugali with greens) and international favourites, with vegetarian options always available. Meals are charged per person per meal; tell us about allergies or dietary needs when you book. Children under 4 stay free and ages 4–11 are half price; meals for children are charged per meal. Lunch, or any extra meal, is US$15 per person. If you are on one of our safari packages, every meal is included — full board, with picnic lunches in the park.</p>
         <h2>The bar</h2>
         <p>Cold Kilimanjaro and Serengeti beers, Tanzanian Konyagi, a short wine list, soft drinks and fresh juice. The bar deck is the sunset spot. Wi-Fi is available here (the tents are intentionally offline).</p>
+        <h2>Sundowners and evenings</h2>
+        <p>Game drives end with the light, and the bar deck faces west, so most evenings start with a drink as the sun drops behind the Mikumi mountain ridge. Dinner is three courses, served when you are ready — there is no fixed sitting — and on clear nights the only lights are the camp’s and the stars. Breakfast runs early on safari days: tell your guide the time and the kitchen is ready before first light.</p>
         <h2>Not staying with us?</h2>
-        <p>Safari visitors and people passing through Mikumi are welcome for lunch or dinner with the view — please message us in advance so the kitchen is ready.</p>
+        <p>Safari visitors and people passing through Mikumi on the highway are welcome for lunch or dinner with the view — please <a href={site.whatsapp} rel="noopener">message us on WhatsApp</a> in advance so the kitchen is ready. If you are planning a stay, see the <a href="/rooms">tents and cabins</a> and our <a href="/safaris">safari packages</a>, on which every meal is included.</p>
       </article>
       <aside class="aside">
         <h3>Quick facts</h3>

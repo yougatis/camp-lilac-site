@@ -1,8 +1,18 @@
 ---
-const items = ['November: free transfer with safaris of 2+ days', 'Breakfast & dinner included', 'Air-conditioned tents & cabins', 'Our own guides & 4×4s', 'The only Mikumi mountain ridge view', 'Quiet — away from the highway', 'Minutes from the park gate'];
+import { offersActive } from '../data/offers';
+const items = [
+  ...(offersActive ? ['November: free transfer with safaris of 2+ days'] : []),
+  'Breakfast & dinner included',
+  'Air-conditioned luxury tents & cabins',
+  'Our own guides & 4×4s',
+  'The only Mikumi mountain ridge view',
+  'Quiet — 2 km from the highway',
+  'Minutes from the park gate',
+  'Just outside Mikumi National Park',
+];
 ---
 <div class="ribbon" aria-hidden="true">
   <div class="ribbon-track">
-    {[...items, ...items].map((t) => <span>{t}</span>)}
+    {[...items, ...items].map((t) => <span data-offer={t.startsWith('November') ? '' : undefined}>{t}</span>)}
   </div>
 </div>

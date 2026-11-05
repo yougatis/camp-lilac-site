@@ -5,15 +5,16 @@ import Offers from '../components/Offers.astro';
 import { rooms } from '../data/rooms';
 import { safaris } from '../data/safaris';
 import { site } from '../data/site';
+import { offersActive } from '../data/offers';
 
-const title = 'Rates 2026–27: Luxury Tents & Cabins in Mikumi | Camp Lilac';
+const title = 'Rates 2026–27: Mikumi Safari & Room Prices | Camp Lilac';
 const description =
-  'Camp Lilac nightly rates per room, breakfast and dinner included: luxury tents from US$140, cabins from US$160. Child policy, what\'s included, safari prices per person and safari deals.';
+  'Camp Lilac rates per room per night with breakfast and dinner: luxury tents from US$140, cabins from US$160. Safari prices per person, park fees, child policy.';
 ---
 <Base {title} {description} breadcrumbs={[{ name: 'Rates', href: '/rates' }]}>
   <div class="wrap page-head">
     <p class="crumbs"><a href="/">Home</a> / Rates</p>
-    <h1>Rates &amp; what’s included</h1>
+    <h1>Mikumi rates 2026–27: tents, cabins and safari prices</h1>
     <p class="lead">Simple pricing, no hidden extras. All room rates are per room per night and, when you book direct, include breakfast and dinner. Lunch or any extra meal is US$15 per person. Drinks are extra. Safari prices are per person and include park fees.</p>
   </div>
 
@@ -22,7 +23,7 @@ const description =
       <div class="article" style="max-width:none">
         <h2>Tents &amp; cabins — per room per night</h2>
         <table class="rates">
-          <tr><th>Room</th><th>Sleeps</th><th>International rate</th></tr>
+          <thead><tr><th scope="col">Room</th><th scope="col">Sleeps</th><th scope="col">International rate</th></tr></thead>
           {rooms.map((r) => (
             <tr><td><a href={`/rooms/${r.slug}`}>{r.name}</a>{r.units > 1 ? <span class="meta"> · {r.units} units</span> : ''}</td><td>{r.sleeps}</td><td class="price">{r.price ? `US$${r.price}` : 'On request'}</td></tr>
           ))}
@@ -31,7 +32,7 @@ const description =
 
         <h2>Children</h2>
         <table class="rates">
-          <tr><th>Age</th><th>Rate</th><th>Meals</th></tr>
+          <thead><tr><th scope="col">Age</th><th scope="col">Rate</th><th scope="col">Meals</th></tr></thead>
           <tr><td>0–3</td><td>Free</td><td>All meals free</td></tr>
           <tr><td>4–11</td><td>50% of the adult rate</td><td>Breakfast &amp; dinner included; lunch US$15</td></tr>
           <tr><td>12 and over</td><td>Adult rate</td><td>Breakfast &amp; dinner included; lunch US$15</td></tr>
@@ -63,7 +64,7 @@ const description =
         <h2>Not included</h2>
         <ul>
           <li>Lunch or any extra meal on room-only stays — US$15 per person</li><li>Drinks — soft drinks, beer, wine and spirits from the bar</li>
-          <li>Transfers for room-only stays (we arrange them at a fixed price, just ask). The free transfer comes only with a safari booked direct that starts in November 2026: 2-day safari — free one-way transfer Morogoro → Mikumi; 3- or 4-day safari — free one-way train ticket from Dar + transfer. Return journeys are charged.</li>
+          <li>Transfers for room-only stays (we arrange them at a fixed price, just ask).{offersActive && <span data-offer> The free transfer comes only with a safari booked direct that starts in November 2026: 2-day safari — free one-way transfer Morogoro → Mikumi; 3- or 4-day safari — free one-way train ticket from Dar + transfer. Return journeys are charged.</span>} For a full worked budget see <a href="/blog/mikumi-safari-cost">what a Mikumi safari costs</a>.</li>
           <li>Alcoholic drinks, tips, travel insurance</li>
         </ul>
         <h2>Booking &amp; payment</h2>

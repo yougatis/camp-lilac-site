@@ -2,30 +2,65 @@
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
 import TravelOptions from '../components/TravelOptions.astro';
-import { offers } from '../data/offers';
+import Crumbs from '../components/Crumbs.astro';
+import { offers, offersActive, directBenefits } from '../data/offers';
 import { safaris } from '../data/safaris';
 import { site } from '../data/site';
 
-const title = 'November Safari Deals: Free Train Ticket & Transfer to Mikumi | Camp Lilac';
-const description =
-  'November 2026 only: book a Mikumi safari directly with Camp Lilac and get a free transfer from Morogoro SGR station (worth US$75) with the 2-day safari, plus free SGR train tickets from Dar es Salaam with 3 or 4 days.';
+// While the November deals run this is the deals page; afterwards the same URL (linked from everywhere) becomes the
+// evergreen "why book direct" page, so nothing 404s and no expired offer is ever shown.
+const title = offersActive ? 'Mikumi Safari Deals, November 2026 | Camp Lilac' : 'Book Direct Benefits: Meals, One Price, Transfers | Camp Lilac';
+const description = offersActive
+  ? 'Book a Mikumi safari direct for November 2026: free Morogoro SGR station transfer (worth US$75) with the 2-day safari, free train tickets from Dar with 3–4 days.'
+  : 'What booking directly with Camp Lilac always includes: breakfast and dinner, one total price with no booking fees, the whole journey organised, our own guides.';
 const qualifying = (id: string) => (id === 'free-transfer' ? safaris.filter((s) => s.days === 2) : safaris.filter((s) => s.days >= 3));
+const crumbs = [{ name: offersActive ? 'Safari deals' : 'Book direct', href: '/offers' }];
 ---
 
-<Base {title} {description} breadcrumbs={[{ name: 'Offers', href: '/offers' }]} dark>
+<Base {title} {description} breadcrumbs={crumbs} dark>
   <section class="hero hero--inner">
-    <div class="hero-media"><img src="/images/wild/jeep-giraffes-1600.webp" srcset="/images/wild/jeep-giraffes-800.webp 800w, /images/wild/jeep-giraffes-1600.webp 1600w" sizes="100vw" alt="A safari jeep stopped beside giraffes in Mikumi National Park" width="1600" height="1067" fetchpriority="high" /></div>
+    <div class="hero-media"><img src="/images/wild/jeep-giraffes-1600.webp" srcset="/images/wild/jeep-giraffes-800.webp 800w, /images/wild/jeep-giraffes-1200.webp 1200w, /images/wild/jeep-giraffes-1600.webp 1600w" sizes="100vw" alt="A safari jeep stopped beside giraffes in Mikumi National Park" width="1600" height="1067" fetchpriority="high" /></div>
     <div class="wrap hero-content">
       <div>
-        <p class="label">November safari deals</p>
-        <h1><span class="w"><span>Your way in&nbsp;</span></span><span class="w"><em style="color:#e4d9f7">is on us</em></span></h1>
-        <p class="lead">Book a Mikumi safari starting in November 2026 directly with Camp Lilac and we cover the journey to the park — no codes, no small print beyond what is on this page.</p>
+        <Crumbs items={crumbs} />
+        {offersActive ? (
+          <>
+            <h1><span class="w"><span>Your way in&nbsp;</span></span><span class="w"><em style="color:#e4d9f7">is on us</em></span></h1>
+            <p class="lead">Book a Mikumi safari starting in November 2026 directly with Camp Lilac and we cover the journey to the park — no codes, no small print beyond what is on this page.</p>
+          </>
+        ) : (
+          <>
+            <h1><span class="w"><span>Book direct,&nbsp;</span></span><span class="w"><em style="color:#e4d9f7">get more</em></span></h1>
+            <p class="lead">Booking directly with Camp Lilac always gets you the most for your money: meals included, one total price, the whole journey organised, and our own guides.</p>
+          </>
+        )}
       </div>
-      <div class="hero-side"><b>November 2026</b>2 days: free transfer (US$75)<br />3–4 days: train ticket + transfer</div>
+      {offersActive ? (
+        <div class="hero-side" data-offer><b>November 2026</b>2 days: free transfer (US$75)<br />3–4 days: train ticket + transfer</div>
+      ) : (
+        <div class="hero-side"><b>Book direct</b>Breakfast &amp; dinner included<br />One total price, no fees</div>
+      )}
     </div>
   </section>
 
-  <section class="section section--tight">
+  {!offersActive && (
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="offers">
+          {directBenefits.map((b, i) => (
+            <div class={`offer rv rv-d${(i % 3) + 1}`}>
+              <h2 style="font-size:2rem;margin:0 0 8px">{b.title}</h2>
+              <p>{b.text}</p>
+            </div>
+          ))}
+        </div>
+        <div class="btn-row rv"><a class="btn btn--fill" href="/book">Request a booking</a><a class="btn" href="/safaris">Safari packages</a></div>
+        <p class="rv" style="margin-top:28px">We run short-lived direct-booking deals from time to time — follow us on <a href={site.instagram} rel="noopener">Instagram</a> or ask on <a href={site.whatsapp} rel="noopener">WhatsApp</a> when you plan your dates.</p>
+      </div>
+    </section>
+  )}
+
+  {offersActive && <section class="section section--tight" data-offer>
     <div class="wrap">
       <div class="offers">
         {offers.map((o, i) => (
@@ -40,14 +75,14 @@ const qualifying = (id: string) => (id === 'free-transfer' ? safaris.filter((s) 
         ))}
       </div>
     </div>
-  </section>
+  </section>}
 
   <section class="section section--sand section--tight">
     <div class="wrap">
-      <h2 class="rv" style="margin-bottom:28px">How to claim</h2>
+      <h2 class="rv" style="margin-bottom:28px">{offersActive ? 'How to claim' : 'How booking works'}</h2>
       <ol class="offer-steps">
-        <li><h3>Request your safari</h3><p>Press “Claim this offer” or fill in the <a href="/book">booking form</a> — choose the safari and how you want to travel.</p></li>
-        <li><h3>We confirm</h3><p>We reply {site.replyTime} with availability and one total price, with the offer already taken off.</p></li>
+        <li><h3>Request your safari</h3><p>{offersActive ? 'Press “Claim this offer” or fill in the ' : 'Fill in the '}<a href="/book">booking form</a> — choose the safari and how you want to travel.</p></li>
+        <li><h3>We confirm</h3><p>We reply {site.replyTime} with availability and one total price{offersActive ? ', with the offer already taken off' : ' for the stay, the safari and the journey'}.</p></li>
         <li><h3>Secure it</h3><p>Pay the deposit through our secure card link. We book your train ticket and send you the details.</p></li>
         <li><h3>Travel</h3><p>Our driver waits for you on the platform at Morogoro with a name board.</p></li>
       </ol>
@@ -57,8 +92,8 @@ const qualifying = (id: string) => (id === 'free-transfer' ? safaris.filter((s) 
   <section class="section section--tight">
     <div class="wrap">
       <TravelOptions heading="Coming from Zanzibar, or prefer the road?" tight />
-      <h2 class="rv" style="margin-top:56px">The fine print</h2>
-      <ul class="rv">
+      {offersActive && <h2 class="rv" style="margin-top:56px" data-offer>The fine print</h2>}
+      {offersActive && <ul class="rv" data-offer>
         <li><strong>November 2026 only.</strong> For safaris that start between 1 and 30 November 2026.</li>
         <li><strong>Only with a safari of 2 days or more.</strong> Room-only stays (a tent or cabin without a safari) don’t include the free transfer or train ticket.</li>
         <li>For safaris booked directly with Camp Lilac — on this website, by WhatsApp or by email. Not for bookings made through other agents or websites.</li>
@@ -66,9 +101,9 @@ const qualifying = (id: string) => (id === 'free-transfer' ? safaris.filter((s) 
         <li>Train tickets are economy class on the SGR. Business class is possible — you pay the difference.</li>
         <li>Travelling by car, ferry or plane instead? Tell us your route and we will price the whole journey for you.</li>
         <li>One offer per booking. Subject to train seats and availability.</li>
-      </ul>
+      </ul>}
     </div>
   </section>
 
-  <CtaBand title="Book your November safari, claim your free transfer" />
+  <CtaBand title={offersActive ? 'Book your November safari, claim your free transfer' : 'Book direct and we organise the rest'} />
 </Base>

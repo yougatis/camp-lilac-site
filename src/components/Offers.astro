@@ -1,25 +1,44 @@
 ---
-// Direct-booking deals band. Wording lives in src/data/offers.ts.
-import { offers } from '../data/offers';
+// Direct-booking deals band. Wording lives in src/data/offers.ts. When the dated deals are over (offersActive false
+// at build time) the band shows the evergreen book-direct benefits instead, so nothing on the site goes stale.
+import { offers, offersActive, directBenefits } from '../data/offers';
 interface Props { compact?: boolean }
 const { compact = false } = Astro.props;
 ---
-<section class={`section ${compact ? 'section--tight' : ''} section--sand`}>
-  <div class="wrap">
-    <p class="label rv" style="color:var(--lilac-deep);margin-bottom:12px">November safari deals · book direct</p>
-    <h2 class="rv" style="margin-bottom:36px">Two safari deals for <em>November</em></h2>
-    <div class="offers">
-      {offers.map((o, i) => (
-        <div class={`offer rv rv-d${i + 1}`}>
-          <p class="label" style="margin:0 0 10px">{o.who}</p>
-          <h3>{o.title}</h3>
-          <p class="worth">{o.worth}</p>
-          <p>{o.text}</p>
-          <a class="btn btn--fill" href={`/book?safari=${o.safari}&offer=${o.id}`}>Claim this offer</a>
-        </div>
-      ))}
+{offersActive ? (
+  <section class={`section ${compact ? 'section--tight' : ''} section--sand`} data-offer>
+    <div class="wrap">
+      <p class="label rv" style="color:var(--lilac-deep);margin-bottom:12px">November safari deals · book direct</p>
+      <h2 class="rv" style="margin-bottom:36px">Two safari deals for <em>November</em></h2>
+      <div class="offers">
+        {offers.map((o, i) => (
+          <div class={`offer rv rv-d${i + 1}`}>
+            <p class="label" style="margin:0 0 10px">{o.who}</p>
+            <h3>{o.title}</h3>
+            <p class="worth">{o.worth}</p>
+            <p>{o.text}</p>
+            <a class="btn btn--fill" href={`/book?safari=${o.safari}&offer=${o.id}`}>Claim this offer</a>
+          </div>
+        ))}
+      </div>
+      <p class="rv" style="margin:24px 0 0;font-size:0.95rem">For safaris of 2 days or more that start in November 2026, booked directly with us. Room-only stays don’t include free transfers.</p>
+      <div class="btn-row rv rv-d3"><a class="link" href="/offers">How the offers work</a></div>
     </div>
-    <p class="rv" style="margin:24px 0 0;font-size:0.95rem">For safaris of 2 days or more that start in November 2026, booked directly with us. Room-only stays don’t include free transfers.</p>
-    <div class="btn-row rv rv-d3"><a class="link" href="/offers">How the offers work</a></div>
-  </div>
-</section>
+  </section>
+) : (
+  <section class={`section ${compact ? 'section--tight' : ''} section--sand`}>
+    <div class="wrap">
+      <p class="label rv" style="color:var(--lilac-deep);margin-bottom:12px">Book direct</p>
+      <h2 class="rv" style="margin-bottom:36px">What booking direct <em>always</em> includes</h2>
+      <div class="offers">
+        {directBenefits.slice(0, 2).map((b, i) => (
+          <div class={`offer rv rv-d${i + 1}`}>
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+          </div>
+        ))}
+      </div>
+      <div class="btn-row rv rv-d3"><a class="link" href="/offers">All the benefits of booking direct</a></div>
+    </div>
+  </section>
+)}

@@ -1,0 +1,120 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Photo from '../components/Photo.astro';
+import Price from '../components/Price.astro';
+import Wildlife from '../components/Wildlife.astro';
+import { safariBySlug } from '../data/safaris';
+import { site } from '../data/site';
+import { offersActive } from '../data/offers';
+
+const title = 'Mikumi Safari from Dar es Salaam: Weekend by SGR Train | Camp Lilac';
+const description =
+  'The safari from Dar es Salaam: 3.5 hours door to door by SGR train and our transfer, 1- to 4-day packages with our own guides, prices from US$214, pickups at your hotel, the airport or the ferry.';
+const crumbs = [{ name: 'Safaris', href: '/safaris' }, { name: 'Safari from Dar es Salaam', href: '/safari-from-dar-es-salaam' }];
+const s1 = safariBySlug('1-day-mikumi-safari')!, s2 = safariBySlug('2-day-mikumi-safari')!, s3 = safariBySlug('3-day-mikumi-safari')!, s4 = safariBySlug('4-day-mikumi-udzungwa-safari')!;
+---
+
+<Base {title} {description} ogImage="/images/wild/plains-herds-1600.jpg" breadcrumbs={crumbs} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src="/images/wild/plains-herds-1600.webp" srcset="/images/wild/plains-herds-800.webp 800w, /images/wild/plains-herds-1200.webp 1200w, /images/wild/plains-herds-1600.webp 1600w" sizes="100vw" alt="Zebras and wildebeest on the green Mkata floodplain in Mikumi National Park, with the mountains behind" width="1600" height="1067" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <Crumbs items={crumbs} />
+        <h1 style="max-width:17ch"><span class="w"><span>Safari from Dar es Salaam:&nbsp;</span></span><br /><span class="w"><em style="color:#e4d9f7">Mikumi in a weekend</em></span></h1>
+        <p class="lead">Leave Dar es Salaam after breakfast and watch elephants by early afternoon. Mikumi National Park is 3.5 hours door to door by SGR train and our transfer — the only big-game park you can reach from the city without a flight or a day on the road.</p>
+      </div>
+      <div class="hero-side"><b>From US${s1.price}</b>per person, 1 day<br />2 days from US${s2.price}</div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap split--aside" style="display:grid">
+      <article class="article">
+        <h2>Why Mikumi is <em>the</em> safari from Dar es Salaam</h2>
+        <p>
+          Every other park is a flight away or a long day on rough roads. Mikumi is on the railway line. The standard-gauge train reaches Morogoro in about 1.5 hours; our driver meets you on the platform and the 2-hour drive west ends inside the park boundary, where the highway crosses the Mkata floodplain. Add low park fees (US$35.40 per adult per day, included in our prices), open country where animals are easy to see, and a camp minutes from the gate, and you have the one safari that fits a weekend — for Dar es Salaam residents, business travellers with two spare days, and visitors who have flown in and want wildlife before the beach.
+        </p>
+        <p>
+          We are not a hotel that hands you to a tour operator. Camp Lilac runs its own safaris, with its own guides and open-roof 4×4s, and your driver-guide is the same person from Morogoro station to the last game drive. We also organise the journey: hotel, airport or ferry pickup in Dar es Salaam, train tickets, the transfer from Morogoro. One total price, one WhatsApp number.
+        </p>
+
+        <h2 id="packages">Packages from Dar es Salaam</h2>
+        <table>
+          <thead><tr><th scope="col">Package</th><th scope="col">Per person</th><th scope="col">Who it is for</th></tr></thead>
+          <tbody>
+            <tr><th scope="row"><a href={`/safaris/${s1.slug}`}>{s1.name}</a></th><td>From US${s1.price}</td><td>The same-day version: early train out, a full day in the park, the evening train home. Long but doable — or start from Morogoro.</td></tr>
+            <tr><th scope="row"><a href={`/safaris/${s2.slug}`}>{s2.name}</a></th><td>From US${s2.price}</td><td>The weekend classic: afternoon game drive, a night in a luxury tent, a dawn drive, home for dinner. Our most-booked trip.</td></tr>
+            <tr><th scope="row"><a href={`/safaris/${s3.slug}`}>{s3.name}</a></th><td>From US${s3.price}</td><td>A long weekend with a full day on the floodplain — the best value for wildlife per day.</td></tr>
+            <tr><th scope="row"><a href={`/safaris/${s4.slug}`}>{s4.name}</a></th><td>From US${s4.price}</td><td>Four days: a Maasai boma, a full day of game drives and the Sanje Waterfall hike in the Udzungwa Mountains.</td></tr>
+          </tbody>
+        </table>
+        <p>
+          Prices are per person for two or more people and include park fees, a private 4×4 with our own guide, all meals and the nights at Camp Lilac; one person travelling alone pays more because the vehicle is private. Train tickets and the return transfer to Morogoro (US$75 per vehicle) are extra and we arrange both.{offersActive && <span data-offer> In November 2026 the transfer into Mikumi is free with a safari of two days or more booked direct, and with three or four days we also pay your train tickets — see the <a href="/offers">deals</a>.</span>} For a full budget read <a href="/blog/mikumi-safari-cost">what a Mikumi safari costs</a>.
+        </p>
+
+        <h2 id="weekend">The weekend, hour by hour</h2>
+        <ol class="itinerary">
+          <li><h3>Saturday, morning</h3><p>We collect you from your hotel, the airport or the ferry terminal and take you to Dar es Salaam SGR station. Train to Morogoro, about 1.5 hours. Your Camp Lilac guide is on the platform with a name board.</p></li>
+          <li><h3>Saturday, early afternoon</h3><p>Two hours west past the Uluguru Mountains; the highway enters the park and the first giraffes are usually by the road. Lunch at the camp, a rest on your deck.</p></li>
+          <li><h3>Saturday, late afternoon</h3><p>Game drive on the Mkata floodplain as it cools — elephants, zebras, buffalo, giraffes, the hippo pools — until sunset. Dinner facing the Mikumi mountain ridge.</p></li>
+          <li><h3>Sunday</h3><p>Out at first light while the lions are still moving; back for a late breakfast, more time in the park, lunch. The 2-hour drive to Morogoro and the afternoon train. We drop you at your hotel or the airport in the evening.</p></li>
+        </ol>
+
+        <h2 id="pickups">Pickups and timings</h2>
+        <ul>
+          <li><strong>Hotel or home in Dar es Salaam:</strong> we take you to the SGR station and collect you on return.</li>
+          <li><strong>Julius Nyerere International Airport:</strong> land in the morning and you can be in Mikumi the same afternoon; on the way back we can drop you at the airport for an evening flight.</li>
+          <li><strong>The Zanzibar ferry terminal:</strong> the 07:00 ferry from Stone Town connects with a late-morning train. Full details on <a href="/safari-from-zanzibar">safari from Zanzibar</a>.</li>
+          <li><strong>By road instead of train?</strong> We can send a car, but it costs more, takes 7–8 hours instead of 3.5 and is far more tiring. We only suggest it when the train times do not fit — see <a href="/getting-here#road">getting here by road</a>.</li>
+        </ul>
+
+        <h2 id="when">When to go</h2>
+        <p>
+          Mikumi works all year: the floodplain circuit never closes, and the dry season from June to October gives the easiest sightings. Weekends in July–August and around public holidays fill up — book the train and the camp a couple of weeks ahead. The green months from November to February are quieter, with dramatic skies and lower rates. The <a href="/blog/best-time-to-visit-mikumi">month-by-month guide</a> has the detail.
+        </p>
+
+        <h2 id="faq">Common questions</h2>
+        <div class="faq">
+          <details><summary>Can I do it in one day from Dar es Salaam?</summary><p>Yes: the <a href={`/safaris/${s1.slug}`}>1-Day Mikumi Safari</a> uses the earliest train out and the evening train back. It is a long day with a full day in the park in between. If you can, stay the night — the dawn drive is the best part.</p></details>
+          <details><summary>Do I need my own transport in Dar es Salaam?</summary><p>No. Pickup and drop-off at your hotel, the airport or the ferry are included in the 2-, 3- and 4-day packages.</p></details>
+          <details><summary>Is it suitable for children?</summary><p>Very. Short drives, plenty of animals, no long flights. Children under 4 stay free, 4–11 pay half, and the Luxury Family Tent sleeps four. Children under 2 cannot join game drives.</p></details>
+          <details><summary>What about residents and groups?</summary><p>Tanzanian and East African residents pay lower park fees; tell us when you book and we quote accordingly. For groups or company trips we run several vehicles.</p></details>
+        </div>
+        <p style="margin-top:28px">Read next: <a href="/blog/dar-es-salaam-to-mikumi-by-sgr-train">Dar es Salaam to Mikumi by SGR train, step by step</a> · <a href="/blog/mikumi-vs-selous-nyerere">Mikumi vs Selous (Nyerere)</a> · <a href="/mikumi-national-park">the Mikumi National Park guide</a>.</p>
+      </article>
+
+      <aside class="aside">
+        <p class="aside-price"><Price price={s2.price} unit="person" /></p>
+        <ul>
+          <li>2-Day, 1-Night Mikumi Safari</li>
+          <li>3.5 h door to door by train + transfer</li>
+          <li>Hotel, airport or ferry pickup included</li>
+          <li>Private 4×4 and our own guide</li>
+          <li>Luxury tent · private bathroom · A/C</li>
+        </ul>
+        <a class="btn btn--fill" href={`/book?safari=${s2.slug}`}>Request this safari</a>
+        <p style="margin-top:12px;font-size:0.9rem">or <a href={site.whatsapp} rel="noopener">message us on WhatsApp</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--sand section--tight">
+    <div class="wrap">
+      <div class="split" style="align-items:center">
+        <div>
+          <h2 class="rv">Sleep in it. <em>Don’t day-trip it.</em></h2>
+          <p class="rv rv-d1">Day-trippers leave the park at four. That is when the floodplain wakes up, and when you are on your deck at Camp Lilac with a drink, watching the light go down behind the Mikumi mountain ridge. Luxury tents and cabins with private bathrooms and air conditioning, breakfast and dinner included. See the <a href="/rooms">tents and cabins</a> and <a href="/where-to-stay-in-mikumi">how they compare with the rest of Mikumi</a>.</p>
+        </div>
+        <div class="rv rv-d1">
+          <Photo src="/images/rooms/family-tent-1-1600.jpg" alt="The private deck of a Luxury Family Tent at Camp Lilac at sunset" caption="Family Tent deck, sunset" ratio="landscape" zoom />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Wildlife label="On your game drives" title="What you will see in Mikumi" pick={['first-1', 'elephants-road', 'giraffe-group', 'zebra-line', 'hippo-calf', 'buffalo-pair']} />
+
+  <CtaBand title="Your weekend safari starts at Dar es Salaam SGR station" text="Tell us your dates and where to collect you. We reply the same day with train times, availability and one total price." />
+</Base>

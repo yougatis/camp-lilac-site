@@ -7,7 +7,7 @@ coverAlt: "Evening light on a Camp Lilac deck in the Mikumi dry season"
 tags: ["planning", "best time to visit", "weather"]
 ---
 
-The honest answer is that Mikumi is a year-round park. The main floodplain circuit never closes, and because the park sits at a lower altitude than the northern circuit, mornings are rarely cold. But the experience changes a lot through the year. Here is what each season is like from our side of the ridge.
+The honest answer is that Mikumi is a year-round park. The main floodplain circuit never closes, and because the park sits at a lower altitude than the northern circuit, mornings are rarely cold. But the experience changes a lot through the year. Here is what each season is like from our side of the Mikumi mountain ridge.
 
 ## June to October: the dry season
 

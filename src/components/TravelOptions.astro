@@ -10,7 +10,7 @@ const { heading = 'Travel your way — we organise it', tight = false } = Astro.
   <div class="travel-grid">
     {travelOptions.map((o, i) => (
       <div class={`travel-item rv rv-d${Math.min(i, 3)}`}>
-        <h3>{o.title}{o.tag && <span class="tag">{o.tag}</span>}</h3>
+        <h3>{o.href ? <a href={o.href} style="color:inherit">{o.title}</a> : o.title}{o.tag && <span class="tag">{o.tag}</span>}</h3>
         <p>{o.text}</p>
       </div>
     ))}

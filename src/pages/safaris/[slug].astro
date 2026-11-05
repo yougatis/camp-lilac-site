@@ -5,8 +5,9 @@ import Price from '../../components/Price.astro';
 import Photo from '../../components/Photo.astro';
 import Wildlife from '../../components/Wildlife.astro';
 import { safaris } from '../../data/safaris';
-import TravelOptions from '../../components/TravelOptions.astro';
+import Crumbs from '../../components/Crumbs.astro';
 import { site } from '../../data/site';
+import { offersActive } from '../../data/offers';
 
 export function getStaticPaths() {
   return safaris.map((s) => ({ params: { slug: s.slug }, props: { safari: s } }));
@@ -20,8 +21,12 @@ const galleries: Record<number, string[]> = {
   4: ['first-4', 'lion-track', 'elephants-road', 'own-giraffe', 'zebras-hills', 'lion-pride'],
 };
 
-const title = `${safari.name} | Mikumi National Park Safari with Camp Lilac`;
-const description = safari.summary.slice(0, 160);
+const title = safari.metaTitle ?? `${safari.name} | Camp Lilac, Mikumi`;
+const trim = (t: string) => (t.length > 158 ? t.slice(0, 157).replace(/\s+\S*$/, '') + '…' : t);
+const description = safari.metaDescription ?? trim(safari.summary);
+const imgBase = safari.image.replace(/-(1600|2000)\.jpg$/, '');
+const crumbs = [{ name: 'Safaris', href: '/safaris' }, { name: safari.name, href: `/safaris/${safari.slug}` }];
+const offerId = safari.days >= 3 ? 'free-train-and-transfer' : 'free-transfer';
 
 const schema = {
   '@context': 'https://schema.org',
@@ -36,15 +41,16 @@ const schema = {
     itemListElement: safari.itinerary.map((d, i) => ({ '@type': 'ListItem', position: i + 1, name: d.title, description: d.text })),
   },
   provider: { '@id': `${site.url}/#camp` },
-  ...(safari.price && { offers: { '@type': 'Offer', price: safari.price, priceCurrency: 'USD', url: `${site.url}/book` } }),
+  ...(safari.price && { offers: { '@type': 'Offer', price: safari.price, priceCurrency: 'USD', availability: 'https://schema.org/InStock', url: `${site.url}/book?safari=${safari.slug}`, priceSpecification: { '@type': 'UnitPriceSpecification', price: safari.price, priceCurrency: 'USD', unitText: 'per person, park fees included' } } }),
 };
 ---
 
-<Base {title} {description} {schema} ogImage={safari.image} breadcrumbs={[{ name: 'Safaris', href: '/safaris' }, { name: safari.name, href: `/safaris/${safari.slug}` }]} dark>
+<Base {title} {description} {schema} ogImage={safari.image} breadcrumbs={crumbs} dark>
   <section class="hero hero--inner">
-    <div class="hero-media"><img src={safari.image.replace(/-(1600|2000)\.jpg$/, "-1600.webp")} srcset={`${safari.image.replace(/-(1600|2000)\.jpg$/, "")}-800.webp 800w, ${safari.image.replace(/-(1600|2000)\.jpg$/, "")}-1600.webp 1600w`} sizes="100vw" alt={safari.imageAlt} width="1600" height="1200" fetchpriority="high" /></div>
+    <div class="hero-media"><img src={`${imgBase}-1600.webp`} srcset={`${imgBase}-800.webp 800w, ${imgBase}-1200.webp 1200w, ${imgBase}-1600.webp 1600w`} sizes="100vw" alt={safari.imageAlt} width="1600" height="1200" fetchpriority="high" /></div>
     <div class="wrap hero-content">
       <div>
+        <Crumbs items={crumbs} />
         <p class="label">{safari.days} {safari.days === 1 ? 'day' : 'days'} · {safari.bestFor}</p>
         <h1><span class="w"><span>{safari.name}</span></span></h1>
         <p class="lead">{safari.summary}</p>
@@ -56,7 +62,7 @@ const schema = {
   <section class="section section--tight">
     <div class="wrap split--aside" style="display:grid">
       <div class="article">
-        {safari.offer && <p class="offer-note"><strong>November 2026 offer:</strong> {safari.offer} <a href={`/book?safari=${safari.slug}&offer=${safari.days >= 3 ? 'free-train-and-transfer' : 'free-transfer'}`}>Claim this offer</a> · <a href="/offers">How it works</a></p>}
+        {offersActive && safari.offer && <p class="offer-note" data-offer><strong>November 2026 offer:</strong> {safari.offer} <a href={`/book?safari=${safari.slug}&offer=${offerId}`}>Claim this offer</a> · <a href="/offers">How the deals work</a></p>}
         {safari.variants && (
           <>
             <h2>Options</h2>
@@ -67,7 +73,7 @@ const schema = {
         <ol class="itinerary">
           {safari.itinerary.map((d) => (
             <li>
-              <h4>{d.title}</h4>
+              <h3>{d.title}</h3>
               <p>{d.text}</p>
               {(d.meals || d.stay) && <p class="meta">{d.meals && <span>Meals: {d.meals}</span>}{d.meals && d.stay && <br />}{d.stay && <span>Stay: {d.stay}</span>}</p>}
             </li>
@@ -77,7 +83,8 @@ const schema = {
           <>
             <h2>Price per person</h2>
             <table>
-              {safari.tiers.map((t) => <tr><th>{t.people}</th><td>US${t.price} per person</td></tr>)}
+              <thead><tr><th scope="col">Group size</th><th scope="col">Price</th></tr></thead>
+              <tbody>{safari.tiers.map((t) => <tr><th scope="row">{t.people}</th><td>US${t.price} per person</td></tr>)}</tbody>
             </table>
             <p>Private vehicle and guide for your group only. Park fees are included.</p>
           </>
@@ -85,15 +92,19 @@ const schema = {
         <h2>Included</h2>
         <ul>{safari.included.map((i) => <li>{i}</li>)}</ul>
         <h2>Not included</h2>
-        <ul>{safari.excluded.map((i) => <li>{i}</li>)}</ul>
+        <ul>{safari.excluded.filter((i) => offersActive || !/November 2026/.test(i)).map((i) => <li data-offer={/November 2026/.test(i) ? '' : undefined}>{i}</li>)}</ul>
         <p>
           Game drives are in an open-roof 4×4 with one of our own guides. We adjust timings to your train or flight and to the
           season. Children under 2 cannot join game drives. Dates are flexible — tell us when you want to come.
         </p>
-        <TravelOptions />
+        <h2>Getting to Mikumi for this safari</h2>
+        <p>
+          Every safari can start in Dar es Salaam or Zanzibar. The quickest comfortable way is the SGR train from Dar es Salaam to Morogoro (about 1.5 hours) and our 2-hour transfer to the camp; from Zanzibar you add the morning ferry or a short flight to Dar es Salaam. We organise the whole journey — tickets, pickups, ferries and flights — just tell us how you want to travel.
+          Read more: <a href="/safari-from-dar-es-salaam">safari from Dar es Salaam</a>, <a href="/safari-from-zanzibar">safari from Zanzibar</a>, the <a href="/blog/dar-es-salaam-to-mikumi-by-sgr-train">step-by-step SGR train guide</a> and <a href="/getting-here">all the ways to get here</a>.
+        </p>
       </div>
       <aside class="aside">
-        <h3><Price price={safari.price} unit="person" /></h3>
+        <p class="aside-price"><Price price={safari.price} unit="person" /></p>
         <ul>
           <li>{safari.days} {safari.days === 1 ? 'day' : 'days'}</li>
           <li>Best for: {safari.bestFor}</li>

@@ -6,12 +6,15 @@ import Photo from '../../components/Photo.astro';
 import Offers from '../../components/Offers.astro';
 import TravelOptions from '../../components/TravelOptions.astro';
 import Wildlife from '../../components/Wildlife.astro';
+import Crumbs from '../../components/Crumbs.astro';
 import { safaris } from '../../data/safaris';
 import { site } from '../../data/site';
+import { offersActive } from '../../data/offers';
 
-const title = 'Mikumi Safari Packages from Dar es Salaam | Camp Lilac';
+const title = 'Mikumi Safari Packages from Dar es Salaam & Zanzibar | Camp Lilac';
 const description =
-  'Mikumi National Park safaris with our own guides and 4x4s: 1-day game drives, 2- and 3-day safaris (free SGR station transfer in November 2026), and Mikumi + Udzungwa combinations.';
+  'Mikumi National Park safaris with our own guides and 4x4s: 1-day game drives, 2- and 3-day trips by SGR train from Dar es Salaam, 4-day Mikumi & Udzungwa.';
+const crumbs = [{ name: 'Safaris', href: '/safaris' }];
 
 const schema = {
   '@context': 'https://schema.org',
@@ -21,14 +24,14 @@ const schema = {
 };
 ---
 
-<Base {title} {description} {schema} breadcrumbs={[{ name: 'Safaris', href: '/safaris' }]} dark>
+<Base {title} {description} {schema} breadcrumbs={crumbs} dark>
   <section class="hero hero--inner">
-    <div class="hero-media"><img src="/images/wild/safari-hero-1600.webp" srcset="/images/wild/safari-hero-800.webp 800w, /images/wild/safari-hero-1600.webp 1600w" sizes="100vw" alt="A Camp Lilac safari jeep with guests among zebras" width="1536" height="1024" fetchpriority="high" /></div>
+    <div class="hero-media"><img src="/images/wild/safari-hero-1600.webp" srcset="/images/wild/safari-hero-800.webp 800w, /images/wild/safari-hero-1200.webp 1200w, /images/wild/safari-hero-1600.webp 1600w" sizes="100vw" alt="A Camp Lilac safari jeep with guests among zebras" width="1536" height="1024" fetchpriority="high" /></div>
     <div class="wrap hero-content">
       <div>
-        <p class="label">Safaris</p>
-        <h1><span class="w"><span>Mikumi, with&nbsp;</span></span><span class="w"><em style="color:#e4d9f7">our own guides</em></span></h1>
-        <p class="lead">We don’t hand you to an outside operator. Camp Lilac has its own guides and 4×4s, so your game drives start at the camp, run on your schedule, and end with dinner facing the Mikumi mountain ridge.</p>
+        <Crumbs items={crumbs} />
+        <h1 style="max-width:17ch"><span class="w"><span>Mikumi safaris with&nbsp;</span></span><br /><span class="w"><em style="color:#e4d9f7">our own guides and 4×4s</em></span></h1>
+        <p class="lead">We don’t hand you to an outside operator. Camp Lilac has its own guides and 4×4s, so your game drives in Mikumi National Park start at the camp, run on your schedule, and end with dinner facing the Mikumi mountain ridge. From Dar es Salaam, Zanzibar or the road south.</p>
       </div>
       <div class="hero-side"><b>US$35.40</b>park fee per adult per day<br />included in every package</div>
     </div>
@@ -45,7 +48,7 @@ const schema = {
               <p class="meta rv rv-d1">{s.days} {s.days === 1 ? 'day' : 'days'} · {s.bestFor}</p>
               <p class="price rv rv-d1"><Price price={s.price} unit="person" /></p>
               <p>{s.summary}</p>
-              {s.offer && <p><strong>Offer:</strong> {s.offer}</p>}
+              {offersActive && s.offer && <p data-offer><strong>November offer:</strong> {s.offer}</p>}
               <a class="link rv rv-d2" href={`/safaris/${s.slug}`}>Itinerary &amp; what’s included</a>
             </div>
           </li>
@@ -66,7 +69,7 @@ const schema = {
         </p>
         <p>
           Park fees are among Tanzania’s lowest, and because the camp is minutes from the gate you spend your time in the park,
-          not driving to it. Read the <a href="/mikumi-national-park">full Mikumi guide</a> or <a href="/getting-here">how to get here</a>.
+          not driving to it. Read the <a href="/mikumi-national-park">full Mikumi guide</a>, how the trip works <a href="/safari-from-dar-es-salaam">from Dar es Salaam</a> or <a href="/safari-from-zanzibar">from Zanzibar</a>, <a href="/blog/mikumi-safari-cost">what a Mikumi safari costs</a>, or <a href="/getting-here">how to get here</a>.
         </p>
       </div>
       <aside class="aside">
@@ -81,5 +84,5 @@ const schema = {
   <section class="section section--tight"><div class="wrap"><TravelOptions tight /></div></section>
 
   <Offers />
-  <CtaBand title="Book a safari with your stay" text="Tell us your dates and group size. We reply the same day with a quote, including the direct-booking deals." />
+  <CtaBand title="Book a safari with your stay" text={offersActive ? 'Tell us your dates and group size. We reply the same day with a quote, including the direct-booking deals.' : 'Tell us your dates and group size. We reply the same day with one total price for the stay, the safari and the journey.'} />
 </Base>

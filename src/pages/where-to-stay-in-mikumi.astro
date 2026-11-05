@@ -1,0 +1,125 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Photo from '../components/Photo.astro';
+import Price from '../components/Price.astro';
+import { rooms, cover } from '../data/rooms';
+import { site } from '../data/site';
+
+const title = 'Where to Stay in Mikumi: Camps, Lodges & Hotels Compared (2026)';
+const description =
+  'An honest guide to Mikumi accommodation: lodges inside the park with concession fees, hotels and guesthouses in Mikumi town on the highway, and bush camps outside the park — costs, noise, distance to the gate.';
+const crumbs = [{ name: 'Stay', href: '/rooms' }, { name: 'Where to stay in Mikumi', href: '/where-to-stay-in-mikumi' }];
+const minRoom = Math.min(...rooms.map((r) => r.price ?? Infinity));
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Where to stay in Mikumi: camps, lodges and hotels compared',
+  description,
+  image: [`${site.url}/images/rooms/hero-ridge-2000.jpg`],
+  url: `${site.url}/where-to-stay-in-mikumi`,
+  author: { '@type': 'Person', name: 'Gatis Melbārdis', jobTitle: 'Owner, Camp Lilac Mikumi', url: `${site.url}/about` },
+  publisher: { '@id': `${site.url}/#camp` },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  inLanguage: 'en',
+  mainEntityOfPage: `${site.url}/where-to-stay-in-mikumi`,
+};
+---
+
+<Base {title} {description} {schema} ogType="article" ogImage="/images/rooms/hero-ridge-2000.jpg" breadcrumbs={crumbs} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src="/images/rooms/hero-ridge-1600.webp" srcset="/images/rooms/hero-ridge-800.webp 800w, /images/rooms/hero-ridge-1200.webp 1200w, /images/rooms/hero-ridge-1600.webp 1600w" sizes="100vw" alt="The Mikumi mountain ridge seen from Camp Lilac" width="1600" height="900" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <Crumbs items={crumbs} />
+        <h1><span class="w"><span>Where to stay&nbsp;</span></span><span class="w"><em style="color:#e4d9f7">in Mikumi</em></span></h1>
+        <p class="lead">Mikumi has three kinds of accommodation, and the right one depends on your budget, how you arrive and how much you mind trucks. Written by the people who run one of them — so read it as an honest opinion, not a neutral directory.</p>
+      </div>
+      <div class="hero-side"><b>3 groups</b>inside the park · in town<br />bush camps outside the park</div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap split--aside" style="display:grid">
+      <article class="article">
+        <h2>The short answer</h2>
+        <p>
+          If money is no object and you are arriving by road or air in daylight, a lodge <strong>inside the park</strong> puts you in the middle of the wildlife, at the price of TANAPA fees for every night and a concession fee on top. If you are on a tight budget or just passing through on the highway, a guesthouse or hotel <strong>in Mikumi town</strong> is cheap and convenient but sits on one of the busiest truck routes in East Africa. For most visitors — couples, families, anyone coming by train for two or three nights — a <strong>bush camp outside the park</strong>, set back from the road and minutes from the gate, is the best balance of comfort, quiet and cost. That is the group Camp Lilac belongs to, and the rest of this page explains the trade-offs.
+        </p>
+
+        <h2 id="inside">1. Lodges and camps inside Mikumi National Park</h2>
+        <p>
+          A few properties sit inside the park boundary: the new Mikumi Wildlife Lodge (Wellworth, 48 rooms, opened at the end of 2025, about 9 km from the main gate), the classic Foxes tented camps Vuma Hills and Stanley’s Kopje, and the bandas of Mikumi Wildlife Camp by the waterhole near the gate.
+        </p>
+        <ul>
+          <li><strong>What you get:</strong> animals around the lodge day and night, no drive to the gate in the morning, and at some lodges night game drives, which are not allowed from outside the park.</li>
+          <li><strong>What it costs:</strong> inside-park rates are the highest in Mikumi, and TANAPA charges park entry fees (US$35.40 per adult per 24 hours) for every day you are inside, plus an accommodation concession fee per person per night. On a three-night stay those fees add up even on the day you do not go out.</li>
+          <li><strong>Practicalities:</strong> you need to be through the gate before it closes in the evening, which rules out late trains; and in the long rains some in-park tracks get difficult.</li>
+          <li><strong>Who it suits:</strong> fly-in guests, photographers who want dawn on the floodplain without a transfer, and anyone for whom budget is secondary.</li>
+        </ul>
+
+        <h2 id="town">2. Hotels and guesthouses in Mikumi town and on the highway</h2>
+        <p>
+          Mikumi town sits on the A7 at the park’s western edge, and the road between the town and Morogoro is lined with lodges and motels — Tan-Swiss Lodge, Mikumi Adventure Lodge and a dozen guesthouses. The highway carries the freight traffic between Dar es Salaam, Zambia and Malawi, and the trucks run all night.
+        </p>
+        <ul>
+          <li><strong>What you get:</strong> the lowest prices in Mikumi, restaurants and shops within walking distance, easy bus connections, and a quick drive to the gate.</li>
+          <li><strong>What you give up:</strong> silence. Most rooms are within earshot of the road, and the setting is a town, not the bush. Standards vary a lot; the better lodges have pools and decent restaurants, the guesthouses are basic.</li>
+          <li><strong>Who it suits:</strong> overlanders, budget travellers, bus passengers heading south, and anyone who only needs a bed before an early game drive.</li>
+        </ul>
+
+        <h2 id="bush">3. Bush camps and lodges outside the park</h2>
+        <p>
+          The third group is small: a handful of camps in the bush around the park, outside the boundary but close to the gate. Camp Bastian, about 10 km from the park, has cabins and a pool; Angalia Tented Camp has tents near the highway; and Camp Lilac is 2 km off the road, facing the Mikumi mountain ridge, a few minutes from the main gate.
+        </p>
+        <ul>
+          <li><strong>What you get:</strong> the bush — impala, warthog and monkeys through the camp, the night sounds, dark skies — without park fees for the nights you are not on a game drive and without concession fees. Arrival at any hour, which is what makes the train work.</li>
+          <li><strong>What varies:</strong> distance from the road (and therefore noise), the view, and whether the camp runs its own safaris or sends you out with a third party.</li>
+          <li><strong>Who it suits:</strong> almost everyone arriving by SGR train, families, couples and anyone staying two or three nights who wants comfort without the in-park price.</li>
+        </ul>
+
+        <h2 id="compare">At a glance</h2>
+        <table>
+          <thead><tr><th scope="col"></th><th scope="col">Inside the park</th><th scope="col">Mikumi town / highway</th><th scope="col">Bush camps outside</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Nightly rate</th><td>Highest</td><td>Lowest</td><td>Middle</td></tr>
+            <tr><th scope="row">Park fees</th><td>Every 24 h inside + concession fee</td><td>Only on game-drive days</td><td>Only on game-drive days</td></tr>
+            <tr><th scope="row">Noise at night</th><td>Bush</td><td>Highway trucks</td><td>Bush (if set back from the road)</td></tr>
+            <tr><th scope="row">Drive to the gate</th><td>None — you are inside</td><td>5–15 minutes</td><td>Minutes (Camp Lilac) to 15 minutes</td></tr>
+            <tr><th scope="row">Late arrival by train</th><td>Difficult — gate closes</td><td>Fine</td><td>Fine</td></tr>
+            <tr><th scope="row">Night game drives</th><td>At some lodges</td><td>No</td><td>No</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="camp-lilac">Where Camp Lilac fits</h2>
+        <p>
+          Camp Lilac is a luxury tented camp in the third group: outside the park, 2 km from the highway in the bush, minutes from the main gate, and the only camp in Mikumi facing the Mikumi mountain ridge. Ten units — luxury canvas tents built to the standard of the Serengeti’s best camps, two thatched cabins and family tents — each with a private bathroom, air conditioning and a private deck, from US${minRoom} per night with breakfast and dinner. We run our own game drives with our own guides and 4×4s, and we organise the train, the Morogoro pickup and the ferry or flight from Zanzibar. We opened in August 2025 and, as of late 2026, have the highest guest ratings in Mikumi across Google, Tripadvisor and SafariBookings.
+        </p>
+        <p>
+          Honest caveats: we do not run night game drives (nobody outside the park does), there is no pool yet, and the tents are intentionally without Wi-Fi — it works at the restaurant. If those matter more to you than quiet, the view and the price, one of the in-park lodges may be the better choice, and we will happily say so on WhatsApp.
+        </p>
+        <div class="tiles tiles--3" style="margin-top:32px">
+          {rooms.slice(0, 3).map((r, i) => (
+            <a class={`tile rv rv-d${i}`} href={`/rooms/${r.slug}`}>
+              <Photo src={cover(r)} alt={r.imageAlt} caption={r.numeral} />
+              <h3>{r.name}</h3>
+              <p><Price price={r.price} /> · {r.sleeps}</p>
+            </a>
+          ))}
+        </div>
+        <p style="margin-top:24px">All five room types: <a href="/rooms">tents and cabins</a> · <a href="/rates">rates and what’s included</a> · <a href="/safaris">safari packages</a> · <a href="/mikumi-national-park">Mikumi National Park guide</a>.</p>
+      </article>
+
+      <aside class="aside">
+        <h3>Ask us honestly</h3>
+        <p>Tell us your dates, how you are arriving and what matters most — view, budget, quiet, a pool — and we will tell you whether Camp Lilac is the right fit or point you elsewhere.</p>
+        <a class="btn btn--fill" href="/book">Check availability</a>
+        <p style="margin-top:12px;font-size:0.9rem"><a href={site.whatsapp} rel="noopener">WhatsApp {site.phoneDisplay}</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand title="The quiet side of Mikumi, minutes from the gate" />
+</Base>

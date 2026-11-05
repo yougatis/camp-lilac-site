@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /thank-you
 Disallow: /pay
 Disallow: /payment-
 

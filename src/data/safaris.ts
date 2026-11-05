@@ -18,6 +18,8 @@ export type Safari = {
   included: string[];
   excluded: string[];
   keywords: string;
+  metaTitle?: string; // ≤ 65 characters
+  metaDescription?: string; // 150–160 characters
 };
 
 const stay = 'Camp Lilac — luxury tent or cabin, just outside the park';
@@ -40,17 +42,19 @@ const commonExcluded = [
 ];
 
 // How guests can reach the camp — shown on every safari page, the safaris hub and the booking form.
-export const travelOptions = [
-  { title: 'From Dar es Salaam by SGR train', tag: 'Recommended', text: 'Morning train to Morogoro (1.5 hours). Our driver meets you on the platform and drives you 2 hours to Mikumi — about 3.5 hours in all.' },
-  { title: 'From Dar es Salaam by car', text: 'A private transfer car from your hotel or the airport, door to door. Compared with the train it is more expensive, slower (7–8 hours instead of about 3.5) and much more tiring, so we only suggest it when the train times do not fit.' },
-  { title: 'From Zanzibar by ferry', text: 'Fast ferry from Stone Town to Dar es Salaam (about 2 hours). We meet you at the ferry terminal and take you on by train or by car.' },
-  { title: 'From Zanzibar by plane', text: 'A short flight to Dar es Salaam, then on by train or car with us — or a light-aircraft flight straight to the Mikumi airstrip. Flights cost US$160–200 per person each way, depending on the day and which airline is flying. Not included; we book them for you.' },
-  { title: 'Already on the road', text: 'Coming from Morogoro, Iringa, Ruaha or by bus? We collect you from your hotel, Morogoro station or Mikumi town. Self-drive guests are welcome too.' },
+export const travelOptions: { title: string; tag?: string; href?: string; text: string }[] = [
+  { title: 'From Dar es Salaam by SGR train', tag: 'Recommended', href: '/safari-from-dar-es-salaam', text: 'Morning train to Morogoro (1.5 hours). Our driver meets you on the platform and drives you 2 hours to Mikumi — about 3.5 hours in all.' },
+  { title: 'From Dar es Salaam by car', href: '/getting-here#road', text: 'A private transfer car from your hotel or the airport, door to door. Compared with the train it is more expensive, slower (7–8 hours instead of about 3.5) and much more tiring, so we only suggest it when the train times do not fit.' },
+  { title: 'From Zanzibar by ferry', href: '/safari-from-zanzibar', text: 'Fast ferry from Stone Town to Dar es Salaam (about 2 hours). We meet you at the ferry terminal and take you on by train or by car.' },
+  { title: 'From Zanzibar by plane', href: '/safari-from-zanzibar#flight', text: 'A short flight to Dar es Salaam, then on by train or car with us — or a light-aircraft flight straight to the Mikumi airstrip. Flights cost US$160–200 per person each way, depending on the day and which airline is flying. Not included; we book them for you.' },
+  { title: 'Already on the road', href: '/getting-here#south', text: 'Coming from Morogoro, Iringa, Ruaha or by bus? We collect you from your hotel, Morogoro station or Mikumi town. Self-drive guests are welcome too.' },
 ];
 
 export const safaris: Safari[] = [
   {
     slug: '1-day-mikumi-safari',
+    metaTitle: '1-Day Mikumi Safari from Morogoro or Dar es Salaam | Camp Lilac',
+    metaDescription: 'A full day in Mikumi National Park in a private open 4x4 with our own guide: morning game drive, hot bush lunch, hippo pools. From Morogoro, the camp or Dar.',
     name: '1-Day Mikumi Safari',
     days: 1,
     price: 214,
@@ -85,6 +89,8 @@ export const safaris: Safari[] = [
   },
   {
     slug: '2-day-mikumi-safari',
+    metaTitle: '2-Day Mikumi Safari from Dar es Salaam by SGR Train | Camp Lilac',
+    metaDescription: 'The weekend safari from Dar es Salaam or Zanzibar: SGR train to Morogoro, two days of game drives in a private 4x4 and a night in a luxury tent. From US$394 pp.',
     name: '2-Day, 1-Night Mikumi Safari',
     days: 2,
     price: 394,
@@ -118,6 +124,8 @@ export const safaris: Safari[] = [
   },
   {
     slug: '3-day-mikumi-safari',
+    metaTitle: '3-Day Mikumi Safari from Dar es Salaam | Camp Lilac',
+    metaDescription: 'Three days, two nights: SGR train from Dar es Salaam, sunset game drive on arrival, a full day on the Mikumi floodplain, two nights in a luxury tent. From US$473.',
     name: '3-Day, 2-Night Mikumi Safari',
     days: 3,
     price: 473,
@@ -156,11 +164,13 @@ export const safaris: Safari[] = [
       },
     ],
     included: ['Two nights at Camp Lilac in a luxury tent or cabin', 'Transfers between Morogoro SGR station and the camp', ...commonIncluded],
-    excluded: ['Return SGR train ticket and return transfer to Morogoro (the way in is free when you book directly for November 2026)', 'Dinner on day 3', ...commonExcluded],
+    excluded: ['Return SGR train ticket and return transfer to Morogoro', 'Dinner on day 3', ...commonExcluded],
     keywords: '3 day Mikumi safari from Dar es Salaam',
   },
   {
     slug: '4-day-mikumi-udzungwa-safari',
+    metaTitle: '4-Day Mikumi & Udzungwa Waterfalls Safari | Camp Lilac',
+    metaDescription: 'Wildlife and rainforest in one trip: a Maasai boma visit, a full day of game drives in Mikumi, the Sanje Waterfall hike in Udzungwa, three nights at Camp Lilac.',
     name: '4-Day, 3-Night Mikumi & Udzungwa Waterfalls Safari',
     days: 4,
     price: 619,
@@ -201,7 +211,7 @@ export const safaris: Safari[] = [
       },
     ],
     included: ['Three nights at Camp Lilac in a luxury tent or cabin', 'Transfers between Morogoro SGR station and the camp', 'Udzungwa Mountains park entry and ranger-guided hike', ...commonIncluded],
-    excluded: ['Return SGR train ticket and return transfer to Morogoro (the way in is free when you book directly for November 2026)', 'Dinner on day 4', ...commonExcluded],
+    excluded: ['Return SGR train ticket and return transfer to Morogoro', 'Dinner on day 4', ...commonExcluded],
     keywords: 'Mikumi Udzungwa safari 4 days',
   },
 ];

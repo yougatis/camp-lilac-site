@@ -21,6 +21,9 @@ export type Room = {
   description: string[];
   highlights: string[];
   keywords: string;
+  metaTitle?: string; // ≤ 62 characters; falls back to "<name> – <kind> in Mikumi | Camp Lilac"
+  metaDescription?: string; // 150–160 characters; falls back to the summary, cut at a word boundary
+  imageAlts?: string[]; // one alt text per image (same order as images); missing entries get a generic alt
 };
 
 const img = (key: string, n: number) => Array.from({ length: n }, (_, i) => `/images/rooms/${key}-${i + 1}-1600.jpg`);
@@ -28,6 +31,8 @@ const img = (key: string, n: number) => Array.from({ length: n }, (_, i) => `/im
 export const rooms: Room[] = [
   {
     slug: 'mountain-view-cabin',
+    metaTitle: 'Mountain View Cabin – Private Cabin in Mikumi | Camp Lilac',
+    metaDescription: 'Our best room: a private thatched cabin facing the Mikumi mountain ridge, with a wide deck, a four-poster king bed and a bathtub with a view. From US$200/night.',
     name: 'Mountain View Cabin',
     numeral: 'i',
     units: 1,
@@ -57,6 +62,8 @@ export const rooms: Room[] = [
   },
   {
     slug: 'luxury-mountain-view-tent',
+    metaTitle: 'Luxury Mountain View Tent – Safari Tent, Mikumi | Camp Lilac',
+    metaDescription: 'Our newest luxury tents face the Mikumi mountain ridge: raised deck, four-poster bed, private bathroom, A/C and the best sunset in Mikumi. From US$150 a night.',
     name: 'Luxury Mountain View Tent',
     numeral: 'ii',
     units: 2,
@@ -86,6 +93,8 @@ export const rooms: Room[] = [
   },
   {
     slug: 'jungle-cabin',
+    metaTitle: 'Jungle Cabin – Private Cabin near Mikumi Park | Camp Lilac',
+    metaDescription: 'A private thatched cabin among the trees: wraparound deck, four-poster bed, marble bathroom with rain shower, the sounds of the Mikumi bush. From US$160/night.',
     name: 'Jungle Cabin',
     numeral: 'iii',
     units: 1,
@@ -115,6 +124,8 @@ export const rooms: Room[] = [
   },
   {
     slug: 'luxury-jungle-tent',
+    metaTitle: 'Luxury Jungle Tent – Safari Tent with Private Bathroom, Mikumi',
+    metaDescription: 'A luxury canvas tent on a raised deck near Mikumi National Park: four-poster bed, private bathroom, A/C, wildlife past the steps. From US$140 a night.',
     name: 'Luxury Jungle Tent',
     numeral: 'iv',
     units: 3,
@@ -144,6 +155,8 @@ export const rooms: Room[] = [
   },
   {
     slug: 'luxury-family-tent',
+    metaTitle: 'Luxury Family Tent – Safari Tent for 4, Mikumi | Camp Lilac',
+    metaDescription: 'A luxury safari tent for parents and two children near Mikumi National Park: private bathroom, A/C, private deck. Under-4s free, 4–11 half price. From US$200.',
     name: 'Luxury Family Tent',
     numeral: 'v',
     units: 3,

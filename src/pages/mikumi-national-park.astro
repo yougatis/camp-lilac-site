@@ -2,12 +2,15 @@
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Wildlife from '../components/Wildlife.astro';
+import Crumbs from '../components/Crumbs.astro';
 import credits from '../data/photo-credits.json';
 import { site } from '../data/site';
+import { offersActive } from '../data/offers';
 
-const title = 'Mikumi National Park Guide 2026: Animals, Fees, Best Time | Camp Lilac';
+const title = 'Mikumi National Park Guide 2026: Wildlife, Fees, Best Time';
 const description =
-  'Plan a Mikumi National Park safari: wildlife, best time to visit, 2026 park fees, getting there from Dar es Salaam and Zanzibar, and how Mikumi compares with Selous and Ruaha.';
+  'Plan a Mikumi National Park safari: wildlife, best time to visit, 2026 park fees, getting there from Dar es Salaam and Zanzibar, and Mikumi vs Selous and Ruaha.';
+const crumbs = [{ name: 'Mikumi National Park guide', href: '/mikumi-national-park' }];
 
 const schema = [
   {
@@ -27,23 +30,26 @@ const schema = [
     '@type': 'Article',
     headline: 'Mikumi National Park: the complete visitor guide',
     description,
-    author: { '@type': 'Organization', name: site.name },
+    image: [`${site.url}/images/wild/giraffe-sunset-1600.jpg`],
+    url: `${site.url}/mikumi-national-park`,
+    author: { '@type': 'Person', name: 'Gatis Melbārdis', jobTitle: 'Owner, Camp Lilac Mikumi', url: `${site.url}/about` },
     publisher: { '@id': `${site.url}/#camp` },
     datePublished: '2026-10-28',
-    dateModified: '2026-10-28',
+    dateModified: '2026-11-05',
+    inLanguage: 'en',
     mainEntityOfPage: `${site.url}/mikumi-national-park`,
   },
 ];
 ---
 
-<Base {title} {description} {schema} ogType="article" breadcrumbs={[{ name: 'Mikumi National Park guide', href: '/mikumi-national-park' }]} dark>
+<Base {title} {description} {schema} ogType="article" ogImage="/images/wild/giraffe-sunset-1600.jpg" breadcrumbs={crumbs} dark>
   <section class="hero hero--inner">
-    <div class="hero-media"><img src="/images/wild/giraffe-sunset-1600.webp" srcset="/images/wild/giraffe-sunset-800.webp 800w, /images/wild/giraffe-sunset-1600.webp 1600w" sizes="100vw" alt="A giraffe crossing the plains at sunset in Mikumi National Park" width="1600" height="1067" fetchpriority="high" /></div>
+    <div class="hero-media"><img src="/images/wild/giraffe-sunset-1600.webp" srcset="/images/wild/giraffe-sunset-800.webp 800w, /images/wild/giraffe-sunset-1200.webp 1200w, /images/wild/giraffe-sunset-1600.webp 1600w" sizes="100vw" alt="A giraffe crossing the plains at sunset in Mikumi National Park" width="1600" height="1067" fetchpriority="high" /></div>
     <div class="wrap hero-content">
       <div>
-        <p class="label">Visitor guide</p>
+        <Crumbs items={crumbs} />
         <h1><span class="w"><span>Mikumi National Park:&nbsp;</span></span><span class="w"><em style="color:#e4d9f7">the complete guide</em></span></h1>
-        <p class="lead">Written by the team at Camp Lilac, who live next to the park. Updated for the 2026 season.</p>
+        <p class="lead">Written by the team at Camp Lilac, who live just outside the park. Updated November 2026.</p>
       </div>
       <div class="hero-side"><b>3,230 km²</b>4 of the Big Five<br />minutes from the camp</div>
     </div>
@@ -85,10 +91,11 @@ const schema = [
         <li><strong>Birds</strong> — more than 400 species, including lilac-breasted rollers, bateleur eagles, marabou storks and, in the rains, European migrants.</li>
       </ul>
       <p>
-        Around our camp itself impala, warthog and vervet monkeys are daily visitors,.
+        Around our camp itself impala, warthog and vervet monkeys are daily visitors.
       </p>
 
       <h2>Best time to visit Mikumi</h2>
+      <p>The short version is below; the <a href="/blog/best-time-to-visit-mikumi">month-by-month guide</a> goes into detail.</p>
       <table>
         <tr><th>June – October (dry)</th><td>Best game viewing. Short grass, animals concentrated at water, cool mornings. Peak season — book ahead.</td></tr>
         <tr><th>November – December (short rains)</th><td>Green and quiet. Showers are usually brief; birding is excellent.</td></tr>
@@ -112,6 +119,7 @@ const schema = [
         <tr><th>East African residents / citizens</th><td>Lower rates in TZS — ask us</td></tr>
         <tr><th>Vehicle fee</th><td>Charged per vehicle per day (included in our safari packages)</td></tr>
       </table>
+      <p>For a complete budget — fees, transport, the stay and what our packages include — read <a href="/blog/mikumi-safari-cost">how much a Mikumi safari costs in 2026</a>.</p>
       <p>
         Park fees are included in all our safari packages. Rates usually change on 1 July; check the
         <a href="https://www.tanzaniaparks.go.tz" rel="noopener">TANAPA website</a> for the current schedule before you travel.
@@ -120,9 +128,9 @@ const schema = [
 
       <h2>How to get to Mikumi</h2>
       <ul>
-        <li><strong>SGR train from Dar es Salaam</strong> — about 1.5 hours to Morogoro, then a 2-hour road transfer to the camp — 3.5 hours in total. The most comfortable option. We provide the 2-hour transfer; it is free when you book a 2+ day safari with us for November 2026.</li>
+        <li><strong>SGR train from Dar es Salaam</strong> — about 1.5 hours to Morogoro, then a 2-hour road transfer to the camp — 3.5 hours in total. The most comfortable option; we provide the transfer.{offersActive && <span data-offer> It is free when you book a 2+ day safari with us for November 2026.</span>} Step by step: <a href="/blog/dar-es-salaam-to-mikumi-by-sgr-train">Dar es Salaam to Mikumi by SGR train</a>.</li>
         <li><strong>By road from Dar es Salaam</strong> — about 300 km, 5–6 hours on the A7 depending on traffic leaving Dar.</li>
-        <li><strong>From Zanzibar</strong> — morning ferry to Dar es Salaam (2 hours), then the SGR train or road. You can be at the camp by late afternoon.</li>
+        <li><strong>From Zanzibar</strong> — morning ferry to Dar es Salaam (2 hours) or a short flight, then the SGR train or road. You can be at the camp by late afternoon. See <a href="/safari-from-zanzibar">safari from Zanzibar</a>.</li>
         <li><strong>By air</strong> — charter flights land at the Mikumi airstrip; scheduled flights go to Iringa or Dar es Salaam.</li>
       </ul>
       <p>Full details, timings and prices on our <a href="/getting-here">Getting here</a> page.</p>
@@ -136,12 +144,12 @@ const schema = [
       <p>
         <a href="/">Camp Lilac</a> is in the third group but set away from the road, with luxury tents with private bathrooms, air conditioning
         and the only view of the Mikumi mountain ridge. Being minutes from the gate, you lose no safari time, and you do not pay
-        in-park concession fees. See our <a href="/rooms">rooms and tents</a>.
+        in-park concession fees. See our <a href="/rooms">rooms and tents</a>, or the full comparison in <a href="/where-to-stay-in-mikumi">where to stay in Mikumi</a>.
       </p>
 
       <h2>Mikumi vs Selous (Nyerere) vs Ruaha</h2>
       <table>
-        <tr><th></th><th>Mikumi</th><th>Nyerere / Selous</th><th>Ruaha</th></tr>
+        <thead><tr><th scope="col"></th><th scope="col">Mikumi</th><th scope="col">Nyerere / Selous</th><th scope="col">Ruaha</th></tr></thead>
         <tr><th>From Dar es Salaam</th><td>5–6 h road / 3.5 h by train + transfer</td><td>Fly-in or 6–8 h rough road</td><td>Fly-in or 10+ h road</td></tr>
         <tr><th>Park fee (adult)</th><td>US$35.40</td><td>US$82.60</td><td>US$35.40</td></tr>
         <tr><th>Game viewing</th><td>Very good, easy, open plains</td><td>Excellent, boat safaris, more remote</td><td>Excellent, wild, big elephant and lion numbers</td></tr>
@@ -151,7 +159,8 @@ const schema = [
       <p>
         Mikumi is the park to choose when time or budget is limited, when you are travelling with children, or when you are
         passing through on the way south. It also combines well with a waterfall hike in the Udzungwa Mountains, an hour away —
-        see our <a href="/safaris/4-day-mikumi-udzungwa-safari">Mikumi &amp; Udzungwa safari</a>.
+        see our <a href="/safaris/4-day-mikumi-udzungwa-safari">Mikumi &amp; Udzungwa safari</a>. Still deciding? Read
+        <a href="/blog/mikumi-vs-selous-nyerere">Mikumi vs Selous (Nyerere): which safari from Dar es Salaam?</a>
       </p>
 
       <h2>Practical tips</h2>

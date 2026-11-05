@@ -12,6 +12,10 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 const url = `${site.url}/blog/${post.id}`;
+const related = (await getCollection('blog', ({ data, id }) => !data.draft && id !== post.id))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+const author = { '@type': 'Person', name: 'Gatis Melbārdis', jobTitle: 'Owner, Camp Lilac Mikumi', url: `${site.url}/about` };
 const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
 const schema: Record<string, unknown>[] = [
@@ -20,10 +24,12 @@ const schema: Record<string, unknown>[] = [
     '@type': 'BlogPosting',
     headline: post.data.title,
     description: post.data.description,
-    image: new URL(post.data.cover, site.url).href,
+    image: [new URL(post.data.cover, site.url).href],
+    url,
+    inLanguage: 'en',
     datePublished: post.data.pubDate.toISOString(),
     dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
-    author: { '@type': 'Organization', name: site.name, url: site.url },
+    author,
     publisher: { '@id': `${site.url}/#camp` },
     mainEntityOfPage: url,
     keywords: post.data.tags.join(', '),
@@ -46,7 +52,7 @@ if (post.data.youtube) {
     <p class="crumbs"><a href="/">Home</a> / <a href="/blog">Blog</a> / {post.data.title}</p>
     <h1>{post.data.title}</h1>
     <p class="lead">{post.data.description}</p>
-    <p class="meta">Published {fmt(post.data.pubDate)}{post.data.updatedDate ? ` · updated ${fmt(post.data.updatedDate)}` : ''} · by the Camp Lilac team</p>
+    <p class="meta">Published {fmt(post.data.pubDate)}{post.data.updatedDate ? ` · updated ${fmt(post.data.updatedDate)}` : ''} · by <a href="/about">Gatis Melbārdis</a>, owner of Camp Lilac</p>
   </div>
   <div class="wrap split--aside" style="display:grid">
     <article class="article">
@@ -54,11 +60,17 @@ if (post.data.youtube) {
         ? <iframe class="video" src={`https://www.youtube-nocookie.com/embed/${post.data.youtube}`} title={post.data.title} loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe>
         : <Photo src={post.data.cover} alt={post.data.coverAlt} ratio="wide" loading="eager" />}
       <Content />
+      {related.length > 0 && (
+        <>
+          <h2>Related reading</h2>
+          <ul>{related.map((r) => <li><a href={`/blog/${r.id}`}>{r.data.title}</a></li>)}</ul>
+        </>
+      )}
     </article>
     <aside class="aside">
       <h3>Stay at Camp Lilac</h3>
-      <p>Luxury tents and cabins minutes from the Mikumi gate, with our own safari guides.</p>
-      <ul><li><a href="/rooms">Rooms &amp; rates</a></li><li><a href="/safaris">Safari packages</a></li><li><a href="/mikumi-national-park">Mikumi guide</a></li></ul>
+      <p>Luxury tents and cabins just outside Mikumi National Park, minutes from the gate, with our own safari guides.</p>
+      <ul><li><a href="/rooms">Tents &amp; cabins</a></li><li><a href="/safaris">Safari packages</a></li><li><a href="/safari-from-zanzibar">Safari from Zanzibar</a></li><li><a href="/mikumi-national-park">Mikumi guide</a></li></ul>
       <a class="btn btn--fill" href="/book">Check availability</a>
     </aside>
   </div>

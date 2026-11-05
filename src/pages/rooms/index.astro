@@ -3,12 +3,15 @@ import Base from '../../layouts/Base.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import Photo from '../../components/Photo.astro';
 import Price from '../../components/Price.astro';
+import Crumbs from '../../components/Crumbs.astro';
 import { rooms, cover } from '../../data/rooms';
 import { site } from '../../data/site';
+import { offersActive } from '../../data/offers';
 
-const title = 'Luxury Safari Tents & Cabins in Mikumi | Camp Lilac';
+const title = 'Mikumi Accommodation: Luxury Tents & Cabins | Camp Lilac';
 const description =
-  'Five room types across ten units near Mikumi National Park: a mountain-view cabin, a jungle cabin and luxury safari tents with private bathrooms, A/C and private decks. Breakfast and dinner included.';
+  'Five room types just outside Mikumi National Park: luxury tents and thatched cabins with private bathrooms, A/C and private decks. Breakfast and dinner included.';
+const crumbs = [{ name: 'Stay', href: '/rooms' }];
 
 const schema = {
   '@context': 'https://schema.org',
@@ -18,14 +21,14 @@ const schema = {
 };
 ---
 
-<Base {title} {description} {schema} breadcrumbs={[{ name: 'Stay', href: '/rooms' }]} dark>
+<Base {title} {description} {schema} breadcrumbs={crumbs} dark>
   <section class="hero hero--inner">
-    <div class="hero-media"><img src="/images/rooms/jungle-tent-1-1600.webp" srcset="/images/rooms/jungle-tent-1-800.webp 800w, /images/rooms/jungle-tent-1-1600.webp 1600w" sizes="100vw" alt="A luxury safari tent at Camp Lilac on its raised wooden deck" width="1600" height="1200" fetchpriority="high" /></div>
+    <div class="hero-media"><img src="/images/rooms/jungle-tent-1-1600.webp" srcset="/images/rooms/jungle-tent-1-800.webp 800w, /images/rooms/jungle-tent-1-1200.webp 1200w, /images/rooms/jungle-tent-1-1600.webp 1600w" sizes="100vw" alt="A luxury safari tent at Camp Lilac on its raised wooden deck" width="1600" height="1200" fetchpriority="high" /></div>
     <div class="wrap hero-content">
       <div>
-        <p class="label">Stay</p>
-        <h1><span class="w"><span>Tents &amp;&nbsp;</span></span><span class="w"><em style="color:#e4d9f7">cabins</em></span></h1>
-        <p class="lead">Two thatched cabins and eight luxury canvas tents. Every one with a private bathroom, air conditioning and a private deck. Breakfast and dinner included.</p>
+        <Crumbs items={crumbs} />
+        <h1 style="max-width:17ch"><span class="w"><span>Luxury tents &amp; cabins&nbsp;</span></span><br /><span class="w"><em style="color:#e4d9f7">near Mikumi National Park</em></span></h1>
+        <p class="lead">Two thatched cabins and eight luxury canvas tents, just outside the park. Every one with a private bathroom, air conditioning and a private deck. Breakfast and dinner included.</p>
       </div>
       <div class="hero-side"><b>Check-in {site.checkIn}</b>Check-out {site.checkOut}<br />Under-4s free · 4–11 half price</div>
     </div>
@@ -62,7 +65,8 @@ const schema = {
           <li>Children 0–3 stay free, ages 4–11 pay half the adult rate, from 12 adult rate. Breakfast and dinner are included for children too; under-4s eat free.</li>
           <li>Every room, tents included, has air conditioning, a private bathroom and a private deck.</li>
           <li>Wi-Fi at the restaurant and bar. The tents are intentionally offline.</li>
-          <li>Pickups from Morogoro SGR station, Dar es Salaam and the airport are available at a charge. The Morogoro transfer is free only when you book a safari of 2 days or more with us that starts in November 2026.</li>
+          <li>Pickups from Morogoro SGR station, Dar es Salaam and the airport are available at a charge.{offersActive && <span data-offer> The Morogoro transfer is free only when you book a safari of 2 days or more with us that starts in November 2026.</span>} Meals are served in the <a href="/restaurant">restaurant</a> facing the Mikumi mountain ridge.</li>
+          <li>Wondering how we compare with lodges inside the park or hotels in Mikumi town? Read <a href="/where-to-stay-in-mikumi">where to stay in Mikumi</a>.</li>
           <li>No pets. The camp is not yet wheelchair accessible.</li>
         </ul>
       </div>

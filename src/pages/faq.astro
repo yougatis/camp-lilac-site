@@ -1,26 +1,38 @@
 ---
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { faqs } from '../data/faqs';
+import { faqs, faqGroups } from '../data/faqs';
+import { offersActive } from '../data/offers';
 
-const title = 'Mikumi Safari & Camp Lilac FAQ: Fees, Getting There, Kids, Check-in';
+const title = 'Mikumi Safari & Camp Lilac FAQ: Fees, Transfers, Children';
 const description =
-  'Answers to the questions we get most: reaching Mikumi from Dar es Salaam, park fees, tents with bathrooms and A/C, children, meals, Wi-Fi, check-in times and payment.';
+  'Answers to what guests ask most: getting to Mikumi from Dar es Salaam and Zanzibar, park fees, tents with private bathrooms and A/C, children, meals, Wi-Fi and payment.';
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: offersActive && f.offer ? `${f.a} ${f.offer}` : f.a } })),
 };
 ---
 <Base {title} {description} {schema} breadcrumbs={[{ name: 'FAQ', href: '/faq' }]}>
   <div class="wrap page-head">
     <p class="crumbs"><a href="/">Home</a> / FAQ</p>
-    <h1>Questions &amp; answers</h1>
-    <p class="lead">Everything guests ask before booking a stay or a safari at Camp Lilac.</p>
+    <h1>Mikumi safari and Camp Lilac questions</h1>
+    <p class="lead">Everything guests ask before booking a stay or a safari at Camp Lilac — getting there, the tents, the safaris and paying.</p>
   </div>
   <div class="wrap split--aside" style="display:grid">
     <div class="faq">
-      {faqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      {faqGroups.map((g) => (
+        <>
+          <h2 style="margin:36px 0 10px">{g}</h2>
+          {faqs.filter((f) => f.group === g).map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}{offersActive && f.offer && <span data-offer> {f.offer}</span>}</p>
+              {f.links && <p class="meta">{f.links.map((l, i) => <>{i > 0 && ' · '}<a href={l.href}>{l.text}</a></>)}</p>}
+            </details>
+          ))}
+        </>
+      ))}
     </div>
     <aside class="aside">
       <h3>Something else?</h3>

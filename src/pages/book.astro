@@ -3,11 +3,13 @@ import Base from '../layouts/Base.astro';
 import { rooms } from '../data/rooms';
 import { safaris } from '../data/safaris';
 import { site } from '../data/site';
-import { offers, OFFER_MONTH, OFFER_START, OFFER_END } from '../data/offers';
+import Crumbs from '../components/Crumbs.astro';
+import { offers, offersActive, OFFER_MONTH, OFFER_START, OFFER_END } from '../data/offers';
 
 const title = 'Book a Stay or Safari at Camp Lilac, Mikumi';
 const description =
-  'Request availability for luxury tents and cabins at Camp Lilac plus a Mikumi safari. Same-day reply with rates. Free one-way SGR station transfer with a 2-day safari in November 2026.';
+  'Request availability for luxury tents and cabins at Camp Lilac plus a Mikumi safari. Nothing to pay to enquire; we reply within 4 hours with one total price.';
+const crumbs = [{ name: 'Book direct', href: '/book' }];
 
 // Requests go to /api/booking (functions/api/booking.js), which saves them in the Google Sheet
 // "Camp Lilac - Website booking requests" and emails info@camp-lilac.com. The thank-you page then
@@ -15,22 +17,26 @@ const description =
 const BOOKING_API = '/api/booking';
 ---
 
-<Base {title} {description} breadcrumbs={[{ name: 'Book', href: '/book' }]} dark>
+<Base {title} {description} breadcrumbs={crumbs} dark>
   <section class="hero hero--inner">
-    <div class="hero-media"><img src="/images/rooms/mv-cabin-1-1600.webp" srcset="/images/rooms/mv-cabin-1-800.webp 800w, /images/rooms/mv-cabin-1-1600.webp 1600w" sizes="100vw" alt="The bathtub in the Mountain View Cabin at Camp Lilac, looking out to the Mikumi mountain ridge" width="1600" height="1200" fetchpriority="high" /></div>
+    <div class="hero-media"><img src="/images/rooms/mv-cabin-1-1600.webp" srcset="/images/rooms/mv-cabin-1-800.webp 800w, /images/rooms/mv-cabin-1-1200.webp 1200w, /images/rooms/mv-cabin-1-1600.webp 1600w" sizes="100vw" alt="The bathtub in the Mountain View Cabin at Camp Lilac, looking out to the Mikumi mountain ridge" width="1600" height="1200" fetchpriority="high" /></div>
     <div class="wrap hero-content">
       <div>
-        <p class="label">Book direct</p>
+        <Crumbs items={crumbs} />
         <h1><span class="w"><span>Request a booking</span></span></h1>
         <p class="lead">Nothing to pay yet. Tell us your dates and we reply {site.replyTime} with availability, one total price and a safari suggestion. A deposit then secures your room.</p>
       </div>
-      <div class="hero-side"><b>November safari deals</b>2-day safari: free pickup from Morogoro<br />3–4 day safari: free train ticket + pickup</div>
+      {offersActive ? (
+        <div class="hero-side" data-offer><b>November safari deals</b>2-day safari: free pickup from Morogoro<br />3–4 day safari: free train ticket + pickup</div>
+      ) : (
+        <div class="hero-side"><b>Book direct</b>Breakfast &amp; dinner included<br />One total price, no fees</div>
+      )}
     </div>
   </section>
 
   <div style="height:56px"></div>
   <div class="wrap split" style="padding-bottom:var(--section)">
-    <form class="form" id="booking-form" method="post" action="/thank-you" data-api={BOOKING_API} data-whatsapp={site.whatsapp} data-offer-month={OFFER_MONTH} data-offer-start={OFFER_START} data-offer-end={OFFER_END} data-offers={JSON.stringify(offers.map((o) => ({ title: o.title, text: o.text })))}>
+    <form class="form" id="booking-form" method="post" action="/thank-you" data-api={BOOKING_API} data-whatsapp={site.whatsapp} data-offer-month={OFFER_MONTH} data-offer-start={OFFER_START} data-offer-end={OFFER_END} data-offers={JSON.stringify(offersActive ? offers.map((o) => ({ title: o.title, text: o.text })) : [])}>
       <p class="offer-banner" id="offer-banner" hidden></p>
       <input type="hidden" name="offer" value="" />
       <div class="row">
@@ -85,13 +91,15 @@ const BOOKING_API = '/api/booking';
     <aside class="aside">
       <h3>Prefer to chat?</h3>
       <p><a href={site.whatsapp}>WhatsApp {site.phoneDisplay}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
-      <h3>November safari deals</h3>
-      <ul>
-        <li>2-day safari: free transfer Morogoro SGR → Mikumi, worth US$75 (one way)</li>
-        <li>3- or 4-day safari: free economy train tickets Dar → Morogoro + transfer (one way)</li>
-        <li>For safaris starting in November 2026, booked direct. Room-only stays don’t include free transfers.</li>
-      </ul>
-      <p style="font-size:0.95rem"><a href="/offers" style="border-bottom:1px solid var(--lilac)">How the offers work</a></p>
+      {offersActive && <div data-offer>
+        <h3>November safari deals</h3>
+        <ul>
+          <li>2-day safari: free transfer Morogoro SGR → Mikumi, worth US$75 (one way)</li>
+          <li>3- or 4-day safari: free economy train tickets Dar → Morogoro + transfer (one way)</li>
+          <li>For safaris starting in November 2026, booked direct. Room-only stays don’t include free transfers.</li>
+        </ul>
+        <p style="font-size:0.95rem"><a href="/offers" style="border-bottom:1px solid var(--lilac)">How the offers work</a></p>
+      </div>}
       <h3>Children</h3>
       <p style="font-size:0.95rem">Under 4 stay free, ages 4–11 half price.</p>
       <h3>We organise anything</h3>
@@ -116,6 +124,7 @@ const BOOKING_API = '/api/booking';
     const { offerStart = '', offerEnd = '', offerMonth = '' } = form.dataset;
     const today = new Date().toISOString().slice(0, 10);
     const showOffer = () => {
+      if (!OFFERS.length || today > offerEnd) { banner.hidden = true; offerField.value = ''; return; } // deals over: say nothing
       const d = daysOf(safariSel.value);
       const o = d >= 3 ? OFFERS[1] : d === 2 ? OFFERS[0] : null;
       const ci = checkinEl.value;

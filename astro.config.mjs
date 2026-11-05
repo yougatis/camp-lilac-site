@@ -8,9 +8,7 @@ export default defineConfig({
   build: { format: 'file' },
   integrations: [
     sitemap({
-      changefreq: 'weekly',
-      priority: 0.7,
-      lastmod: new Date(),
+      // No lastmod: a build timestamp on every URL teaches Google to ignore the field. (Add a per-page value from git if needed.)
       filter: (page) => !/\/(thank-you|pay|payment-)/.test(page),
     }),
   ],

@@ -9,20 +9,24 @@ import { rooms, cover } from '../data/rooms';
 import { safaris } from '../data/safaris';
 import { reviews, reviewScore, sources } from '../data/reviews';
 import { site } from '../data/site';
+import { offersActive } from '../data/offers';
 
-const title = 'Camp Lilac | Mikumi\'s Only Luxury Tented Camp, Tanzania';
+const title = 'Camp Lilac Mikumi | Luxury Tented Camp & Safaris, Tanzania';
 const description =
-  'Mikumi\'s only luxury tented camp: Serengeti-level tents and cabins with private bathrooms, A/C and the only view of the Mikumi mountain ridge. 3.5 h from Dar by train. Stays and safaris from US$140.';
+  'Luxury tents and cabins with private bathrooms and A/C just outside Mikumi National Park, facing the Mikumi Mountains. Own guides and 4×4s. 3.5 h from Dar es Salaam by train.';
 
 const tileImage: Record<string, string> = {};
 const featured = ['mountain-view-cabin', 'luxury-mountain-view-tent', 'jungle-cabin'].map((s) => rooms.find((r) => r.slug === s)!);
 const by = (slug: string) => safaris.find((s) => s.slug === slug)!;
-const s2 = by('2-day-mikumi-safari'), s3 = by('3-day-mikumi-safari'), s4 = by('4-day-mikumi-udzungwa-safari');
+const s1 = by('1-day-mikumi-safari'), s2 = by('2-day-mikumi-safari'), s3 = by('3-day-mikumi-safari'), s4 = by('4-day-mikumi-udzungwa-safari');
+const otherRooms = rooms.filter((r) => !featured.includes(r));
 const minRoom = Math.min(...rooms.map((r) => r.price ?? Infinity));
 
+// No aggregateRating here on purpose: Google treats ratings a business marks up about itself (compiled from Google,
+// Tripadvisor etc.) as self-serving and may penalise the whole site's structured data. The stars show through the
+// Google Business Profile instead; the visible badges below are plain links.
 const schema = [
-  { '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${site.url}/#website`, url: site.url, name: site.name, publisher: { '@id': `${site.url}/#camp` } },
-  { '@context': 'https://schema.org', '@type': 'LodgingBusiness', '@id': `${site.url}/#camp`, name: site.name, aggregateRating: { '@type': 'AggregateRating', ratingValue: sources[0].score, reviewCount: sources[0].count, bestRating: 5 } },
+  { '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${site.url}/#website`, url: site.url, name: site.schemaName, alternateName: site.name, inLanguage: 'en', publisher: { '@id': `${site.url}/#camp` } },
 ];
 const words = (s: string) => s.split(' ');
 ---
@@ -30,7 +34,7 @@ const words = (s: string) => s.split(' ');
 <Base {title} {description} {schema} dark>
   <section class="hero">
     <div class="hero-media">
-      <img src="/images/rooms/restaurant-dusk-1600.webp" srcset="/images/rooms/restaurant-dusk-800.webp 800w, /images/rooms/restaurant-dusk-1600.webp 1600w" sizes="100vw" alt="The Camp Lilac restaurant at dusk, open to the Mikumi mountain ridge under a pink sky" width="2000" height="1370" fetchpriority="high" />
+      <img src="/images/rooms/restaurant-dusk-1600.webp" srcset="/images/rooms/restaurant-dusk-800.webp 800w, /images/rooms/restaurant-dusk-1200.webp 1200w, /images/rooms/restaurant-dusk-1600.webp 1600w, /images/rooms/restaurant-dusk-2000.webp 2000w" sizes="100vw" alt="The Camp Lilac restaurant at dusk, open to the Mikumi mountain ridge under a pink sky" width="2000" height="1365" fetchpriority="high" />
     </div>
     <div class="wrap hero-content">
       <div>
@@ -41,7 +45,7 @@ const words = (s: string) => s.split(' ');
           {words('luxury tented').map((w, i) => <span class="w"><span style={`transition-delay:${0.26 + i * 0.08}s`}>{w}&nbsp;</span></span>)}
           <span class="w"><em style="transition-delay:0.42s;color:#e4d9f7">camp</em></span>
         </h1>
-        <p class="lead">Serengeti-level tents and cabins with private bathrooms and A/C — the only camp facing the Mikumi Mountains. 3.5 hours from Dar es Salaam by train and transfer, or a short flight from Zanzibar.</p>
+        <p class="lead">Serengeti-level tents and cabins with private bathrooms and A/C, just outside Mikumi National Park — the only camp facing the Mikumi Mountains. 3.5 hours from Dar es Salaam by train and transfer, or a short flight from Zanzibar.</p>
 
       </div>
     </div>
@@ -63,13 +67,13 @@ const words = (s: string) => s.split(' ');
 
   <Ribbon />
 
-  <a class="deal-bar" href="/offers">
+  {offersActive && <a class="deal-bar" href="/offers" data-offer>
     <span class="wrap deal-bar-in">
       <span class="deal-tag">November safari deals</span>
       <span class="deal-text">2-day safari: free transfer to Mikumi <b>(worth US$75)</b><span class="sep"> · </span>3- or 4-day safari: free train ticket + transfer</span>
       <span class="deal-cta">See offers →</span>
     </span>
-  </a>
+  </a>}
 
   <section class="section">
     <div class="wrap">
@@ -80,21 +84,21 @@ const words = (s: string) => s.split(' ');
           <span class="label">From Dar es Salaam</span>
           <h3>Weekend in the wild by SGR train</h3>
           <p class="from">From US${s2.price}<small>per person</small></p>
-          <p>Leave Dar on the morning train, game drive the same afternoon, sleep in a luxury tent, dawn drive, home by evening. Book this 2-day safari direct for November and the transfer from Morogoro to Mikumi is free.</p>
-          <div class="actions"><a class="btn" href={`/safaris/${s2.slug}`}>2-day safari</a><a class="link" href={site.whatsapp} rel="noopener">WhatsApp</a></div>
+          <p>Leave Dar on the morning train, game drive the same afternoon, sleep in a luxury tent, dawn drive, home by evening.{offersActive && <span data-offer> Book this 2-day safari direct for November and the transfer from Morogoro to Mikumi is free.</span>} In a hurry? The <a href={`/safaris/${s1.slug}`}>1-day safari</a> does it in one long day.</p>
+          <div class="actions"><a class="btn" href={`/safaris/${s2.slug}`}>2-day safari</a><a class="link" href="/safari-from-dar-es-salaam">How it works</a></div>
         </div>
         <div class="aud rv rv-d1">
           <span class="label">From Zanzibar</span>
           <h3>A real safari, not a 4 a.m. day trip</h3>
           <p class="from">From US${s2.price}<small>per person, excluding flights</small></p>
           <p>Fly or take the ferry to Dar, train to Morogoro, two days of game drives and a night under canvas facing the Mikumi mountain ridge. Back on the beach by the next evening. Zanzibar–Dar flights cost US$160–200 per person each way, depending on the day and the airline; we can book them for you.</p>
-          <div class="actions"><a class="btn" href="/getting-here">How it works</a><a class="link" href={site.whatsapp} rel="noopener">WhatsApp</a></div>
+          <div class="actions"><a class="btn" href="/safari-from-zanzibar">Safari from Zanzibar</a><a class="link" href={site.whatsapp} rel="noopener">WhatsApp</a></div>
         </div>
         <div class="aud rv rv-d2">
           <span class="label">Southern circuit</span>
           <h3>Mikumi, Udzungwa waterfalls and the quiet south</h3>
           <p class="from">From US${s3.price}<small>per person</small></p>
-          <p>Three or four days: the Mikumi floodplain, the hippo pools, the Sanje waterfall hike — book the 3- or 4-day safari direct for November and your train ticket from Dar and the transfer to camp are free.</p>
+          <p>Three or four days: the Mikumi floodplain, the hippo pools, the Sanje waterfall hike in the Udzungwa Mountains.{offersActive && <span data-offer> Book the 3- or 4-day safari direct for November and your train ticket from Dar and the transfer to camp are free.</span>}</p>
           <div class="actions"><a class="btn" href={`/safaris/${s4.slug}`}>3–4 day safaris</a><a class="link" href={site.whatsapp} rel="noopener">WhatsApp</a></div>
         </div>
       </div>
@@ -106,7 +110,7 @@ const words = (s: string) => s.split(' ');
       <div>
         <h2 class="rv">Most of Mikumi sleeps by the highway. <em>We don’t.</em></h2>
         <p class="lead rv rv-d1">Camp Lilac is set back in the bush, facing the Mikumi mountain ridge. Luxury canvas tents built to the same standard as the Serengeti’s best camps — private bathrooms, air conditioning and private decks — a restaurant that looks straight at the mountains, and nothing to hear at night but the bush itself.</p>
-        <p class="rv rv-d2">We are Mikumi’s only luxury tented camp, and the only camp with a view of the Mikumi mountain ridge. Impala, warthog and monkeys wander through the camp. Our own guides run the game drives, and we arrange your transfers from Morogoro SGR station or Dar es Salaam.</p>
+        <p class="rv rv-d2">We are Mikumi’s only luxury tented camp, and the only camp with a view of the Mikumi mountain ridge. Impala, warthog and monkeys wander through the camp. Our own guides run the game drives, and we arrange your transfers from Morogoro SGR station or Dar es Salaam. Comparing options? Read <a href="/where-to-stay-in-mikumi">where to stay in Mikumi</a>.</p>
         <a class="link rv rv-d3" href="/about">The camp</a>
       </div>
       <div class="rv rv-d1">
@@ -121,6 +125,7 @@ const words = (s: string) => s.split(' ');
         <div><h2 class="rv" style="margin:0 0 6px">Tents &amp; cabins</h2><p class="rv rv-d1" style="margin:0">From US${minRoom} per night, breakfast and dinner included. <a class="link" href="/rates" style="margin-left:10px">Rates &amp; seasons</a></p></div>
         <a class="link rv rv-d1" href="/rooms">All five room types</a>
       </div>
+      <p class="rv" style="margin:0 0 28px;font-size:0.95rem">Also: {otherRooms.map((r, i) => <>{i > 0 && ' and '}<a href={`/rooms/${r.slug}`}>{r.name}</a> (from US${r.price})</>)}.</p>
       <div class="tiles">
         {featured.map((r, i) => (
           <a class={`tile rv rv-d${i}`} href={`/rooms/${r.slug}`}>
