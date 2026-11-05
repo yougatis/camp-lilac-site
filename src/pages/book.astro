@@ -3,11 +3,11 @@ import Base from '../layouts/Base.astro';
 import { rooms } from '../data/rooms';
 import { safaris } from '../data/safaris';
 import { site } from '../data/site';
-import { offers } from '../data/offers';
+import { offers, OFFER_MONTH, OFFER_START, OFFER_END } from '../data/offers';
 
 const title = 'Book a Stay or Safari at Camp Lilac, Mikumi';
 const description =
-  'Request availability for luxury tents and cabins at Camp Lilac plus a Mikumi safari. Same-day reply with rates. Free one-way SGR station transfer with a 2-day safari.';
+  'Request availability for luxury tents and cabins at Camp Lilac plus a Mikumi safari. Same-day reply with rates. Free one-way SGR station transfer with a 2-day safari in November 2026.';
 
 // Where the form sends its data. Leave empty to fall back to a pre-filled WhatsApp message.
 // Recommended: a Make.com "Custom webhook" URL that emails you + logs to Google Sheets.
@@ -23,13 +23,13 @@ const FORM_ENDPOINT = '';
         <h1><span class="w"><span>Request a booking</span></span></h1>
         <p class="lead">Nothing to pay yet. Tell us your dates and we reply {site.replyTime} with availability, one total price and a safari suggestion. A deposit then secures your room.</p>
       </div>
-      <div class="hero-side"><b>Safari deals</b>2-day safari: free pickup from Morogoro<br />3–4 day safari: free train ticket + pickup</div>
+      <div class="hero-side"><b>November safari deals</b>2-day safari: free pickup from Morogoro<br />3–4 day safari: free train ticket + pickup</div>
     </div>
   </section>
 
   <div style="height:56px"></div>
   <div class="wrap split" style="padding-bottom:var(--section)">
-    <form class="form" id="booking-form" method="post" action="/thank-you" data-endpoint={FORM_ENDPOINT} data-whatsapp={site.whatsapp} data-offers={JSON.stringify(offers.map((o) => ({ title: o.title, text: o.text })))}>
+    <form class="form" id="booking-form" method="post" action="/thank-you" data-endpoint={FORM_ENDPOINT} data-whatsapp={site.whatsapp} data-offer-month={OFFER_MONTH} data-offer-start={OFFER_START} data-offer-end={OFFER_END} data-offers={JSON.stringify(offers.map((o) => ({ title: o.title, text: o.text })))}>
       <p class="offer-banner" id="offer-banner" hidden></p>
       <input type="hidden" name="offer" value="" />
       <div class="row">
@@ -83,11 +83,11 @@ const FORM_ENDPOINT = '';
     <aside class="aside">
       <h3>Prefer to chat?</h3>
       <p><a href={site.whatsapp}>WhatsApp {site.phoneDisplay}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
-      <h3>Safari deals</h3>
+      <h3>November safari deals</h3>
       <ul>
         <li>2-day safari: free transfer Morogoro SGR → Mikumi, worth US$75 (one way)</li>
         <li>3- or 4-day safari: free economy train tickets Dar → Morogoro + transfer (one way)</li>
-        <li>Only when you book one of these safaris direct. Room-only stays don’t include free transfers.</li>
+        <li>For safaris starting in November 2026, booked direct. Room-only stays don’t include free transfers.</li>
       </ul>
       <p style="font-size:0.95rem"><a href="/offers" style="border-bottom:1px solid var(--lilac)">How the offers work</a></p>
       <h3>Children</h3>
@@ -110,14 +110,23 @@ const FORM_ENDPOINT = '';
     const offerField = form.elements.namedItem('offer') as HTMLInputElement;
     const safariSel = form.elements.namedItem('safari') as HTMLSelectElement;
     const daysOf = (slug: string) => parseInt(slug, 10) || 0;
+    const checkinEl = form.elements.namedItem('checkin') as HTMLInputElement;
+    const { offerStart = '', offerEnd = '', offerMonth = '' } = form.dataset;
+    const today = new Date().toISOString().slice(0, 10);
     const showOffer = () => {
       const d = daysOf(safariSel.value);
       const o = d >= 3 ? OFFERS[1] : d === 2 ? OFFERS[0] : null;
-      offerField.value = o ? o.title : '';
+      const ci = checkinEl.value;
+      const ok = !!o && today <= offerEnd && (!ci || (ci >= offerStart && ci <= offerEnd));
+      offerField.value = ok ? o.title : '';
       banner.hidden = !o;
-      if (o) banner.innerHTML = `<strong>Offer applied: ${o.title}</strong> — ${o.text}`;
+      if (!o) return;
+      banner.innerHTML = ok
+        ? `<strong>Offer applied: ${o.title}</strong> — ${o.text}`
+        : `<strong>No safari deal for these dates</strong> — the free transfer and train ticket are only for safaris starting in ${offerMonth}.`;
     };
     safariSel.addEventListener('change', showOffer);
+    checkinEl.addEventListener('change', showOffer);
     showOffer();
     form.addEventListener('submit', async (e) => {
       e.preventDefault();

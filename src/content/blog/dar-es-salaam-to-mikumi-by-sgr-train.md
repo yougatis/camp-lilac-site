@@ -25,7 +25,7 @@ A morning train gets you to Morogoro in about an hour and a half. Add the 2-hour
 
 Our driver waits on the platform with a Camp Lilac sign. The drive follows the highway west through Morogoro town, past the Uluguru Mountains and into the Mikumi bush. The last stretch of road runs through the national park itself, so keep your camera out — giraffe and baboons by the roadside are common.
 
-The transfer is free when you book a safari of two days or more with us. Otherwise we charge a flat transfer fee; ask when you book.
+In November 2026 the transfer is free when you book a safari of two days or more with us. Otherwise we charge a flat transfer fee; ask when you book.
 
 ## 4. What about Kilosa station?
 
@@ -43,7 +43,7 @@ That is the [2-Day Mikumi Safari](/safaris/2-day-mikumi-safari) on our safaris p
 ## What it costs
 
 - SGR ticket Dar es Salaam–Morogoro: a few thousand shillings in economy, more in business class (prices change — check the TRC app).
-- Transfer Morogoro–camp: free with a 2+ day safari.
+- Transfer Morogoro–camp: free with a 2+ day safari in November 2026; otherwise charged.
 - Mikumi park fee: US$30 + 18% VAT per adult per 24 hours — included in all our safari packages.
 - Accommodation: from US$140 per night for a luxury tent, breakfast included — see [rooms](/rooms).
 

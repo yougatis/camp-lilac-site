@@ -97,7 +97,7 @@ export const safaris: Safari[] = [
     summary:
       'The weekend classic from Dar es Salaam: SGR train to Morogoro, two days of game drives in a private open jeep, and a night in a luxury tent at Camp Lilac. Back in Dar by evening on day two.',
     bestFor: 'Weekend safaris from Dar es Salaam and Zanzibar',
-    offer: 'Free transfer from Morogoro SGR station to Mikumi (worth US$75) when you book this safari directly with Camp Lilac. One way — the return transfer is charged.',
+    offer: 'Free transfer from Morogoro SGR station to Mikumi (worth US$75) when you book this safari directly with Camp Lilac for a start date in November 2026. One way — the return transfer is charged.',
     start: 'Your hotel or the ferry terminal in Dar es Salaam',
     itinerary: [
       {
@@ -134,7 +134,7 @@ export const safaris: Safari[] = [
     summary:
       'Three days, two nights: SGR train from Dar es Salaam, a sunset game drive on arrival, a full day on the Mikumi floodplain, and a last drive through the park on the way home. Two nights in a luxury tent at Camp Lilac.',
     bestFor: 'Travellers who want to see the whole park without rushing',
-    offer: 'Free economy SGR train tickets from Dar es Salaam to Morogoro for your group, plus the free transfer to Mikumi (worth US$75), when you book this safari directly with Camp Lilac. One way — the return journey is charged.',
+    offer: 'Free economy SGR train tickets from Dar es Salaam to Morogoro for your group, plus the free transfer to Mikumi (worth US$75), when you book this safari directly with Camp Lilac for a start date in November 2026. One way — the return journey is charged.',
     start: 'Dar es Salaam SGR station, morning train',
     itinerary: [
       {
@@ -156,7 +156,7 @@ export const safaris: Safari[] = [
       },
     ],
     included: ['Two nights at Camp Lilac in a luxury tent or cabin', 'Transfers between Morogoro SGR station and the camp', ...commonIncluded],
-    excluded: ['Return SGR train ticket and return transfer to Morogoro (the way in is free when you book directly)', 'Dinner on day 3', ...commonExcluded],
+    excluded: ['Return SGR train ticket and return transfer to Morogoro (the way in is free when you book directly for November 2026)', 'Dinner on day 3', ...commonExcluded],
     keywords: '3 day Mikumi safari from Dar es Salaam',
   },
   {
@@ -173,7 +173,7 @@ export const safaris: Safari[] = [
     summary:
       'Wildlife and rainforest in one trip: a Maasai boma visit, a full day of game drives in Mikumi, the five-hour hike to Sanje Waterfall in the Udzungwa Mountains, and three nights at Camp Lilac.',
     bestFor: 'Active travellers and families with older children',
-    offer: 'Free economy SGR train tickets from Dar es Salaam to Morogoro for your group, plus the free transfer to Mikumi (worth US$75), when you book this safari directly with Camp Lilac. One way — the return journey is charged.',
+    offer: 'Free economy SGR train tickets from Dar es Salaam to Morogoro for your group, plus the free transfer to Mikumi (worth US$75), when you book this safari directly with Camp Lilac for a start date in November 2026. One way — the return journey is charged.',
     start: 'Dar es Salaam SGR station, morning train',
     itinerary: [
       {
@@ -201,7 +201,7 @@ export const safaris: Safari[] = [
       },
     ],
     included: ['Three nights at Camp Lilac in a luxury tent or cabin', 'Transfers between Morogoro SGR station and the camp', 'Udzungwa Mountains park entry and ranger-guided hike', ...commonIncluded],
-    excluded: ['Return SGR train ticket and return transfer to Morogoro (the way in is free when you book directly)', 'Dinner on day 4', ...commonExcluded],
+    excluded: ['Return SGR train ticket and return transfer to Morogoro (the way in is free when you book directly for November 2026)', 'Dinner on day 4', ...commonExcluded],
     keywords: 'Mikumi Udzungwa safari 4 days',
   },
 ];

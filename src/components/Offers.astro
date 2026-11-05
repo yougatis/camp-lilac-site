@@ -6,8 +6,8 @@ const { compact = false } = Astro.props;
 ---
 <section class={`section ${compact ? 'section--tight' : ''} section--sand`}>
   <div class="wrap">
-    <p class="label rv" style="color:var(--lilac-deep);margin-bottom:12px">Safari deals · book direct</p>
-    <h2 class="rv" style="margin-bottom:36px">Two safari deals when you book <em>with us</em></h2>
+    <p class="label rv" style="color:var(--lilac-deep);margin-bottom:12px">November safari deals · book direct</p>
+    <h2 class="rv" style="margin-bottom:36px">Two safari deals for <em>November</em></h2>
     <div class="offers">
       {offers.map((o, i) => (
         <div class={`offer rv rv-d${i + 1}`}>
@@ -19,7 +19,7 @@ const { compact = false } = Astro.props;
         </div>
       ))}
     </div>
-    <p class="rv" style="margin:24px 0 0;font-size:0.95rem">Only with a safari of 2 days or more, booked directly with us. Room-only stays don’t include free transfers.</p>
+    <p class="rv" style="margin:24px 0 0;font-size:0.95rem">For safaris of 2 days or more that start in November 2026, booked directly with us. Room-only stays don’t include free transfers.</p>
     <div class="btn-row rv rv-d3"><a class="link" href="/offers">How the offers work</a></div>
   </div>
 </section>
