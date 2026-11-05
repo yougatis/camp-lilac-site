@@ -589,3 +589,10 @@ a .ph:hover img, .ph.zoom:hover img { transform: scale(1.04); }
   .deal-text .sep { display: block; height: 0; overflow: hidden; }
   .deal-cta { order: 3; }
 }
+
+/* Booking form status + thank-you WhatsApp box */
+.form-status { margin: 14px 0 0; padding: 14px 18px; border-left: 3px solid var(--magenta); background: rgba(194, 73, 143, 0.08); font-size: 0.95rem; }
+.form-status a { border-bottom: 1px solid var(--magenta); }
+.wa-box { margin: 36px 0 40px; padding: 28px 30px; max-width: 620px; border: 1px solid rgba(125, 99, 168, 0.35); border-left: 4px solid var(--lilac-deep); background: rgba(179, 157, 219, 0.14); }
+.wa-box h2 { font-size: 2rem; margin: 0 0 8px; }
+.wa-box p { margin: 0 0 20px; }

@@ -3,9 +3,21 @@ import Base from '../layouts/Base.astro';
 import { site } from '../data/site';
 ---
 <Base title="Thank you – Camp Lilac" description="We received your request and will reply shortly." noindex>
-  <div class="wrap page-head" style="min-height:50vh">
+  <div class="wrap page-head" style="min-height:55vh">
+    <p class="label">Request received</p>
     <h1>Thank you — we have your request</h1>
-    <p class="lead">We reply by email the same day with availability and rates. In a hurry? <a href={site.whatsapp}>WhatsApp {site.phoneDisplay}</a>.</p>
+    <p class="lead">It is in our inbox. We reply {site.replyTime} with availability and one total price.</p>
+    <div class="wa-box">
+      <h2>Want a faster answer?</h2>
+      <p>Send the same request to us on WhatsApp. It is already written for you — just press send.</p>
+      <a class="btn btn--fill" id="wa-send" href={site.whatsapp} rel="noopener">Send it on WhatsApp</a>
+    </div>
     <a class="link" href="/mikumi-national-park">Read the Mikumi guide while you wait</a>
   </div>
+  <script is:inline define:vars={{ wa: site.whatsapp }}>
+    let text = '';
+    try { text = sessionStorage.getItem('cl-wa-text') || ''; } catch (e) {}
+    if (!text) text = 'Hi Camp Lilac, I just sent a booking request on your website.';
+    document.getElementById('wa-send').href = wa + '?text=' + encodeURIComponent(text);
+  </script>
 </Base>

@@ -9,9 +9,10 @@ const title = 'Book a Stay or Safari at Camp Lilac, Mikumi';
 const description =
   'Request availability for luxury tents and cabins at Camp Lilac plus a Mikumi safari. Same-day reply with rates. Free one-way SGR station transfer with a 2-day safari in November 2026.';
 
-// Where the form sends its data. Leave empty to fall back to a pre-filled WhatsApp message.
-// Recommended: a Make.com "Custom webhook" URL that emails you + logs to Google Sheets.
-const FORM_ENDPOINT = '';
+// Booking requests are emailed through Web3Forms (free, sent from the guest's browser).
+// WEB3FORMS_KEY = the access key Web3Forms emails to the inbox that should receive the requests.
+// It is a public key (it can only send forms to that inbox). Empty = WhatsApp only, as before.
+const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY || '';
 ---
 
 <Base {title} {description} breadcrumbs={[{ name: 'Book', href: '/book' }]} dark>
@@ -29,7 +30,7 @@ const FORM_ENDPOINT = '';
 
   <div style="height:56px"></div>
   <div class="wrap split" style="padding-bottom:var(--section)">
-    <form class="form" id="booking-form" method="post" action="/thank-you" data-endpoint={FORM_ENDPOINT} data-whatsapp={site.whatsapp} data-offer-month={OFFER_MONTH} data-offer-start={OFFER_START} data-offer-end={OFFER_END} data-offers={JSON.stringify(offers.map((o) => ({ title: o.title, text: o.text })))}>
+    <form class="form" id="booking-form" method="post" action="/thank-you" data-key={WEB3FORMS_KEY} data-whatsapp={site.whatsapp} data-offer-month={OFFER_MONTH} data-offer-start={OFFER_START} data-offer-end={OFFER_END} data-offers={JSON.stringify(offers.map((o) => ({ title: o.title, text: o.text })))}>
       <p class="offer-banner" id="offer-banner" hidden></p>
       <input type="hidden" name="offer" value="" />
       <div class="row">
@@ -77,6 +78,7 @@ const FORM_ENDPOINT = '';
       <label>Anything else you would like us to organise <textarea name="message" placeholder="Anything at all — a birthday dinner, a night in Zanzibar, a different route, dietary needs, onward travel… We can organise it."></textarea></label>
       <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
       <button class="btn" type="submit">Send request</button>
+      <p class="form-status" id="form-status" role="status" hidden></p>
       <p class="meta">Free, no obligation. We reply {site.replyTime} with availability and one total price. We only use your details to answer this request.</p>
     </form>
 
@@ -128,21 +130,57 @@ const FORM_ENDPOINT = '';
     safariSel.addEventListener('change', showOffer);
     checkinEl.addEventListener('change', showOffer);
     showOffer();
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const status = document.getElementById('form-status') as HTMLElement;
+    const shown = (name: string) => {
+      const el = form.elements.namedItem(name) as HTMLSelectElement | null;
+      return el ? el.options[el.selectedIndex]?.text || '' : '';
+    };
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const data = Object.fromEntries(new FormData(form).entries());
-      if (data.website) return; // honeypot
-      const endpoint = form.dataset.endpoint;
-      if (endpoint) {
-        try {
-          await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, source: 'camp-lilac.com', sentAt: new Date().toISOString() }) });
-          location.href = '/thank-you';
-          return;
-        } catch {}
+      const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+      if (data.website) { location.href = '/thank-you'; return; } // honeypot: bots get a fake success
+      const room = shown('room');
+      const safari = shown('safari');
+      const text = `Booking request from camp-lilac.com\nName: ${data.name}\nEmail: ${data.email}\nWhatsApp: ${data.phone || '-'}\nCountry: ${data.country || '-'}\nDates: ${data.checkin} to ${data.checkout}\nAdults: ${data.adults}, children: ${data.children || '0'}\nRoom: ${room}\nSafari: ${safari}\nSafari deal: ${data.offer || '-'}\nArriving by: ${data.arrival}\nNotes: ${data.message || '-'}`;
+      const wa = `${form.dataset.whatsapp}?text=${encodeURIComponent(text)}`;
+      try { sessionStorage.setItem('cl-wa-text', text); } catch {}
+      const key = form.dataset.key;
+      if (!key) { location.href = wa; return; } // email not set up yet: WhatsApp only
+      btn.disabled = true; btn.textContent = 'Sending…'; status.hidden = true;
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: key,
+            subject: `New booking request: ${data.name} (${data.checkin} to ${data.checkout})`,
+            from_name: 'Camp Lilac website',
+            replyto: data.email,
+            Name: data.name,
+            Email: data.email,
+            'WhatsApp number': data.phone || '-',
+            Country: data.country || '-',
+            'Check-in': data.checkin,
+            'Check-out': data.checkout,
+            Adults: data.adults,
+            Children: data.children || '0',
+            Room: room,
+            Safari: safari,
+            'Safari deal': data.offer || '-',
+            'Arriving by': data.arrival,
+            Notes: data.message || '-',
+            botcheck: '',
+          }),
+        });
+        const out = await res.json().catch(() => ({}));
+        if (!res.ok || out.success === false) throw new Error(out.message || String(res.status));
+        location.href = '/thank-you';
+      } catch {
+        btn.disabled = false; btn.textContent = 'Send request';
+        status.hidden = false;
+        status.innerHTML = `Sorry, your request didn’t go through. <a href="${wa}">Send it on WhatsApp instead</a> — it’s already written for you.`;
       }
-      // Fallback: open WhatsApp with the request pre-filled
-      const text = `Booking request from camp-lilac.com\nName: ${data.name}\nEmail: ${data.email}\nWhatsApp: ${data.phone || '-'}\nCountry: ${data.country || '-'}\nDates: ${data.checkin} to ${data.checkout}\nAdults: ${data.adults}, children: ${data.children || '0'}\nRoom: ${data.room || 'suggest'}\nSafari: ${data.safari}\nOffer: ${data.offer || '-'}\nArriving by: ${data.arrival}\nNotes: ${data.message || '-'}`;
-      location.href = `${form.dataset.whatsapp}?text=${encodeURIComponent(text)}`;
     });
   </script>
 </Base>
