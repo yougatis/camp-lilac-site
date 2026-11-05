@@ -9,10 +9,10 @@ const title = 'Book a Stay or Safari at Camp Lilac, Mikumi';
 const description =
   'Request availability for luxury tents and cabins at Camp Lilac plus a Mikumi safari. Same-day reply with rates. Free one-way SGR station transfer with a 2-day safari in November 2026.';
 
-// Booking requests are emailed through Web3Forms (free, sent from the guest's browser).
-// WEB3FORMS_KEY = the access key Web3Forms emails to the inbox that should receive the requests.
-// It is a public key (it can only send forms to that inbox). Empty = WhatsApp only, as before.
-const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY || '';
+// Requests go to /api/booking (functions/api/booking.js), which saves them in the Google Sheet
+// "Camp Lilac - Website booking requests" and emails info@camp-lilac.com. The thank-you page then
+// offers WhatsApp. If sending fails, the guest is offered WhatsApp straight away.
+const BOOKING_API = '/api/booking';
 ---
 
 <Base {title} {description} breadcrumbs={[{ name: 'Book', href: '/book' }]} dark>
@@ -30,7 +30,7 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY || '';
 
   <div style="height:56px"></div>
   <div class="wrap split" style="padding-bottom:var(--section)">
-    <form class="form" id="booking-form" method="post" action="/thank-you" data-key={WEB3FORMS_KEY} data-whatsapp={site.whatsapp} data-offer-month={OFFER_MONTH} data-offer-start={OFFER_START} data-offer-end={OFFER_END} data-offers={JSON.stringify(offers.map((o) => ({ title: o.title, text: o.text })))}>
+    <form class="form" id="booking-form" method="post" action="/thank-you" data-api={BOOKING_API} data-whatsapp={site.whatsapp} data-offer-month={OFFER_MONTH} data-offer-start={OFFER_START} data-offer-end={OFFER_END} data-offers={JSON.stringify(offers.map((o) => ({ title: o.title, text: o.text })))}>
       <p class="offer-banner" id="offer-banner" hidden></p>
       <input type="hidden" name="offer" value="" />
       <div class="row">
@@ -145,36 +145,17 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY || '';
       const text = `Booking request from camp-lilac.com\nName: ${data.name}\nEmail: ${data.email}\nWhatsApp: ${data.phone || '-'}\nCountry: ${data.country || '-'}\nDates: ${data.checkin} to ${data.checkout}\nAdults: ${data.adults}, children: ${data.children || '0'}\nRoom: ${room}\nSafari: ${safari}\nSafari deal: ${data.offer || '-'}\nArriving by: ${data.arrival}\nNotes: ${data.message || '-'}`;
       const wa = `${form.dataset.whatsapp}?text=${encodeURIComponent(text)}`;
       try { sessionStorage.setItem('cl-wa-text', text); } catch {}
-      const key = form.dataset.key;
-      if (!key) { location.href = wa; return; } // email not set up yet: WhatsApp only
+      const api = form.dataset.api;
+      if (!api) { location.href = wa; return; }
       btn.disabled = true; btn.textContent = 'Sending…'; status.hidden = true;
       try {
-        const res = await fetch('https://api.web3forms.com/submit', {
+        const res = await fetch(api, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({
-            access_key: key,
-            subject: `New booking request: ${data.name} (${data.checkin} to ${data.checkout})`,
-            from_name: 'Camp Lilac website',
-            replyto: data.email,
-            Name: data.name,
-            Email: data.email,
-            'WhatsApp number': data.phone || '-',
-            Country: data.country || '-',
-            'Check-in': data.checkin,
-            'Check-out': data.checkout,
-            Adults: data.adults,
-            Children: data.children || '0',
-            Room: room,
-            Safari: safari,
-            'Safari deal': data.offer || '-',
-            'Arriving by': data.arrival,
-            Notes: data.message || '-',
-            botcheck: '',
-          }),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...data, room, safari }),
         });
         const out = await res.json().catch(() => ({}));
-        if (!res.ok || out.success === false) throw new Error(out.message || String(res.status));
+        if (!res.ok || !out.ok) throw new Error(out.error || String(res.status));
         location.href = '/thank-you';
       } catch {
         btn.disabled = false; btn.textContent = 'Send request';
