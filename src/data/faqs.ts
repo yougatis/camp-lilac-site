@@ -35,6 +35,12 @@ export const faqs: Faq[] = [
   },
   {
     group: 'Staying',
+    q: 'Is there a reception, and is housekeeping included?',
+    a: 'Yes. Our reception is staffed 24 hours a day, every day, so you can arrive at any hour and there is always someone to help. Daily housekeeping is included in every rate, every tent and cabin has its own private bathroom, and there is no minimum stay — one night is welcome.',
+    links: [{ text: 'Tents and cabins', href: '/rooms' }],
+  },
+  {
+    group: 'Staying',
     q: 'Are meals included?',
     a: 'When you book directly with us, every room and tent rate includes breakfast and dinner in our restaurant. Any extra meal, such as lunch, is US$15 per person. Drinks are charged separately. On our safari packages all meals are included (full board).',
     links: [{ text: 'The restaurant and bar', href: '/restaurant' }],
