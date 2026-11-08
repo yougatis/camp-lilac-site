@@ -1,86 +1,34 @@
 ---
 // Italian version of /safaris. Hand-written; ask an Italian speaker to read it once before promoting it.
 import Base from '../../layouts/Base.astro';
-import Crumbs from '../../components/Crumbs.astro';
+import Crumbs from './_Crumbs.astro';
+import Wildlife from './_Wildlife.astro';
 import Photo from '../../components/Photo.astro';
 import { safaris } from '../../data/safaris';
 import { site } from '../../data/site';
 import { offersActive } from '../../data/offers';
+import { L, safariIt, giorni, replyIt, travelIt, MESE_ANNO } from '../../data/i18n-it';
 
 const title = 'Safari a Mikumi: pacchetti e prezzi | Camp Lilac';
 const description =
   'Safari a Mikumi con le nostre guide e jeep: 1 giorno, 2 e 3 giorni in treno SGR da Dar es Salaam o Zanzibar, 4 giorni Mikumi e Udzungwa. Prezzi a persona.';
-const crumbs = [{ name: 'Safari', href: '/safaris' }, { name: 'Safari a Mikumi', href: '/it/safari-mikumi' }];
-const alternates = [
-  { lang: 'en', href: '/safaris' },
-  { lang: 'it', href: '/it/safari-mikumi' },
-  { lang: 'fr', href: '/fr/safaris-mikumi' },
-  { lang: 'de', href: '/de/mikumi-safaris' },
-  { lang: 'es', href: '/es/safaris-mikumi' },
-];
+const crumbs = [{ name: 'Safari a Mikumi', href: L('/safaris') }];
 const wa = `${site.whatsapp}?text=${encodeURIComponent('Buongiorno! Vorremmo informazioni sui safari a Mikumi. Siamo in ... persone, date: ..., partiamo da ...')}`;
 const fromPrice = Math.min(...safaris.map((s) => s.price ?? Infinity));
-// site.replyTime is English; translate the known value, fall back to the raw string if it changes.
-const replyIt = ({ 'within 4 hours during the day': 'entro 4 ore durante il giorno' } as Record<string, string>)[site.replyTime] ?? site.replyTime;
+const t = safariIt;
 
-// Italian wording for each package; the data (prices, days, images) stays in src/data/safaris.ts.
-const it: Record<string, { name: string; bestFor: string; summary: string; alt: string }> = {
-  '1-day-mikumi-safari': {
-    name: 'Safari a Mikumi di 1 giorno',
-    bestFor: 'Gite in giornata da Morogoro o Dar es Salaam, e ospiti che si fermano una notte',
-    summary: 'Una giornata intera nel Parco Nazionale di Mikumi in jeep privata con tetto apribile e una nostra guida: game drive al mattino, pranzo caldo nella savana, secondo game drive fino alle 16:30. Da Morogoro, dal campo, oppure in giornata da Dar es Salaam con il treno SGR.',
-    alt: 'Giraffe che brucano vicino a una jeep da safari nella savana di Mikumi',
-  },
-  '2-day-mikumi-safari': {
-    name: 'Safari a Mikumi di 2 giorni, 1 notte',
-    bestFor: 'Il safari del fine settimana da Dar es Salaam e da Zanzibar',
-    summary: 'Il classico del fine settimana da Dar es Salaam: treno SGR fino a Morogoro, due giorni di game drive in jeep privata e una notte in una tenda di lusso a Camp Lilac. Di nuovo a Dar es Salaam la sera del secondo giorno.',
-    alt: 'Un ospite osserva da vicino gli elefanti da una jeep da safari a Mikumi',
-  },
-  '3-day-mikumi-safari': {
-    name: 'Safari a Mikumi di 3 giorni, 2 notti',
-    bestFor: 'Chi vuole vedere tutto il parco senza fretta',
-    summary: 'Tre giorni e due notti: treno SGR da Dar es Salaam, game drive al tramonto il giorno dell’arrivo, una giornata intera sulla piana del Mkata e un ultimo giro nel parco sulla via del ritorno. Due notti in una tenda di lusso a Camp Lilac.',
-    alt: 'Un ghepardo seduto davanti a una jeep da safari nel Parco Nazionale di Mikumi',
-  },
-  '4-day-mikumi-udzungwa-safari': {
-    name: 'Mikumi e cascate di Udzungwa, 4 giorni, 3 notti',
-    bestFor: 'Viaggiatori attivi e famiglie con ragazzi più grandi',
-    summary: 'Fauna selvatica e foresta pluviale in un solo viaggio: la visita a un boma masai, una giornata intera di game drive a Mikumi, il trekking di cinque ore alla cascata Sanje nei monti Udzungwa e tre notti a Camp Lilac.',
-    alt: 'Un leone cammina nell’erba alta davanti a una jeep da safari',
-  },
-};
-const t = (s: (typeof safaris)[number]) => it[s.slug] ?? { name: s.name, bestFor: s.bestFor, summary: s.summary, alt: s.imageAlt };
-const giorni = (n: number) => (n === 1 ? '1 giorno' : `${n} giorni`);
-
-// Italian version of the travel options shown on the English hub (wording from src/data/safaris.ts travelOptions).
-const viaggio = [
-  { title: 'Da Dar es Salaam in treno SGR', tag: 'Consigliato', href: '/it/come-arrivare#treno', text: `Treno del mattino fino a Morogoro (${site.trainHours.replace('.', ',')} ore). Il nostro autista vi aspetta sul binario e in ${site.driveHours} ore siete a Mikumi: circa 3,5 ore in tutto.` },
-  { title: 'Da Dar es Salaam in auto', href: '/it/come-arrivare#strada', text: 'Un transfer privato dal vostro hotel o dall’aeroporto, porta a porta. Rispetto al treno costa di più, è più lento (7–8 ore invece di circa 3,5) e molto più stancante: lo proponiamo solo se gli orari del treno non vi vanno bene.' },
-  { title: 'Da Zanzibar in traghetto', href: '/it/safari-da-zanzibar', text: 'Traghetto veloce da Stone Town a Dar es Salaam (circa 2 ore). Vi aspettiamo al terminal e proseguiamo insieme in treno o in auto.' },
-  { title: 'Da Zanzibar in aereo', href: '/it/safari-da-zanzibar#volo', text: 'Un volo di 20 minuti fino a Dar es Salaam e poi treno o auto con noi, oppure un piccolo aereo direttamente sulla pista di Mikumi. Il volo costa circa 160–200 dollari a persona per tratta, secondo il giorno e la compagnia; non è incluso, ma lo prenotiamo noi.' },
-  { title: 'Siete già in viaggio', href: '/it/come-arrivare#sud', text: 'Arrivate da Morogoro, Iringa, Ruaha o in autobus? Vi veniamo a prendere in hotel, alla stazione di Morogoro o nel paese di Mikumi. Benvenuti anche a chi guida da sé.' },
-];
-
-const fauna = [
-  { k: 'leopard-drive', alt: 'Un leopardo su un albero accanto a una jeep da safari a Mikumi' },
-  { k: 'elephant-family', alt: 'Una famiglia di elefanti cammina lungo la riva di un fiume' },
-  { k: 'giraffe-group', alt: 'Un gruppo di giraffe sulla piana del Mkata' },
-  { k: 'lioness-cubs', alt: 'Una leonessa con i suoi cuccioli nell’erba' },
-  { k: 'zebra-line', alt: 'Una fila di zebre attraversa l’erba dorata di Mikumi' },
-  { k: 'buffalo-herd', alt: 'Una mandria di bufali neri nel Parco Nazionale di Mikumi' },
-];
+const fauna = ['leopard-drive', 'elephant-family', 'giraffe-group', 'lioness-cubs', 'zebra-line', 'buffalo-herd'];
 
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'Pacchetti safari a Mikumi',
   inLanguage: 'it',
-  itemListElement: safaris.map((s, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}/safaris/${s.slug}`, name: t(s).name })),
+  itemListElement: safaris.map((s, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}${L(`/safaris/${s.slug}`)}`, name: t(s).name })),
 };
 ---
 
-<Base {title} {description} {schema} lang="it" {alternates} ogImage="/images/wild/safari-hero-1600.jpg" breadcrumbs={crumbs} dark>
+<Base {title} {description} {schema} lang="it" ogImage="/images/wild/safari-hero-1600.jpg" breadcrumbs={crumbs} dark>
   <section class="hero hero--inner">
     <div class="hero-media"><img src="/images/wild/safari-hero-1600.webp" srcset="/images/wild/safari-hero-800.webp 800w, /images/wild/safari-hero-1200.webp 1200w, /images/wild/safari-hero-1600.webp 1600w" sizes="100vw" alt="Una jeep da safari di Camp Lilac con gli ospiti in mezzo alle zebre nel Parco Nazionale di Mikumi" width="1536" height="1024" fetchpriority="high" /></div>
     <div class="wrap hero-content">
@@ -95,23 +43,22 @@ const schema = {
 
   <section class="section">
     <div class="wrap">
-      <p class="meta" style="margin-bottom:28px"><a href="/safaris">Read this page in English</a> · Le nostre altre pagine in italiano: <a href="/it/safari-da-zanzibar">Safari da Zanzibar</a> · <a href="/it/tende-e-cabin">Tende e cabin</a> · <a href="/it/come-arrivare">Come arrivare</a>. Le pagine di dettaglio di ogni safari sono in inglese.</p>
       <ul class="room-rows">
         {safaris.map((s) => (
           <li class="room-row">
-            <a class="room-row-media rv" href={`/safaris/${s.slug}`}><Photo src={s.image} alt={t(s).alt} caption={giorni(s.days)} /></a>
+            <a class="room-row-media rv" href={L(`/safaris/${s.slug}`)}><Photo src={s.image} alt={t(s).imageAlt} caption={giorni(s.days)} /></a>
             <div>
-              <h2 class="rv"><a href={`/safaris/${s.slug}`} style="color:inherit">{t(s).name}</a></h2>
+              <h2 class="rv"><a href={L(`/safaris/${s.slug}`)} style="color:inherit">{t(s).name}</a></h2>
               <p class="meta rv rv-d1">{giorni(s.days)} · {t(s).bestFor}</p>
               <p class="price rv rv-d1">{s.price ? <span>Da US${s.price} <small>a persona</small></span> : <span>Prezzo su richiesta</span>}</p>
               <p>{t(s).summary}</p>
-              <a class="link rv rv-d2" href={`/safaris/${s.slug}`}>Itinerario e cosa è incluso (in inglese)</a>
+              <a class="link rv rv-d2" href={L(`/safaris/${s.slug}`)}>Itinerario e cosa è incluso</a>
             </div>
           </li>
         ))}
       </ul>
       <p style="margin-top:28px;max-width:70ch">I prezzi sono a persona per due o più persone che viaggiano insieme e comprendono le tariffe d’ingresso al parco, una jeep privata con tetto apribile, una nostra guida, i pasti indicati e le notti a Camp Lilac in una tenda di lusso o in una cabin. I bambini sotto i 4 anni non pagano, dai 4 agli 11 pagano la metà, dai 12 anni tariffa adulti; i bambini sotto i 2 anni non possono partecipare ai game drive.</p>
-      {offersActive && <p data-offer style="max-width:70ch"><strong>Offerta di novembre 2026:</strong> per i safari di 2 o più giorni prenotati direttamente con noi e con partenza a novembre 2026, con il safari di 2 giorni il transfer dalla stazione di Morogoro al campo è gratuito (valore 75 dollari); con il safari di 3 o 4 giorni sono gratuiti anche i biglietti del treno SGR in economica da Dar es Salaam a Morogoro. Solo all’andata: il ritorno è a pagamento.</p>}
+      {offersActive && <p data-offer style="max-width:70ch"><strong>Offerta di {MESE_ANNO}:</strong> per i safari di 2 o più giorni prenotati direttamente con noi e con partenza a {MESE_ANNO}, con il safari di 2 giorni il transfer dalla stazione di Morogoro al campo è gratuito (valore US$75); con il safari di 3 o 4 giorni sono gratuiti anche i biglietti del treno SGR in economica da Dar es Salaam a Morogoro. Solo all’andata: il ritorno è a pagamento.</p>}
     </div>
   </section>
 
@@ -123,30 +70,19 @@ const schema = {
           Il Parco Nazionale di Mikumi è il grande parco più vicino a Dar es Salaam e il più semplice da raggiungere da Zanzibar. Fa parte dell’ecosistema del Nyerere (Selous) e ospita elefanti, leoni, giraffe, zebre, bufali, ippopotami e oltre 400 specie di uccelli, su una piana alluvionale aperta dove gli animali si vedono facilmente. Non c’è folla: nella maggior parte dei game drive gli avvistamenti sono solo vostri.
         </p>
         <p>
-          Le tariffe d’ingresso sono tra le più basse della Tanzania e, dato che il campo è a pochi minuti dall’ingresso, il tempo lo passate nel parco e non in viaggio per raggiungerlo. In italiano trovate <a href="/it/safari-da-zanzibar">come funziona il safari da Zanzibar</a> e <a href="/it/come-arrivare">come arrivare</a>; in inglese, <a href="/mikumi-national-park">la guida completa a Mikumi</a>, <a href="/safari-from-dar-es-salaam">il viaggio da Dar es Salaam</a> e <a href="/blog/mikumi-safari-cost">quanto costa un safari a Mikumi</a>.
+          Le tariffe d’ingresso sono tra le più basse della Tanzania e, dato che il campo è a pochi minuti dall’ingresso, il tempo lo passate nel parco e non in viaggio per raggiungerlo. Leggete anche <a href={L('/safari-from-zanzibar')}>come funziona il safari da Zanzibar</a>, <a href={L('/safari-from-dar-es-salaam')}>il viaggio da Dar es Salaam</a> e <a href={L('/getting-here')}>come arrivare</a>; in inglese, <a href={L('/mikumi-national-park')}>la guida completa a Mikumi</a> e <a href={L('/blog/mikumi-safari-cost')}>quanto costa un safari a Mikumi</a>.
         </p>
       </div>
       <aside class="aside">
         <h3>Itinerari su misura</h3>
         <p>Proseguite verso Ruaha, Iringa o Udzungwa? Arrivate da Zanzibar? Diteci il vostro percorso e costruiamo il safari intorno a quello. Rispondiamo {replyIt}.</p>
         <a class="btn btn--fill" href={wa} rel="noopener">Scriveteci su WhatsApp</a>
-        <p style="margin-top:12px;font-size:0.9rem">oppure <a href="/book">compilate il modulo di richiesta</a> (in inglese)</p>
+        <p style="margin-top:12px;font-size:0.9rem">oppure <a href={L('/book')}>compilate il modulo di richiesta</a></p>
       </aside>
     </div>
   </section>
 
-  <section class="section section--tight">
-    <div class="wrap">
-      <p class="label rv">Cosa vedrete</p>
-      <h2 class="rv rv-d1" style="margin-bottom:32px">Mikumi, da vicino</h2>
-      <div class="wild-grid">
-        {fauna.map((f, i) => (
-          <div class={`rv rv-d${i % 4}`}><Photo src={`/images/wild/${f.k}-1600.jpg`} alt={f.alt} ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
-        ))}
-      </div>
-      <p class="meta" style="margin-top:14px;font-size:0.75rem">Toccate una foto per vederla a schermo intero · <a href="/mikumi-national-park#photo-credits">Crediti fotografici</a> (in inglese)</p>
-    </div>
-  </section>
+  <Wildlife label="Cosa vedrete" title="Mikumi, da vicino" pick={fauna} />
 
   <section class="section section--tight">
     <div class="wrap">
@@ -154,7 +90,7 @@ const schema = {
         <h2 class="rv">Viaggiate come preferite: organizziamo noi</h2>
         <p class="rv rv-d1">Ogni safari può iniziare a Dar es Salaam o a Zanzibar. Scegliete come volete viaggiare e noi organizziamo tutto il tragitto: biglietti, pickup e transfer. Basta dircelo quando prenotate.</p>
         <div class="travel-grid">
-          {viaggio.map((o, i) => (
+          {travelIt.map((o, i) => (
             <div class={`travel-item rv rv-d${Math.min(i, 3)}`}>
               <h3><a href={o.href} style="color:inherit">{o.title}</a>{o.tag && <span class="tag">{o.tag}</span>}</h3>
               <p>{o.text}</p>

@@ -1,0 +1,123 @@
+---
+// Italian version of /safari-from-dar-es-salaam. Hand-written; ask an Italian speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import Crumbs from './_Crumbs.astro';
+import CtaBand from './_CtaBand.astro';
+import Price from './_Price.astro';
+import Wildlife from './_Wildlife.astro';
+import Photo from '../../components/Photo.astro';
+import { safariBySlug } from '../../data/safaris';
+import { site } from '../../data/site';
+import { offersActive } from '../../data/offers';
+import { L, safariIt, trainH, driveH, MESE_ANNO } from '../../data/i18n-it';
+
+const title = 'Safari a Mikumi da Dar es Salaam in treno SGR | Camp Lilac';
+const crumbs = [{ name: 'Safari', href: L('/safaris') }, { name: 'Safari da Dar es Salaam', href: L('/safari-from-dar-es-salaam') }];
+const s1 = safariBySlug('1-day-mikumi-safari')!, s2 = safariBySlug('2-day-mikumi-safari')!, s3 = safariBySlug('3-day-mikumi-safari')!, s4 = safariBySlug('4-day-mikumi-udzungwa-safari')!;
+const description =
+  `Safari da Dar es Salaam: 3,5 ore porta a porta con treno SGR e transfer, pacchetti da 1 a 4 giorni con le nostre guide, da US$${s1.price}, pickup in hotel o al porto.`;
+const wa = `${site.whatsapp}?text=${encodeURIComponent('Buongiorno! Siamo a Dar es Salaam e vorremmo informazioni su un safari a Mikumi. Siamo in ... persone, date: ...')}`;
+---
+
+<Base {title} {description} lang="it" ogImage="/images/wild/plains-herds-1600.jpg" breadcrumbs={crumbs} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src="/images/wild/plains-herds-1600.webp" srcset="/images/wild/plains-herds-800.webp 800w, /images/wild/plains-herds-1200.webp 1200w, /images/wild/plains-herds-1600.webp 1600w" sizes="100vw" alt="Zebre e gnu sulla piana verde del Mkata nel Parco Nazionale di Mikumi, con i monti sullo sfondo" width="1600" height="1067" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <Crumbs items={crumbs} />
+        <h1 style="max-width:17ch"><span class="w"><span>Safari da Dar es Salaam:&nbsp;</span></span><br /><span class="w"><em style="color:#e4d9f7">Mikumi in un fine settimana</em></span></h1>
+        <p class="lead">Partite da Dar es Salaam dopo colazione e nel primo pomeriggio guardate gli elefanti. Il Parco Nazionale di Mikumi è a 3,5 ore porta a porta con il treno SGR e il nostro transfer: l’unico parco dei grandi animali che si raggiunge dalla città senza volo e senza una giornata intera in macchina.</p>
+      </div>
+      <div class="hero-side"><b>Da US${s1.price}</b>a persona, 1 giorno<br />2 giorni da US${s2.price}</div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap split--aside" style="display:grid">
+      <article class="article">
+        <h2>Perché Mikumi è <em>il</em> safari da Dar es Salaam</h2>
+        <p>
+          Tutti gli altri parchi sono a un volo di distanza o a una lunga giornata su strade difficili. Mikumi è sulla linea ferroviaria. Il treno a scartamento standard arriva a Morogoro in circa {trainH} ore; il nostro autista vi aspetta sul binario e le {driveH} ore di strada verso ovest finiscono dentro i confini del parco, dove la strada principale attraversa la piana alluvionale del Mkata. Aggiungete tariffe d’ingresso basse (US$35,40 per adulto al giorno, comprese nei nostri prezzi), spazi aperti dove gli animali si vedono facilmente e un campo a pochi minuti dall’ingresso, ed ecco l’unico safari che sta in un fine settimana: per chi vive a Dar es Salaam, per chi è in viaggio di lavoro con due giorni liberi e per chi è appena atterrato e vuole vedere gli animali prima del mare.
+        </p>
+        <p>
+          Non siamo un hotel che vi affida a un tour operator. Camp Lilac organizza i propri safari, con le sue guide e le sue 4×4 con tetto apribile, e la vostra guida-autista è la stessa persona dalla stazione di Morogoro all’ultimo game drive. Organizziamo anche il viaggio: pickup in hotel, in aeroporto o al traghetto a Dar es Salaam, biglietti del treno, transfer da Morogoro. Un solo prezzo totale, un solo numero WhatsApp.
+        </p>
+
+        <h2 id="pacchetti">I pacchetti da Dar es Salaam</h2>
+        <table>
+          <thead><tr><th scope="col">Pacchetto</th><th scope="col">A persona</th><th scope="col">Per chi</th></tr></thead>
+          <tbody>
+            <tr><th scope="row"><a href={L(`/safaris/${s1.slug}`)}>{safariIt(s1).name}</a></th><td>Da US${s1.price}</td><td>La versione in giornata: treno all’alba, un giorno intero nel parco, treno della sera per tornare. Lunga ma fattibile, oppure partite da Morogoro.</td></tr>
+            <tr><th scope="row"><a href={L(`/safaris/${s2.slug}`)}>{safariIt(s2).name}</a></th><td>Da US${s2.price}</td><td>Il classico del fine settimana: game drive nel pomeriggio, una notte in tenda di lusso, game drive all’alba, a casa per cena. Il viaggio più prenotato.</td></tr>
+            <tr><th scope="row"><a href={L(`/safaris/${s3.slug}`)}>{safariIt(s3).name}</a></th><td>Da US${s3.price}</td><td>Un fine settimana lungo con una giornata intera sulla piana: il miglior rapporto tra animali visti e giorni.</td></tr>
+            <tr><th scope="row"><a href={L(`/safaris/${s4.slug}`)}>{safariIt(s4).name}</a></th><td>Da US${s4.price}</td><td>Quattro giorni: un boma masai, una giornata intera di game drive e il trekking alla cascata Sanje nei monti Udzungwa.</td></tr>
+          </tbody>
+        </table>
+        <p>
+          I prezzi sono a persona per due o più persone e comprendono gli ingressi al parco, una 4×4 privata con una nostra guida, tutti i pasti e le notti a Camp Lilac; chi viaggia da solo paga di più perché il veicolo è privato. I biglietti del treno e il transfer di ritorno a Morogoro (US$75 a veicolo) sono a parte, e li organizziamo noi.{offersActive && <span data-offer> A {MESE_ANNO} il transfer fino a Mikumi è gratuito con un safari di due o più giorni prenotato direttamente, e con tre o quattro giorni vi paghiamo anche i biglietti del treno: leggete le <a href={L('/offers')}>offerte</a> (in inglese).</span>} Per un budget completo leggete <a href={L('/blog/mikumi-safari-cost')}>quanto costa un safari a Mikumi</a> (in inglese).
+        </p>
+
+        <h2 id="weekend">Il fine settimana, ora per ora</h2>
+        <ol class="itinerary">
+          <li><h3>Sabato mattina</h3><p>Vi veniamo a prendere in hotel, in aeroporto o al terminal dei traghetti e vi portiamo alla stazione SGR di Dar es Salaam. Treno fino a Morogoro, circa {trainH} ore. La vostra guida di Camp Lilac vi aspetta sul binario con un cartello con il vostro nome.</p></li>
+          <li><h3>Sabato, primo pomeriggio</h3><p>{driveH} ore verso ovest, oltre i monti Uluguru; la strada principale entra nel parco e di solito le prime giraffe sono a bordo strada. Pranzo al campo, una pausa sulla vostra terrazza.</p></li>
+          <li><h3>Sabato, tardo pomeriggio</h3><p>Game drive sulla piana del Mkata quando l’aria si rinfresca: elefanti, zebre, bufali, giraffe, le pozze degli ippopotami, fino al tramonto. Cena di fronte alla catena dei monti Mikumi.</p></li>
+          <li><h3>Domenica</h3><p>Si esce alle prime luci, quando i leoni sono ancora in movimento; rientro per una colazione tardiva, altro tempo nel parco, pranzo. Le {driveH} ore di strada fino a Morogoro e il treno del pomeriggio. In serata vi lasciamo in hotel o in aeroporto.</p></li>
+        </ol>
+
+        <h2 id="pickup">Pickup e orari</h2>
+        <ul>
+          <li><strong>Hotel o casa a Dar es Salaam:</strong> vi portiamo alla stazione SGR e vi veniamo a prendere al ritorno.</li>
+          <li><strong>Aeroporto internazionale Julius Nyerere:</strong> se atterrate al mattino potete essere a Mikumi il pomeriggio stesso; al ritorno possiamo lasciarvi in aeroporto per un volo serale.</li>
+          <li><strong>Il terminal dei traghetti da Zanzibar:</strong> il traghetto delle 07:00 da Stone Town si collega con un treno di tarda mattinata. Tutti i dettagli nella pagina <a href={L('/safari-from-zanzibar')}>safari da Zanzibar</a>.</li>
+          <li><strong>In auto invece che in treno?</strong> Possiamo mandarvi un’auto, ma costa di più, ci vogliono 7–8 ore invece di 3,5 ed è molto più stancante. La proponiamo solo se gli orari del treno non vanno bene: leggete <a href={`${L('/getting-here')}#strada`}>come arrivare in auto</a>.</li>
+        </ul>
+
+        <h2 id="quando">Quando andare</h2>
+        <p>
+          Mikumi funziona tutto l’anno: il circuito della piana non chiude mai, e la stagione secca da giugno a ottobre offre gli avvistamenti più facili. I fine settimana di luglio e agosto e i periodi di festa si riempiono: prenotate treno e campo un paio di settimane prima. I mesi verdi da novembre a febbraio sono più tranquilli, con cieli spettacolari e tariffe più basse. La <a href={L('/blog/best-time-to-visit-mikumi')}>guida mese per mese</a> (in inglese) ha tutti i dettagli.
+        </p>
+
+        <h2 id="domande">Domande frequenti</h2>
+        <div class="faq">
+          <details><summary>Si può fare in un giorno da Dar es Salaam?</summary><p>Sì: il <a href={L(`/safaris/${s1.slug}`)}>safari a Mikumi di 1 giorno</a> usa il primo treno del mattino e il treno della sera per tornare. È una giornata lunga, con un giorno intero nel parco nel mezzo. Se potete, fermatevi una notte: il game drive all’alba è la parte migliore.</p></details>
+          <details><summary>Serve un mezzo proprio a Dar es Salaam?</summary><p>No. Nei pacchetti di 2, 3 e 4 giorni il pickup e il rientro in hotel, in aeroporto o al traghetto sono inclusi.</p></details>
+          <details><summary>È adatto ai bambini?</summary><p>Moltissimo. Spostamenti brevi, tanti animali, niente voli lunghi. I bambini sotto i 4 anni non pagano, dai 4 agli 11 pagano la metà e la Luxury Family Tent ospita quattro persone. I bambini sotto i 2 anni non possono partecipare ai game drive.</p></details>
+          <details><summary>E per residenti e gruppi?</summary><p>I residenti in Tanzania e in Africa orientale pagano ingressi al parco più bassi: ditecelo quando prenotate e adeguiamo il preventivo. Per gruppi o viaggi aziendali usiamo più veicoli.</p></details>
+        </div>
+        <p style="margin-top:28px">Da leggere (in inglese): <a href={L('/blog/dar-es-salaam-to-mikumi-by-sgr-train')}>da Dar es Salaam a Mikumi in treno SGR, passo passo</a> · <a href={L('/blog/mikumi-vs-selous-nyerere')}>Mikumi o Selous (Nyerere)</a> · <a href={L('/mikumi-national-park')}>la guida al Parco Nazionale di Mikumi</a>.</p>
+      </article>
+
+      <aside class="aside">
+        <p class="aside-price"><Price price={s2.price} unit="persona" /></p>
+        <ul>
+          <li>{safariIt(s2).name}</li>
+          <li>3,5 h porta a porta con treno + transfer</li>
+          <li>Pickup in hotel, in aeroporto o al traghetto incluso</li>
+          <li>4×4 privata e una nostra guida</li>
+          <li>Tenda di lusso · bagno privato · aria condizionata</li>
+        </ul>
+        <a class="btn btn--fill" href={`${L('/book')}?safari=${s2.slug}`}>Richiedete questo safari</a>
+        <p style="margin-top:12px;font-size:0.9rem">oppure <a href={wa} rel="noopener">scriveteci su WhatsApp</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--sand section--tight">
+    <div class="wrap">
+      <div class="split" style="align-items:center">
+        <div>
+          <h2 class="rv">Dormite nella savana. <em>Non fatelo in giornata.</em></h2>
+          <p class="rv rv-d1">Chi viene in giornata lascia il parco alle quattro. È proprio allora che la piana si risveglia, e voi siete sulla vostra terrazza a Camp Lilac con un drink, a guardare la luce che scende dietro la catena dei monti Mikumi. Tende di lusso e cabin con bagno privato e aria condizionata, colazione e cena incluse. Guardate le <a href={L('/rooms')}>tende di lusso e le cabin</a> e <a href={L('/where-to-stay-in-mikumi')}>il confronto con il resto di Mikumi</a> (in inglese).</p>
+        </div>
+        <div class="rv rv-d1">
+          <Photo src="/images/rooms/family-tent-1-1600.jpg" alt="La terrazza privata di una Luxury Family Tent di Camp Lilac al tramonto" caption="Terrazza della Luxury Family Tent, al tramonto" ratio="landscape" zoom />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Wildlife label="Durante i game drive" title="Cosa vedrete a Mikumi" pick={['first-1', 'elephants-road', 'giraffe-group', 'zebra-line', 'hippo-calf', 'buffalo-pair']} />
+
+  <CtaBand title="Il vostro safari del fine settimana parte dalla stazione SGR di Dar es Salaam" text="Diteci le date e dove venirvi a prendere. Rispondiamo in giornata con gli orari dei treni, la disponibilità e un unico prezzo totale." href={`${L('/book')}?safari=${s2.slug}`} />
+</Base>

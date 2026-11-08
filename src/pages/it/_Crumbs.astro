@@ -1,0 +1,14 @@
+---
+// Italian visible breadcrumb trail (same markup as src/components/Crumbs.astro, but "Home" points to /it).
+// Underscore file: not a page. Pass the same `items` you pass to <Base breadcrumbs>.
+interface Props { items: { name: string; href: string }[]; class?: string }
+import { L } from '../../data/i18n-it';
+const { items, class: cls = 'label' } = Astro.props;
+const parents = items.slice(0, -1);
+const last = items[items.length - 1];
+---
+<nav aria-label="Percorso" class={`crumbs-hero ${cls}`}>
+  <a href={L('/')}>Home</a>
+  {parents.map((b) => <> <span aria-hidden="true">/</span> <a href={b.href}>{b.name}</a></>)}
+  {last && <> <span aria-hidden="true">/</span> <span aria-current="page">{last.name}</span></>}
+</nav>

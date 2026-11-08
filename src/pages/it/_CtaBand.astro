@@ -1,0 +1,21 @@
+---
+// Italian version of src/components/CtaBand.astro. Underscore file: not a page.
+import { site } from '../../data/site';
+import { L } from '../../data/i18n-it';
+interface Props { title?: string; text?: string; href?: string }
+const {
+  title = 'Cena di fronte ai monti Mikumi. Poi solo la savana.',
+  text = 'Diteci le date e chi viene. Rispondiamo in giornata con la disponibilità, il prezzo totale e una proposta di safari.',
+  href = L('/book'),
+} = Astro.props;
+---
+<section class="section on-dark band">
+  <div class="wrap">
+    <h2 class="rv">{title}</h2>
+    <p class="lead rv rv-d1">{text}</p>
+    <div class="btn-row rv rv-d2">
+      <a class="btn btn--fill" href={href}>Organizzate il soggiorno</a>
+      <a class="btn btn--light" href={site.whatsapp} rel="noopener">WhatsApp {site.phoneDisplay}</a>
+    </div>
+  </div>
+</section>

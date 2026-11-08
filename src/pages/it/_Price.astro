@@ -1,0 +1,6 @@
+---
+// Italian version of src/components/Price.astro. Underscore file: not a page.
+interface Props { price: number | null; unit?: 'notte' | 'persona'; prefix?: string }
+const { price, unit = 'notte', prefix = 'Da' } = Astro.props;
+---
+{price ? <span>{prefix} US${price} <small>a {unit}</small></span> : <span>{unit === 'persona' ? 'Prezzo su richiesta' : 'Tariffe su richiesta'}</span>}

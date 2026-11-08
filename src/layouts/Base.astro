@@ -366,7 +366,7 @@ const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema
         if (name === 'PageView') setTimeout(send, 600); else send();
       }
       track('PageView');
-      if (location.pathname.replace(/\.html$/, '') === '/thank-you') track('Lead', { content_name: 'booking-request' });
+      if (/^\/((it|fr|de|es)\/)?(thank-you|grazie|merci|danke|gracias)$/.test(location.pathname.replace(/\.html$/, ''))) track('Lead', { content_name: 'booking-request' });
       document.addEventListener('click', function (e) {
         var a = e.target && e.target.closest ? e.target.closest('a[href*="wa.me"], a[href*="whatsapp"]') : null;
         if (a) track('Contact', { content_name: 'whatsapp' });

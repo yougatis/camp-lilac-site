@@ -1,0 +1,59 @@
+---
+// Italian version of /contact. Hand-written; ask an Italian speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site';
+import { L, replyIt, trainH, driveH } from '../../data/i18n-it';
+
+const title = 'Contatti Camp Lilac, Mikumi: WhatsApp, email, mappa';
+const description =
+  `Contattate Camp Lilac a Mikumi: WhatsApp ${site.phoneDisplay}, ${site.email}. Indicazioni da Dar es Salaam e dalla stazione SGR di Morogoro, mappa e GPS.`;
+const crumbs = [{ name: 'Contatti', href: L('/contact') }];
+const lat = site.geo.latitude, lng = site.geo.longitude;
+const mapEmbed = `https://maps.google.com/maps?q=${lat},${lng}&z=13&hl=it&output=embed`;
+const wa = `${site.whatsapp}?text=${encodeURIComponent('Buongiorno! Vi scrivo dal vostro sito in italiano. ')}`;
+// site.address.streetAddress is English; translate the known value, fall back to it if it changes.
+const streetIt = ({ '2 km off the Dar es Salaam–Mbeya highway, near the Mikumi National Park main gate': 'A 2 km dalla strada Dar es Salaam–Mbeya, vicino all’ingresso principale del Parco Nazionale di Mikumi' } as Record<string, string>)[site.address.streetAddress] ?? site.address.streetAddress;
+const gps = (n: number) => Math.abs(n).toFixed(4).replace('.', ',');
+---
+<Base {title} {description} lang="it" breadcrumbs={crumbs}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href={L('/')}>Home</a> / Contatti</p>
+    <h1>Contattate Camp Lilac, Mikumi</h1>
+    <p class="lead">Il modo più veloce è WhatsApp: di giorno di solito rispondiamo entro un’ora. Il nostro team parla inglese e swahili; potete scriverci in italiano e vi rispondiamo in inglese semplice o con l’aiuto di un traduttore.</p>
+  </div>
+  <div class="wrap split" style="padding-bottom:var(--section)">
+    <div class="article">
+      <h2>Parlate con noi</h2>
+      <p><a href={wa} rel="noopener">WhatsApp {site.phoneDisplay}</a><br /><a href={`tel:${site.phoneE164}`}>Chiamate il {site.phoneDisplay}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+      <p><a href={site.instagram} rel="noopener">Instagram @camplilacmikumi</a> · <a href={site.facebook} rel="noopener">Facebook</a></p>
+      <p>Rispondiamo alle richieste di prenotazione {replyIt}, tutti i giorni della settimana. Per le questioni del giorno stesso, come un treno in ritardo o un volo cambiato, WhatsApp è la scelta migliore.</p>
+
+      <h2>Dove siamo</h2>
+      <address style="font-style:normal">
+        <strong>Camp Lilac Mikumi</strong><br />
+        {streetIt}<br />
+        Mikumi, regione di Morogoro, Tanzania · codice postale {site.address.postalCode}<br />
+        GPS {gps(lat)}° S, {gps(lng)}° E
+      </address>
+      <p><a class="btn" href={site.mapsSearchUrl} rel="noopener">Apri in Google Maps</a></p>
+      <p>Il campo si trova a circa 2 km dalla strada Dar es Salaam–Mbeya, nella savana, di fronte alla catena dei monti Mikumi, ed è fuori dal Parco Nazionale di Mikumi, a pochi minuti dall’ingresso principale. Dalla strada principale seguite i nostri cartelli; la pista è percorribile tutto l’anno.</p>
+      <div class="map-embed">
+        <iframe src={mapEmbed} title="Mappa con la posizione di Camp Lilac vicino al Parco Nazionale di Mikumi" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+
+      <h2>Come raggiungerci</h2>
+      <ul>
+        <li><strong>Da Dar es Salaam:</strong> treno SGR fino a Morogoro (circa {trainH} ore), poi il nostro transfer di {driveH} ore dalla stazione: 3,5 ore in tutto. In auto ci vogliono 5–6 ore. Leggete <a href={L('/getting-here')}>come arrivare</a> e la <a href={L('/blog/dar-es-salaam-to-mikumi-by-sgr-train')}>guida passo passo al treno</a> (in inglese).</li>
+        <li><strong>Da Zanzibar:</strong> traghetto o volo fino a Dar es Salaam, poi il treno. Organizziamo noi tutto il viaggio: leggete <a href={L('/safari-from-zanzibar')}>safari da Zanzibar</a>.</li>
+        <li><strong>Dal sud</strong> (Iringa, Ruaha, Mbeya): siamo appena fuori dalla strada principale, una tappa naturale per la notte. Gli autobus fermano nel paese di Mikumi, dove possiamo venirvi a prendere.</li>
+      </ul>
+      <p>Check-in dalle {site.checkIn}, check-out entro le {site.checkOut}. Se arrivate prima potete lasciare i bagagli e pranzare mentre prepariamo la vostra sistemazione.</p>
+    </div>
+    <aside class="aside">
+      <h3>Volete prenotare?</h3>
+      <p>Compilate il modulo di prenotazione e vi rispondiamo con la disponibilità, i prezzi e una proposta di safari.</p>
+      <a class="btn btn--fill" href={L('/book')}>Richiedete una prenotazione</a>
+      <p style="margin-top:18px;font-size:0.9rem">Agenzie di viaggio e tour operator: scrivete a <a href={`mailto:${site.email}`}>{site.email}</a> per tariffe riservate e disponibilità.</p>
+    </aside>
+  </div>
+</Base>

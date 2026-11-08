@@ -1,0 +1,20 @@
+---
+// Italian version of src/components/Wildlife.astro (same photos, Italian alt texts). Underscore file: not a page.
+import Photo from '../../components/Photo.astro';
+import { wildAlt, L } from '../../data/i18n-it';
+interface Props { pick?: string[]; title?: string; label?: string }
+const fullSize: Record<string, string> = { 'sanje-waterfall': '/images/wild/sanje-waterfall-full.webp' };
+const { pick = ['lion-pride', 'elephant', 'giraffe-sunset', 'zebras-impala'], title, label } = Astro.props;
+---
+<section class="section section--tight">
+  <div class="wrap">
+    {label && <p class="label rv">{label}</p>}
+    {title && <h2 class="rv rv-d1" style="margin-bottom:32px">{title}</h2>}
+    <div class="wild-grid">
+      {pick.map((k, i) => (
+        <div class={`rv rv-d${i % 4}`}><Photo src={`/images/wild/${k}-1600.jpg`} alt={wildAlt[k] ?? 'Fauna del Parco Nazionale di Mikumi'} ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" full={fullSize[k]} /></div>
+      ))}
+    </div>
+    <p class="meta" style="margin-top:14px;font-size:0.75rem">Toccate una foto per vederla a schermo intero · <a href={`${L('/mikumi-national-park')}#photo-credits`}>Crediti fotografici</a> (in inglese)</p>
+  </div>
+</section>

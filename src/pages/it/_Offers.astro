@@ -1,0 +1,45 @@
+---
+// Italian version of src/components/Offers.astro: the dated deals while offersActive, the book-direct benefits after.
+// Underscore file: not a page.
+import { offersActive } from '../../data/offers';
+import { offersIt, directBenefitsIt, MESE, MESE_ANNO, L } from '../../data/i18n-it';
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+---
+{offersActive ? (
+  <section class={`section ${compact ? 'section--tight' : ''} section--sand`} data-offer>
+    <div class="wrap">
+      <p class="label rv" style="color:var(--lilac-deep);margin-bottom:12px">Offerte safari di {MESE} · prenotando direttamente</p>
+      <h2 class="rv" style="margin-bottom:36px">Due offerte safari per <em>{MESE}</em></h2>
+      <div class="offers">
+        {offersIt.map((o, i) => (
+          <div class={`offer rv rv-d${i + 1}`}>
+            <p class="label" style="margin:0 0 10px">{o.who}</p>
+            <h3>{o.title}</h3>
+            <p class="worth">{o.worth}</p>
+            <p>{o.text}</p>
+            <a class="btn btn--fill" href={`${L('/book')}?safari=${o.safari}&offer=${o.id}`}>Approfittate dell’offerta</a>
+          </div>
+        ))}
+      </div>
+      <p class="rv" style="margin:24px 0 0;font-size:0.95rem">Valide per i safari di 2 o più giorni con partenza a {MESE_ANNO}, prenotati direttamente con noi. Chi prenota solo l’alloggio non ha transfer gratuiti.</p>
+      <div class="btn-row rv rv-d3"><a class="link" href={L('/offers')}>Come funzionano le offerte (in inglese)</a></div>
+    </div>
+  </section>
+) : (
+  <section class={`section ${compact ? 'section--tight' : ''} section--sand`}>
+    <div class="wrap">
+      <p class="label rv" style="color:var(--lilac-deep);margin-bottom:12px">Prenotate direttamente</p>
+      <h2 class="rv" style="margin-bottom:36px">Cosa comprende <em>sempre</em> la prenotazione diretta</h2>
+      <div class="offers">
+        {directBenefitsIt.slice(0, 2).map((b, i) => (
+          <div class={`offer rv rv-d${i + 1}`}>
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+          </div>
+        ))}
+      </div>
+      <div class="btn-row rv rv-d3"><a class="link" href={L('/offers')}>Tutti i vantaggi della prenotazione diretta (in inglese)</a></div>
+    </div>
+  </section>
+)}
