@@ -3,11 +3,14 @@
 // always corresponds to something a visitor can see. Pass the same `items` you pass to <Base breadcrumbs>.
 interface Props { items: { name: string; href: string }[]; class?: string }
 const { items, class: cls = 'label' } = Astro.props;
+import { langOf, localize } from '../data/i18n';
+const L = langOf(Astro.url.pathname.replace(/\.html$/, ''));
+const homeName = { en: 'Home', it: 'Home', fr: 'Accueil', de: 'Startseite', es: 'Inicio' }[L];
 const parents = items.slice(0, -1);
 const last = items[items.length - 1];
 ---
 <nav aria-label="Breadcrumb" class={`crumbs-hero ${cls}`}>
-  <a href="/">Home</a>
+  <a href={localize('/', L)}>{homeName}</a>
   {parents.map((b) => <> <span aria-hidden="true">/</span> <a href={b.href}>{b.name}</a></>)}
   {last && <> <span aria-hidden="true">/</span> <span aria-current="page">{last.name}</span></>}
 </nav>
