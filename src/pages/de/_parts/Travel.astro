@@ -1,0 +1,23 @@
+---
+// German version of components/TravelOptions.astro.
+import { travelOptionsDe } from '../../../data/i18n-de';
+interface Props { heading?: string; tight?: boolean; text?: string }
+const {
+  heading = 'Reisen Sie, wie Sie möchten. Wir organisieren es.',
+  tight = false,
+  text = 'Jede Safari kann in Dar es Salaam oder auf Sansibar beginnen. Wählen Sie, wie Sie reisen möchten, und wir kümmern uns um die ganze Strecke: Tickets, Abholungen und Transfers. Sagen Sie es uns einfach im Anfrageformular.',
+} = Astro.props;
+---
+<div class={`travel ${tight ? 'travel--tight' : ''}`}>
+  <h2 class="rv">{heading}</h2>
+  <p class="rv rv-d1">{text}</p>
+  <div class="travel-grid">
+    {travelOptionsDe.map((o, i) => (
+      <div class={`travel-item rv rv-d${Math.min(i, 3)}`}>
+        <h3>{o.href ? <a href={o.href} style="color:inherit">{o.title}</a> : o.title}{o.tag && <span class="tag">{o.tag}</span>}</h3>
+        <p>{o.text}</p>
+      </div>
+    ))}
+  </div>
+  <p class="anything rv"><strong>Haben Sie noch einen Wunsch?</strong> Fragen Sie uns. Ein Geburtstagsessen, eine Nacht auf Sansibar auf dem Weg, ein Guide, der Ihre Sprache spricht, eine andere Route, ein längerer Aufenthalt: Wir organisieren es. Sagen Sie uns ruhig genau, was Sie möchten und wie Sie reisen wollen.</p>
+</div>

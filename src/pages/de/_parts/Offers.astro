@@ -1,0 +1,44 @@
+---
+// German version of components/Offers.astro: the November deals while they run, the book-direct benefits after.
+import { offersActive } from '../../../data/offers';
+import { offersDe, directBenefitsDe, L, EN } from '../../../data/i18n-de';
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+---
+{offersActive ? (
+  <section class={`section ${compact ? 'section--tight' : ''} section--sand`} data-offer>
+    <div class="wrap">
+      <p class="label rv" style="color:var(--lilac-deep);margin-bottom:12px">Safari-Angebote im November · bei Direktbuchung</p>
+      <h2 class="rv" style="margin-bottom:36px">Zwei Safari-Angebote für den <em>November</em></h2>
+      <div class="offers">
+        {offersDe.map((o, i) => (
+          <div class={`offer rv rv-d${i + 1}`}>
+            <p class="label" style="margin:0 0 10px">{o.who}</p>
+            <h3>{o.title}</h3>
+            <p class="worth">{o.worth}</p>
+            <p>{o.text}</p>
+            <a class="btn btn--fill" href={`${L('/book')}?safari=${o.safari}&offer=${o.id}`}>Angebot anfragen</a>
+          </div>
+        ))}
+      </div>
+      <p class="rv" style="margin:24px 0 0;font-size:0.95rem">Gilt für Safaris ab 2 Tagen, die im November 2026 beginnen und direkt bei uns gebucht werden. Reine Übernachtungen ohne Safari enthalten keinen kostenlosen Transfer.</p>
+      <div class="btn-row rv rv-d3"><a class="link" href={L('/offers')}>So funktionieren die Angebote{EN}</a></div>
+    </div>
+  </section>
+) : (
+  <section class={`section ${compact ? 'section--tight' : ''} section--sand`}>
+    <div class="wrap">
+      <p class="label rv" style="color:var(--lilac-deep);margin-bottom:12px">Direkt buchen</p>
+      <h2 class="rv" style="margin-bottom:36px">Was eine Direktbuchung <em>immer</em> enthält</h2>
+      <div class="offers">
+        {directBenefitsDe.slice(0, 2).map((b, i) => (
+          <div class={`offer rv rv-d${i + 1}`}>
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+          </div>
+        ))}
+      </div>
+      <div class="btn-row rv rv-d3"><a class="link" href={L('/offers')}>Alle Vorteile der Direktbuchung{EN}</a></div>
+    </div>
+  </section>
+)}

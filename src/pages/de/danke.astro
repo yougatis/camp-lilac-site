@@ -1,0 +1,25 @@
+---
+// German version of /thank-you (noindex). Hand-written; ask a German speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site';
+import { L, replyHours } from '../../data/i18n-de';
+---
+<Base title="Vielen Dank | Camp Lilac" description="Wir haben Ihre Anfrage erhalten und melden uns in Kürze." lang="de" noindex>
+  <div class="wrap page-head" style="min-height:55vh">
+    <p class="label">Anfrage erhalten</p>
+    <h1>Vielen Dank, Ihre Anfrage ist bei uns angekommen</h1>
+    <p class="lead">Sie liegt in unserem Posteingang. Wir antworten tagsüber in der Regel innerhalb von {replyHours} Stunden mit der Verfügbarkeit und einem Gesamtpreis. Unser Team antwortet auf Englisch.</p>
+    <div class="wa-box">
+      <h2>Möchten Sie schneller eine Antwort?</h2>
+      <p>Schicken Sie uns dieselbe Anfrage auf WhatsApp. Der Text ist schon vorbereitet, Sie müssen nur noch auf Senden tippen.</p>
+      <a class="btn btn--fill" id="wa-send" href={site.whatsapp} rel="noopener">Über WhatsApp senden</a>
+    </div>
+    <a class="link" href={L('/safaris')}>Inzwischen unsere Mikumi-Safaris ansehen</a>
+  </div>
+  <script is:inline define:vars={{ wa: site.whatsapp }}>
+    let text = '';
+    try { text = sessionStorage.getItem('cl-wa-text') || ''; } catch (e) {}
+    if (!text) text = 'Hi Camp Lilac, I just sent a booking request on your German website.';
+    document.getElementById('wa-send').href = wa + '?text=' + encodeURIComponent(text);
+  </script>
+</Base>
