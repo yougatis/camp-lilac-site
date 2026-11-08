@@ -61,7 +61,6 @@ export const nav: { label: string; href: string; match?: string[] }[] = [
   { label: 'Stay', href: '/rooms', match: ['/where-to-stay-in-mikumi'] },
   { label: 'Safaris', href: '/safaris', match: ['/safari-from-'] },
   { label: 'Rates', href: '/rates', match: ['/offers'] },
-  { label: 'Mikumi', href: '/mikumi-national-park', match: ['/blog'] },
   { label: 'Getting here', href: '/getting-here' },
   { label: 'Contact', href: '/contact' },
 ];

@@ -365,7 +365,7 @@ a .ph:hover img, .ph.zoom:hover img { transform: scale(1.04); }
 .badge .stars { color: #e3b341; letter-spacing: 0; font-size: 0.8rem; }
 .nav-wa a { display: inline-flex; align-items: center; gap: 8px; }
 .nav-wa svg { width: 18px; height: 18px; fill: currentColor; }
-.site-header .badge { display: none; } /* no room next to the language switcher; the rating shows in the hero and footer */
+@media (max-width: 1480px) { .site-header .badge { display: none; } }
 
 .wa-float { position: fixed; right: 18px; bottom: 18px; z-index: 90; width: 56px; height: 56px; border-radius: 50%; background: #25d366; color: #fff; display: none; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
 .wa-float svg { width: 28px; height: 28px; fill: #fff; }
@@ -622,3 +622,8 @@ a .ph:hover img, .ph.zoom:hover img { transform: scale(1.04); }
 .site-header:not(.solid):not(.on-light) .lang-switch summary { text-shadow: 0 1px 6px rgba(16, 38, 58, 0.6); }
 @media (max-width: 900px) { .lang-switch { margin-right: 14px; } body.nav-open .lang-switch { visibility: hidden; } }
 .footer-grid a[aria-current] { color: var(--lilac); }
+/* Header: logo and review badge keep their full width; the language switcher sits right after the badge */
+.site-header .brand, .site-header .badge { flex-shrink: 0; }
+.header-inner .lang-switch { margin-left: 0; margin-right: 0; }
+.header-inner .main-nav { margin-left: auto; }
+@media (min-width: 1481px) { .site-header .main-nav ul { gap: 20px; } .site-header .main-nav a { letter-spacing: 0.1em; } .site-header .nav-cta a { padding: 10px 16px; } }
