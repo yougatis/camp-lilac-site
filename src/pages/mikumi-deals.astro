@@ -10,11 +10,10 @@ import { site } from '../data/site';
 
 const title = 'Mikumi Safari Deals: Your Transfer Is On Us | Camp Lilac';
 const description =
-  'November 2026 only: book a Mikumi safari direct with Camp Lilac and the transfer from Morogoro SGR station (US$75) is free. 3 and 4 days: train tickets from Dar es Salaam on us too.';
+  'November 2026 only: book a Mikumi safari direct with Camp Lilac and get US$75 off — the transfer from Morogoro SGR station is on us. 3 and 4 days: train tickets from Dar es Salaam free too.';
 const crumbs = [{ name: 'Safari deals', href: '/mikumi-deals' }];
 
-const TRANSFER = 75; // one way, Morogoro station → camp, per vehicle
-const TRAIN_FOR_TWO = 14; // two economy SGR tickets Dar → Morogoro, approximate
+const DISCOUNT = 75; // November deal: US$75 off the safari total (the value of the one-way transfer)
 const s2 = safariBySlug('2-day-mikumi-safari')!;
 const s3 = safariBySlug('3-day-mikumi-safari')!;
 const s4 = safariBySlug('4-day-mikumi-udzungwa-safari')!;
@@ -25,21 +24,21 @@ const deals = [
     s: s2,
     label: '2 days, 1 night',
     tag: 'The weekend classic',
-    lines: [{ what: 'Transfer Morogoro station → camp', worth: TRANSFER }],
+    train: false,
     who: 'Afternoon game drive, a night in a luxury tent, a dawn drive. Our most-booked trip.',
   },
   {
     s: s3,
     label: '3 days, 2 nights',
     tag: 'Best value per day',
-    lines: [{ what: 'Train tickets Dar → Morogoro, 2 people', worth: TRAIN_FOR_TWO }, { what: 'Transfer Morogoro station → camp', worth: TRANSFER }],
+    train: true,
     who: 'A full day on the Mkata floodplain in the middle — where the lions are.',
   },
   {
     s: s4,
     label: '4 days, 3 nights',
     tag: 'Mikumi + Udzungwa waterfalls',
-    lines: [{ what: 'Train tickets Dar → Morogoro, 2 people', worth: TRAIN_FOR_TWO }, { what: 'Transfer Morogoro station → camp', worth: TRANSFER }],
+    train: true,
     who: 'Two days of game drives, a Maasai boma and the Sanje Waterfall hike.',
   },
 ];
@@ -73,7 +72,7 @@ const deals = [
         <div class="deals">
           {deals.map((d, i) => {
             const base = d.s.price * 2;
-            const worth = d.lines.reduce((a, l) => a + l.worth, 0);
+            const pay = base - DISCOUNT;
             return (
               <article class={`deal rv rv-d${i + 1}`}>
                 <p class="deal-tag">{d.tag}</p>
@@ -82,10 +81,9 @@ const deals = [
                 <table class="deal-math">
                   <tbody>
                     <tr><td>Safari for 2 people <span>({fmt(d.s.price)} each)</span></td><td>{fmt(base)}</td></tr>
-                    {d.lines.map((l) => (
-                      <tr class="free"><td>{l.what}</td><td><s>{fmt(l.worth)}</s> <b>FREE</b></td></tr>
-                    ))}
-                    <tr class="total"><td>You pay</td><td>{fmt(base)} <small>instead of {fmt(base + worth)}</small></td></tr>
+                    <tr class="free"><td>{OFFER_MONTH} deal: transfer Morogoro station → camp on us</td><td><b>− {fmt(DISCOUNT)}</b></td></tr>
+                    {d.train && <tr class="free"><td>SGR train tickets Dar es Salaam → Morogoro, 2 people</td><td><b>FREE</b></td></tr>}
+                    <tr class="total"><td>You pay</td><td>{fmt(pay)} <small>instead of {fmt(base)}</small></td></tr>
                   </tbody>
                 </table>
                 <p class="deal-incl">Includes park fees, all meals, a private 4×4 with our own guide and {d.s.days - 1} {d.s.days - 1 === 1 ? 'night' : 'nights'} in a luxury tent or cabin with a private bathroom and A/C.</p>
@@ -102,7 +100,7 @@ const deals = [
             <li>We confirm availability and one total price <strong>{site.replyTime}</strong>, then a small deposit holds your tent.</li>
             <li>You take the SGR train to Morogoro (1.5 hours from Dar es Salaam); <strong>our driver is on the platform</strong> and you are at the camp 2 hours later.</li>
           </ol>
-          <p class="fine">Deals apply to safaris booked directly with Camp Lilac with a start date in {OFFER_MONTH} 2026. The free transfer and train tickets are one way; the return journey is charged (transfer US$75 per vehicle). Prices are per person for two or more travelling together; one person alone pays more because the vehicle is private. Coming from Zanzibar? We organise the ferry or flight to Dar es Salaam as well — <a href="/safari-from-zanzibar">how it works</a>.</p>
+          <p class="fine">Deals apply to safaris booked directly with Camp Lilac with a start date in {OFFER_MONTH} 2026. US$75 is the value of the one-way transfer from Morogoro station and is taken off your safari total; the train tickets (3- and 4-day safaris) are one way. The return journey is charged. Prices are per person for two or more travelling together; one person alone pays more because the vehicle is private. Coming from Zanzibar? We organise the ferry or flight to Dar es Salaam as well — <a href="/safari-from-zanzibar">how it works</a>.</p>
         </div>
 
         <div class="deal-trust rv">
