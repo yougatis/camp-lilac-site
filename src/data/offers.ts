@@ -22,8 +22,8 @@ export const offers = [
     id: 'free-train-and-transfer',
     title: 'Free train ticket + transfer',
     who: 'With the 3-Day or 4-Day safari · November 2026',
-    worth: 'Train ticket + US$75 transfer',
-    text: 'Book the 3-Day or 4-Day safari directly with us for a start date in November 2026 and we pay the economy SGR train tickets from Dar es Salaam to Morogoro for your whole group, plus the transfer on to Mikumi. One way; the return journey is charged.',
+    worth: 'Worth US$85–95 for two',
+    text: 'Book the 3-Day or 4-Day safari directly with us for a start date in November 2026 and we pay the economy SGR train tickets from Dar es Salaam to Morogoro for your whole group (about US$10–20 for two people), plus the US$75 transfer on to Mikumi. One way; the return journey is charged.',
     safari: '3-day-mikumi-safari',
   },
 ];

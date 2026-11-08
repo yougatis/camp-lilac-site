@@ -82,7 +82,7 @@ const deals = [
                   <tbody>
                     <tr><td>Safari for 2 people <span>({fmt(d.s.price)} each)</span></td><td>{fmt(base)}</td></tr>
                     <tr class="free"><td>{OFFER_MONTH} deal: transfer Morogoro station → camp on us</td><td><b>− {fmt(DISCOUNT)}</b></td></tr>
-                    {d.train && <tr class="free"><td>SGR train tickets Dar es Salaam → Morogoro, 2 people</td><td><b>FREE</b></td></tr>}
+                    {d.train && <tr class="free"><td>SGR train tickets Dar es Salaam → Morogoro, 2 people <span>(worth US$10–20)</span></td><td><b>FREE</b></td></tr>}
                     <tr class="total"><td>You pay</td><td>{fmt(pay)} <small>instead of {fmt(base)}</small></td></tr>
                   </tbody>
                 </table>
@@ -100,7 +100,7 @@ const deals = [
             <li>We confirm availability and one total price <strong>{site.replyTime}</strong>, then a small deposit holds your tent.</li>
             <li>You take the SGR train to Morogoro (1.5 hours from Dar es Salaam); <strong>our driver is on the platform</strong> and you are at the camp 2 hours later.</li>
           </ol>
-          <p class="fine">Deals apply to safaris booked directly with Camp Lilac with a start date in {OFFER_MONTH} 2026. US$75 is the value of the one-way transfer from Morogoro station and is taken off your safari total; the train tickets (3- and 4-day safaris) are one way. The return journey is charged. Prices are per person for two or more travelling together; one person alone pays more because the vehicle is private. Coming from Zanzibar? We organise the ferry or flight to Dar es Salaam as well — <a href="/safari-from-zanzibar">how it works</a>.</p>
+          <p class="fine">Deals apply to safaris booked directly with Camp Lilac with a start date in {OFFER_MONTH} 2026. US$75 is the value of the one-way transfer from Morogoro station and is taken off your safari total; the economy train tickets (3- and 4-day safaris, worth about US$10–20 for two people) are one way and booked by us. The return journey is charged. Prices are per person for two or more travelling together; one person alone pays more because the vehicle is private. Coming from Zanzibar? We organise the ferry or flight to Dar es Salaam as well — <a href="/safari-from-zanzibar">how it works</a>.</p>
         </div>
 
         <div class="deal-trust rv">
