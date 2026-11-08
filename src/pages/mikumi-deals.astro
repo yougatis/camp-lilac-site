@@ -1,0 +1,148 @@
+---
+// Landing page for the November 2026 ad campaign. Prices are shown for two people (who actually books),
+// with the free transfer / train shown as a crossed-out line item, not as a discount on the safari price.
+// The main call to action is the booking form (pre-filled), WhatsApp is secondary on purpose.
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import { safariBySlug } from '../data/safaris';
+import { offersActive, OFFER_MONTH } from '../data/offers';
+import { site } from '../data/site';
+
+const title = 'Mikumi Safari Deals: Your Transfer Is On Us | Camp Lilac';
+const description =
+  'November 2026 only: book a Mikumi safari direct with Camp Lilac and the transfer from Morogoro SGR station (US$75) is free. 3 and 4 days: train tickets from Dar es Salaam on us too.';
+const crumbs = [{ name: 'Safari deals', href: '/mikumi-deals' }];
+
+const TRANSFER = 75; // one way, Morogoro station → camp, per vehicle
+const TRAIN_FOR_TWO = 14; // two economy SGR tickets Dar → Morogoro, approximate
+const s2 = safariBySlug('2-day-mikumi-safari')!;
+const s3 = safariBySlug('3-day-mikumi-safari')!;
+const s4 = safariBySlug('4-day-mikumi-udzungwa-safari')!;
+const fmt = (n: number) => 'US$' + n.toLocaleString('en-US');
+
+const deals = [
+  {
+    s: s2,
+    label: '2 days, 1 night',
+    tag: 'The weekend classic',
+    lines: [{ what: 'Transfer Morogoro station → camp', worth: TRANSFER }],
+    who: 'Afternoon game drive, a night in a luxury tent, a dawn drive. Our most-booked trip.',
+  },
+  {
+    s: s3,
+    label: '3 days, 2 nights',
+    tag: 'Best value per day',
+    lines: [{ what: 'Train tickets Dar → Morogoro, 2 people', worth: TRAIN_FOR_TWO }, { what: 'Transfer Morogoro station → camp', worth: TRANSFER }],
+    who: 'A full day on the Mkata floodplain in the middle — where the lions are.',
+  },
+  {
+    s: s4,
+    label: '4 days, 3 nights',
+    tag: 'Mikumi + Udzungwa waterfalls',
+    lines: [{ what: 'Train tickets Dar → Morogoro, 2 people', worth: TRAIN_FOR_TWO }, { what: 'Transfer Morogoro station → camp', worth: TRANSFER }],
+    who: 'Two days of game drives, a Maasai boma and the Sanje Waterfall hike.',
+  },
+];
+---
+
+<Base {title} {description} ogImage="/images/wild/jeep-giraffes-1600.jpg" breadcrumbs={crumbs} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src="/images/wild/jeep-giraffes-1600.webp" srcset="/images/wild/jeep-giraffes-800.webp 800w, /images/wild/jeep-giraffes-1200.webp 1200w, /images/wild/jeep-giraffes-1600.webp 1600w" sizes="100vw" alt="A Camp Lilac safari jeep stopped beside giraffes in Mikumi National Park" width="1600" height="1067" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <Crumbs items={crumbs} />
+        {offersActive ? (
+          <>
+            <h1 style="max-width:16ch"><span class="w"><span>{OFFER_MONTH} only:&nbsp;</span></span><br /><span class="w"><em style="color:#e4d9f7">your transfer is on us</em></span></h1>
+            <p class="lead">Book a Mikumi safari starting in {OFFER_MONTH} directly with Camp Lilac and we cover the journey from the train to the park. Real prices below, for two people. Nothing to pay to request.</p>
+          </>
+        ) : (
+          <>
+            <h1><span class="w"><span>The {OFFER_MONTH} deals&nbsp;</span></span><span class="w"><em style="color:#e4d9f7">have ended</em></span></h1>
+            <p class="lead">Booking direct still gets you breakfast and dinner, one total price and the whole journey organised. <a href="/offers" style="border-bottom:1px solid #e4d9f7">See what booking direct includes</a>.</p>
+          </>
+        )}
+      </div>
+      {offersActive && <div class="hero-side"><b>4.9 / 5</b>142 reviews on Google,<br />Tripadvisor &amp; SafariBookings</div>}
+    </div>
+  </section>
+
+  {offersActive && (
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="deals">
+          {deals.map((d, i) => {
+            const base = d.s.price * 2;
+            const worth = d.lines.reduce((a, l) => a + l.worth, 0);
+            return (
+              <article class={`deal rv rv-d${i + 1}`}>
+                <p class="deal-tag">{d.tag}</p>
+                <h2>{d.s.name}</h2>
+                <p class="deal-who">{d.who}</p>
+                <table class="deal-math">
+                  <tbody>
+                    <tr><td>Safari for 2 people <span>({fmt(d.s.price)} each)</span></td><td>{fmt(base)}</td></tr>
+                    {d.lines.map((l) => (
+                      <tr class="free"><td>{l.what}</td><td><s>{fmt(l.worth)}</s> <b>FREE</b></td></tr>
+                    ))}
+                    <tr class="total"><td>You pay</td><td>{fmt(base)} <small>instead of {fmt(base + worth)}</small></td></tr>
+                  </tbody>
+                </table>
+                <p class="deal-incl">Includes park fees, all meals, a private 4×4 with our own guide and {d.s.days - 1} {d.s.days - 1 === 1 ? 'night' : 'nights'} in a luxury tent or cabin with a private bathroom and A/C.</p>
+                <a class="btn btn--fill" href={`/book?safari=${d.s.slug}&adults=2`}>Claim this deal</a>
+              </article>
+            );
+          })}
+        </div>
+
+        <div class="deal-rules rv">
+          <h3>How it works</h3>
+          <ol>
+            <li><strong>Request your dates</strong> with the form — it takes a minute and nothing is paid yet.</li>
+            <li>We confirm availability and one total price <strong>{site.replyTime}</strong>, then a small deposit holds your tent.</li>
+            <li>You take the SGR train to Morogoro (1.5 hours from Dar es Salaam); <strong>our driver is on the platform</strong> and you are at the camp 2 hours later.</li>
+          </ol>
+          <p class="fine">Deals apply to safaris booked directly with Camp Lilac with a start date in {OFFER_MONTH} 2026. The free transfer and train tickets are one way; the return journey is charged (transfer US$75 per vehicle). Prices are per person for two or more travelling together; one person alone pays more because the vehicle is private. Coming from Zanzibar? We organise the ferry or flight to Dar es Salaam as well — <a href="/safari-from-zanzibar">how it works</a>.</p>
+        </div>
+
+        <div class="deal-trust rv">
+          <div><b>Our own guides and 4×4s</b><span>No outside operator — the person who meets you at the station drives your game drives.</span></div>
+          <div><b>Outside the park, minutes from the gate</b><span>You pay park fees only for the days you drive, and dinner faces the Mikumi mountain ridge.</span></div>
+          <div><b>142 reviews, 4.9 out of 5</b><span>Google, Tripadvisor and SafariBookings. Read them before you book.</span></div>
+        </div>
+
+        <p class="rv" style="margin-top:36px;text-align:center;color:var(--ink-soft)">Have a question first? <a href={site.whatsapp} rel="noopener" style="border-bottom:1px solid var(--lilac-deep)">Message us on WhatsApp</a> — but the form is the fastest way to a confirmed price.</p>
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .deals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .deal { border: 1px solid rgba(16, 38, 58, 0.18); border-top: 4px solid var(--lilac); padding: 28px 26px 30px; display: flex; flex-direction: column; background: #fff; }
+  .deal h2 { font-size: 1.7rem; line-height: 1.15; margin: 0 0 8px; }
+  .deal-tag { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; color: var(--lilac-deep); margin: 0 0 10px; font-weight: 600; }
+  .deal-who { color: var(--ink-soft); margin: 0 0 18px; font-size: 0.98rem; }
+  .deal-math { width: 100%; border-collapse: collapse; font-size: 0.98rem; margin-bottom: 16px; }
+  .deal-math td { padding: 9px 0; border-bottom: 1px solid rgba(16, 38, 58, 0.12); vertical-align: top; }
+  .deal-math td:last-child { text-align: right; white-space: nowrap; }
+  .deal-math td span { color: var(--ink-soft); font-size: 0.85rem; display: block; }
+  .deal-math .free td { color: var(--ink-soft); }
+  .deal-math .free s { color: var(--ink-soft); }
+  .deal-math .free b { color: var(--lilac-deep); letter-spacing: 0.06em; margin-left: 6px; }
+  .deal-math .total td { border-bottom: 0; padding-top: 12px; font-family: var(--font-display); font-size: 1.45rem; }
+  .deal-math .total small { display: block; font-family: inherit; font-size: 0.8rem; color: var(--ink-soft); font-weight: normal; }
+  .deal-incl { font-size: 0.88rem; color: var(--ink-soft); margin: 0 0 20px; flex: 1; }
+  .deal .btn { width: 100%; text-align: center; }
+  .deal-rules { margin-top: 48px; border-left: 3px solid var(--lilac); background: rgba(179, 157, 219, 0.12); padding: 26px 30px; }
+  .deal-rules h3 { margin: 0 0 12px; }
+  .deal-rules ol { margin: 0 0 16px 20px; padding: 0; }
+  .deal-rules li { margin-bottom: 8px; }
+  .fine { font-size: 0.88rem; color: var(--ink-soft); margin: 0; }
+  .fine a { border-bottom: 1px solid var(--lilac-deep); }
+  .deal-trust { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
+  .deal-trust div { display: flex; flex-direction: column; gap: 6px; }
+  .deal-trust b { font-family: var(--font-display); font-size: 1.2rem; }
+  .deal-trust span { color: var(--ink-soft); font-size: 0.95rem; }
+  @media (max-width: 900px) { .deals, .deal-trust { grid-template-columns: 1fr; } }
+</style>
