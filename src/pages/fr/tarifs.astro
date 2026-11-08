@@ -1,0 +1,96 @@
+---
+// French version of /rates. Hand-written; ask a French speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import Offers from './_components/Offers.astro';
+import CtaBand from './_components/CtaBand.astro';
+import { rooms } from '../../data/rooms';
+import { safaris } from '../../data/safaris';
+import { site } from '../../data/site';
+import { offersActive } from '../../data/offers';
+import { frRoom, frSafari, lf, EN, frReply } from '../../data/i18n-fr';
+
+const minTent = Math.min(...rooms.filter((r) => r.tier === 'tent').map((r) => r.price ?? Infinity));
+const minCabin = Math.min(...rooms.filter((r) => r.tier !== 'tent').map((r) => r.price ?? Infinity));
+const title = 'Tarifs 2026–27 : chambres et safaris à Mikumi | Camp Lilac';
+const description =
+  `Tarifs par chambre et par nuit, petit-déjeuner et dîner inclus : tentes de luxe dès US$${minTent}, cabines dès US$${minCabin}. Safaris par personne, enfants.`;
+const crumbs = [{ name: 'Tarifs', href: lf('/rates') }];
+const day1 = safaris.find((s) => s.slug === '1-day-mikumi-safari');
+const sameDay = day1?.variants?.[1]?.price?.match(/\d+/)?.[0];
+---
+<Base {title} {description} lang="fr" breadcrumbs={crumbs}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/fr">Accueil</a> / Tarifs</p>
+    <h1>Tarifs 2026–27 à Mikumi : tentes de luxe, cabines et safaris</h1>
+    <p class="lead">Des prix simples, sans frais cachés. Tous les tarifs s’entendent par chambre et par nuit et, en réservation directe, comprennent le petit-déjeuner et le dîner. Le déjeuner ou tout repas supplémentaire coûte US$15 par personne. Les boissons sont en sus. Les prix des safaris s’entendent par personne, droits d’entrée au parc compris.</p>
+  </div>
+
+  <section class="section section--tight" style="padding-top:0">
+    <div class="wrap split--aside" style="display:grid">
+      <div class="article" style="max-width:none">
+        <h2>Tentes de luxe et cabines — par chambre et par nuit</h2>
+        <table class="rates">
+          <thead><tr><th scope="col">Hébergement</th><th scope="col">Capacité</th><th scope="col">Tarif international</th></tr></thead>
+          {rooms.map((room) => { const r = frRoom(room); return (
+            <tr><td><a href={lf(`/rooms/${r.slug}`)}>{r.name}</a>{r.units > 1 ? <span class="meta"> · {r.units} unités</span> : ''}</td><td>{r.sleeps}</td><td class="price">{r.price ? `US$${r.price}` : 'Sur demande'}</td></tr>
+          ); })}
+        </table>
+        <p class="meta">Résidents tanzaniens et d’Afrique de l’Est : tarifs résidents sur demande, envoyez-nous vos dates. Les tarifs peuvent changer le 1er juillet de chaque année.</p>
+
+        <h2>Enfants</h2>
+        <table class="rates">
+          <thead><tr><th scope="col">Âge</th><th scope="col">Tarif</th><th scope="col">Repas</th></tr></thead>
+          <tr><td>0–3 ans</td><td>Gratuit</td><td>Tous les repas gratuits</td></tr>
+          <tr><td>4–11 ans</td><td>50 % du tarif adulte</td><td>Petit-déjeuner et dîner inclus ; déjeuner US$15</td></tr>
+          <tr><td>12 ans et plus</td><td>Tarif adulte</td><td>Petit-déjeuner et dîner inclus ; déjeuner US$15</td></tr>
+        </table>
+        <p class="meta">Les enfants de moins de 2 ans ne peuvent pas participer aux game drives.</p>
+
+        <h2>Safaris — par personne</h2>
+        <table class="rates">
+          <tr><th>Formule</th><th>Jours</th><th>1 personne</th><th>2 ou plus</th></tr>
+          {safaris.map((safari) => { const s = frSafari(safari); return (
+            <tr><td><a href={lf(`/safaris/${s.slug}`)}>{s.name}</a></td><td>{s.days}</td><td class="price">{s.tiers ? `US$${s.tiers[0].price}` : '—'}</td><td class="price">{s.tiers ? `US$${s.tiers[s.tiers.length - 1].price}` : '—'}</td></tr>
+          ); })}
+        </table>
+        <p class="meta">{sameDay && <>Safari à la journée depuis Dar es Salaam en train SGR (aller-retour dans la journée) : à partir de US${sameDay} par personne à partir de 2 personnes. </>}Les prix des safaris de plusieurs jours comprennent les nuits à Camp Lilac et commencent avec le train SGR depuis Dar es Salaam.</p>
+
+        <h2>Compris dans chaque séjour</h2>
+        <ul>
+          <li>Petit-déjeuner et dîner au restaurant (réservations directes)</li><li>Tous les repas avec les formules safari (pension complète)</li>
+          <li>Climatisation, salle de bain privée et terrasse privée dans chaque tente de luxe et chaque cabine</li>
+          <li>Wi-Fi au restaurant et au bar</li>
+          <li>Parking</li>
+        </ul>
+        <h2>Compris dans chaque safari</h2>
+        <ul>
+          <li>Droits d’entrée au parc national de Mikumi (US$35,40 par adulte et par jour, réglés par nos soins)</li>
+          <li>4×4 privé à toit ouvrant réservé à votre groupe, avec l’un de nos guides</li>
+          <li>Les repas indiqués jour par jour, eau et boissons fraîches</li>
+          <li>L’hébergement à Camp Lilac pour les safaris de plusieurs jours</li>
+        </ul>
+        <h2>Non compris</h2>
+        <ul>
+          <li>Le déjeuner ou tout repas supplémentaire pour les séjours sans safari : US$15 par personne</li><li>Les boissons : sodas, bière, vin et alcools au bar</li>
+          <li>Les transferts pour les séjours sans safari (nous les organisons à prix fixe, demandez-nous).{offersActive && <span data-offer> Le transfert offert ne s’applique qu’avec un safari réservé en direct et commençant en novembre 2026 : safari de 2 jours, transfert aller Morogoro → Mikumi offert ; safari de 3 ou 4 jours, billet de train aller depuis Dar es Salaam et transfert offerts. Les trajets retour sont facturés.</span>} Pour un budget détaillé, lisez <a href="/blog/mikumi-safari-cost">combien coûte un safari à Mikumi</a>{EN}.</li>
+          <li>Boissons alcoolisées, pourboires, assurance voyage</li>
+        </ul>
+        <h2>Réservation et paiement</h2>
+        <ul>
+          <li>Demandez un devis : rien à payer pour une demande. Nous répondons {frReply(site.replyTime)} avec les disponibilités ; un acompte confirme ensuite votre réservation.</li>
+          <li>Espèces et cartes acceptées au camp. L’acompte peut se régler en ligne par carte via un lien de paiement sécurisé que nous vous envoyons.</li>
+          <li>Arrivée à partir de {site.checkIn}, départ à {site.checkOut}.</li>
+        </ul>
+      </div>
+      <aside class="aside">
+        <h3>Obtenir un prix exact</h3>
+        <p>Indiquez vos dates, qui vient et quel safari vous intéresse. Nous vous envoyons un seul montant, tout compris.</p>
+        <a class="btn btn--fill" href={lf('/book')}>Demander un devis</a>
+        <p style="margin:14px 0 0;font-size:0.9rem;text-align:center">ou <a href={site.whatsapp} rel="noopener" style="border-bottom:1px solid var(--lilac)">écrivez-nous sur WhatsApp</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <Offers compact />
+  <CtaBand />
+</Base>

@@ -1,0 +1,13 @@
+---
+// Spanish visible breadcrumb trail (same markup and classes as components/Crumbs.astro, with "Inicio" -> /es).
+// Files starting with "_" are not turned into pages by Astro.
+interface Props { items: { name: string; href: string }[]; class?: string }
+const { items, class: cls = 'label' } = Astro.props;
+const parents = items.slice(0, -1);
+const last = items[items.length - 1];
+---
+<nav aria-label="Ruta de navegación" class={`crumbs-hero ${cls}`}>
+  <a href="/es">Inicio</a>
+  {parents.map((b) => <> <span aria-hidden="true">/</span> <a href={b.href}>{b.name}</a></>)}
+  {last && <> <span aria-hidden="true">/</span> <span aria-current="page">{last.name}</span></>}
+</nav>

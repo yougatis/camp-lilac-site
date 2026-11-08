@@ -1,0 +1,98 @@
+---
+// German version of /rates. Hand-written; ask a German speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import CtaBand from './_parts/CtaBand.astro';
+import Offers from './_parts/Offers.astro';
+import { rooms } from '../../data/rooms';
+import { safaris, safariBySlug } from '../../data/safaris';
+import { site } from '../../data/site';
+import { offersActive } from '../../data/offers';
+import { L, EN, replyHours, roomDe, safariDe } from '../../data/i18n-de';
+
+const minOf = (list: (number | null)[]) => Math.min(...list.map((p) => p ?? Infinity));
+const minTent = minOf(rooms.filter((r) => r.tier === 'tent').map((r) => r.price));
+const minCabin = minOf(rooms.filter((r) => r.tier !== 'tent').map((r) => r.price));
+const sameDay = safariBySlug('1-day-mikumi-safari')?.variants?.[1]?.price?.match(/\d+/)?.[0] ?? '230';
+
+const title = 'Preise 2026–27: Unterkünfte und Safaris | Camp Lilac';
+const description =
+  `Preise pro Unterkunft und Nacht mit Frühstück und Abendessen: Luxuszelte ab US$${minTent}, Cabins ab US$${minCabin}. Safaripreise pro Person, Parkgebühren, Kinder.`;
+const crumbs = [{ name: 'Preise', href: L('/rates') }];
+const schema = { '@context': 'https://schema.org', '@type': 'WebPage', url: `${site.url}${L('/rates')}`, name: title, description, inLanguage: 'de', about: { '@id': `${site.url}/#camp` } };
+---
+<Base {title} {description} {schema} lang="de" breadcrumbs={crumbs}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/de">Startseite</a> / Preise</p>
+    <h1>Preise in Mikumi 2026–27: Luxuszelte, Cabins und Safaris</h1>
+    <p class="lead">Einfache Preise ohne versteckte Extras. Alle Preise gelten pro Unterkunft und Nacht und enthalten bei Direktbuchung Frühstück und Abendessen. Mittagessen oder jede weitere Mahlzeit kostet US$15 pro Person, Getränke sind extra. Safaripreise gelten pro Person und enthalten die Parkgebühren.</p>
+  </div>
+
+  <section class="section section--tight" style="padding-top:0">
+    <div class="wrap split--aside" style="display:grid">
+      <div class="article" style="max-width:none">
+        <h2>Luxuszelte und Cabins: pro Unterkunft und Nacht</h2>
+        <table class="rates">
+          <thead><tr><th scope="col">Unterkunft</th><th scope="col">Für</th><th scope="col">Internationaler Preis</th></tr></thead>
+          {rooms.map((r) => (
+            <tr><td><a href={L(`/rooms/${r.slug}`)}>{r.name}</a>{r.units > 1 ? <span class="meta"> · {r.units} Einheiten</span> : ''}</td><td>{roomDe(r).sleeps}</td><td class="price">{r.price ? `US$${r.price}` : 'Auf Anfrage'}</td></tr>
+          ))}
+        </table>
+        <p class="meta">Einwohner Tansanias und Ostafrikas: Residentenpreise auf Anfrage, schreiben Sie uns mit Ihren Reisedaten. Die Preise können sich jedes Jahr zum 1. Juli ändern.</p>
+
+        <h2>Kinder</h2>
+        <table class="rates">
+          <thead><tr><th scope="col">Alter</th><th scope="col">Preis</th><th scope="col">Mahlzeiten</th></tr></thead>
+          <tr><td>0–3</td><td>Kostenlos</td><td>Alle Mahlzeiten kostenlos</td></tr>
+          <tr><td>4–11</td><td>50 % des Erwachsenenpreises</td><td>Frühstück und Abendessen inklusive, Mittagessen US$15</td></tr>
+          <tr><td>Ab 12</td><td>Erwachsenenpreis</td><td>Frühstück und Abendessen inklusive, Mittagessen US$15</td></tr>
+        </table>
+        <p class="meta">Kinder unter 2 Jahren können nicht an Pirschfahrten teilnehmen.</p>
+
+        <h2>Safaris: pro Person</h2>
+        <table class="rates">
+          <tr><th>Paket</th><th>Tage</th><th>1 Person</th><th>2 oder mehr</th></tr>
+          {safaris.map((s) => (
+            <tr><td><a href={L(`/safaris/${s.slug}`)}>{safariDe(s).name}</a></td><td>{s.days}</td><td class="price">{s.tiers ? `US$${s.tiers[0].price}` : '–'}</td><td class="price">{s.tiers ? `US$${s.tiers[s.tiers.length - 1].price}` : '–'}</td></tr>
+          ))}
+        </table>
+        <p class="meta">Tagessafari ab Dar es Salaam mit dem SGR-Zug (am selben Tag zurück): ab US${sameDay} pro Person ab 2 Personen. Die Preise für mehrtägige Safaris enthalten die Nächte im Camp Lilac und beginnen mit dem SGR-Zug ab Dar es Salaam.</p>
+
+        <h2>In jedem Aufenthalt enthalten</h2>
+        <ul>
+          <li>Frühstück und Abendessen im Restaurant (bei Direktbuchung)</li><li>Alle Mahlzeiten bei Safaripaketen (Vollpension)</li>
+          <li>Klimaanlage, eigenes Bad und private Terrasse in jedem Luxuszelt und jeder Cabin</li>
+          <li>WLAN im Restaurant und an der Bar</li>
+          <li>Parkplatz</li>
+        </ul>
+        <h2>In jeder Safari enthalten</h2>
+        <ul>
+          <li>Eintritt in den Mikumi-Nationalpark (US$35,40 pro Erwachsenem und Tag, von uns bezahlt)</li>
+          <li>Privater Geländewagen (4×4) mit offenem Dach nur für Ihre Gruppe, mit unserem eigenen Guide</li>
+          <li>Mahlzeiten laut Tagesablauf, Wasser und Softdrinks</li>
+          <li>Übernachtung im Camp Lilac bei mehrtägigen Safaris</li>
+        </ul>
+        <h2>Nicht enthalten</h2>
+        <ul>
+          <li>Mittagessen oder weitere Mahlzeiten bei reinen Übernachtungen: US$15 pro Person</li><li>Getränke: Softdrinks, Bier, Wein und Spirituosen von der Bar</li>
+          <li>Transfers bei reinen Übernachtungen (wir organisieren sie zu einem festen Preis, fragen Sie einfach).{offersActive && <span data-offer> Der kostenlose Transfer gilt nur zusammen mit einer direkt gebuchten Safari, die im November 2026 beginnt: bei der 2-Tage-Safari ein kostenloser Transfer Morogoro → Mikumi für die Hinfahrt, bei der 3- oder 4-Tage-Safari zusätzlich ein kostenloses Zugticket ab Dar es Salaam für die Hinfahrt. Die Rückreise wird berechnet.</span>} Ein durchgerechnetes Budget finden Sie unter <a href={L('/blog/mikumi-safari-cost')}>was eine Mikumi-Safari kostet</a>{EN}.</li>
+          <li>Alkoholische Getränke, Trinkgelder, Reiseversicherung</li>
+        </ul>
+        <h2>Buchung und Bezahlung</h2>
+        <ul>
+          <li>Fragen Sie ein Angebot an: Die Anfrage kostet nichts. Wir antworten tagsüber in der Regel innerhalb von {replyHours} Stunden mit der Verfügbarkeit; eine Anzahlung sichert dann Ihre Buchung.</li>
+          <li>Im Camp zahlen Sie bar oder mit Karte. Die Anzahlung leisten Sie online per Karte über einen sicheren Zahlungslink, den wir Ihnen schicken.</li>
+          <li>Check-in ab {site.checkIn} Uhr, Check-out bis {site.checkOut} Uhr.</li>
+        </ul>
+      </div>
+      <aside class="aside">
+        <h3>Ihr genauer Preis</h3>
+        <p>Nennen Sie uns Ihre Reisedaten, wer mitkommt und welche Safari Sie möchten. Wir schicken Ihnen einen Gesamtbetrag, in dem alles enthalten ist.</p>
+        <a class="btn btn--fill" href={L('/book')}>Angebot anfragen</a>
+        <p style="margin:14px 0 0;font-size:0.9rem;text-align:center">oder <a href={site.whatsapp} rel="noopener" style="border-bottom:1px solid var(--lilac)">auf WhatsApp schreiben</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <Offers compact />
+  <CtaBand />
+</Base>

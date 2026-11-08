@@ -1,0 +1,93 @@
+---
+// French version of /about. Hand-written; ask a French speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import CtaBand from './_components/CtaBand.astro';
+import Photo from '../../components/Photo.astro';
+import { site } from '../../data/site';
+import { lf, EN } from '../../data/i18n-fr';
+
+const story = [
+  { year: '2022', title: 'Madagascar était fermée. La Tanzanie, non.', text: 'Avec un groupe d’une quarantaine d’amis, nous avions prévu un voyage à Madagascar, mais les restrictions liées au COVID l’ont rendu impossible. Nous sommes venus en Tanzanie à la place. Le programme, c’était Zanzibar, mais nous voulions d’abord un vrai safari sur le continent. Il a été organisé par Isaya Kihindo, qui lançait tout juste sa propre agence de safari. Il a fait un travail remarquable.', photos: [{ src: '/images/story/story-safari-1600.jpg', alt: 'Sur le toit d’un 4×4 de safari avec des jumelles, une file de 4×4 sur une piste rouge à travers les plaines vertes', caption: 'Ce premier safari, 2022', ratio: 'natural' }] },
+  { year: '2022', title: 'Une conversation pendant une fête', text: 'Après les trois jours de safari, nous sommes partis à Zanzibar, et Isaya est venu nous rendre visite. Nous étions en pleine fête, après quelques verres, et j’ai fini par lui poser des questions sur l’investissement en Tanzanie. J’avais une très bonne impression de lui : sincère et digne de confiance. J’ai donc investi une petite somme, et nous avons acheté une voiture pour ses safaris.', photos: [] },
+  { year: '2022–2024', title: 'Une voiture, puis quatre', text: 'L’association a fonctionné. Isaya a remboursé l’investissement en moins d’un an, alors nous avons acheté une autre voiture, puis encore une autre. En 2024, il y en avait quatre, et son agence, Kihindo Safaris, était devenue l’un des principaux opérateurs de safari du circuit sud.', photos: [] },
+  { year: 'Isaya et Gatis', title: 'Associés, et amis', text: 'Ce qui avait commencé comme un petit investissement est devenu une association fondée sur la confiance, et une amitié.', photos: [{ src: '/images/story/story-road-1600.jpg', alt: 'Gatis et Isaya Kihindo ensemble en voiture en Tanzanie', ratio: 'portrait' }, { src: '/images/story/story-flight-1600.jpg', alt: 'Gatis et Isaya Kihindo ensemble dans un avion', ratio: 'portrait' }] },
+  { year: '2024', title: 'Le terrain', text: 'Kihindo Safaris amenait de plus en plus de voyageurs à Mikumi, et il n’existait aucun endroit calme et singulier où les loger. Nous avons donc acheté un terrain, à deux kilomètres de la route principale, dans la brousse, face aux monts Mikumi, pour les accueillir nous-mêmes. Avec le recul, cela ressemble un peu au destin.', photos: [] },
+  { year: '2025–2026', title: 'Construit à la main', text: 'Les travaux ont commencé en janvier 2025 et nous avons construit les cinq premières chambres, toutes sur des terrasses en bois surélevées, pour que le camp s’insère dans la brousse au lieu de la remplacer. En 2026, nous avons construit cinq chambres de plus, ainsi que le restaurant. C’est la même équipe qui a tout bâti.', photos: [
+    { src: '/images/story/story-plan-1600.jpg', alt: 'Plan d’architecte d’une cabine de Camp Lilac', ratio: 'portrait' },
+    { src: '/images/story/story-frame-1600.jpg', alt: 'Gatis devant la charpente en bois d’une cabine sur pilotis', ratio: 'portrait' },
+    { src: '/images/story/story-crew-1600.jpg', alt: 'Isaya Kihindo avec l’équipe qui a construit Camp Lilac', caption: 'Isaya et l’équipe qui a construit le camp', ratio: 'natural', full: true },
+    { src: '/images/story/story-cabin-frame-1600.jpg', alt: 'Charpente d’une cabine au toit de chaume sur pilotis, au coucher du soleil', ratio: 'natural', full: true },
+    { src: '/images/story/story-cabin-1600.jpg', alt: 'Une cabine de Camp Lilac presque terminée, avec son escalier et sa terrasse en bois', ratio: 'portrait' },
+    { src: '/images/story/story-tent-1600.jpg', alt: 'Une tente de luxe en cours de montage sur sa terrasse surélevée', ratio: 'portrait' },
+    { src: '/images/story/story-thatch-1600.jpg', alt: 'La pose du toit de chaume du restaurant de Camp Lilac', ratio: 'natural', full: true },
+  ] },
+  { year: 'Août 2025', title: 'Ouvert aux voyageurs', text: 'Camp Lilac a ouvert en août 2025 avec cinq chambres. Nous organisons nos propres safaris, avec nos propres voitures et nos propres chauffeurs. Tout ce que nous savons de l’organisation d’un bon safari, nous l’avons appris de Kihindo Safaris, les meilleurs du circuit sud, qui nous aident encore dès que nous en avons besoin.', photos: [] },
+  { year: 'Aujourd’hui', title: 'Ceux qui font vivre le camp', text: 'Saitoti, notre responsable de camp, et toute l’équipe sont la raison des avis que nous laissent nos hôtes. Nous versons les meilleurs salaires de Mikumi, nous formons sérieusement nos équipes et nous prenons soin d’elles.', photos: [{ src: '/images/story/story-saitoti-1600.jpg', alt: 'Saitoti, responsable du camp de Camp Lilac, détendu dans un fauteuil du camp', caption: 'Saitoti, responsable du camp', ratio: 'portrait' }, { src: '/images/story/story-team-1600.jpg', alt: 'L’équipe de Camp Lilac dans le restaurant', caption: 'Notre équipe', ratio: 'portrait' }] },
+];
+
+const title = 'Camp Lilac : un camp tenu par ses propriétaires à Mikumi';
+const description =
+  'Un camp de tentes de luxe tenu par ses propriétaires, juste à l’extérieur du parc de Mikumi, à 2 km de la route, avec ses guides et vue sur les monts.';
+const crumbs = [{ name: 'À propos', href: lf('/about') }];
+---
+<Base {title} {description} lang="fr" breadcrumbs={crumbs}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/fr">Accueil</a> / À propos</p>
+    <h1>Le camp de luxe tranquille, juste à l’extérieur du parc national de Mikumi</h1>
+    <p class="lead">Camp Lilac est né d’une idée simple : le luxe et le confort, placés au cœur de la nature, du côté tranquille de Mikumi, à l’extérieur du parc et face aux montagnes.</p>
+  </div>
+  <div class="wrap split--aside" style="display:grid">
+    <article class="article">
+      <h2>Le côté tranquille de Mikumi</h2>
+      <p>La plupart des hébergements de Mikumi sont en ville, le long de la route principale, une route très fréquentée où camions et voitures passent jour et nuit. Nous voulions l’inverse. Camp Lilac est à environ 2 km de la route, dans la brousse, dans un endroit isolé et sûr où nous avons trouvé une vue incroyable sur les monts Mikumi. Honnêtement, nous avons eu beaucoup de chance de trouver ce lieu. Tout s’est mis en place.</p>
+
+      <h2>Pourquoi des tentes de luxe</h2>
+      <p>Autour de Mikumi, on trouve beaucoup de chambres qui pourraient être n’importe où dans le monde. Ce qui manquait, c’était un endroit où l’on se sent vraiment en safari. C’est pour cela que nous avons choisi des tentes de luxe : vous êtes plongés dans la nature, vous entendez la brousse la nuit, et vous restez en sécurité et à l’aise, avec un vrai lit, une salle de bain privée, la climatisation et votre propre terrasse.</p>
+
+      <h2>Le camp s’adapte à la nature, pas l’inverse</h2>
+      <p>Notre idée était d’associer confort et luxe à la nature, en insérant le camp dans la brousse plutôt qu’en défrichant la brousse pour faire place au camp. Tout ce que nous construisons s’intègre dans la nature, et nous veillons à préserver cet aspect naturel à mesure que le camp grandit.</p>
+
+      <h2>Notre équipe</h2>
+      <p>Nous versons les meilleurs salaires de Mikumi et nous prenons soin de nos employés, en plus de les former sérieusement. C’est sans doute pour cela que nos hôtes parlent autant des gens d’ici dans leurs avis : le service vient d’une équipe dont on prend soin.</p>
+
+      <h2>Ce qui compte pour nous</h2>
+      <ul>
+        <li><strong>Le calme.</strong> La nuit, vous entendez la brousse, pas la route.</li>
+        <li><strong>Un confort à la mesure de la brousse.</strong> Des tentes de luxe en toile, des terrasses et la vue, avec la climatisation et des douches chaudes.</li>
+        <li><strong>Nos propres safaris.</strong> Nos voitures et nos chauffeurs, avec le savoir-faire de Kihindo Safaris, les meilleurs du circuit sud.</li>
+        <li><strong>Nos équipes.</strong> Un salaire juste, de la formation et de l’attention pour chacun.</li>
+        <li><strong>Des prix honnêtes.</strong> Petit-déjeuner et dîner inclus, gratuit pour les moins de 4 ans, droits d’entrée au parc compris dans chaque safari.</li>
+      </ul>
+      <p class="meta">— Gatis Melbārdis, propriétaire</p>
+    </article>
+    <aside class="aside">
+      <h3>Camp Lilac Mikumi Company Limited</h3>
+      <ul><li>Mikumi, région de Morogoro, Tanzanie, {site.address.postalCode}</li><li>Ouvert en août 2025</li><li>À environ 2 km de la route, dans la brousse, à l’extérieur du parc</li><li>{site.units} hébergements, jusqu’à {site.maxGuests} personnes</li><li>Nos propres véhicules de safari et nos guides</li><li>Présent sur Booking.com, Tripadvisor et SafariBookings</li></ul>
+      <a class="btn" href={lf('/contact')}>Nous contacter</a>
+      <p style="margin-top:18px;font-size:0.9rem"><a href={lf('/rooms')}>Tentes de luxe et cabines</a> · <a href={lf('/safaris')}>Safaris</a> · <a href="/where-to-stay-in-mikumi">Où dormir à Mikumi</a>{EN}</p>
+    </aside>
+  </div>
+  <section class="section section--sand">
+    <div class="wrap">
+      <p class="label rv">Notre histoire</p>
+      <h2 class="rv rv-d1" style="margin-bottom:56px">D’un voyage annulé <em>à un camp dans la brousse</em></h2>
+      <ol class="story">
+        {story.map((s) => (
+          <li class={`story-item rv ${s.photos.length ? '' : 'story-item--text'}`}>
+            <div class="story-text">
+              <span class="story-year">{s.year}</span>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </div>
+            {s.photos.length > 0 && (
+              <div class={`story-photos story-photos--${Math.min(s.photos.length, 3)}`}>
+                {s.photos.map((ph: any) => <Photo src={ph.src} alt={ph.alt} caption={ph.caption} ratio={ph.ratio} class={ph.full ? 'story-full' : ''} sizes="(max-width: 760px) 100vw, 40vw" />)}
+              </div>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+  <CtaBand />
+</Base>

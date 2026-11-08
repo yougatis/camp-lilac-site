@@ -2,6 +2,7 @@
 import { site, nav } from '../data/site';
 import { reviewScore, sources } from '../data/reviews';
 import { offersActive, OFFER_END } from '../data/offers';
+import { langs, langNames, ui, versionsOf, localize, type Lang } from '../data/i18n';
 import '../styles/fonts.css';
 import '../styles/global.css';
 
@@ -27,6 +28,14 @@ const cleanPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, 
 const canonicalUrl = canonical ?? new URL(cleanPath, site.url).href;
 const ogImageUrl = new URL(ogImage, site.url).href;
 const isHome = cleanPath === '/';
+// Languages: every translated page is listed in src/data/i18n.ts. The switcher links to the same page in the other
+// language when it exists, otherwise to that language's home page; hreflang tags are generated from the same list.
+const L = (langs as readonly string[]).includes(lang) ? (lang as Lang) : 'en';
+const t = ui[L];
+const versions = versionsOf(cleanPath);
+const langLinks = langs.map((l) => ({ lang: l, name: langNames[l], href: versions ? versions[l] : localize('/', l), current: l === L }));
+const hreflangs = versions ? langs.map((l) => ({ lang: l, href: versions[l] })) : alternates;
+const loc = (p: string) => localize(p, L);
 const ogLocale = { en: 'en_GB', it: 'it_IT', fr: 'fr_FR', de: 'de_DE', es: 'es_ES', pl: 'pl_PL' }[lang] ?? 'en_GB';
 
 const orgSchema = {
@@ -61,7 +70,7 @@ const orgSchema = {
 const breadcrumbSchema = breadcrumbs && {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
-  itemListElement: [{ name: 'Home', href: '/' }, ...breadcrumbs].map((b, i) => ({ '@type': 'ListItem', position: i + 1, name: b.name, item: new URL(b.href, site.url).href })),
+  itemListElement: [{ name: { en: 'Home', it: 'Home', fr: 'Accueil', de: 'Startseite', es: 'Inicio' }[lang as 'en'] ?? 'Home', href: lang === 'en' ? '/' : `/${lang}` }, ...breadcrumbs].map((b, i) => ({ '@type': 'ListItem', position: i + 1, name: b.name, item: new URL(b.href, site.url).href })),
 };
 
 const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema : schema ? [schema] : [])].filter(Boolean);
@@ -76,8 +85,8 @@ const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
-    {alternates?.map((a) => <link rel="alternate" hreflang={a.lang} href={new URL(a.href, site.url).href} />)}
-    {alternates && <link rel="alternate" hreflang="x-default" href={new URL(alternates.find((a) => a.lang === 'en')?.href ?? alternates[0].href, site.url).href} />}
+    {hreflangs?.map((a) => <link rel="alternate" hreflang={a.lang} href={new URL(a.href, site.url).href} />)}
+    {hreflangs && <link rel="alternate" hreflang="x-default" href={new URL(hreflangs.find((a) => a.lang === 'en')?.href ?? hreflangs[0].href, site.url).href} />}
     <meta name="theme-color" content="#10263a" />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
@@ -131,27 +140,36 @@ const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema
       <div class="sub">A luxury tented camp · Tanzania</div>
     </div>}
 
-    <a class="skip" href="#main">Skip to content</a>
+    <a class="skip" href="#main">{t.skip}</a>
     <header class={`site-header${dark ? '' : ' on-light'}`} id="site-header">
       <div class="wrap header-inner">
-        <a class="brand" href="/" aria-label="Camp Lilac home">
+        <a class="brand" href={loc('/')} aria-label="Camp Lilac">
           <img class="wide" src="/images/logo-wide.png" alt="Camp Lilac" width="156" height="44" />
         </a>
-        <a class="badge" href={reviewScore.url} rel="noopener" title={sources.map((s) => `${s.platform} ${s.score}/5 (${s.count})`).join(' · ')}><img src="/images/logo-google.png" alt="Google" width="18" height="18" /><img src="/images/logo-tripadvisor.png" alt="Tripadvisor" width="22" height="22" class="ta" /><img src="/images/logo-safaribookings.png" alt="SafariBookings" width="18" height="18" class="sb" /><span class="stars">★★★★★</span><b>{reviewScore.score} / 5</b> · {reviewScore.count} reviews</a>
+        <a class="badge" href={reviewScore.url} rel="noopener" title={sources.map((s) => `${s.platform} ${s.score}/5 (${s.count})`).join(' · ')}><img src="/images/logo-google.png" alt="Google" width="18" height="18" /><img src="/images/logo-tripadvisor.png" alt="Tripadvisor" width="22" height="22" class="ta" /><img src="/images/logo-safaribookings.png" alt="SafariBookings" width="18" height="18" class="sb" /><span class="stars">★★★★★</span><b>{reviewScore.score} / 5</b> · {reviewScore.count} {t.reviews}</a>
+        <details class="lang-switch">
+          <summary aria-label={`${t.language}: ${langNames[L]}`}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 6h-2.9a15.7 15.7 0 0 0-1.4-3.6A8 8 0 0 1 18.9 8zM12 4c.8 1.2 1.5 2.5 1.9 4h-3.8c.4-1.5 1.1-2.8 1.9-4zM4.3 14a8.2 8.2 0 0 1 0-4h3.4a16.5 16.5 0 0 0 0 4H4.3zm.8 2h2.9c.3 1.3.8 2.5 1.4 3.6A8 8 0 0 1 5.1 16zM8 8H5.1a8 8 0 0 1 4.3-3.6C8.8 5.5 8.3 6.7 8 8zm4 12c-.8-1.2-1.5-2.5-1.9-4h3.8c-.4 1.5-1.1 2.8-1.9 4zm2.3-6H9.7a14.7 14.7 0 0 1 0-4h4.6a14.7 14.7 0 0 1 0 4zm.3 5.6c.6-1.1 1.1-2.3 1.4-3.6h2.9a8 8 0 0 1-4.3 3.6zm1.7-5.6a16.5 16.5 0 0 0 0-4h3.4a8.2 8.2 0 0 1 0 4h-3.4z"/></svg><span>{L.toUpperCase()}</span></summary>
+          <ul>
+            {langLinks.map((x) => <li><a href={x.href} hreflang={x.lang} lang={x.lang} aria-current={x.current ? 'true' : undefined}>{x.name}</a></li>)}
+          </ul>
+        </details>
         <nav class="main-nav" aria-label="Main">
-          <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list">Menu</button>
+          <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list">{t.menu}</button>
           <ul id="nav-list">
-            {nav.map((n) => (
-              <li><a href={n.href} aria-current={cleanPath === n.href || (n.href !== '/' && cleanPath.startsWith(n.href + '/')) || (n.match && n.match.some((m) => cleanPath.startsWith(m))) ? 'page' : undefined}>{n.label}</a></li>
-            ))}
-            <li class="nav-wa"><a href={site.whatsapp} rel="noopener" aria-label="WhatsApp us"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L0 24l6.5-1.7a11.8 11.8 0 0 0 5.6 1.4c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.4-8.4zM12.1 21.7c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.8 9.8 0 0 1-1.5-5.2c0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.4 9.9-9.8 9.9zm5.4-7.3c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4z"/></svg><span>WhatsApp</span></a></li>
-            <li class="nav-cta"><a href="/book">Plan my stay</a></li>
+            {nav.map((n) => {
+              const href = loc(n.href);
+              const label = t.nav[({ '/rooms': 'stay', '/safaris': 'safaris', '/rates': 'rates', '/mikumi-national-park': 'mikumi', '/getting-here': 'gettingHere', '/contact': 'contact' } as const)[n.href as '/rooms'] ?? 'stay'] ?? n.label;
+              const active = cleanPath === href || (href !== '/' && cleanPath.startsWith(href + '/')) || (L === 'en' && n.match && n.match.some((m) => cleanPath.startsWith(m)));
+              return <li><a href={href} aria-current={active ? 'page' : undefined}>{label}</a></li>;
+            })}
+            <li class="nav-wa"><a href={site.whatsapp} rel="noopener" aria-label={t.whatsappAria}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L0 24l6.5-1.7a11.8 11.8 0 0 0 5.6 1.4c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.4-8.4zM12.1 21.7c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.8 9.8 0 0 1-1.5-5.2c0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.4 9.9-9.8 9.9zm5.4-7.3c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4z"/></svg><span>WhatsApp</span></a></li>
+            <li class="nav-cta"><a href={loc('/book')}>{t.cta}</a></li>
           </ul>
         </nav>
       </div>
     </header>
 
-    <a class="wa-float" href={site.whatsapp} rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L0 24l6.5-1.7a11.8 11.8 0 0 0 5.6 1.4c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.4-8.4zM12.1 21.7c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.8 9.8 0 0 1-1.5-5.2c0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.4 9.9-9.8 9.9zm5.4-7.3c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4z"/></svg></a>
+    <a class="wa-float" href={site.whatsapp} rel="noopener" aria-label={t.whatsappAria}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L0 24l6.5-1.7a11.8 11.8 0 0 0 5.6 1.4c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.4-8.4zM12.1 21.7c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.8 9.8 0 0 1-1.5-5.2c0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.4 9.9-9.8 9.9zm5.4-7.3c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4z"/></svg></a>
 
     <main id="main">
       <slot />
@@ -162,51 +180,48 @@ const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema
       <div class="wrap footer-grid">
         <div class="footer-brand">
           <img src="/images/logo-wide.png" alt="Camp Lilac Mikumi" width="220" height="62" loading="lazy" />
-          <p>Luxury tented safari camp just outside Mikumi National Park, Morogoro Region, Tanzania.</p>
+          <p>{t.footerTagline}</p>
           <p><a href={site.mapsUrl} rel="noopener">{Math.abs(site.geo.latitude).toFixed(4)}° S · {site.geo.longitude.toFixed(4)}° E</a></p>
         </div>
         <div>
-          <h4>Stay</h4>
-          <a href="/rooms">Tents &amp; cabins</a>
-          <a href="/rates">Rates</a>
-          <a href="/offers">{offersActive ? 'Safari deals' : 'Book direct benefits'}</a>
-          <a href="/restaurant">Restaurant &amp; bar</a>
-          <a href="/about">About the camp</a>
-          <a href="/book">Check availability</a>
-          <a href="/faq">Questions</a>
+          <h4>{t.footerStay}</h4>
+          <a href={loc('/rooms')}>{t.links.rooms}</a>
+          <a href={loc('/rates')}>{t.links.rates}</a>
+          <a href="/offers">{L === 'en' ? (offersActive ? 'Safari deals' : 'Book direct benefits') : t.links.offers}</a>
+          <a href={loc('/restaurant')}>{t.links.restaurant}</a>
+          <a href={loc('/about')}>{t.links.about}</a>
+          <a href={loc('/book')}>{t.links.book}</a>
+          <a href={loc('/faq')}>{t.links.faq}</a>
         </div>
         <div>
-          <h4>Mikumi</h4>
-          <a href="/safaris">Safari packages</a>
-          <a href="/safari-from-dar-es-salaam">Safari from Dar es Salaam</a>
-          <a href="/safari-from-zanzibar">Safari from Zanzibar</a>
-          <a href="/mikumi-national-park">Mikumi National Park guide</a>
-          <a href="/where-to-stay-in-mikumi">Where to stay in Mikumi</a>
-          <a href="/getting-here">Getting here</a>
-          <a href="/blog">Blog</a>
+          <h4>{t.footerMikumi}</h4>
+          <a href={loc('/safaris')}>{t.links.safaris}</a>
+          <a href={loc('/safari-from-dar-es-salaam')}>{t.links.fromDar}</a>
+          <a href={loc('/safari-from-zanzibar')}>{t.links.fromZanzibar}</a>
+          <a href="/mikumi-national-park">{t.links.park}</a>
+          <a href="/where-to-stay-in-mikumi">{t.links.whereToStay}</a>
+          <a href={loc('/getting-here')}>{t.links.gettingHere}</a>
+          <a href="/blog">{t.links.blog}</a>
         </div>
         <div>
-          <h4>Contact</h4>
+          <h4>{t.footerContact}</h4>
           <a href={site.whatsapp} rel="noopener">WhatsApp {site.phoneDisplay}</a>
           <a href={`mailto:${site.email}`}>{site.email}</a>
           <a href={site.instagram} rel="noopener">Instagram</a>
           <a href={site.facebook} rel="noopener">Facebook</a>
         </div>
         <div>
-          <h4>Other languages</h4>
-          <a href="/it/safari-da-zanzibar" hreflang="it" lang="it">Italiano</a>
-          <a href="/fr/safari-depuis-zanzibar" hreflang="fr" lang="fr">Français</a>
-          <a href="/de/safari-ab-sansibar" hreflang="de" lang="de">Deutsch</a>
-          <a href="/es/safari-desde-zanzibar" hreflang="es" lang="es">Español</a>
+          <h4>{t.footerLangs}</h4>
+          {langLinks.map((x) => <a href={x.href} hreflang={x.lang} lang={x.lang} aria-current={x.current ? 'true' : undefined}>{x.name}</a>)}
         </div>
         <div>
-          <h4>Reviews</h4>
+          <h4>{t.footerReviews}</h4>
           {sources.map((s) => <a href={s.url} rel="noopener">{s.platform} {s.score}/5 · {s.count}</a>)}
         </div>
       </div>
       <div class="wrap footer-legal">
         <span>© {new Date().getFullYear()} {site.legalName}</span>
-        <span>Check-in {site.checkIn} · Check-out {site.checkOut}</span>
+        <span>{t.checkIn} {site.checkIn} · {t.checkOut} {site.checkOut}</span>
       </div>
     </footer>
 
@@ -351,7 +366,7 @@ const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema
         if (name === 'PageView') setTimeout(send, 600); else send();
       }
       track('PageView');
-      if (location.pathname.replace(/\.html$/, '') === '/thank-you') track('Lead', { content_name: 'booking-request' });
+      if (/^\/((it|fr|de|es)\/)?(thank-you|grazie|merci|danke|gracias)$/.test(location.pathname.replace(/\.html$/, ''))) track('Lead', { content_name: 'booking-request' });
       document.addEventListener('click', function (e) {
         var a = e.target && e.target.closest ? e.target.closest('a[href*="wa.me"], a[href*="whatsapp"]') : null;
         if (a) track('Contact', { content_name: 'whatsapp' });

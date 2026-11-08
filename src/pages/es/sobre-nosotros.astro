@@ -1,0 +1,93 @@
+---
+// Spanish version of /about. Hand-written; ask a native Spanish speaker to read it once.
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import Cta from './_Cta.astro';
+import { site } from '../../data/site';
+import { es, EN } from '../../data/i18n-es';
+
+const story = [
+  { year: '2022', title: 'Madagascar estaba cerrado. Tanzania, no.', text: 'Un grupo de unos 40 amigos habíamos planeado un viaje a Madagascar, pero las restricciones por la COVID lo impidieron. Así que vinimos a Tanzania. La idea era ir a Zanzíbar, pero antes queríamos un safari de verdad en el continente. Lo organizó Isaya Kihindo, que estaba empezando su propia empresa de safaris. Hizo un trabajo increíble.', photos: [{ src: '/images/story/story-safari-1600.jpg', alt: 'En el techo de un 4×4 de safari con prismáticos, con una fila de vehículos en una pista roja que cruza la llanura verde', caption: 'Aquel primer safari, 2022', ratio: 'natural' }] },
+  { year: '2022', title: 'Una conversación en una fiesta', text: 'Después del safari de tres días seguimos hacia Zanzíbar, e Isaya vino a visitarnos. Estábamos en plena fiesta, con unas copas encima, y acabé preguntándole por invertir en Tanzania. Me dio muy buena sensación: auténtico y de fiar. Así que invertí una cantidad pequeña y compramos un vehículo para sus safaris.', photos: [] },
+  { year: '2022–2024', title: 'Un vehículo, después cuatro', text: 'La sociedad funcionó. Isaya recuperó la inversión en menos de un año, así que compramos otro vehículo, y otro más. En 2024 ya eran cuatro, y su empresa, Kihindo Safaris, se había convertido en uno de los principales operadores de safari del circuito sur.', photos: [] },
+  { year: 'Isaya y Gatis', title: 'Socios y amigos', text: 'Lo que empezó como una pequeña inversión se convirtió en una sociedad basada en la confianza, y en una amistad.', photos: [{ src: '/images/story/story-road-1600.jpg', alt: 'Gatis e Isaya Kihindo juntos en un coche en Tanzania', ratio: 'portrait' }, { src: '/images/story/story-flight-1600.jpg', alt: 'Gatis e Isaya Kihindo juntos en un vuelo', ratio: 'portrait' }] },
+  { year: '2024', title: 'El terreno', text: 'Kihindo Safaris traía cada vez más huéspedes a Mikumi y no había ningún lugar tranquilo y especial donde alojarlos. Así que compramos un terreno, a dos kilómetros de la carretera, en plena sabana y frente a los montes Mikumi, para recibirlos nosotros mismos. Visto ahora, parece cosa del destino.', photos: [] },
+  { year: '2025–2026', title: 'Construido a mano', text: 'Empezamos las obras en enero de 2025 y construimos los cinco primeros alojamientos, todos sobre plataformas de madera elevadas, para que el campamento se integre en la sabana en lugar de sustituirla. En 2026 construimos cinco más, junto con el restaurante. El mismo equipo de siempre lo construyó todo.', photos: [
+    { src: '/images/story/story-plan-1600.jpg', alt: 'Plano arquitectónico de una cabaña de Camp Lilac', ratio: 'portrait' },
+    { src: '/images/story/story-frame-1600.jpg', alt: 'Gatis junto a la estructura de madera de una cabaña sobre pilotes', ratio: 'portrait' },
+    { src: '/images/story/story-crew-1600.jpg', alt: 'Isaya Kihindo con el equipo que construyó Camp Lilac', caption: 'Isaya y el equipo que construyó el campamento', ratio: 'natural', full: true },
+    { src: '/images/story/story-cabin-frame-1600.jpg', alt: 'Estructura de una cabaña con techo de paja sobre pilotes, al atardecer', ratio: 'natural', full: true },
+    { src: '/images/story/story-cabin-1600.jpg', alt: 'Una cabaña de Camp Lilac casi terminada, con su escalera y su terraza de madera', ratio: 'portrait' },
+    { src: '/images/story/story-tent-1600.jpg', alt: 'Montaje de una tienda de lujo sobre su terraza elevada', ratio: 'portrait' },
+    { src: '/images/story/story-thatch-1600.jpg', alt: 'El techo de paja del restaurante de Camp Lilac en construcción', ratio: 'natural', full: true },
+  ] },
+  { year: 'Agosto de 2025', title: 'Abierto a los huéspedes', text: 'Camp Lilac abrió en agosto de 2025 con cinco alojamientos. Hacemos nuestros propios safaris, con nuestros propios vehículos y conductores. Todo lo que sabemos sobre organizar un buen safari lo aprendimos de Kihindo Safaris, el mejor del circuito sur, que todavía nos ayuda siempre que lo necesitamos.', photos: [] },
+  { year: 'Hoy', title: 'Las personas que lo hacen posible', text: 'Saitoti, nuestro gerente, y el equipo son la razón de las opiniones que escriben los huéspedes. Pagamos los mejores sueldos de Mikumi, formamos bien a nuestra gente y la cuidamos.', photos: [{ src: '/images/story/story-saitoti-1600.jpg', alt: 'Saitoti, gerente de Camp Lilac, descansando en una silla del campamento', caption: 'Saitoti, gerente del campamento', ratio: 'portrait' }, { src: '/images/story/story-team-1600.jpg', alt: 'El equipo de Camp Lilac en el restaurante', caption: 'Nuestro equipo', ratio: 'portrait' }] },
+];
+
+const title = 'Sobre Camp Lilac: campamento junto al Parque de Mikumi';
+const description =
+  'Campamento de tiendas de lujo gestionado por sus dueños, fuera del Parque Nacional de Mikumi, a 2 km de la carretera, con guías propios y vista a los montes.';
+const crumbs = [{ name: 'Sobre nosotros', href: es('/about') }];
+---
+<Base {title} {description} lang="es" breadcrumbs={crumbs}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/es">Inicio</a> / Sobre nosotros</p>
+    <h1>El campamento de lujo tranquilo, justo fuera del Parque Nacional de Mikumi</h1>
+    <p class="lead">Camp Lilac nació de una idea sencilla: lujo y comodidad en plena naturaleza, en el lado tranquilo de Mikumi, fuera del parque y frente a los montes.</p>
+  </div>
+  <div class="wrap split--aside" style="display:grid">
+    <article class="article">
+      <h2>El lado tranquilo de Mikumi</h2>
+      <p>Casi todo el alojamiento de Mikumi está en el pueblo, a lo largo de la carretera principal: una vía con camiones y tráfico de día y de noche. Nosotros queríamos lo contrario. Camp Lilac está a unos 2 km de la carretera, en plena sabana, en un lugar apartado y seguro donde encontramos la vista más increíble de los montes Mikumi. Sinceramente, tuvimos mucha suerte de dar con este sitio. Todo encajó.</p>
+
+      <h2>Por qué tiendas de lujo</h2>
+      <p>Alrededor de Mikumi hay muchas habitaciones que podrían estar en cualquier parte del mundo. Lo que faltaba era un lugar donde uno sienta de verdad que está de safari. Por eso elegimos tiendas de lujo: están inmersos en la naturaleza, oyen la sabana por la noche y, aun así, están seguros y cómodos, con una buena cama, baño privado, aire acondicionado y su propia terraza.</p>
+
+      <h2>Integrado en la naturaleza, no al revés</h2>
+      <p>Nuestra idea era unir comodidad y lujo con la naturaleza, poniendo el acento en encajar el campamento en la sabana y no en despejar la sabana para que quepa el campamento. Todo lo que construimos va dentro de la naturaleza, y trabajamos para mantener ese aspecto natural a medida que el campamento crece.</p>
+
+      <h2>Nuestro equipo</h2>
+      <p>Pagamos los mejores sueldos de Mikumi y cuidamos a nuestro personal, además de darle una buena formación. Creemos que por eso los huéspedes escriben tanto sobre la gente de aquí: el servicio viene de un equipo al que se cuida.</p>
+
+      <h2>Lo que nos importa</h2>
+      <ul>
+        <li><strong>La tranquilidad.</strong> Por la noche se oye la sabana, no la carretera.</li>
+        <li><strong>Comodidad a la medida de la sabana.</strong> Tiendas de lujo de lona, terrazas y la vista, con aire acondicionado y duchas de agua caliente.</li>
+        <li><strong>Nuestros propios safaris.</strong> Nuestros propios vehículos y conductores, con la experiencia de Kihindo Safaris, el mejor del circuito sur.</li>
+        <li><strong>Nuestra gente.</strong> Sueldos justos, formación y cuidado del equipo.</li>
+        <li><strong>Precios honestos.</strong> Desayuno y cena incluidos, menores de 4 años gratis y entradas al parque incluidas en todos los safaris.</li>
+      </ul>
+      <p class="meta">— Gatis Melbārdis, propietario</p>
+    </article>
+    <aside class="aside">
+      <h3>{site.legalName}</h3>
+      <ul><li>Mikumi, región de Morogoro, Tanzania, {site.address.postalCode}</li><li>Abierto en agosto de 2025</li><li>A unos 2 km de la carretera, en plena sabana, fuera del parque</li><li>{site.units} alojamientos, hasta {site.maxGuests} huéspedes</li><li>Vehículos y guías de safari propios</li><li>En Booking.com, Tripadvisor y SafariBookings</li></ul>
+      <a class="btn" href={es('/contact')}>Contacto</a>
+      <p style="margin-top:18px;font-size:0.9rem"><a href={es('/rooms')}>Tiendas de lujo y cabañas</a> · <a href={es('/safaris')}>Safaris</a> · <a href="/where-to-stay-in-mikumi">Dónde alojarse en Mikumi</a> {EN}</p>
+    </aside>
+  </div>
+  <section class="section section--sand">
+    <div class="wrap">
+      <p class="label rv">Nuestra historia</p>
+      <h2 class="rv rv-d1" style="margin-bottom:56px">De un viaje cancelado <em>a un campamento en la sabana</em></h2>
+      <ol class="story">
+        {story.map((s) => (
+          <li class={`story-item rv ${s.photos.length ? '' : 'story-item--text'}`}>
+            <div class="story-text">
+              <span class="story-year">{s.year}</span>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </div>
+            {s.photos.length > 0 && (
+              <div class={`story-photos story-photos--${Math.min(s.photos.length, 3)}`}>
+                {s.photos.map((ph: any) => <Photo src={ph.src} alt={ph.alt} caption={ph.caption} ratio={ph.ratio} class={ph.full ? 'story-full' : ''} sizes="(max-width: 760px) 100vw, 40vw" />)}
+              </div>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+  <Cta />
+</Base>

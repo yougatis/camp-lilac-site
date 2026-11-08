@@ -1,23 +1,19 @@
 ---
 // German version of /safari-from-zanzibar. Hand-written; ask a German speaker to read it once before promoting it.
 import Base from '../../layouts/Base.astro';
-import Crumbs from '../../components/Crumbs.astro';
+import Crumbs from './_parts/Crumbs.astro';
+import Wildlife from './_parts/Wildlife.astro';
 import Photo from '../../components/Photo.astro';
 import { safariBySlug } from '../../data/safaris';
 import { site } from '../../data/site';
 import { offersActive } from '../../data/offers';
+import { L, EN, safariDe, roomDe } from '../../data/i18n-de';
+import { roomBySlug } from '../../data/rooms';
 
 const title = 'Safari ab Sansibar: 2–3 Tage Mikumi | Camp Lilac';
 const description =
   'Echte Safari ab Sansibar in 2–3 Tagen: Fähre oder Flug nach Dar es Salaam, SGR-Zug, unser Transfer, Luxuszelte vor den Mikumi-Bergen. Preise, Zeiten, Ablauf.';
-const crumbs = [{ name: 'Safaris', href: '/safaris' }, { name: 'Safari ab Sansibar', href: '/de/safari-ab-sansibar' }];
-const alternates = [
-  { lang: 'en', href: '/safari-from-zanzibar' },
-  { lang: 'it', href: '/it/safari-da-zanzibar' },
-  { lang: 'fr', href: '/fr/safari-depuis-zanzibar' },
-  { lang: 'de', href: '/de/safari-ab-sansibar' },
-  { lang: 'es', href: '/es/safari-desde-zanzibar' },
-];
+const crumbs = [{ name: 'Safaris', href: L('/safaris') }, { name: 'Safari ab Sansibar', href: L('/safari-from-zanzibar') }];
 const s2 = safariBySlug('2-day-mikumi-safari')!, s3 = safariBySlug('3-day-mikumi-safari')!, s4 = safariBySlug('4-day-mikumi-udzungwa-safari')!;
 const wa = `${site.whatsapp}?text=${encodeURIComponent('Guten Tag, wir sind auf Sansibar und interessieren uns für eine Mikumi-Safari von 2 oder 3 Tagen. Wir sind ... Personen, Reisedaten: ...')}`;
 
@@ -37,7 +33,7 @@ const schema = {
 };
 ---
 
-<Base {title} {description} {schema} lang="de" {alternates} ogImage="/images/wild/elephants-plain-1600.jpg" breadcrumbs={crumbs} dark>
+<Base {title} {description} {schema} lang="de" ogImage="/images/wild/elephants-plain-1600.jpg" breadcrumbs={crumbs} dark>
   <section class="hero hero--inner">
     <div class="hero-media"><img src="/images/wild/elephants-plain-1600.webp" srcset="/images/wild/elephants-plain-800.webp 800w, /images/wild/elephants-plain-1200.webp 1200w, /images/wild/elephants-plain-1600.webp 1600w" sizes="100vw" alt="Elefanten auf der Mkata-Ebene im Mikumi-Nationalpark, im Hintergrund die Mikumi-Berge" width="1600" height="1067" fetchpriority="high" /></div>
     <div class="wrap hero-content">
@@ -53,7 +49,7 @@ const schema = {
   <section class="section section--tight">
     <div class="wrap split--aside" style="display:grid">
       <article class="article">
-        <p class="meta"><a href="/safari-from-zanzibar">Diese Seite auf Englisch lesen</a> · Unsere anderen Seiten auf Deutsch: <a href="/de/mikumi-safaris">Mikumi-Safaris</a> · <a href="/de/zelte-und-cabins">Zelte und Cabins</a> · <a href="/de/anreise">Anreise</a></p>
+        <p class="meta"><a href="/safari-from-zanzibar">Diese Seite auf Englisch lesen</a> · Unsere anderen Seiten auf Deutsch: <a href={L('/safaris')}>Mikumi-Safaris</a> · <a href={L('/safari-from-dar-es-salaam')}>Safari ab Dar es Salaam</a> · <a href={L('/rooms')}>Luxuszelte und Cabins</a> · <a href={L('/getting-here')}>Anreise</a></p>
         <h2>Warum Mikumi die richtige Safari ab Sansibar ist</h2>
         <p>
           Fast alle Angebote für eine „Safari ab Sansibar“ sind Tagesausflüge: Wecker um vier, Flug zum Selous (Nyerere) oder nach Mikumi, ein paar Stunden im Fahrzeug und am selben Abend zurück. Anstrengend, teuer, und Sie verpassen die zwei besten Stunden jeder Safari: Morgen- und Abenddämmerung. Die Alternative ist eine kurze Auszeit auf dem Festland. Mikumi liegt an der Hauptbahnstrecke ab Dar es Salaam, seine offene Ebene macht die Tiere in kurzer Zeit gut sichtbar, die Parkgebühren gehören zu den niedrigsten Tansanias, und Camp Lilac liegt nur wenige Minuten vom Parkeingang entfernt. Sie schlafen im Busch, sind bei Tagesanbruch unterwegs und sitzen am nächsten Abend wieder in Ihrem Strandhotel. Oder am übernächsten, wenn Sie unserem Rat folgen und zwei Nächte bleiben.
@@ -76,13 +72,13 @@ const schema = {
         <table>
           <thead><tr><th scope="col">Paket</th><th scope="col">Pro Person</th><th scope="col">Für wen</th></tr></thead>
           <tbody>
-            <tr><th scope="row"><a href={`/safaris/${s2.slug}`}>Mikumi-Safari, 2 Tage, 1 Nacht</a></th><td>Ab US${s2.price}</td><td>Eine erste Safari in möglichst kurzer Zeit weg von der Insel</td></tr>
-            <tr><th scope="row"><a href={`/safaris/${s3.slug}`}>Mikumi-Safari, 3 Tage, 2 Nächte</a></th><td>Ab US${s3.price}</td><td>Unsere Empfehlung: ein ganzer Tag im Park, entspanntes Tempo, zwei Nächte im Busch</td></tr>
-            <tr><th scope="row"><a href={`/safaris/${s4.slug}`}>Mikumi und Udzungwa-Wasserfälle, 4 Tage, 3 Nächte</a></th><td>Ab US${s4.price}</td><td>Wildtiere plus die Wanderung zum Wasserfall im Regenwald der Udzungwa-Berge</td></tr>
+            <tr><th scope="row"><a href={L(`/safaris/${s2.slug}`)}>{safariDe(s2).name}</a></th><td>Ab US${s2.price}</td><td>Eine erste Safari in möglichst kurzer Zeit weg von der Insel</td></tr>
+            <tr><th scope="row"><a href={L(`/safaris/${s3.slug}`)}>{safariDe(s3).name}</a></th><td>Ab US${s3.price}</td><td>Unsere Empfehlung: ein ganzer Tag im Park, entspanntes Tempo, zwei Nächte im Busch</td></tr>
+            <tr><th scope="row"><a href={L(`/safaris/${s4.slug}`)}>{safariDe(s4).name}</a></th><td>Ab US${s4.price}</td><td>Wildtiere plus die Wanderung zum Wasserfall im Regenwald der Udzungwa-Berge</td></tr>
           </tbody>
         </table>
         <p>
-          Die Preise gelten pro Person ab zwei gemeinsam reisenden Personen und enthalten die Parkgebühren, einen privaten offenen Geländewagen mit unserem eigenen Guide, alle Mahlzeiten und die Nächte im Camp Lilac. Fähre oder Flug und der Zug sind nicht enthalten (wir buchen sie zum Selbstkostenpreis für Sie), ebenso wenig der Rücktransfer vom Camp zum Bahnhof Morogoro (US$75 pro Fahrzeug). Die Detailseiten der Safaris sind auf Englisch. Vor jeder Buchung schicken wir Ihnen einen genauen Gesamtbetrag.{offersActive && <span data-offer> Für Safaris ab zwei Tagen, die Sie direkt bei uns buchen und die im November 2026 beginnen, gilt außerdem: Bei der 2-Tage-Safari ist der Transfer vom Bahnhof Morogoro zum Camp kostenlos (im Wert von US$75); bei 3 oder 4 Tagen übernehmen wir zusätzlich die Economy-Tickets für den SGR-Zug von Dar es Salaam nach Morogoro. Jeweils nur für die Hinfahrt, die Rückfahrt wird berechnet.</span>}
+          Die Preise gelten pro Person ab zwei gemeinsam reisenden Personen und enthalten die Parkgebühren, einen privaten offenen Geländewagen mit unserem eigenen Guide, alle Mahlzeiten und die Nächte im Camp Lilac. Fähre oder Flug und der Zug sind nicht enthalten (wir buchen sie zum Selbstkostenpreis für Sie), ebenso wenig der Rücktransfer vom Camp zum Bahnhof Morogoro (US$75 pro Fahrzeug). Vor jeder Buchung schicken wir Ihnen einen genauen Gesamtbetrag.{offersActive && <span data-offer> Für Safaris ab zwei Tagen, die Sie direkt bei uns buchen und die im November 2026 beginnen, gilt außerdem: Bei der 2-Tage-Safari ist der Transfer vom Bahnhof Morogoro zum Camp kostenlos (im Wert von US$75); bei 3 oder 4 Tagen übernehmen wir zusätzlich die Economy-Tickets für den SGR-Zug von Dar es Salaam nach Morogoro. Jeweils nur für die Hinfahrt, die Rückfahrt wird berechnet.</span>}
         </p>
 
         <h3>Ein Rechenbeispiel: zwei Personen, zwei Tage</h3>
@@ -110,7 +106,7 @@ const schema = {
         <div class="faq">
           {faqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
         </div>
-        <p style="margin-top:28px">Auf Deutsch weiterlesen: <a href="/de/anreise">Anreise</a> · <a href="/de/mikumi-safaris">alle Mikumi-Safaris</a> · <a href="/de/zelte-und-cabins">Luxuszelte und Cabins</a>. Auf Englisch: <a href="/blog/dar-es-salaam-to-mikumi-by-sgr-train">der SGR-Zug Schritt für Schritt</a> · <a href="/blog/mikumi-safari-cost">was eine Mikumi-Safari kostet</a> · <a href="/mikumi-national-park">unser Führer zum Mikumi-Nationalpark</a>.</p>
+        <p style="margin-top:28px">Auf Deutsch weiterlesen: <a href={L('/getting-here')}>Anreise</a> · <a href={L('/safaris')}>alle Mikumi-Safaris</a> · <a href={L('/rooms')}>Luxuszelte und Cabins</a> · <a href={L('/faq')}>häufige Fragen</a>. Auf Englisch: <a href={L('/blog/dar-es-salaam-to-mikumi-by-sgr-train')}>der SGR-Zug Schritt für Schritt</a> · <a href={L('/blog/mikumi-safari-cost')}>was eine Mikumi-Safari kostet</a> · <a href={L('/mikumi-national-park')}>unser Führer zum Mikumi-Nationalpark</a>.</p>
       </article>
 
       <aside class="aside">
@@ -123,7 +119,7 @@ const schema = {
           <li>Wir buchen Fähren, Flüge und Züge</li>
         </ul>
         <a class="btn btn--fill" href={wa} rel="noopener">Schreiben Sie uns auf WhatsApp</a>
-        <p style="margin-top:12px;font-size:0.9rem">oder <a href={`/book?safari=${s2.slug}`}>füllen Sie das Anfrageformular aus</a> (auf Englisch)</p>
+        <p style="margin-top:12px;font-size:0.9rem">oder <a href={`${L('/book')}?safari=${s2.slug}`}>füllen Sie das Anfrageformular aus</a></p>
       </aside>
     </div>
   </section>
@@ -132,31 +128,17 @@ const schema = {
     <div class="wrap">
       <div class="split" style="align-items:center">
         <div class="rv">
-          <Photo src="/images/rooms/mv-cabin-1-1600.jpg" alt="Freistehende Badewanne in der Mountain View Cabin im Camp Lilac, durch das Fenster der Bergkamm der Mikumi-Berge" caption="Mountain View Cabin" ratio="landscape" zoom />
+          <Photo src="/images/rooms/mv-cabin-1-1600.jpg" alt={roomDe(roomBySlug('mountain-view-cabin')!).alt} caption="Mountain View Cabin" ratio="landscape" zoom />
         </div>
         <div>
           <h2 class="rv">Wo Sie schlafen</h2>
-          <p class="rv rv-d1">Camp Lilac ist ein Luxus-Zeltcamp knapp außerhalb des Mikumi-Nationalparks, 2 km von der Hauptstraße entfernt, mit Blick auf den Bergkamm der Mikumi-Berge. Luxuszelte aus Segeltuch und zwei reetgedeckte Cabins, jede Unterkunft mit eigenem Bad, Klimaanlage und privater Terrasse; ein Restaurant mit dem einzigen Bergblick in ganz Mikumi; Impalas und Warzenschweine, die durchs Camp spazieren. Sehen Sie sich <a href="/de/zelte-und-cabins">die Luxuszelte und Cabins</a> an.</p>
+          <p class="rv rv-d1">Camp Lilac ist ein Luxus-Zeltcamp knapp außerhalb des Mikumi-Nationalparks, 2 km von der Hauptstraße entfernt, mit Blick auf den Bergkamm der Mikumi-Berge. Luxuszelte aus Segeltuch und zwei reetgedeckte Cabins, jede Unterkunft mit eigenem Bad, Klimaanlage und privater Terrasse; ein Restaurant mit dem einzigen Bergblick in ganz Mikumi; Impalas und Warzenschweine, die durchs Camp spazieren. Sehen Sie sich <a href={L('/rooms')}>die Luxuszelte und Cabins</a> an.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--tight">
-    <div class="wrap">
-      <p class="label rv">Auf Ihren Pirschfahrten</p>
-      <h2 class="rv rv-d1" style="margin-bottom:32px">Was Sie in Mikumi sehen werden</h2>
-      <div class="wild-grid">
-        <div class="rv rv-d0"><Photo src="/images/wild/elephants-walk-1600.jpg" alt="Eine Elefantenfamilie zieht in einer Reihe durch Mikumi" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
-        <div class="rv rv-d1"><Photo src="/images/wild/giraffes-dusk-1600.jpg" alt="Giraffen in der Abenddämmerung im Mikumi-Nationalpark" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
-        <div class="rv rv-d2"><Photo src="/images/wild/lions-tree-1600.jpg" alt="Löwen schlafen unter einem Baum in Mikumi" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
-        <div class="rv rv-d3"><Photo src="/images/wild/zebras-hills-1600.jpg" alt="Zebras grasen vor den Hügeln von Mikumi" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
-        <div class="rv rv-d0"><Photo src="/images/wild/hippo-calf-1600.jpg" alt="Ein Flusspferdkalb ruht auf seiner Mutter in einem Tümpel in Mikumi" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
-        <div class="rv rv-d1"><Photo src="/images/wild/buffalo-herd-1600.jpg" alt="Eine Herde Kaffernbüffel in Mikumi" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
-      </div>
-      <p class="meta" style="margin-top:14px;font-size:0.75rem">Tippen Sie auf ein Foto, um es in voller Größe zu sehen · <a href="/mikumi-national-park#photo-credits">Bildnachweise</a> (auf Englisch)</p>
-    </div>
-  </section>
+  <Wildlife label="Auf Ihren Pirschfahrten" title="Was Sie in Mikumi sehen werden" pick={['elephants-walk', 'giraffes-dusk', 'lions-tree', 'zebras-hills', 'hippo-calf', 'buffalo-herd']} />
 
   <section class="section on-dark band">
     <div class="wrap">

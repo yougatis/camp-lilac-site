@@ -1,0 +1,21 @@
+---
+// German version of components/CtaBand.astro.
+import { site } from '../../../data/site';
+import { L } from '../../../data/i18n-de';
+interface Props { title?: string; text?: string; book?: string }
+const {
+  title = 'Abendessen vor dem Bergkamm der Mikumi-Berge. Danach nur noch der Busch.',
+  text = 'Nennen Sie uns Ihre Reisedaten und wer mitkommt. Wir antworten noch am selben Tag mit Verfügbarkeit, Gesamtpreis und einem Safari-Vorschlag.',
+  book = L('/book'),
+} = Astro.props;
+---
+<section class="section on-dark band">
+  <div class="wrap">
+    <h2 class="rv">{title}</h2>
+    <p class="lead rv rv-d1">{text}</p>
+    <div class="btn-row rv rv-d2">
+      <a class="btn btn--fill" href={book}>Aufenthalt planen</a>
+      <a class="btn btn--light" href={site.whatsapp} rel="noopener">WhatsApp {site.phoneDisplay}</a>
+    </div>
+  </div>
+</section>

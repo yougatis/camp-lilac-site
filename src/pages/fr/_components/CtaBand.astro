@@ -1,0 +1,17 @@
+---
+// French version of src/components/CtaBand.astro.
+import { site } from '../../../data/site';
+import { lf } from '../../../data/i18n-fr';
+interface Props { title?: string; text?: string; href?: string }
+const { title = 'Un dîner face aux monts Mikumi. Puis seulement la brousse.', text = 'Dites-nous vos dates et qui vient. Nous répondons dans la journée avec les disponibilités, le prix total et une suggestion de safari.', href = lf('/book') } = Astro.props;
+---
+<section class="section on-dark band">
+  <div class="wrap">
+    <h2 class="rv">{title}</h2>
+    <p class="lead rv rv-d1">{text}</p>
+    <div class="btn-row rv rv-d2">
+      <a class="btn btn--fill" href={href}>Préparer votre séjour</a>
+      <a class="btn btn--light" href={site.whatsapp} rel="noopener">WhatsApp {site.phoneDisplay}</a>
+    </div>
+  </div>
+</section>

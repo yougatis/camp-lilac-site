@@ -1,24 +1,18 @@
 ---
 // French version of /safari-from-zanzibar. Hand-written; ask a French speaker to read it once before promoting it.
 import Base from '../../layouts/Base.astro';
-import Crumbs from '../../components/Crumbs.astro';
+import Crumbs from './_components/Crumbs.astro';
 import Photo from '../../components/Photo.astro';
 import { safariBySlug } from '../../data/safaris';
 import { site } from '../../data/site';
 import { offersActive } from '../../data/offers';
+import { frSafari, lf, EN } from '../../data/i18n-fr';
 
 const title = 'Safari depuis Zanzibar : 2–3 jours à Mikumi | Camp Lilac';
 const description =
   'Un vrai safari depuis Zanzibar en 2 ou 3 jours : ferry ou vol vers Dar es Salaam, train SGR, notre transfert, tente de luxe face aux monts Mikumi. Prix.';
-const crumbs = [{ name: 'Safaris', href: '/safaris' }, { name: 'Safari depuis Zanzibar', href: '/fr/safari-depuis-zanzibar' }];
-const alternates = [
-  { lang: 'en', href: '/safari-from-zanzibar' },
-  { lang: 'it', href: '/it/safari-da-zanzibar' },
-  { lang: 'fr', href: '/fr/safari-depuis-zanzibar' },
-  { lang: 'de', href: '/de/safari-ab-sansibar' },
-  { lang: 'es', href: '/es/safari-desde-zanzibar' },
-];
-const s2 = safariBySlug('2-day-mikumi-safari')!, s3 = safariBySlug('3-day-mikumi-safari')!, s4 = safariBySlug('4-day-mikumi-udzungwa-safari')!;
+const crumbs = [{ name: 'Safaris', href: lf('/safaris') }, { name: 'Safari depuis Zanzibar', href: lf('/safari-from-zanzibar') }];
+const s2 = frSafari(safariBySlug('2-day-mikumi-safari')!), s3 = frSafari(safariBySlug('3-day-mikumi-safari')!), s4 = frSafari(safariBySlug('4-day-mikumi-udzungwa-safari')!);
 const replyHours = site.replyTime.match(/\d+/)?.[0] ?? '4';
 const wa = `${site.whatsapp}?text=${encodeURIComponent('Bonjour, nous sommes à Zanzibar et aimerions des informations sur le safari à Mikumi de 2 ou 3 jours. Nous sommes ... personnes, dates : ...')}`;
 
@@ -38,7 +32,7 @@ const schema = {
 };
 ---
 
-<Base {title} {description} {schema} lang="fr" {alternates} ogImage="/images/wild/elephants-plain-1600.jpg" breadcrumbs={crumbs} dark>
+<Base {title} {description} {schema} lang="fr" ogImage="/images/wild/elephants-plain-1600.jpg" breadcrumbs={crumbs} dark>
   <section class="hero hero--inner">
     <div class="hero-media"><img src="/images/wild/elephants-plain-1600.webp" srcset="/images/wild/elephants-plain-800.webp 800w, /images/wild/elephants-plain-1200.webp 1200w, /images/wild/elephants-plain-1600.webp 1600w" sizes="100vw" alt="Éléphants sur la plaine du Mkata dans le parc national de Mikumi, avec les monts Mikumi en arrière-plan" width="1600" height="1067" fetchpriority="high" /></div>
     <div class="wrap hero-content">
@@ -54,7 +48,7 @@ const schema = {
   <section class="section section--tight">
     <div class="wrap split--aside" style="display:grid">
       <article class="article">
-        <p class="meta"><a href="/safari-from-zanzibar">Lire cette page en anglais</a> · Nos autres pages en français : <a href="/fr/safaris-mikumi">Safaris Mikumi</a> · <a href="/fr/tentes-et-cabines">Tentes et cabines</a> · <a href="/fr/comment-venir">Comment venir</a></p>
+        <p class="meta"><a href="/safari-from-zanzibar">Lire cette page en anglais</a> · À lire aussi : <a href={lf('/safaris')}>Safaris Mikumi</a> · <a href={lf('/safari-from-dar-es-salaam')}>Safari depuis Dar es Salaam</a> · <a href={lf('/rooms')}>Tentes de luxe et cabines</a> · <a href={lf('/getting-here')}>Comment venir</a></p>
         <h2>Pourquoi Mikumi est le bon safari depuis Zanzibar</h2>
         <p>
           Presque toutes les offres de « safari depuis Zanzibar » sont des excursions à la journée : réveil à quatre heures, vol vers le Selous (Nyerere) ou Mikumi, quelques heures en voiture et retour en avion le soir même. C’est fatigant, cher, et vous ratez les deux meilleures heures de n’importe quel safari, l’aube et le crépuscule. L’alternative, c’est une courte escapade sur le continent. Mikumi se trouve sur la ligne de chemin de fer principale au départ de Dar es Salaam, sa plaine ouverte permet de voir les animaux en peu de temps, les droits d’entrée sont parmi les plus bas de Tanzanie et Camp Lilac est à quelques minutes de la porte du parc. Vous dormez dans la brousse, vous sortez aux premières lueurs et le lendemain soir vous êtes de retour à la plage — ou le surlendemain, si vous suivez notre conseil et restez deux nuits.
@@ -77,9 +71,9 @@ const schema = {
         <table>
           <thead><tr><th scope="col">Formule</th><th scope="col">Par personne</th><th scope="col">Pour qui</th></tr></thead>
           <tbody>
-            <tr><th scope="row"><a href={`/safaris/${s2.slug}`}>Safari Mikumi 2 jours, 1 nuit</a> <span class="meta">(en anglais)</span></th><td>À partir de US${s2.price}</td><td>Un premier safari en s’éloignant de l’île le moins longtemps possible</td></tr>
-            <tr><th scope="row"><a href={`/safaris/${s3.slug}`}>Safari Mikumi 3 jours, 2 nuits</a></th><td>À partir de US${s3.price}</td><td>Notre conseil : une journée entière dans le parc, un rythme détendu, deux nuits dans la brousse</td></tr>
-            <tr><th scope="row"><a href={`/safaris/${s4.slug}`}>Mikumi et cascades d’Udzungwa, 4 jours, 3 nuits</a></th><td>À partir de US${s4.price}</td><td>La faune, plus la randonnée jusqu’à la cascade dans la forêt tropicale des monts Udzungwa</td></tr>
+            <tr><th scope="row"><a href={lf(`/safaris/${s2.slug}`)}>{s2.name}</a></th><td>À partir de US${s2.price}</td><td>Un premier safari en s’éloignant de l’île le moins longtemps possible</td></tr>
+            <tr><th scope="row"><a href={lf(`/safaris/${s3.slug}`)}>{s3.name}</a></th><td>À partir de US${s3.price}</td><td>Notre conseil : une journée entière dans le parc, un rythme détendu, deux nuits dans la brousse</td></tr>
+            <tr><th scope="row"><a href={lf(`/safaris/${s4.slug}`)}>{s4.name}</a></th><td>À partir de US${s4.price}</td><td>La faune, plus la randonnée jusqu’à la cascade dans la forêt tropicale des monts Udzungwa</td></tr>
           </tbody>
         </table>
         <p>
@@ -111,7 +105,7 @@ const schema = {
         <div class="faq">
           {faqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
         </div>
-        <p style="margin-top:28px">Pour aller plus loin, en anglais : <a href="/safari-from-zanzibar">la version anglaise de cette page</a> · <a href="/blog/mikumi-safari-cost">combien coûte un safari à Mikumi</a> · <a href="/mikumi-national-park">le guide du parc national de Mikumi</a>. En français : <a href="/fr/tentes-et-cabines">nos tentes de luxe et cabines</a> · <a href="/fr/comment-venir">comment venir</a>.</p>
+        <p style="margin-top:28px">Pour aller plus loin, en anglais : <a href="/safari-from-zanzibar">la version anglaise de cette page</a> · <a href="/blog/mikumi-safari-cost">combien coûte un safari à Mikumi</a> · <a href="/mikumi-national-park">le guide du parc national de Mikumi</a>. En français : <a href={lf('/rooms')}>nos tentes de luxe et cabines</a> · <a href={lf('/getting-here')}>comment venir</a>.</p>
       </article>
 
       <aside class="aside">
@@ -124,7 +118,7 @@ const schema = {
           <li>Nous réservons ferries, vols et trains</li>
         </ul>
         <a class="btn btn--fill" href={wa} rel="noopener">Écrivez-nous sur WhatsApp</a>
-        <p style="margin-top:12px;font-size:0.9rem">ou <a href={`/book?safari=${s2.slug}`}>remplissez le formulaire de demande</a> (en anglais). Réponse en général sous {replyHours} heures dans la journée.</p>
+        <p style="margin-top:12px;font-size:0.9rem">ou <a href={lf(`/book?safari=${s2.slug}`)}>remplissez le formulaire de demande</a>. Réponse en général sous {replyHours} heures dans la journée.</p>
       </aside>
     </div>
   </section>
@@ -137,7 +131,7 @@ const schema = {
         </div>
         <div>
           <h2 class="rv">Où vous dormez</h2>
-          <p class="rv rv-d1">Camp Lilac est un camp de tentes de luxe situé juste à l’extérieur du parc national de Mikumi, à 2 km de la route principale, face à la chaîne des monts Mikumi. Des tentes de luxe en toile et deux cabines au toit de chaume, chacune avec salle de bain privée, climatisation et terrasse privée ; un restaurant avec la seule vue sur les monts de tout Mikumi ; des impalas et des phacochères qui traversent le camp. Découvrez <a href="/fr/tentes-et-cabines">les tentes de luxe et les cabines</a>.</p>
+          <p class="rv rv-d1">Camp Lilac est un camp de tentes de luxe situé juste à l’extérieur du parc national de Mikumi, à 2 km de la route principale, face à la chaîne des monts Mikumi. Des tentes de luxe en toile et deux cabines au toit de chaume, chacune avec salle de bain privée, climatisation et terrasse privée ; un restaurant avec la seule vue sur les monts de tout Mikumi ; des impalas et des phacochères qui traversent le camp. Découvrez <a href={lf('/rooms')}>les tentes de luxe et les cabines</a>.</p>
         </div>
       </div>
     </div>
@@ -155,7 +149,7 @@ const schema = {
         <div class="rv rv-d0"><Photo src="/images/wild/hippo-calf-1600.jpg" alt="Un bébé hippopotame posé sur sa mère dans une mare de Mikumi" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
         <div class="rv rv-d1"><Photo src="/images/wild/buffalo-herd-1600.jpg" alt="Un troupeau de buffles d’Afrique à Mikumi" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
       </div>
-      <p class="meta" style="margin-top:14px;font-size:0.75rem">Touchez une photo pour la voir en grand · <a href="/mikumi-national-park#photo-credits">Crédits photo</a> (en anglais)</p>
+      <p class="meta" style="margin-top:14px;font-size:0.75rem">Touchez une photo pour la voir en grand · <a href="/mikumi-national-park#photo-credits">Crédits photo</a>{EN}</p>
     </div>
   </section>
 

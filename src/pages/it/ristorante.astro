@@ -1,0 +1,66 @@
+---
+// Italian version of /restaurant. Hand-written; ask an Italian speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import Crumbs from './_Crumbs.astro';
+import CtaBand from './_CtaBand.astro';
+import { site } from '../../data/site';
+import { L } from '../../data/i18n-it';
+
+const title = 'Ristorante e bar con vista sui monti a Mikumi | Camp Lilac';
+const description =
+  'Il ristorante di Camp Lilac guarda i monti Mikumi. Colazione e cena incluse prenotando direttamente, pranzo US$15: cucina tanzaniana e internazionale.';
+const crumbs = [{ name: 'Ristorante e bar', href: L('/restaurant') }];
+const wa = `${site.whatsapp}?text=${encodeURIComponent('Buongiorno! Vorremmo pranzare/cenare da voi il giorno ... alle ..., siamo in ... persone.')}`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  '@id': `${site.url}/restaurant#restaurant`,
+  name: 'Camp Lilac Restaurant & Bar',
+  url: `${site.url}/restaurant`, // same entity as on the English page
+  image: `${site.url}/images/rooms/restaurant-dusk-2000.jpg`,
+  telephone: site.phoneE164,
+  email: site.email,
+  address: { '@type': 'PostalAddress', ...site.address },
+  geo: { '@type': 'GeoCoordinates', ...site.geo },
+  servesCuisine: ['Tanzanian', 'International'],
+  priceRange: 'US$15 per meal',
+  acceptsReservations: 'True',
+  containedInPlace: { '@id': `${site.url}/#camp` },
+  parentOrganization: { '@id': `${site.url}/#camp` },
+};
+---
+<Base {title} {description} {schema} lang="it" breadcrumbs={crumbs} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src="/images/rooms/restaurant-dusk-1600.webp" srcset="/images/rooms/restaurant-dusk-800.webp 800w, /images/rooms/restaurant-dusk-1200.webp 1200w, /images/rooms/restaurant-dusk-1600.webp 1600w, /images/rooms/restaurant-dusk-2000.webp 2000w" sizes="100vw" alt="Il ristorante di Camp Lilac al crepuscolo, affacciato sulla catena dei monti Mikumi" width="2000" height="1365" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <Crumbs items={crumbs} />
+        <h1><span class="w"><span>Ogni pasto con&nbsp;</span></span><span class="w"><em style="color:#e4d9f7">la vista</em></span></h1>
+        <p class="lead">Il nostro ristorante e il bar guardano dritto verso la catena dei monti Mikumi. È qui che il campo si ritrova al tramonto, ed è l’unica sala da pranzo di Mikumi con questa vista.</p>
+      </div>
+      <div class="hero-side"><b>Colazione e cena</b>incluse se prenotate<br />direttamente con noi</div>
+    </div>
+  </section>
+  <section class="section section--tight">
+    <div class="wrap split--aside" style="display:grid">
+      <article class="article">
+        <h2>Colazione e cena incluse</h2>
+        <p>Se prenotate direttamente con noi, colazione e cena sono comprese nella tariffa. A colazione trovate frutta fresca, uova come le preferite, chapati e mandazi tanzaniani, buon caffè e tè. Safari di prima mattina? La serviamo prima dell’alba.</p>
+        <h2>Pranzo, cena e pasti in safari</h2>
+        <p>Pranzo e cena si cucinano freschi ogni giorno: piatti tanzaniani (nyama choma, pilau, pesce al cocco, ugali con verdure) e classici internazionali, con opzioni vegetariane sempre disponibili. I pasti si pagano a persona e a pasto; segnalateci allergie o esigenze alimentari quando prenotate. I bambini sotto i 4 anni non pagano e dai 4 agli 11 anni pagano la metà; i pasti dei bambini si pagano a pasto. Il pranzo, o qualsiasi pasto in più, costa US$15 a persona. Se avete uno dei nostri pacchetti safari, tutti i pasti sono inclusi: pensione completa, con pranzo al sacco nel parco.</p>
+        <h2>Il bar</h2>
+        <p>Birre Kilimanjaro e Serengeti ghiacciate, il Konyagi tanzaniano, una piccola carta dei vini, bibite e succhi freschi. La terrazza del bar è il posto per il tramonto. Qui c’è il Wi-Fi (le tende di lusso sono volutamente senza connessione).</p>
+        <h2>Aperitivo al tramonto e serate</h2>
+        <p>I game drive finiscono con la luce, e la terrazza del bar guarda a ovest: quasi tutte le sere iniziano con un drink mentre il sole scende dietro la catena dei monti Mikumi. La cena è di tre portate e si serve quando siete pronti, senza orari fissi; nelle notti serene le uniche luci sono quelle del campo e le stelle. Nei giorni di safari la colazione è presto: dite l’orario alla vostra guida e la cucina è pronta prima dell’alba.</p>
+        <h2>Non alloggiate da noi?</h2>
+        <p>Chi è in safari e chi attraversa Mikumi sulla strada principale è il benvenuto a pranzo o a cena con vista: <a href={wa} rel="noopener">scriveteci su WhatsApp</a> in anticipo, così la cucina si organizza. Se state pensando a un soggiorno, guardate le <a href={L('/rooms')}>tende di lusso e le cabin</a> e i nostri <a href={L('/safaris')}>pacchetti safari</a>, con tutti i pasti inclusi.</p>
+      </article>
+      <aside class="aside">
+        <h3>In breve</h3>
+        <ul><li>Colazione e cena incluse (prenotazione diretta)</li><li>Pranzo o pasti in più US$15 a persona</li><li>Tutti i pasti inclusi nei pacchetti safari</li><li>Bevande da pagare al bar</li><li>Opzioni vegetariane ogni giorno</li><li>Bar completo, Wi-Fi</li><li>Vista sulla catena dei monti Mikumi da ogni tavolo</li></ul>
+        <a class="btn btn--fill" href={L('/book')}>Prenotate un soggiorno</a>
+      </aside>
+    </div>
+  </section>
+  <CtaBand title="Cena con vista sulla catena dei monti Mikumi" />
+</Base>

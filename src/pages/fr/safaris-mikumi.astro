@@ -2,60 +2,30 @@
 // French version of /safaris (safari packages overview). Hand-written; ask a French speaker to read it once before promoting it.
 import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
-import Crumbs from '../../components/Crumbs.astro';
+import Crumbs from './_components/Crumbs.astro';
 import { safaris } from '../../data/safaris';
 import { site } from '../../data/site';
 import { offersActive } from '../../data/offers';
+import { frSafari, lf, EN } from '../../data/i18n-fr';
 
 const title = 'Safaris à Mikumi : formules et prix | Camp Lilac';
 const description =
   'Safaris dans le parc national de Mikumi avec nos propres guides et 4×4 : journée, 2 et 3 jours en train SGR depuis Dar es Salaam, 4 jours Mikumi et Udzungwa.';
-const crumbs = [{ name: 'Safaris Mikumi', href: '/fr/safaris-mikumi' }];
-const alternates = [
-  { lang: 'en', href: '/safaris' },
-  { lang: 'it', href: '/it/safari-mikumi' },
-  { lang: 'fr', href: '/fr/safaris-mikumi' },
-  { lang: 'de', href: '/de/mikumi-safaris' },
-  { lang: 'es', href: '/es/safaris-mikumi' },
-];
+const crumbs = [{ name: 'Safaris Mikumi', href: lf('/safaris') }];
 const replyHours = site.replyTime.match(/\d+/)?.[0] ?? '4';
 const wa = `${site.whatsapp}?text=${encodeURIComponent('Bonjour, nous aimerions des informations sur un safari à Mikumi. Nous sommes ... personnes, dates : ..., départ de ...')}`;
 
-// French wording per package; prices, days and slugs always come from src/data/safaris.ts.
-const fr: Record<string, { name: string; bestFor: string; summary: string }> = {
-  '1-day-mikumi-safari': {
-    name: 'Safari Mikumi à la journée',
-    bestFor: 'Excursions depuis Morogoro ou Dar es Salaam, et hôtes qui ne restent qu’une nuit',
-    summary: 'Une journée entière dans le parc national de Mikumi en 4×4 privé à toit ouvrant avec l’un de nos guides : game drive le matin, déjeuner chaud dans la brousse, sortie l’après-midi jusqu’à 16:30. Depuis Morogoro, depuis le camp, ou dans la journée depuis Dar es Salaam en train SGR.',
-  },
-  '2-day-mikumi-safari': {
-    name: 'Safari Mikumi 2 jours, 1 nuit',
-    bestFor: 'Le safari du week-end depuis Dar es Salaam et Zanzibar',
-    summary: 'Le grand classique du week-end depuis Dar es Salaam : train SGR jusqu’à Morogoro, deux jours de game drives en 4×4 privé à toit ouvrant, et une nuit en tente de luxe à Camp Lilac. Retour à Dar es Salaam le deuxième soir.',
-  },
-  '3-day-mikumi-safari': {
-    name: 'Safari Mikumi 3 jours, 2 nuits',
-    bestFor: 'Voyageurs qui veulent voir tout le parc sans se presser',
-    summary: 'Trois jours, deux nuits : train SGR depuis Dar es Salaam, game drive au coucher du soleil le jour de l’arrivée, une journée entière sur la plaine de Mikumi, et une dernière traversée du parc sur le chemin du retour. Deux nuits en tente de luxe à Camp Lilac.',
-  },
-  '4-day-mikumi-udzungwa-safari': {
-    name: 'Safari Mikumi et cascades d’Udzungwa, 4 jours, 3 nuits',
-    bestFor: 'Voyageurs actifs et familles avec de grands enfants',
-    summary: 'La faune et la forêt tropicale en un seul voyage : visite d’un boma massaï, une journée entière de game drives à Mikumi, la randonnée de cinq heures jusqu’à la cascade de Sanje dans les monts Udzungwa, et trois nuits à Camp Lilac.',
-  },
-};
-const jours = (n: number) => (n === 1 ? '1 jour' : `${n} jours`);
 
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'Formules de safari à Mikumi',
   inLanguage: 'fr',
-  itemListElement: safaris.map((s, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}/safaris/${s.slug}`, name: fr[s.slug]?.name ?? s.name })),
+  itemListElement: safaris.map((s, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}${lf(`/safaris/${s.slug}`)}`, name: frSafari(s).name })),
 };
 ---
 
-<Base {title} {description} {schema} lang="fr" {alternates} breadcrumbs={crumbs} dark>
+<Base {title} {description} {schema} lang="fr" breadcrumbs={crumbs} dark>
   <section class="hero hero--inner">
     <div class="hero-media"><img src="/images/wild/safari-hero-1600.webp" srcset="/images/wild/safari-hero-800.webp 800w, /images/wild/safari-hero-1200.webp 1200w, /images/wild/safari-hero-1600.webp 1600w" sizes="100vw" alt="Un 4×4 de safari Camp Lilac avec ses passagers au milieu des zèbres" width="1536" height="1024" fetchpriority="high" /></div>
     <div class="wrap hero-content">
@@ -70,25 +40,25 @@ const schema = {
 
   <section class="section section--tight">
     <div class="wrap">
-      <p class="meta"><a href="/safaris">Lire cette page en anglais</a> · Nos autres pages en français : <a href="/fr/safari-depuis-zanzibar">Safari depuis Zanzibar</a> · <a href="/fr/tentes-et-cabines">Tentes et cabines</a> · <a href="/fr/comment-venir">Comment venir</a></p>
+      <p class="meta"><a href="/safaris">Lire cette page en anglais</a> · À lire aussi : <a href={lf('/safari-from-dar-es-salaam')}>Safari depuis Dar es Salaam</a> · <a href={lf('/safari-from-zanzibar')}>Safari depuis Zanzibar</a> · <a href={lf('/rooms')}>Tentes de luxe et cabines</a> · <a href={lf('/getting-here')}>Comment venir</a></p>
     </div>
   </section>
 
   <section class="section" style="padding-top:0">
     <div class="wrap">
       <ul class="room-rows">
-        {safaris.map((s) => (
+        {safaris.map((safari) => { const s = frSafari(safari); return (
           <li class="room-row">
-            <a class="room-row-media rv" href={`/safaris/${s.slug}`}><Photo src={s.image} alt={`${fr[s.slug]?.name ?? s.name} — photo d’illustration de la faune de Mikumi`} caption={jours(s.days)} /></a>
+            <a class="room-row-media rv" href={lf(`/safaris/${s.slug}`)}><Photo src={s.image} alt={s.imageAlt} caption={s.daysText} /></a>
             <div>
-              <h2 class="rv"><a href={`/safaris/${s.slug}`} style="color:inherit">{fr[s.slug]?.name ?? s.name}</a></h2>
-              <p class="meta rv rv-d1">{jours(s.days)} · {fr[s.slug]?.bestFor ?? s.bestFor}</p>
+              <h2 class="rv"><a href={lf(`/safaris/${s.slug}`)} style="color:inherit">{s.name}</a></h2>
+              <p class="meta rv rv-d1">{s.daysText} · {s.bestFor}</p>
               <p class="price rv rv-d1">{s.price ? <span>À partir de US${s.price} <small>par personne</small></span> : <span>Tarif sur demande</span>}</p>
-              <p>{fr[s.slug]?.summary ?? s.summary}</p>
-              <a class="link rv rv-d2" href={`/safaris/${s.slug}`}>Itinéraire détaillé et prestations incluses (en anglais)</a>
+              <p>{s.summary}</p>
+              <a class="link rv rv-d2" href={lf(`/safaris/${s.slug}`)}>Itinéraire détaillé et prestations comprises</a>
             </div>
           </li>
-        ))}
+        ); })}
       </ul>
       <p style="margin-top:28px">
         Les prix s’entendent par personne, à partir de deux personnes voyageant ensemble, et comprennent les droits d’entrée au parc, un 4×4 privé à toit ouvrant avec l’un de nos guides, les repas indiqués jour par jour et les nuits à Camp Lilac en tente de luxe ou en cabine. Les billets de train SGR et le transfert retour vers la gare de Morogoro sont en sus ; nous les organisons pour vous. Les enfants de moins de 4 ans ne paient pas, ceux de 4 à 11 ans paient moitié prix, à partir de 12 ans tarif adulte ; les enfants de moins de 2 ans ne peuvent pas participer aux game drives.
@@ -105,14 +75,14 @@ const schema = {
           Le parc national de Mikumi est le grand parc le plus proche de Dar es Salaam et le plus simple à rejoindre depuis Zanzibar. Il fait partie de l’écosystème du Nyerere (Selous) et abrite éléphants, lions, girafes, zèbres, buffles, hippopotames et plus de 400 espèces d’oiseaux, sur une plaine ouverte où les animaux se laissent voir facilement. Pas de foule : la plupart du temps, vous êtes seuls devant l’animal.
         </p>
         <p>
-          Les droits d’entrée sont parmi les plus bas de Tanzanie et, comme le camp est à quelques minutes de la porte du parc, vous passez votre temps dans le parc et non sur la route pour y aller. Le déroulé complet depuis Zanzibar est sur notre page <a href="/fr/safari-depuis-zanzibar">safari depuis Zanzibar</a>, et tous les trajets sur <a href="/fr/comment-venir">comment venir</a>. En anglais : <a href="/mikumi-national-park">le guide complet de Mikumi</a>, <a href="/safari-from-dar-es-salaam">le safari depuis Dar es Salaam</a> et <a href="/blog/mikumi-safari-cost">combien coûte un safari à Mikumi</a>.
+          Les droits d’entrée sont parmi les plus bas de Tanzanie et, comme le camp est à quelques minutes de la porte du parc, vous passez votre temps dans le parc et non sur la route pour y aller. Le déroulé complet depuis Zanzibar est sur notre page <a href={lf('/safari-from-zanzibar')}>safari depuis Zanzibar</a>, et tous les trajets sur <a href={lf('/getting-here')}>comment venir</a>. Depuis Dar es Salaam : <a href={lf('/safari-from-dar-es-salaam')}>le safari depuis Dar es Salaam</a>. En anglais : <a href="/mikumi-national-park">le guide complet de Mikumi</a> et <a href="/blog/mikumi-safari-cost">combien coûte un safari à Mikumi</a>.
         </p>
       </div>
       <aside class="aside">
         <h3>Itinéraires sur mesure</h3>
         <p>Vous continuez vers Ruaha, Iringa ou Udzungwa ? Vous venez de Zanzibar ? Dites-nous votre parcours et nous construisons le safari autour. Réponse en général sous {replyHours} heures dans la journée.</p>
         <a class="btn btn--fill" href={wa} rel="noopener">Écrivez-nous sur WhatsApp</a>
-        <p style="margin-top:12px;font-size:0.9rem">ou <a href="/book">remplissez le formulaire de demande</a> (en anglais)</p>
+        <p style="margin-top:12px;font-size:0.9rem">ou <a href={lf('/book')}>remplissez le formulaire de demande</a></p>
       </aside>
     </div>
   </section>
@@ -129,7 +99,7 @@ const schema = {
         <div class="rv rv-d0"><Photo src="/images/wild/zebra-line-1600.jpg" alt="Une file de zèbres traversant les herbes dorées" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
         <div class="rv rv-d1"><Photo src="/images/wild/buffalo-herd-1600.jpg" alt="Un troupeau de buffles d’Afrique" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
       </div>
-      <p class="meta" style="margin-top:14px;font-size:0.75rem">Touchez une photo pour la voir en grand · <a href="/mikumi-national-park#photo-credits">Crédits photo</a> (en anglais)</p>
+      <p class="meta" style="margin-top:14px;font-size:0.75rem">Touchez une photo pour la voir en grand · <a href="/mikumi-national-park#photo-credits">Crédits photo</a>{EN}</p>
     </div>
   </section>
 
@@ -140,23 +110,23 @@ const schema = {
         <p class="rv rv-d1">Chaque safari peut commencer à Dar es Salaam ou à Zanzibar. Choisissez votre façon de voyager et nous nous occupons de tout le trajet : billets, accueil et transferts.</p>
         <div class="travel-grid">
           <div class="travel-item rv rv-d0">
-            <h3><a href="/fr/comment-venir#train" style="color:inherit">Depuis Dar es Salaam en train SGR</a><span class="tag">Recommandé</span></h3>
+            <h3><a href={lf('/safari-from-dar-es-salaam')} style="color:inherit">Depuis Dar es Salaam en train SGR</a><span class="tag">Recommandé</span></h3>
             <p>Train du matin jusqu’à Morogoro (1,5 h). Notre chauffeur vous attend sur le quai et vous conduit en 2 h jusqu’à Mikumi, soit environ 3,5 h en tout.</p>
           </div>
           <div class="travel-item rv rv-d1">
-            <h3><a href="/fr/comment-venir#route" style="color:inherit">Depuis Dar es Salaam en voiture</a></h3>
+            <h3><a href={lf('/getting-here#road')} style="color:inherit">Depuis Dar es Salaam en voiture</a></h3>
             <p>Une voiture privée depuis votre hôtel ou l’aéroport, porte à porte. Par rapport au train, c’est plus cher, plus long (7 à 8 h au lieu d’environ 3,5 h) et bien plus fatigant ; nous ne le proposons que si les horaires de train ne conviennent pas.</p>
           </div>
           <div class="travel-item rv rv-d2">
-            <h3><a href="/fr/safari-depuis-zanzibar" style="color:inherit">Depuis Zanzibar en ferry</a></h3>
+            <h3><a href={lf('/safari-from-zanzibar')} style="color:inherit">Depuis Zanzibar en ferry</a></h3>
             <p>Ferry rapide de Stone Town à Dar es Salaam (environ 2 h). Nous vous accueillons au terminal des ferries et vous emmenons ensuite en train ou en voiture.</p>
           </div>
           <div class="travel-item rv rv-d3">
-            <h3><a href="/fr/safari-depuis-zanzibar#vol" style="color:inherit">Depuis Zanzibar en avion</a></h3>
+            <h3><a href={lf('/safari-from-zanzibar#flight')} style="color:inherit">Depuis Zanzibar en avion</a></h3>
             <p>Un vol court jusqu’à Dar es Salaam, puis le train ou la voiture avec nous, ou un petit avion directement jusqu’à la piste de Mikumi. Les vols coûtent 160 à 200 dollars par personne et par trajet selon le jour et la compagnie. Non inclus ; nous les réservons pour vous.</p>
           </div>
           <div class="travel-item rv rv-d3">
-            <h3><a href="/fr/comment-venir#sud" style="color:inherit">Déjà sur la route</a></h3>
+            <h3><a href={lf('/getting-here#south')} style="color:inherit">Déjà sur la route</a></h3>
             <p>Vous venez de Morogoro, d’Iringa, de Ruaha ou en bus ? Nous venons vous chercher à votre hôtel, à la gare de Morogoro ou dans la ville de Mikumi. Les voyageurs en voiture de location sont également les bienvenus.</p>
           </div>
         </div>

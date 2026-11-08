@@ -1,0 +1,120 @@
+---
+// Italian room pages: /it/tende-e-cabin/<english slug>. Same structure as src/pages/rooms/[slug].astro;
+// wording from src/data/i18n-it.ts, prices, photos and order from src/data/rooms.ts.
+import Base from '../../../layouts/Base.astro';
+import Photo from '../../../components/Photo.astro';
+import Crumbs from '../_Crumbs.astro';
+import CtaBand from '../_CtaBand.astro';
+import Price from '../_Price.astro';
+import { rooms, cover } from '../../../data/rooms';
+import { site } from '../../../data/site';
+import { offersActive } from '../../../data/offers';
+import { L, roomIt, MESE_ANNO } from '../../../data/i18n-it';
+
+export function getStaticPaths() {
+  return rooms.map((r) => ({ params: { slug: r.slug }, props: { room: r } }));
+}
+const { room } = Astro.props;
+const t = roomIt(room);
+// "Altri alloggi": the three that follow this one in the list (cyclic), as on the English page.
+const idx = rooms.findIndex((r) => r.slug === room.slug);
+const others = [1, 2, 3].map((n) => rooms[(idx + n) % rooms.length]);
+const imgBase = cover(room).replace(/-1600\.jpg$/, '');
+const url = L(`/rooms/${room.slug}`);
+const crumbs = [{ name: 'Tende di lusso e cabin', href: L('/rooms') }, { name: room.name, href: url }];
+const book = `${L('/book')}?room=${room.slug}`;
+const wa = `${site.whatsapp}?text=${encodeURIComponent(`Buongiorno! Vorremmo informazioni sulla ${room.name}. Siamo in ... persone, date: ...`)}`;
+
+const title = t.metaTitle;
+const trim = (s: string) => (s.length > 158 ? s.slice(0, 157).replace(/\s+\S*$/, '') + '…' : s);
+const withPrice = room.price ? `${t.metaDescription} Da US$${room.price} a notte.` : t.metaDescription;
+const description = withPrice.length <= 158 ? withPrice : trim(t.metaDescription);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'HotelRoom',
+  name: room.name,
+  description: t.summary,
+  inLanguage: 'it',
+  image: room.images.map((i) => new URL(i, site.url).href),
+  url: `${site.url}${url}`,
+  bed: { '@type': 'BedDetails', typeOfBed: t.bed },
+  occupancy: { '@type': 'QuantitativeValue', maxValue: room.slug === 'luxury-family-tent' ? 4 : 2 },
+  amenityFeature: t.highlights.map((h) => ({ '@type': 'LocationFeatureSpecification', name: h, value: true })),
+  containedInPlace: { '@id': `${site.url}/#camp` },
+  ...(room.price && { offers: { '@type': 'Offer', price: room.price, priceCurrency: 'USD', availability: 'https://schema.org/InStock', url: `${site.url}${book}`, priceSpecification: { '@type': 'UnitPriceSpecification', price: room.price, priceCurrency: 'USD', unitText: 'a notte, colazione e cena incluse' } } }),
+};
+---
+
+<Base {title} {description} {schema} lang="it" ogImage={cover(room)} breadcrumbs={crumbs} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src={`${imgBase}-1600.webp`} srcset={`${imgBase}-800.webp 800w, ${imgBase}-1200.webp 1200w, ${imgBase}-1600.webp 1600w`} sizes="100vw" alt={t.imageAlt} width="1600" height="1200" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <Crumbs items={crumbs} />
+        <p class="label">{room.numeral} · {t.kind}</p>
+        <h1><span class="w"><span>{room.name}</span></span></h1>
+        <p class="lead">{t.summary}</p>
+      </div>
+      <div class="hero-side"><b><Price price={room.price} /></b>{t.sleeps}<br />Colazione e cena incluse</div>
+    </div>
+  </section>
+
+  {room.images.length > 1 && (
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="gallery">
+          {room.images.slice(1).map((src, i) => <Photo src={src} alt={t.imageAlts[i + 1] ?? `${room.name} a Camp Lilac, Mikumi: foto ${i + 2} di ${room.images.length}`} ratio="landscape" />)}
+        </div>
+        <div class="gallery-foot">
+          <p class="gallery-hint">Trascinate o usate le frecce per vedere altre foto</p>
+          <div class="gallery-nav"><button class="prev" type="button" aria-label="Foto precedente">←</button><button class="next" type="button" aria-label="Foto successiva">→</button></div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--tight">
+    <div class="wrap split--aside" style="display:grid">
+      <div class="article">
+        {t.gloss && <p class="meta rv">{room.name}: {t.gloss}</p>}
+        {t.description.map((p, i) => <p class={`rv rv-d${Math.min(i, 2)}`}>{p}</p>)}
+        <h2 class="rv">{room.tier === 'tent' ? 'Nella tenda di lusso' : 'Nella cabin'}</h2>
+        <ul class="rv rv-d1">{t.highlights.map((h) => <li>{h}</li>)}</ul>
+        <h2 class="rv">Abbinatela a un safari</h2>
+        <p class="rv rv-d1">Le nostre guide fanno i game drive nel Parco Nazionale di Mikumi partendo direttamente dal campo, in una 4×4 privata con tetto apribile.{offersActive && <span data-offer> Prenotate con noi un safari di due o più giorni per {MESE_ANNO} e il transfer dalla stazione SGR di Morogoro è gratuito (con tre o quattro giorni vi paghiamo anche il biglietto del treno da Dar es Salaam). Prenotate solo l’alloggio? Allora il transfer è a pagamento.</span>} Guardate i <a href={L('/safaris')}>pacchetti safari</a>, oppure come funziona un soggiorno <a href={L('/safari-from-dar-es-salaam')}>da Dar es Salaam</a> e <a href={L('/safari-from-zanzibar')}>da Zanzibar</a>.</p>
+        <p class="rv rv-d1">I pasti si servono nel <a href={L('/restaurant')}>ristorante</a> di fronte alla catena dei monti Mikumi; colazione e cena sono incluse se prenotate direttamente con noi.</p>
+      </div>
+      <aside class="aside rv rv-d2">
+        <p class="aside-price"><Price price={room.price} /></p>
+        <ul>
+          <li>{t.sleeps}</li>
+          <li>{t.bed}</li>
+          <li>{room.units > 1 ? `${room.units} unità di questo tipo` : 'Una sola unità: prenotate per tempo'}</li>
+          <li>Bagno privato · aria condizionata · terrazza privata</li>
+          <li>Colazione e cena incluse · pranzo US$15 a persona</li>
+          <li>Check-in {site.checkIn} · check-out {site.checkOut}</li>
+        </ul>
+        <a class="btn btn--fill" href={book}>Richiedete questo alloggio</a>
+        <p style="margin:14px 0 0;font-size:0.9rem;text-align:center">oppure <a href={wa} style="border-bottom:1px solid var(--lilac)">scriveteci su WhatsApp</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="wrap">
+      <h2 class="rv" style="margin-bottom:40px">Altri alloggi</h2>
+      <div class="tiles tiles--3">
+        {others.map((r, i) => (
+          <a class={`tile rv rv-d${i}`} href={L(`/rooms/${r.slug}`)}>
+            <Photo src={cover(r)} alt={roomIt(r).imageAlt} caption={r.numeral} />
+            <h3>{r.name}</h3>
+            <p><Price price={r.price} /></p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title={`Prenotate la ${room.name}`} href={book} />
+</Base>

@@ -1,0 +1,25 @@
+---
+// Italian version of /thank-you (noindex). Same WhatsApp hand-off: the request text saved by the booking form.
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site';
+import { L, replyIt } from '../../data/i18n-it';
+---
+<Base title="Grazie – Camp Lilac" description="Abbiamo ricevuto la vostra richiesta e vi risponderemo a breve." lang="it" noindex>
+  <div class="wrap page-head" style="min-height:55vh">
+    <p class="label">Richiesta ricevuta</p>
+    <h1>Grazie, abbiamo ricevuto la vostra richiesta</h1>
+    <p class="lead">È nella nostra casella di posta. Rispondiamo {replyIt} con la disponibilità e un unico prezzo totale.</p>
+    <div class="wa-box">
+      <h2>Volete una risposta più rapida?</h2>
+      <p>Mandateci la stessa richiesta su WhatsApp. Il messaggio è già pronto: basta premere invio. È in inglese, così il nostro team la legge subito.</p>
+      <a class="btn btn--fill" id="wa-send" href={site.whatsapp} rel="noopener">Inviatela su WhatsApp</a>
+    </div>
+    <a class="link" href={L('/mikumi-national-park')}>Nell’attesa, leggete la guida a Mikumi (in inglese)</a>
+  </div>
+  <script is:inline define:vars={{ wa: site.whatsapp }}>
+    let text = '';
+    try { text = sessionStorage.getItem('cl-wa-text') || ''; } catch (e) {}
+    if (!text) text = 'Buongiorno Camp Lilac, ho appena inviato una richiesta di prenotazione dal vostro sito in italiano. (Hi Camp Lilac, I just sent a booking request on your Italian website.)';
+    document.getElementById('wa-send').href = wa + '?text=' + encodeURIComponent(text);
+  </script>
+</Base>

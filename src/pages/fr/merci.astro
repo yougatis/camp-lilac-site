@@ -1,0 +1,26 @@
+---
+// French version of /thank-you (noindex). Same WhatsApp hand-off: the request text saved by the form (in English, for the team).
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site';
+import { EN, frReply } from '../../data/i18n-fr';
+const fallback = 'Bonjour Camp Lilac, je viens d’envoyer une demande de réservation sur votre site. (Hi Camp Lilac, I just sent a booking request on your French website.)';
+---
+<Base title="Merci – Camp Lilac" description="Nous avons bien reçu votre demande et vous répondrons rapidement." lang="fr" noindex>
+  <div class="wrap page-head" style="min-height:55vh">
+    <p class="label">Demande reçue</p>
+    <h1>Merci, nous avons bien reçu votre demande</h1>
+    <p class="lead">Elle est dans notre boîte de réception. Nous répondons {frReply(site.replyTime)} avec les disponibilités et un seul prix total.</p>
+    <div class="wa-box">
+      <h2>Vous voulez une réponse plus rapide ?</h2>
+      <p>Envoyez-nous la même demande sur WhatsApp. Le message est déjà rédigé (en anglais, pour notre équipe) : il ne vous reste qu’à appuyer sur envoyer.</p>
+      <a class="btn btn--fill" id="wa-send" href={site.whatsapp} rel="noopener">L’envoyer sur WhatsApp</a>
+    </div>
+    <a class="link" href="/mikumi-national-park">En attendant, lisez notre guide de Mikumi{EN}</a>
+  </div>
+  <script is:inline define:vars={{ wa: site.whatsapp, fallback }}>
+    let text = '';
+    try { text = sessionStorage.getItem('cl-wa-text') || ''; } catch (e) {}
+    if (!text) text = fallback;
+    document.getElementById('wa-send').href = wa + '?text=' + encodeURIComponent(text);
+  </script>
+</Base>

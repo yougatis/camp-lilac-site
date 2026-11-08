@@ -1,0 +1,44 @@
+---
+// French version of src/components/Offers.astro: November deals while offersActive, book-direct benefits afterwards.
+import { offers, offersActive } from '../../../data/offers';
+import { offerFr, directBenefitsFr, offerTermsFr, lf, EN } from '../../../data/i18n-fr';
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+---
+{offersActive ? (
+  <section class={`section ${compact ? 'section--tight' : ''} section--sand`} data-offer>
+    <div class="wrap">
+      <p class="label rv" style="color:var(--lilac-deep);margin-bottom:12px">Offres safari de novembre · réservation directe</p>
+      <h2 class="rv" style="margin-bottom:36px">Deux offres safari pour <em>novembre</em></h2>
+      <div class="offers">
+        {offers.map((o, i) => (
+          <div class={`offer rv rv-d${i + 1}`}>
+            <p class="label" style="margin:0 0 10px">{offerFr[o.id]?.who ?? o.who}</p>
+            <h3>{offerFr[o.id]?.title ?? o.title}</h3>
+            <p class="worth">{offerFr[o.id]?.worth ?? o.worth}</p>
+            <p>{offerFr[o.id]?.text ?? o.text}</p>
+            <a class="btn btn--fill" href={lf(`/book?safari=${o.safari}&offer=${o.id}`)}>Profiter de cette offre</a>
+          </div>
+        ))}
+      </div>
+      <p class="rv" style="margin:24px 0 0;font-size:0.95rem">{offerTermsFr}</p>
+      <div class="btn-row rv rv-d3"><a class="link" href="/offers">Comment fonctionnent les offres</a><span class="meta">{EN}</span></div>
+    </div>
+  </section>
+) : (
+  <section class={`section ${compact ? 'section--tight' : ''} section--sand`}>
+    <div class="wrap">
+      <p class="label rv" style="color:var(--lilac-deep);margin-bottom:12px">Réservation directe</p>
+      <h2 class="rv" style="margin-bottom:36px">Ce que la réservation directe comprend <em>toujours</em></h2>
+      <div class="offers">
+        {directBenefitsFr.slice(0, 2).map((b, i) => (
+          <div class={`offer rv rv-d${i + 1}`}>
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+          </div>
+        ))}
+      </div>
+      <div class="btn-row rv rv-d3"><a class="link" href="/offers">Tous les avantages de la réservation directe</a><span class="meta">{EN}</span></div>
+    </div>
+  </section>
+)}

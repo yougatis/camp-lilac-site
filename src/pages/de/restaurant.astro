@@ -1,0 +1,50 @@
+---
+// German version of /restaurant. Hand-written; ask a German speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import Crumbs from './_parts/Crumbs.astro';
+import CtaBand from './_parts/CtaBand.astro';
+import { site } from '../../data/site';
+import { L } from '../../data/i18n-de';
+
+const title = 'Restaurant und Bar mit Bergblick in Mikumi | Camp Lilac';
+const description =
+  'Das Restaurant von Camp Lilac blickt auf den Bergkamm der Mikumi-Berge. Frühstück und Abendessen bei Direktbuchung inklusive, Mittagessen US$15, volle Bar.';
+const crumbs = [{ name: 'Restaurant und Bar', href: L('/restaurant') }];
+const schema = { '@context': 'https://schema.org', '@type': 'WebPage', url: `${site.url}${L('/restaurant')}`, name: title, description, inLanguage: 'de', about: { '@id': `${site.url}/restaurant#restaurant` } };
+const wa = `${site.whatsapp}?text=${encodeURIComponent('Guten Tag, wir möchten im Restaurant von Camp Lilac essen. Datum: ..., Personen: ...')}`;
+---
+<Base {title} {description} {schema} lang="de" breadcrumbs={crumbs} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src="/images/rooms/restaurant-dusk-1600.webp" srcset="/images/rooms/restaurant-dusk-800.webp 800w, /images/rooms/restaurant-dusk-1200.webp 1200w, /images/rooms/restaurant-dusk-1600.webp 1600w, /images/rooms/restaurant-dusk-2000.webp 2000w" sizes="100vw" alt="Das Restaurant von Camp Lilac in der Abenddämmerung mit Blick auf den Bergkamm der Mikumi-Berge" width="2000" height="1365" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <Crumbs items={crumbs} />
+        <h1><span class="w"><span>Jede Mahlzeit mit&nbsp;</span></span><span class="w"><em style="color:#e4d9f7">Aussicht</em></span></h1>
+        <p class="lead">Unser Restaurant und die Bar blicken direkt auf den Bergkamm der Mikumi-Berge. Hier trifft sich das Camp zum Sonnenuntergang, und es ist der einzige Speiseraum in Mikumi mit diesem Blick.</p>
+      </div>
+      <div class="hero-side"><b>Frühstück und Abendessen</b>inklusive, wenn Sie<br />direkt buchen</div>
+    </div>
+  </section>
+  <section class="section section--tight">
+    <div class="wrap split--aside" style="display:grid">
+      <article class="article">
+        <h2>Frühstück und Abendessen inklusive</h2>
+        <p>Wenn Sie direkt bei uns buchen, sind Frühstück und Abendessen im Preis Ihrer Unterkunft enthalten. Zum Frühstück gibt es frisches Obst, Eier nach Wunsch, tansanisches Chapati und Mandazi, guten Kaffee und Tee. Frühe Safari? Dann servieren wir es vor dem ersten Licht.</p>
+        <h2>Mittagessen, Abendessen und Mahlzeiten auf Safari</h2>
+        <p>Mittag- und Abendessen werden jeden Tag frisch gekocht: eine Mischung aus tansanischen Gerichten (Nyama Choma, Pilau, Fisch in Kokosmilch, Ugali mit Blattgemüse) und internationalen Klassikern, vegetarische Gerichte gibt es immer. Mahlzeiten werden pro Person und Mahlzeit berechnet; nennen Sie uns Allergien oder besondere Ernährungswünsche bei der Buchung. Kinder unter 4 Jahren übernachten kostenlos, von 4 bis 11 Jahren zum halben Preis; Mahlzeiten für Kinder werden pro Mahlzeit berechnet. Das Mittagessen oder jede weitere Mahlzeit kostet US$15 pro Person. Auf unseren Safaripaketen ist jede Mahlzeit enthalten, als Vollpension mit Picknick im Park.</p>
+        <h2>Die Bar</h2>
+        <p>Kaltes Kilimanjaro- und Serengeti-Bier, tansanischer Konyagi, eine kleine Weinkarte, Softdrinks und frische Säfte. Die Terrasse der Bar ist der Platz für den Sonnenuntergang. Hier gibt es auch WLAN (die Luxuszelte sind bewusst offline).</p>
+        <h2>Sundowner und Abende</h2>
+        <p>Die Pirschfahrten enden mit dem Licht, und die Terrasse der Bar blickt nach Westen. Die meisten Abende beginnen deshalb mit einem Drink, während die Sonne hinter dem Bergkamm der Mikumi-Berge versinkt. Das Abendessen hat drei Gänge und wird serviert, wann Sie bereit sind, ohne feste Essenszeit. In klaren Nächten leuchten nur das Camp und die Sterne. An Safaritagen gibt es früh Frühstück: Sagen Sie Ihrem Guide die Uhrzeit, und die Küche ist vor dem ersten Licht bereit.</p>
+        <h2>Sie übernachten nicht bei uns?</h2>
+        <p>Safarigäste und Reisende auf der Durchfahrt durch Mikumi sind zum Mittag- oder Abendessen mit Aussicht willkommen. Bitte <a href={wa} rel="noopener">schreiben Sie uns vorher auf WhatsApp</a>, damit die Küche vorbereitet ist. Wenn Sie einen Aufenthalt planen, sehen Sie sich die <a href={L('/rooms')}>Luxuszelte und Cabins</a> und unsere <a href={L('/safaris')}>Safari-Pakete</a> an, bei denen jede Mahlzeit enthalten ist.</p>
+      </article>
+      <aside class="aside">
+        <h3>Auf einen Blick</h3>
+        <ul><li>Frühstück und Abendessen inklusive (bei Direktbuchung)</li><li>Mittagessen oder weitere Mahlzeiten US$15 pro Person</li><li>Alle Mahlzeiten bei Safaripaketen inklusive</li><li>Getränke werden an der Bar berechnet</li><li>Täglich vegetarische Gerichte</li><li>Volle Bar, WLAN</li><li>Blick auf den Bergkamm der Mikumi-Berge von jedem Tisch</li></ul>
+        <a class="btn btn--fill" href={L('/book')}>Aufenthalt anfragen</a>
+      </aside>
+    </div>
+  </section>
+  <CtaBand title="Abendessen mit Blick auf den Bergkamm der Mikumi-Berge" />
+</Base>

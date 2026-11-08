@@ -1,0 +1,154 @@
+---
+// French version of /faq: every entry of src/data/faqs.ts, in the same order and groups.
+// Keyed by the English question; an entry with no French text falls back to the English one.
+import Base from '../../layouts/Base.astro';
+import CtaBand from './_components/CtaBand.astro';
+import { faqs, faqGroups } from '../../data/faqs';
+import { offersActive } from '../../data/offers';
+import { site } from '../../data/site';
+import { lf, enOnly, EN } from '../../data/i18n-fr';
+
+const title = 'Questions fréquentes : safari à Mikumi et Camp Lilac';
+const description =
+  'Venir à Mikumi depuis Dar es Salaam et Zanzibar, droits d’entrée, tentes de luxe avec salle de bain privée et climatisation, enfants, repas, Wi-Fi, paiement.';
+const crumbs = [{ name: 'Questions fréquentes', href: lf('/faq') }];
+
+const groupFr: Record<string, string> = { 'Getting there': 'Venir', Staying: 'Séjourner', Safaris: 'Safaris', 'Booking & payment': 'Réservation et paiement' };
+
+const fr: Record<string, { q: string; a: string; offer?: string; links?: string[] }> = {
+  'Where is Camp Lilac?': {
+    q: 'Où se trouve Camp Lilac ?',
+    a: 'Camp Lilac se trouve à Mikumi, dans la région de Morogoro, en Tanzanie, juste à l’extérieur du parc national de Mikumi et à quelques minutes de route de la porte principale. Le camp est à environ 2 km de la route Dar es Salaam–Mbeya, dans la brousse, face aux monts Mikumi : vous entendez la nature plutôt que les camions.',
+    links: ['Carte et accès'],
+  },
+  'Is Camp Lilac inside Mikumi National Park?': {
+    q: 'Camp Lilac est-il dans le parc national de Mikumi ?',
+    a: 'Non, et c’est voulu. Le camp est à l’extérieur du parc, à quelques minutes de la porte principale : vous ne payez les droits d’entrée que les jours où vous partez en game drive, et vous pouvez arriver en train et en transfert à toute heure. Les lodges situés dans le parc ajoutent une redevance de concession à chaque nuit et vous obligent à franchir la porte avant sa fermeture le soir.',
+    links: ['Où dormir à Mikumi : camps, lodges et hôtels comparés'],
+  },
+  'How do I get to Mikumi from Dar es Salaam?': {
+    q: 'Comment aller de Dar es Salaam à Mikumi ?',
+    a: 'Par la route, il y a environ 300 km (5 à 6 heures). L’option confortable la plus rapide est le train SGR de Dar es Salaam à Morogoro (environ 1,5 h), puis 2 heures de transfert par la route : 3,5 heures de porte à porte, transfert assuré par nos soins. Vous ne réservez qu’une chambre ? Le transfert est alors facturé ; demandez-nous le prix.',
+    offer: 'En novembre 2026, réservez chez nous un safari de deux jours ou plus et le transfert Morogoro–Mikumi est offert ; à partir de trois jours, nous payons aussi vos billets de train depuis Dar es Salaam.',
+    links: ['Comment venir', 'Le train SGR pas à pas'],
+  },
+  'Can I do a Mikumi safari from Zanzibar?': {
+    q: 'Peut-on faire un safari à Mikumi depuis Zanzibar ?',
+    a: 'Oui : Mikumi est le vrai safari le plus pratique depuis Zanzibar. Prenez le ferry du matin (environ 2 heures) ou un vol court jusqu’à Dar es Salaam, puis le train SGR jusqu’à Morogoro, où notre chauffeur vous attend. Vous pouvez être en game drive l’après-midi même et de retour à la plage deux ou trois jours plus tard. Nous organisons tout le trajet, billets de ferry et d’avion compris.',
+    links: ['Safari depuis Zanzibar'],
+  },
+  'Is there a reception, and is housekeeping included?': {
+    q: 'Y a-t-il une réception, et le ménage est-il compris ?',
+    a: 'Oui. Notre réception est ouverte 24 heures sur 24, tous les jours : vous pouvez arriver à toute heure, il y a toujours quelqu’un pour vous aider. Le ménage quotidien est compris dans chaque tarif, chaque tente de luxe et chaque cabine a sa propre salle de bain privée, et il n’y a pas de durée minimale : une seule nuit, c’est possible.',
+    links: ['Tentes de luxe et cabines'],
+  },
+  'Are meals included?': {
+    q: 'Les repas sont-ils compris ?',
+    a: 'En réservation directe, chaque tarif de chambre et de tente de luxe comprend le petit-déjeuner et le dîner dans notre restaurant. Tout repas supplémentaire, comme le déjeuner, coûte US$15 par personne. Les boissons sont facturées à part. Avec nos formules safari, tous les repas sont compris (pension complète).',
+    links: ['Le restaurant et le bar'],
+  },
+  'Do the tents have bathrooms and air conditioning?': {
+    q: 'Les tentes de luxe ont-elles une salle de bain et la climatisation ?',
+    a: 'Oui. Chaque tente de luxe a une salle de bain privée avec douche chaude, la climatisation, une terrasse privée et un lit très confortable. Les deux cabines offrent la même chose avec plus d’espace ; la Mountain View Cabin a une baignoire avec vue.',
+    links: ['Tentes de luxe et cabines'],
+  },
+  'Do children stay free?': {
+    q: 'Les enfants séjournent-ils gratuitement ?',
+    a: 'Les enfants de 0 à 3 ans séjournent gratuitement. De 4 à 11 ans, ils paient 50 % du tarif adulte. À partir de 12 ans, le tarif adulte s’applique. En réservation directe, le petit-déjeuner et le dîner sont inclus pour tous ; les repas supplémentaires coûtent US$15 par personne (gratuits pour les moins de 4 ans). Les enfants de moins de 2 ans ne peuvent pas participer aux game drives. Indiquez-nous les âges à la réservation et nous vous ferons un prix exact.',
+    links: ['Luxury Family Tent'],
+  },
+  'What are the check-in and check-out times?': {
+    q: 'Quelles sont les heures d’arrivée et de départ ?',
+    a: `L’arrivée se fait à partir de ${site.checkIn} et le départ à ${site.checkOut}. Une arrivée anticipée ou un départ tardif sont souvent possibles si la chambre est libre : il suffit de demander.`,
+  },
+  'Is Wi-Fi available?': {
+    q: 'Y a-t-il du Wi-Fi ?',
+    a: 'Le Wi-Fi est disponible au restaurant et au bar. Les tentes de luxe et les cabines sont volontairement hors ligne, mais le réseau mobile passe en général dans le camp.',
+  },
+  'Can I book a safari with you?': {
+    q: 'Peut-on réserver un safari chez vous ?',
+    a: 'Oui. Nous organisons nous-mêmes les game drives dans le parc national de Mikumi, avec nos propres guides et nos propres 4×4, du safari à la journée à un itinéraire de quatre jours qui comprend aussi les cascades des monts Udzungwa. Droits d’entrée, guide, 4×4 privé à toit ouvrant et repas sont compris.',
+    links: ['Formules safari'],
+  },
+  'How many days do I need for Mikumi?': {
+    q: 'Combien de jours prévoir pour Mikumi ?',
+    a: 'Deux jours (une nuit), c’est le week-end classique depuis Dar es Salaam : un game drive l’après-midi de l’arrivée et un autre à l’aube le lendemain. Avec trois jours, vous ajoutez une journée entière sur la plaine du Mkata, et c’est là que les observations de lions et d’éléphants se multiplient. Quatre jours ajoutent la randonnée jusqu’à la cascade de Sanje dans les monts Udzungwa. Le safari à la journée convient si vous êtes déjà à Morogoro ou sur la route du sud.',
+    links: ['Safari Mikumi 2 jours', 'Toutes les formules'],
+  },
+  'How much is the Mikumi National Park entrance fee?': {
+    q: 'Combien coûte l’entrée du parc national de Mikumi ?',
+    a: 'Mikumi est l’un des parcs les moins chers de Tanzanie : 30 dollars par adulte plus 18 % de TVA par tranche de 24 heures pour les non-résidents (10 dollars plus TVA pour les enfants de 5 à 15 ans). Les droits d’entrée sont compris dans toutes les formules safari de Camp Lilac. Si vous entrez dans le parc par vos propres moyens, les droits se paient à la TANAPA à la porte, par carte et non en espèces.',
+    links: ['Guide du parc national de Mikumi : droits d’entrée et faune', 'Combien coûte un safari à Mikumi'],
+  },
+  'Mikumi or Selous (Nyerere) — which is better from Dar es Salaam?': {
+    q: 'Mikumi ou Selous (Nyerere) : lequel choisir depuis Dar es Salaam ?',
+    a: 'Pour un week-end, Mikumi : on y va en train en 3,5 heures, les droits d’entrée coûtent moins de la moitié de ceux du Nyerere, et la plaine ouverte du Mkata permet de voir les animaux facilement en peu de temps. Le parc national de Nyerere est plus grand et plus sauvage, avec des safaris en bateau sur la Rufiji, mais il demande un vol ou une longue route difficile, et plus de jours. Beaucoup de nos hôtes font d’abord Mikumi, puis Nyerere ou Ruaha lors d’un voyage suivant.',
+    links: ['Mikumi ou Selous (Nyerere) : quel safari depuis Dar es Salaam ?'],
+  },
+  'When is the best time to visit Mikumi?': {
+    q: 'Quelle est la meilleure période pour visiter Mikumi ?',
+    a: 'La saison sèche, de juin à octobre, est la plus facile pour observer les animaux : ils se regroupent autour des points d’eau et l’herbe est rase. Janvier et février sont aussi secs et agréables. Les pluies (de mars à mai, puis en novembre et décembre) apportent des paysages verts, beaucoup d’oiseaux et des prix plus bas.',
+    links: ['La meilleure période pour Mikumi, mois par mois'],
+  },
+  'Do you accept card payments?': {
+    q: 'Acceptez-vous les cartes bancaires ?',
+    a: 'Oui, nous acceptons les espèces et les cartes au camp. Une fois la disponibilité confirmée, un acompte réglé par carte via un lien de paiement en ligne sécurisé confirme votre réservation.',
+    links: ['Tarifs et prestations comprises'],
+  },
+  'Can I bring my dog?': {
+    q: 'Puis-je venir avec mon chien ?',
+    a: 'Non, les animaux de compagnie ne sont pas admis : nous sommes à côté d’un parc national et des animaux sauvages traversent le camp.',
+  },
+  'Is the camp wheelchair accessible?': {
+    q: 'Le camp est-il accessible en fauteuil roulant ?',
+    a: 'Malheureusement, pas encore. Les chemins et les terrasses suivent le terrain naturel. Contactez-nous et nous vous dirons honnêtement si le camp peut vous convenir.',
+  },
+};
+
+const items = faqs.map((f) => {
+  const t = fr[f.q];
+  return {
+    group: f.group,
+    q: t?.q ?? f.q,
+    a: t?.a ?? f.a,
+    offer: f.offer ? (t?.offer ?? f.offer) : undefined,
+    links: f.links?.map((l, i) => ({ text: t?.links?.[i] ?? l.text, href: lf(l.href), en: enOnly(l.href) })),
+  };
+});
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'fr',
+  mainEntity: items.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: offersActive && f.offer ? `${f.a} ${f.offer}` : f.a } })),
+};
+---
+<Base {title} {description} {schema} lang="fr" breadcrumbs={crumbs}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/fr">Accueil</a> / Questions fréquentes</p>
+    <h1>Vos questions sur le safari à Mikumi et sur Camp Lilac</h1>
+    <p class="lead">Tout ce que nos hôtes demandent avant de réserver un séjour ou un safari à Camp Lilac : le trajet, les tentes de luxe, les safaris et le paiement.</p>
+  </div>
+  <div class="wrap split--aside" style="display:grid">
+    <div class="faq">
+      {faqGroups.map((g) => (
+        <>
+          <h2 style="margin:36px 0 10px">{groupFr[g] ?? g}</h2>
+          {items.filter((f) => f.group === g).map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}{offersActive && f.offer && <span data-offer> {f.offer}</span>}</p>
+              {f.links && <p class="meta">{f.links.map((l, i) => <>{i > 0 && ' · '}<a href={l.href}>{l.text}</a>{l.en && EN}</>)}</p>}
+            </details>
+          ))}
+        </>
+      ))}
+    </div>
+    <aside class="aside">
+      <h3>Une autre question ?</h3>
+      <p>Écrivez-nous sur WhatsApp, nous répondons dans la journée. Vous pouvez nous écrire en français ; nous répondons en anglais simple ou à l’aide d’un traducteur.</p>
+      <a class="btn" href={lf('/contact')}>Nous contacter</a>
+    </aside>
+  </div>
+  <CtaBand />
+</Base>

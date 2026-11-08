@@ -1,0 +1,45 @@
+---
+// Spanish version of components/Offers.astro: the November deals while offersActive, the book-direct benefits after.
+import { offersActive } from '../../data/offers';
+import { offersEs, directBenefitsEs, offerTerms, offerMonth, es, EN } from '../../data/i18n-es';
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+const month = offerMonth.replace(/ de \d{4}$/, '');
+---
+{offersActive ? (
+  <section class={`section ${compact ? 'section--tight' : ''} section--sand`} data-offer>
+    <div class="wrap">
+      <p class="label rv" style="color:var(--lilac-deep);margin-bottom:12px">Ofertas de safari de {month} · reserva directa</p>
+      <h2 class="rv" style="margin-bottom:36px">Dos ofertas de safari para <em>{month}</em></h2>
+      <div class="offers">
+        {offersEs.map((o, i) => (
+          <div class={`offer rv rv-d${i + 1}`}>
+            <p class="label" style="margin:0 0 10px">{o.who}</p>
+            <h3>{o.title}</h3>
+            <p class="worth">{o.worth}</p>
+            <p>{o.text}</p>
+            <a class="btn btn--fill" href={`${es('/book')}?safari=${o.safari}&offer=${o.id}`}>Aprovechar esta oferta</a>
+          </div>
+        ))}
+      </div>
+      <p class="rv" style="margin:24px 0 0;font-size:0.95rem">{offerTerms}</p>
+      <div class="btn-row rv rv-d3"><a class="link" href="/offers">Cómo funcionan las ofertas {EN}</a></div>
+    </div>
+  </section>
+) : (
+  <section class={`section ${compact ? 'section--tight' : ''} section--sand`}>
+    <div class="wrap">
+      <p class="label rv" style="color:var(--lilac-deep);margin-bottom:12px">Reserva directa</p>
+      <h2 class="rv" style="margin-bottom:36px">Lo que la reserva directa incluye <em>siempre</em></h2>
+      <div class="offers">
+        {directBenefitsEs.slice(0, 2).map((b, i) => (
+          <div class={`offer rv rv-d${i + 1}`}>
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+          </div>
+        ))}
+      </div>
+      <div class="btn-row rv rv-d3"><a class="link" href="/offers">Todas las ventajas de reservar directamente {EN}</a></div>
+    </div>
+  </section>
+)}

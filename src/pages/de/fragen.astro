@@ -1,0 +1,160 @@
+---
+// German version of /faq: every entry of src/data/faqs.ts, matched by its English question (missing ones stay English).
+// Hand-written; ask a German speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import CtaBand from './_parts/CtaBand.astro';
+import { faqs, faqGroups } from '../../data/faqs';
+import { site } from '../../data/site';
+import { offersActive } from '../../data/offers';
+import { L, EN, englishOnly } from '../../data/i18n-de';
+
+const title = 'Fragen zu Mikumi-Safaris und Camp Lilac | Camp Lilac';
+const description =
+  'Antworten auf die häufigsten Fragen: Anreise ab Dar es Salaam und Sansibar, Parkgebühren, Luxuszelte mit eigenem Bad und Klimaanlage, Kinder, Essen, WLAN.';
+const crumbs = [{ name: 'Häufige Fragen', href: L('/faq') }];
+
+const groupDe: Record<string, string> = {
+  'Getting there': 'Anreise',
+  'Staying': 'Aufenthalt',
+  'Safaris': 'Safaris',
+  'Booking & payment': 'Buchung und Bezahlung',
+};
+
+// German text per English question: q, a, optional offer sentence, and the link texts in the same order as faqs.ts.
+const de: Record<string, { q: string; a: string; offer?: string; links?: string[] }> = {
+  'Where is Camp Lilac?': {
+    q: 'Wo liegt Camp Lilac?',
+    a: 'Camp Lilac liegt in Mikumi in der Region Morogoro, Tansania, knapp außerhalb des Mikumi-Nationalparks und nur eine kurze Fahrt vom Haupteingang entfernt. Das Camp befindet sich etwa 2 km abseits der Hauptstraße Dar es Salaam–Mbeya im Busch, mit Blick auf die Mikumi-Berge. Sie hören also die Natur und keine Lastwagen.',
+    links: ['Karte und Anfahrt'],
+  },
+  'Is Camp Lilac inside Mikumi National Park?': {
+    q: 'Liegt Camp Lilac im Mikumi-Nationalpark?',
+    a: 'Nein, und das ist Absicht. Das Camp liegt außerhalb des Parks, wenige Minuten vom Haupteingang entfernt. So zahlen Sie Parkgebühren nur für die Tage, an denen Sie tatsächlich auf Pirschfahrt gehen, und Sie können mit Zug und Transfer zu jeder Uhrzeit anreisen. Lodges im Park schlagen auf jede Nacht eine Konzessionsgebühr auf, und Sie müssen das Tor passieren, bevor es abends schließt.',
+    links: ['Übernachten in Mikumi: Camps, Lodges und Hotels im Vergleich'],
+  },
+  'How do I get to Mikumi from Dar es Salaam?': {
+    q: 'Wie komme ich von Dar es Salaam nach Mikumi?',
+    a: 'Auf der Straße sind es etwa 300 km (5–6 Stunden). Am schnellsten und bequemsten geht es mit dem SGR-Zug von Dar es Salaam nach Morogoro (etwa 1,5 Stunden) und dann mit einem 2-stündigen Transfer, den wir übernehmen: 3,5 Stunden von Tür zu Tür. Sie buchen nur eine Übernachtung? Dann wird der Transfer berechnet; fragen Sie uns nach dem Preis.',
+    offer: 'Im November 2026 gilt: Buchen Sie bei uns eine Safari ab zwei Tagen, und der Transfer Morogoro–Mikumi ist kostenlos; bei drei oder mehr Tagen übernehmen wir außerdem Ihre Zugtickets ab Dar es Salaam (jeweils für die Hinfahrt).',
+    links: ['Anreise', 'Der SGR-Zug Schritt für Schritt'],
+  },
+  'Can I do a Mikumi safari from Zanzibar?': {
+    q: 'Kann ich eine Mikumi-Safari ab Sansibar machen?',
+    a: 'Ja. Mikumi ist die praktischste echte Safari ab Sansibar. Nehmen Sie die Morgenfähre (etwa 2 Stunden) oder einen kurzen Flug nach Dar es Salaam und dann den SGR-Zug nach Morogoro, wo unser Fahrer Sie erwartet. Am selben Nachmittag können Sie auf Pirschfahrt sein und zwei oder drei Tage später wieder am Strand. Wir organisieren die ganze Reise, auch die Fähr- und Flugtickets.',
+    links: ['Safari ab Sansibar'],
+  },
+  'Is there a reception, and is housekeeping included?': {
+    q: 'Gibt es eine Rezeption, und ist die Zimmerreinigung inklusive?',
+    a: 'Ja. Unsere Rezeption ist rund um die Uhr besetzt, jeden Tag. Sie können also zu jeder Uhrzeit ankommen, und es ist immer jemand für Sie da. Die tägliche Reinigung ist in jedem Preis enthalten, jedes Luxuszelt und jede Cabin hat ein eigenes Bad, und es gibt keinen Mindestaufenthalt: Auch eine Nacht ist willkommen.',
+    links: ['Luxuszelte und Cabins'],
+  },
+  'Are meals included?': {
+    q: 'Sind die Mahlzeiten inklusive?',
+    a: 'Wenn Sie direkt bei uns buchen, enthält jeder Preis für Luxuszelt oder Cabin Frühstück und Abendessen in unserem Restaurant. Jede weitere Mahlzeit, etwa das Mittagessen, kostet US$15 pro Person. Getränke werden separat berechnet. Bei unseren Safaripaketen sind alle Mahlzeiten enthalten (Vollpension).',
+    links: ['Restaurant und Bar'],
+  },
+  'Do the tents have bathrooms and air conditioning?': {
+    q: 'Haben die Luxuszelte ein Bad und eine Klimaanlage?',
+    a: 'Ja. Jedes Luxuszelt hat ein eigenes Bad mit warmer Dusche, eine Klimaanlage, eine private Terrasse und ein sehr bequemes Bett. Die beiden Cabins bieten dasselbe und mehr Platz; die Mountain View Cabin hat eine Badewanne mit Aussicht.',
+    links: ['Luxuszelte und Cabins'],
+  },
+  'Do children stay free?': {
+    q: 'Übernachten Kinder kostenlos?',
+    a: 'Kinder von 0 bis 3 Jahren übernachten kostenlos. Von 4 bis 11 Jahren zahlen sie 50 % des Erwachsenenpreises, ab 12 Jahren den Erwachsenenpreis. Bei Direktbuchung sind Frühstück und Abendessen für alle inklusive; weitere Mahlzeiten kosten US$15 pro Person (für Kinder unter 4 Jahren kostenlos). Kinder unter 2 Jahren können nicht an Pirschfahrten teilnehmen. Nennen Sie uns bei der Buchung das Alter der Kinder, dann berechnen wir den genauen Preis.',
+    links: ['Luxury Family Tent'],
+  },
+  'What are the check-in and check-out times?': {
+    q: 'Wann sind Check-in und Check-out?',
+    a: `Check-in ist ab ${site.checkIn} Uhr, Check-out bis ${site.checkOut} Uhr. Ein früherer Check-in oder späterer Check-out lässt sich oft einrichten, wenn die Unterkunft frei ist. Fragen Sie einfach.`,
+  },
+  'Is Wi-Fi available?': {
+    q: 'Gibt es WLAN?',
+    a: 'WLAN gibt es im Restaurant und an der Bar. Die Luxuszelte und Cabins sind bewusst offline, mobiles Netz funktioniert im Camp aber meistens.',
+  },
+  'Can I book a safari with you?': {
+    q: 'Kann ich bei Ihnen eine Safari buchen?',
+    a: 'Ja. Wir fahren unsere eigenen Pirschfahrten im Mikumi-Nationalpark, mit eigenen Guides und Geländewagen, von der Tagessafari bis zur viertägigen Reise mit den Wasserfällen der Udzungwa-Berge. Parkgebühren, Ihr Guide, ein privater offener Geländewagen und die Mahlzeiten sind inklusive.',
+    links: ['Safari-Pakete'],
+  },
+  'How many days do I need for Mikumi?': {
+    q: 'Wie viele Tage brauche ich für Mikumi?',
+    a: 'Zwei Tage (eine Nacht) sind das klassische Wochenende ab Dar es Salaam: eine Pirschfahrt am Nachmittag der Ankunft und eine im Morgengrauen am nächsten Tag. Mit drei Tagen haben Sie zusätzlich einen ganzen Tag auf der Mkata-Ebene, und dann häufen sich die Sichtungen von Löwen und Elefanten. Mit vier Tagen kommt die Wanderung zum Sanje-Wasserfall in den Udzungwa-Bergen dazu. Eine Tagessafari lohnt sich, wenn Sie schon in Morogoro oder auf dem Weg in den Süden sind.',
+    links: ['Mikumi-Safari, 2 Tage', 'Alle Pakete'],
+  },
+  'How much is the Mikumi National Park entrance fee?': {
+    q: 'Wie hoch ist der Eintritt für den Mikumi-Nationalpark?',
+    a: 'Mikumi gehört zu den günstigeren Parks Tansanias: US$30 pro Erwachsenem plus 18 % Mehrwertsteuer pro 24 Stunden für Nichtresidenten (US$10 plus Mehrwertsteuer für Kinder von 5 bis 15 Jahren). Die Parkgebühren sind in allen Safaripaketen von Camp Lilac enthalten. Wenn Sie den Park auf eigene Faust besuchen, zahlen Sie die Gebühren am Tor an die TANAPA, mit Karte und nicht bar.',
+    links: ['Führer zum Mikumi-Nationalpark: Gebühren und Tiere', 'Was eine Mikumi-Safari kostet'],
+  },
+  'Mikumi or Selous (Nyerere) — which is better from Dar es Salaam?': {
+    q: 'Mikumi oder Selous (Nyerere): Was ist ab Dar es Salaam besser?',
+    a: 'Für ein Wochenende Mikumi: Sie erreichen den Park in 3,5 Stunden mit dem Zug, die Parkgebühren betragen weniger als die Hälfte derer von Nyerere, und auf der offenen Mkata-Ebene sehen Sie in kurzer Zeit viele Tiere. Der Nyerere-Nationalpark ist größer und wilder, mit Bootssafaris auf dem Rufiji, braucht aber einen Flug oder eine lange, holprige Fahrt und mehr Tage. Viele Gäste kommen zuerst nach Mikumi und auf einer späteren Reise nach Nyerere oder Ruaha.',
+    links: ['Mikumi oder Selous (Nyerere): welche Safari ab Dar es Salaam?'],
+  },
+  'When is the best time to visit Mikumi?': {
+    q: 'Wann ist die beste Reisezeit für Mikumi?',
+    a: 'Die Trockenzeit von Juni bis Oktober bietet die einfachsten Tierbeobachtungen, weil sich die Tiere an den Wasserstellen sammeln und das Gras kurz ist. Januar und Februar sind ebenfalls trocken und gut. Die Regenzeiten (März bis Mai sowie November und Dezember) bringen grüne Landschaften, viele Vögel und niedrigere Preise.',
+    links: ['Beste Reisezeit für Mikumi, Monat für Monat'],
+  },
+  'Do you accept card payments?': {
+    q: 'Kann ich mit Karte bezahlen?',
+    a: 'Ja, im Camp nehmen wir Bargeld und Karten an. Sobald wir die Verfügbarkeit bestätigt haben, sichert eine Anzahlung über einen sicheren Online-Kartenlink Ihre Buchung.',
+    links: ['Preise und Leistungen'],
+  },
+  'Can I bring my dog?': {
+    q: 'Darf ich meinen Hund mitbringen?',
+    a: 'Nein, Haustiere sind nicht erlaubt, weil wir direkt neben einem Nationalpark liegen und Wildtiere durch das Camp ziehen.',
+  },
+  'Is the camp wheelchair accessible?': {
+    q: 'Ist das Camp rollstuhlgerecht?',
+    a: 'Leider noch nicht. Die Wege und Terrassen liegen auf natürlichem Gelände. Schreiben Sie uns, und wir sagen Ihnen ehrlich, ob das Camp für Sie geeignet ist.',
+  },
+};
+
+const items = faqs.map((f) => {
+  const d = de[f.q];
+  return {
+    group: f.group,
+    q: d?.q ?? f.q,
+    a: d?.a ?? f.a,
+    offer: f.offer ? d?.offer ?? f.offer : undefined,
+    links: f.links?.map((l, i) => ({ text: d?.links?.[i] ?? l.text, href: L(l.href), en: englishOnly(l.href) })),
+  };
+});
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'de',
+  mainEntity: items.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: offersActive && f.offer ? `${f.a} ${f.offer}` : f.a } })),
+};
+---
+<Base {title} {description} {schema} lang="de" breadcrumbs={crumbs}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/de">Startseite</a> / Häufige Fragen</p>
+    <h1>Fragen zu Mikumi-Safaris und Camp Lilac</h1>
+    <p class="lead">Alles, was Gäste vor der Buchung eines Aufenthalts oder einer Safari im Camp Lilac fragen: Anreise, die Luxuszelte, die Safaris und die Bezahlung.</p>
+  </div>
+  <div class="wrap split--aside" style="display:grid">
+    <div class="faq">
+      {faqGroups.map((g) => (
+        <>
+          <h2 style="margin:36px 0 10px">{groupDe[g] ?? g}</h2>
+          {items.filter((f) => f.group === g).map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}{offersActive && f.offer && <span data-offer> {f.offer}</span>}</p>
+              {f.links && <p class="meta">{f.links.map((l, i) => <>{i > 0 && ' · '}<a href={l.href}>{l.text}</a>{l.en && EN}</>)}</p>}
+            </details>
+          ))}
+        </>
+      ))}
+    </div>
+    <aside class="aside">
+      <h3>Noch eine Frage?</h3>
+      <p>Schreiben Sie uns auf WhatsApp, gern auf Deutsch. Wir antworten noch am selben Tag.</p>
+      <a class="btn" href={L('/contact')}>Kontakt</a>
+    </aside>
+  </div>
+  <CtaBand />
+</Base>

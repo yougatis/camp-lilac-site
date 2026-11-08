@@ -1,0 +1,6 @@
+---
+// French version of src/components/Price.astro.
+interface Props { price: number | null; unit?: 'nuit' | 'personne'; prefix?: string }
+const { price, unit = 'nuit', prefix = 'À partir de' } = Astro.props;
+---
+{price ? <span>{prefix} US${price} <small>par {unit}</small></span> : <span>Tarif sur demande</span>}
