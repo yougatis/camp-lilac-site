@@ -1,0 +1,131 @@
+---
+// Italian version of /getting-here. Hand-written; ask an Italian speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import { site } from '../../data/site';
+import { offersActive } from '../../data/offers';
+
+const title = 'Come arrivare a Mikumi da Dar e Zanzibar | Camp Lilac';
+const description =
+  'Da Dar es Salaam a Mikumi in treno SGR (1,5 h fino a Morogoro più 2 h di transfer), in auto (5–6 h), da Zanzibar in traghetto o aereo. Tempi e costi onesti.';
+const crumbs = [{ name: 'Come arrivare', href: '/it/come-arrivare' }];
+const alternates = [
+  { lang: 'en', href: '/getting-here' },
+  { lang: 'it', href: '/it/come-arrivare' },
+  { lang: 'fr', href: '/fr/comment-venir' },
+  { lang: 'de', href: '/de/anreise' },
+  { lang: 'es', href: '/es/como-llegar' },
+];
+const wa = `${site.whatsapp}?text=${encodeURIComponent('Buongiorno! Vorremmo organizzare il viaggio fino a Camp Lilac. Partiamo da ..., date: ..., siamo in ... persone.')}`;
+const replyIt = ({ 'within 4 hours during the day': 'entro 4 ore durante il giorno' } as Record<string, string>)[site.replyTime] ?? site.replyTime;
+const treno = site.trainHours.replace('.', ',');
+const strada = site.driveHours;
+
+const faqs = [
+  { q: 'Quanto ci vuole da Dar es Salaam a Camp Lilac?', a: `Con il treno SGR circa ${treno} ore fino a Morogoro, poi circa ${strada} ore di strada con il nostro autista: in tutto circa 3,5 ore. In auto da Dar es Salaam contate 7–8 ore porta a porta, secondo il traffico.` },
+  { q: 'Dove ci aspetta il vostro autista?', a: 'Sul binario della stazione SGR di Morogoro, con un cartello con il vostro nome. Mandateci il numero del treno quando prenotate e vi scriviamo su WhatsApp il giorno stesso per confermare.' },
+  { q: 'Possiamo arrivare da Zanzibar in giornata?', a: 'Sì. Il traghetto veloce delle 07:00 da Stone Town arriva a Dar es Salaam in circa 2 ore (35–70 dollari a persona per tratta); da lì treno SGR fino a Morogoro e il nostro transfer. Arrivate in tempo per la cena e per il game drive dell’alba del giorno dopo. Il volo Zanzibar–Dar es Salaam dura 20 minuti e costa circa 160–200 dollari a persona per tratta.' },
+  { q: 'Il transfer dalla stazione di Morogoro è incluso?', a: offersActive
+      ? 'Nei safari di 3 e 4 giorni il transfer tra Morogoro e il campo è incluso; nel safari di 2 giorni è a pagamento (75 dollari a veicolo) ma, per i safari prenotati direttamente con noi con partenza a novembre 2026, è gratuito all’andata. Se prenotate solo l’alloggio il transfer è a pagamento: chiedeteci il prezzo.'
+      : 'Nei safari di 3 e 4 giorni il transfer tra Morogoro e il campo è incluso; nel safari di 2 giorni il ritorno a Morogoro è a pagamento (75 dollari a veicolo). Se prenotate solo l’alloggio il transfer è a pagamento: chiedeteci il prezzo.' },
+  { q: 'Si può arrivare con la propria auto?', a: 'Sì. Per la strada principale basta un’auto normale e la pista di 2 km fino al campo è percorribile in ogni stagione. Non guidate il tratto che attraversa il parco dopo il tramonto.' },
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'it',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+
+<Base {title} {description} {schema} lang="it" {alternates} breadcrumbs={crumbs}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/">Home</a> / Come arrivare</p>
+    <h1>Come arrivare a Camp Lilac, Mikumi</h1>
+    <p class="lead">
+      Mikumi è il parco safari più facile da raggiungere in Tanzania. Qui trovate tutti i modi per arrivare da Dar es Salaam, da Zanzibar e dal sud, con tempi onesti.
+    </p>
+    <p class="meta"><a href="/getting-here">Read this page in English</a> · Le nostre altre pagine in italiano: <a href="/it/safari-mikumi">Safari a Mikumi</a> · <a href="/it/safari-da-zanzibar">Safari da Zanzibar</a> · <a href="/it/tende-e-cabin">Tende e cabin</a></p>
+  </div>
+
+  <div class="wrap split--aside" style="display:grid">
+    <article class="article">
+      <Photo src="/images/rooms/mv-cabin-1-1600.jpg" alt="Vasca da bagno nella Mountain View Cabin di Camp Lilac, con i monti Mikumi dalla finestra: la fine del viaggio da Dar es Salaam" caption="All’arrivo" ratio="landscape" loading="eager" />
+
+      <h2 id="treno">Opzione 1: treno SGR da Dar es Salaam (consigliata)</h2>
+      <p>
+        La ferrovia a scartamento standard collega Dar es Salaam e Morogoro più volte al giorno, in circa {treno} ore di viaggio climatizzato. Dalla stazione di Morogoro ci vogliono {strada} ore di strada fino al campo. Il nostro autista vi aspetta sul binario con un cartello con il vostro nome.
+      </p>
+      <ul>
+        <li><strong>Biglietti:</strong> si comprano nell’app TRC o in stazione; classe economica o business. In alta stagione e nei periodi di festa prenotate con qualche giorno di anticipo.</li>
+        <li><strong>Orari:</strong> con un treno del mattino potete essere in game drive già nel pomeriggio dello stesso giorno.</li>
+        <li><strong>Il nostro transfer:</strong> stazione di Morogoro → campo, circa {strada} ore.{offersActive && <span data-offer> <strong>Gratuito all’andata</strong> con un safari di 2 giorni prenotato direttamente con noi per novembre 2026. Con un safari di 3 o 4 giorni paghiamo anche i biglietti del treno in economica da Dar es Salaam. Il ritorno è a pagamento.</span>} Prenotate solo l’alloggio? Allora il transfer è a pagamento: chiedeteci il prezzo.</li>
+        <li><strong>Stazione di Kilosa:</strong> è in costruzione una fermata più vicina al parco; per ora Morogoro è la scelta pratica.</li>
+        <li><strong>Passo dopo passo:</strong> la nostra <a href="/blog/dar-es-salaam-to-mikumi-by-sgr-train">guida al treno SGR</a> (in inglese) spiega biglietti, orari e il pickup. Per il viaggio completo come pacchetto, guardate i nostri <a href="/it/safari-mikumi">safari a Mikumi</a> e il <a href="/safaris/2-day-mikumi-safari">safari di 2 giorni</a>.</li>
+      </ul>
+
+      <h2 id="strada">Opzione 2: in auto da Dar es Salaam (non la consigliamo)</h2>
+      <p>
+        Circa 300 km sulla A7 (Morogoro Road). Contate 5–6 ore fino a Morogoro, compresa l’uscita da Dar es Salaam, di più il venerdì e nei giorni di festa, e poi altre {strada} ore fino a Mikumi. Rispetto al treno, un’auto con autista costa di più, è più lenta e molto più stancante — il treno fa la tratta Dar–Morogoro in {treno} ore — quindi consigliamo la strada solo se gli orari del treno non vi vanno bene.
+        Organizziamo transfer privati dagli hotel di Dar es Salaam o dall’aeroporto internazionale Julius Nyerere, e nell’ultimo tratto la strada attraversa il Parco di Mikumi: i primi animali spesso li vedete dall’auto.
+      </p>
+      <ul>
+        <li><strong>Transfer privato:</strong> porta a porta, orari flessibili; prezzo su richiesta.</li>
+        <li><strong>Autobus:</strong> gli autobus per Iringa e Mbeya fermano nel paese di Mikumi; veniamo a prendervi lì.</li>
+        <li><strong>Con la propria auto:</strong> per la strada principale basta un’auto normale; la pista fino al campo è percorribile in ogni stagione. Non guidate il tratto nel parco dopo il tramonto.</li>
+      </ul>
+
+      <h2 id="zanzibar">Opzione 3: da Zanzibar</h2>
+      <p>
+        Prendete il traghetto veloce delle 07:00 da Stone Town a Dar es Salaam (circa 2 ore; 35–70 dollari a persona per tratta, secondo la classe), poi il treno SGR fino a Morogoro con il nostro pickup, oppure un transfer privato in auto dal terminal del traghetto. Arrivate in tempo per la cena di fronte ai monti Mikumi e per il game drive dell’alba del giorno dopo. Preferite volare? Un volo di 20 minuti vi porta da Zanzibar a Dar es Salaam (160–200 dollari a persona per tratta, secondo il giorno e la compagnia; non incluso), oppure un piccolo aereo può portarvi direttamente sulla pista di Mikumi. Traghetti e voli li prenotiamo noi e vi aspettiamo all’arrivo. Molti ospiti fanno Mikumi come pausa di 2–3 notti dalla spiaggia.
+      </p>
+      <p>
+        Il viaggio completo, con orari, prezzi e un esempio concreto, è nella nostra pagina <a href="/it/safari-da-zanzibar">safari da Zanzibar</a>; la maggior parte degli ospiti sceglie il <a href="/safaris/2-day-mikumi-safari">safari di 2 giorni</a> o il <a href="/safaris/3-day-mikumi-safari">safari di 3 giorni</a> (pagine in inglese).
+      </p>
+
+      <h2 id="aereo">Opzione 4: in aereo</h2>
+      <p>
+        I voli charter possono atterrare sulla pista di Mikumi. I voli di linea servono Iringa (circa 3 ore di strada) e Dar es Salaam. Per la maggior parte dei viaggiatori il treno è più veloce porta a porta e molto più economico.
+      </p>
+
+      <h2 id="sud">Arrivare dal sud (Iringa, Ruaha, Mbeya)</h2>
+      <p>
+        Camp Lilac è appena fuori dalla strada principale tra il sud e Dar es Salaam, e per questo è una tappa naturale per la notte dopo Ruaha o Iringa. Arrivate nel tardo pomeriggio per un game drive serale e ripartite dopo colazione.
+      </p>
+
+      <h2>Pickup in aeroporto</h2>
+      <p>
+        Offriamo pickup all’aeroporto internazionale Julius Nyerere (Dar es Salaam) e alla stazione SGR di Morogoro. Mandateci il numero del volo o del treno quando prenotate e pensiamo noi al resto. I pickup sono a pagamento{offersActive && <span data-offer>, tranne il transfer gratuito all’andata da Morogoro che accompagna un safari di 2 o più giorni con partenza a novembre 2026</span>}.
+      </p>
+
+      <h2 id="domande">Le domande più frequenti</h2>
+      <div class="faq">
+        {faqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      </div>
+    </article>
+
+    <aside class="aside">
+      <h3>I transfer in breve</h3>
+      <ul>
+        <li>Stazione SGR di Morogoro ↔ campo: {strada} h</li>
+        <li>Dar es Salaam ↔ campo: 5–6 h in auto</li>
+        <li>Zanzibar → Dar es Salaam: traghetto 2 h o volo 20 min</li>
+        <li>Pickup in aeroporto e in stazione (a pagamento se prenotate solo l’alloggio)</li>
+        {offersActive && <li data-offer>Novembre 2026 — safari di 2 giorni: transfer gratuito all’andata Morogoro → Mikumi (valore 75 dollari)</li>}{offersActive && <li data-offer>Novembre 2026 — safari di 3 o 4 giorni: biglietti del treno in economica Dar → Morogoro + transfer gratuiti (solo andata)</li>}<li><a href="/offers">{offersActive ? 'Le offerte sui safari' : 'Perché prenotare direttamente'}</a> (in inglese)</li>
+      </ul>
+      <a class="btn btn--fill" href={wa} rel="noopener">Richiedete un transfer su WhatsApp</a>
+      <p style="margin-top:12px;font-size:0.9rem">Rispondiamo {replyIt}. Oppure <a href="/book">compilate il modulo di richiesta</a> (in inglese).</p>
+    </aside>
+  </div>
+
+  <section class="section on-dark band">
+    <div class="wrap">
+      <h2 class="rv">Cena di fronte ai monti Mikumi. Poi solo la savana.</h2>
+      <p class="lead rv rv-d1">Diteci le date e da dove partite. Rispondiamo in giornata con gli orari, il prezzo totale e una proposta di safari.</p>
+      <div class="btn-row rv rv-d2">
+        <a class="btn btn--fill" href={wa} rel="noopener">WhatsApp {site.phoneDisplay}</a>
+        <a class="btn btn--light" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+    </div>
+  </section>
+</Base>

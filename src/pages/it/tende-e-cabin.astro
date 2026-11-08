@@ -1,0 +1,143 @@
+---
+// Italian version of /rooms. Hand-written; ask an Italian speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import Photo from '../../components/Photo.astro';
+import { rooms, cover } from '../../data/rooms';
+import { site } from '../../data/site';
+import { offersActive } from '../../data/offers';
+
+const title = 'Tende di lusso e cabin a Mikumi | Camp Lilac';
+const description =
+  'Cinque alloggi appena fuori dal Parco Nazionale di Mikumi: tende di lusso e cabin con bagno privato, aria condizionata e terrazza. Colazione e cena incluse.';
+const crumbs = [{ name: 'Soggiorno', href: '/rooms' }, { name: 'Tende e cabin', href: '/it/tende-e-cabin' }];
+const alternates = [
+  { lang: 'en', href: '/rooms' },
+  { lang: 'it', href: '/it/tende-e-cabin' },
+  { lang: 'fr', href: '/fr/tentes-et-cabines' },
+  { lang: 'de', href: '/de/zelte-und-cabins' },
+  { lang: 'es', href: '/es/tiendas-y-cabanas' },
+];
+const wa = `${site.whatsapp}?text=${encodeURIComponent('Buongiorno! Vorremmo informazioni sulla disponibilità a Camp Lilac. Siamo in ... persone (adulti/bambini), date: ...')}`;
+const replyIt = ({ 'within 4 hours during the day': 'entro 4 ore durante il giorno' } as Record<string, string>)[site.replyTime] ?? site.replyTime;
+
+// Italian wording per room type; prices, order, photos and unit counts stay in src/data/rooms.ts.
+// Room names stay in English as product names, with one Italian gloss.
+const it: Record<string, { gloss: string; sleeps: string; summary: string; alt: string; caption: string }> = {
+  'mountain-view-cabin': {
+    gloss: 'la cabin con vista sui monti',
+    sleeps: '2 adulti',
+    summary: 'La nostra sistemazione migliore: una cabin privata con tetto di paglia di fronte ai monti Mikumi, con un’ampia terrazza, un letto king a baldacchino e una vasca da bagno con vista.',
+    alt: 'Vasca da bagno nella Mountain View Cabin di Camp Lilac, con i monti Mikumi dalla finestra',
+    caption: 'Il bagno, ore 17:50',
+  },
+  'luxury-mountain-view-tent': {
+    gloss: 'tenda di lusso con vista sui monti',
+    sleeps: '2 adulti',
+    summary: 'Le nostre tende di lusso più recenti: la stessa tenda in tela delle Luxury Jungle Tent, rivolta verso i monti Mikumi, con il tramonto più bello di Mikumi dalla vostra terrazza.',
+    alt: 'Luxury Mountain View Tent a Camp Lilac, di fronte alla catena dei monti Mikumi',
+    caption: 'Di fronte ai monti Mikumi',
+  },
+  'jungle-cabin': {
+    gloss: 'la cabin tra gli alberi',
+    sleeps: '2 adulti',
+    summary: 'Una cabin privata con tetto di paglia in mezzo agli alberi: una lunga terrazza che la circonda, un letto a baldacchino, un bagno in marmo e i suoni della savana di Mikumi tutt’intorno.',
+    alt: 'La Jungle Cabin di Camp Lilac con il tetto di paglia e la scala in legno, tra gli alberi di miombo',
+    caption: 'Dal sentiero, ore 07:15',
+  },
+  'luxury-jungle-tent': {
+    gloss: 'tenda di lusso tra gli alberi',
+    sleeps: '2 adulti',
+    summary: 'Il classico soggiorno safari: una tenda di lusso in tela su una pedana rialzata in legno, con letto a baldacchino, bagno privato, aria condizionata e gli animali che passano davanti ai gradini.',
+    alt: 'Tenda di lusso di Camp Lilac su una pedana rialzata in legno sotto gli alberi, vicino al Parco Nazionale di Mikumi',
+    caption: 'Tenda due, tarda mattinata',
+  },
+  'luxury-family-tent': {
+    gloss: 'tenda di lusso per famiglie',
+    sleeps: '2 adulti + 2 bambini (fino a 4 ospiti)',
+    summary: 'Una spaziosa tenda di lusso per famiglie: posto per i genitori e due bambini, bagno privato, aria condizionata e terrazza privata. I bambini sotto i 4 anni non pagano; dai 4 agli 11 pagano la metà.',
+    alt: 'La terrazza privata di una Luxury Family Tent a Camp Lilac, affacciata sulla savana',
+    caption: 'Posto per quattro',
+  },
+};
+const t = (r: (typeof rooms)[number]) => it[r.slug] ?? { gloss: '', sleeps: r.sleeps, summary: r.summary, alt: r.imageAlt, caption: r.caption };
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Tende di lusso e cabin a Camp Lilac',
+  inLanguage: 'it',
+  itemListElement: rooms.map((r, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}/rooms/${r.slug}`, name: r.name })),
+};
+---
+
+<Base {title} {description} {schema} lang="it" {alternates} ogImage="/images/rooms/jungle-tent-1-1600.jpg" breadcrumbs={crumbs} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src="/images/rooms/jungle-tent-1-1600.webp" srcset="/images/rooms/jungle-tent-1-800.webp 800w, /images/rooms/jungle-tent-1-1200.webp 1200w, /images/rooms/jungle-tent-1-1600.webp 1600w" sizes="100vw" alt="Una tenda di lusso di Camp Lilac sulla sua pedana rialzata in legno" width="1600" height="1200" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <Crumbs items={crumbs} />
+        <h1 style="max-width:17ch"><span class="w"><span>Tende di lusso e cabin&nbsp;</span></span><br /><span class="w"><em style="color:#e4d9f7">vicino al Parco Nazionale di Mikumi</em></span></h1>
+        <p class="lead">Due cabin con tetto di paglia e otto tende di lusso in tela, appena fuori dal parco. Ognuna con bagno privato, aria condizionata e terrazza privata. Colazione e cena incluse.</p>
+      </div>
+      <div class="hero-side"><b>Check-in {site.checkIn}</b>Check-out {site.checkOut}<br />Sotto i 4 anni gratis · 4–11 anni metà prezzo</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="meta" style="margin-bottom:28px"><a href="/rooms">Read this page in English</a> · Le nostre altre pagine in italiano: <a href="/it/safari-mikumi">Safari a Mikumi</a> · <a href="/it/safari-da-zanzibar">Safari da Zanzibar</a> · <a href="/it/come-arrivare">Come arrivare</a>. Le pagine di dettaglio di ogni alloggio sono in inglese.</p>
+      <ul class="room-rows">
+        {rooms.map((r) => (
+          <li class="room-row">
+            <a class="room-row-media rv" href={`/rooms/${r.slug}`}>
+              <Photo src={cover(r)} alt={t(r).alt} caption={t(r).caption} ratio="landscape" />
+            </a>
+            <div>
+              <span class="numeral rv">{r.numeral}</span>
+              <h2 class="rv rv-d1"><a href={`/rooms/${r.slug}`} style="color:inherit">{r.name}</a>{t(r).gloss && <small style="display:block;font-size:0.55em;font-weight:400;opacity:0.8">({t(r).gloss})</small>}</h2>
+              <p class="meta rv rv-d1">{r.units > 1 ? `${r.units} unità` : 'Pezzo unico'} · {t(r).sleeps} · {r.view === 'mountain' ? 'Vista sui monti Mikumi' : 'Tra gli alberi'}</p>
+              <p class="price rv rv-d2">{r.price ? <span>Da US${r.price} <small>a notte</small></span> : <span>Tariffe su richiesta</span>}</p>
+              <p class="rv rv-d2">{t(r).summary}</p>
+              <a class="link rv rv-d3" href={`/rooms/${r.slug}`}>Dettagli e foto (in inglese)</a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--sand section--tight">
+    <div class="wrap split--aside" style="display:grid">
+      <div class="article">
+        <h2 class="rv">Buono a sapersi</h2>
+        <ul class="rv rv-d1">
+          <li>Ogni tariffa prenotata direttamente con noi comprende colazione e cena al ristorante. Il pranzo, o qualsiasi pasto in più, costa 15 dollari a persona. Le bevande sono escluse. Nei pacchetti safari tutti i pasti sono inclusi.</li>
+          <li>I bambini da 0 a 3 anni non pagano, dai 4 agli 11 pagano la metà della tariffa adulti, dai 12 anni tariffa adulti. Colazione e cena sono incluse anche per i bambini; sotto i 4 anni mangiano gratis. I bambini sotto i 2 anni non possono partecipare ai game drive.</li>
+          <li>Ogni alloggio, tende di lusso comprese, ha aria condizionata, bagno privato e terrazza privata.</li>
+          <li>Wi-Fi al ristorante e al bar. Le tende di lusso sono volutamente senza connessione.</li>
+          <li>I pickup dalla stazione SGR di Morogoro, da Dar es Salaam e dall’aeroporto sono disponibili a pagamento.{offersActive && <span data-offer> Il transfer da Morogoro è gratuito solo se prenotate direttamente con noi un safari di 2 o più giorni con partenza a novembre 2026 (solo all’andata; con il safari di 3 o 4 giorni sono gratuiti anche i biglietti del treno SGR in economica da Dar es Salaam a Morogoro).</span>} I pasti si servono nel <a href="/restaurant">ristorante</a> (in inglese) di fronte alla catena dei monti Mikumi.</li>
+          <li>Il campo è appena fuori dal Parco Nazionale di Mikumi, a pochi minuti dall’ingresso e a 2 km dalla strada principale. Volete sapere come ci confrontiamo con i lodge dentro il parco o con gli hotel nel paese di Mikumi? Leggete <a href="/where-to-stay-in-mikumi">dove dormire a Mikumi</a> (in inglese).</li>
+          <li>Non si accettano animali. Il campo non è ancora accessibile in sedia a rotelle.</li>
+        </ul>
+      </div>
+      <aside class="aside rv rv-d2">
+        <h3>Non sapete quale scegliere?</h3>
+        <p>Le coppie di solito prendono la Mountain View Cabin o una Luxury Mountain View Tent. Le famiglie prendono una Luxury Family Tent. Diteci chi viene e vi suggeriamo la sistemazione giusta. Rispondiamo {replyIt}.</p>
+        <a class="btn" href={wa} rel="noopener">Chiedete la disponibilità su WhatsApp</a>
+        <p style="margin-top:12px;font-size:0.9rem">oppure <a href="/book">compilate il modulo di richiesta</a> (in inglese)</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section on-dark band">
+    <div class="wrap">
+      <h2 class="rv">Cena di fronte ai monti Mikumi. Poi solo la savana.</h2>
+      <p class="lead rv rv-d1">Diteci le date e chi viene. Rispondiamo in giornata con la disponibilità, il prezzo totale e una proposta di safari.</p>
+      <div class="btn-row rv rv-d2">
+        <a class="btn btn--fill" href={wa} rel="noopener">WhatsApp {site.phoneDisplay}</a>
+        <a class="btn btn--light" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+    </div>
+  </section>
+</Base>
