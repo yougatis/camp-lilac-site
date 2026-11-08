@@ -1,0 +1,126 @@
+---
+// French version of /getting-here. Hand-written; ask a French speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import { site } from '../../data/site';
+import { offersActive } from '../../data/offers';
+
+const title = 'Comment venir à Mikumi depuis Dar es Salaam et Zanzibar';
+const description =
+  'Dar es Salaam–Mikumi en train SGR (1,5 h jusqu’à Morogoro puis notre transfert de 2 h), par la route (5–6 h), ou de Zanzibar en ferry ou avion. Durées, coûts.';
+const crumbs = [{ name: 'Comment venir', href: '/fr/comment-venir' }];
+const alternates = [
+  { lang: 'en', href: '/getting-here' },
+  { lang: 'it', href: '/it/come-arrivare' },
+  { lang: 'fr', href: '/fr/comment-venir' },
+  { lang: 'de', href: '/de/anreise' },
+  { lang: 'es', href: '/es/como-llegar' },
+];
+const replyHours = site.replyTime.match(/\d+/)?.[0] ?? '4';
+const wa = `${site.whatsapp}?text=${encodeURIComponent('Bonjour, nous aimerions organiser un transfert vers Camp Lilac. Nous arrivons de ... le ..., nous sommes ... personnes.')}`;
+
+const faqs = [
+  { q: 'Comment acheter les billets du train SGR ?', a: 'Dans l’application TRC ou au guichet de la gare, en classe économique ou affaires. En haute saison et pendant les fêtes, réservez quelques jours à l’avance. Si vous réservez un safari chez nous, nous achetons les billets pour vous et nous vous indiquons le train à prendre.' },
+  { q: 'Peut-on venir de Dar es Salaam en voiture plutôt qu’en train ?', a: 'Oui, nous organisons des transferts privés depuis les hôtels de Dar es Salaam ou l’aéroport, mais nous ne le recommandons pas : comptez 7 à 8 heures de route au lieu d’environ 3,5 heures avec le train, pour un prix plus élevé et beaucoup plus de fatigue. Nous ne le proposons que si les horaires de train ne conviennent pas.' },
+  { q: 'Faut-il un nouveau visa pour venir de Zanzibar sur le continent ?', a: 'Non. Zanzibar fait partie de la Tanzanie : le visa avec lequel vous êtes entrés vaut pour Dar es Salaam et Mikumi. Gardez votre passeport pour le ferry et pour l’entrée du parc.' },
+  { q: 'Parlez-vous français ?', a: 'Notre équipe parle anglais et swahili. Écrivez-nous en français sur WhatsApp : nous répondons en anglais simple et, si besoin, avec l’aide d’un traducteur. Les guides parlent anglais ; sur demande, nous cherchons un guide francophone.' },
+  { q: 'Faut-il un traitement contre le paludisme ?', a: 'Mikumi est une zone de paludisme, comme Zanzibar et toute la côte tanzanienne. Parlez-en à votre médecin ou à un centre de vaccinations internationales avant le départ ; la prophylaxie prise pour le reste de la Tanzanie couvre Mikumi. Les tentes de luxe ont des moustiquaires et la climatisation.' },
+  { q: 'Notre vol de retour part de Dar es Salaam : que faire du dernier jour ?', a: 'Nous vous déposons directement à l’aéroport international Julius Nyerere ou à votre hôtel de Dar es Salaam : train de l’après-midi depuis Morogoro, puis notre transfert ou un taxi jusqu’à l’aéroport. Envoyez-nous votre numéro de vol et nous calons le trajet dessus.' },
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'fr',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+
+<Base {title} {description} {schema} lang="fr" {alternates} breadcrumbs={crumbs}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/">Accueil</a> / Comment venir</p>
+    <h1>Comment venir à Camp Lilac, Mikumi</h1>
+    <p class="lead">
+      Mikumi est le parc de safari le plus facile d’accès en Tanzanie. Voici toutes les façons de nous rejoindre depuis Dar es Salaam, Zanzibar et le sud, avec des durées honnêtes.
+    </p>
+    <p class="meta"><a href="/getting-here">Lire cette page en anglais</a> · Nos autres pages en français : <a href="/fr/safari-depuis-zanzibar">Safari depuis Zanzibar</a> · <a href="/fr/safaris-mikumi">Safaris Mikumi</a> · <a href="/fr/tentes-et-cabines">Tentes et cabines</a></p>
+  </div>
+
+  <div class="wrap split--aside" style="display:grid">
+    <article class="article">
+      <Photo src="/images/rooms/mv-cabin-3-1600.jpg" alt="La Mountain View Cabin de Camp Lilac, au bout du voyage depuis Dar es Salaam" caption="L’arrivée" ratio="landscape" loading="eager" />
+
+      <h2 id="train">Option 1 : le train SGR depuis Dar es Salaam (recommandé)</h2>
+      <p>
+        La ligne à écartement standard relie Dar es Salaam à Morogoro plusieurs fois par jour, en environ 1,5 h dans un train climatisé. De la gare de Morogoro, il reste 2 h de route jusqu’au camp. Notre chauffeur vous attend sur le quai avec une pancarte à votre nom.
+      </p>
+      <ul>
+        <li><strong>Billets :</strong> dans l’application TRC ou à la gare ; classe économique ou affaires. Réservez quelques jours à l’avance en haute saison et pendant les fêtes.</li>
+        <li><strong>Horaires :</strong> avec un train du matin, vous pouvez être en game drive l’après-midi même.</li>
+        <li><strong>Notre transfert :</strong> gare de Morogoro → camp, environ 2 h.{offersActive && <span data-offer> <strong>Offert à l’aller</strong> avec un safari de 2 jours ou plus réservé en direct et commençant en novembre 2026 (valeur US$75). Avec un safari de 3 ou 4 jours, nous offrons aussi les billets de train SGR en classe économique Dar es Salaam → Morogoro. Le retour est facturé.</span>} Vous ne réservez qu’une chambre ? Le transfert est alors facturé ; demandez-nous le prix.</li>
+        <li><strong>Gare de Kilosa :</strong> un arrêt plus proche du parc est en cours d’aménagement ; pour l’instant, Morogoro reste le choix pratique.</li>
+        <li><strong>Pas à pas :</strong> notre <a href="/blog/dar-es-salaam-to-mikumi-by-sgr-train">guide du train SGR</a> (en anglais) détaille billets, horaires et accueil. Pour le voyage complet sous forme de formule, voyez le <a href="/safari-from-dar-es-salaam">safari depuis Dar es Salaam</a> et le <a href="/safaris/2-day-mikumi-safari">safari Mikumi de 2 jours</a> (en anglais), ou nos <a href="/fr/safaris-mikumi">safaris en français</a>.</li>
+      </ul>
+
+      <h2 id="route">Option 2 : par la route depuis Dar es Salaam (déconseillé)</h2>
+      <p>
+        Environ 300 km sur l’A7 (Morogoro Road). Comptez 5 à 6 h jusqu’à Morogoro, sortie de Dar es Salaam comprise, davantage le vendredi et les jours fériés, puis encore 2 h jusqu’à Mikumi. Par rapport au train, une voiture de transfert coûte plus cher, va moins vite et fatigue beaucoup plus — le train fait Dar–Morogoro en 1,5 h — ; nous ne conseillons la route que si les horaires de train ne conviennent pas. Nous organisons des transferts privés depuis les hôtels de Dar es Salaam ou l’aéroport international Julius Nyerere, et la route traverse le parc de Mikumi sur le dernier tronçon : les premiers animaux se voient souvent depuis la voiture.
+      </p>
+      <ul>
+        <li><strong>Transfert privé :</strong> porte à porte, horaires souples ; prix sur demande.</li>
+        <li><strong>Bus :</strong> les bus pour Iringa et Mbeya s’arrêtent dans la ville de Mikumi ; nous pouvons venir vous y chercher.</li>
+        <li><strong>Voiture de location :</strong> une voiture ordinaire suffit pour la route principale ; la piste du camp est praticable en toute saison. Ne traversez pas le parc de nuit.</li>
+      </ul>
+
+      <h2 id="zanzibar">Option 3 : depuis Zanzibar</h2>
+      <p>
+        Prenez le ferry rapide de 07:00 de Stone Town à Dar es Salaam (environ 2 h ; 35 à 70 dollars par personne et par trajet selon la classe), puis soit le train SGR jusqu’à Morogoro avec notre accueil, soit un transfert routier privé depuis le terminal des ferries. Vous arrivez à temps pour le dîner face à la chaîne des monts Mikumi et un game drive à l’aube le lendemain. Vous préférez l’avion ? Un vol de 20 minutes relie Zanzibar à Dar es Salaam (160 à 200 dollars par personne et par trajet selon le jour et la compagnie ; non inclus), ou un petit avion peut vous poser directement sur la piste de Mikumi. Nous réservons ferries et vols pour vous et vous accueillons à l’arrivée. Beaucoup de nos hôtes font de Mikumi une parenthèse de 2 à 3 nuits loin de la plage.
+      </p>
+      <p>
+        Le voyage complet, avec horaires, prix et un exemple chiffré, est sur notre page <a href="/fr/safari-depuis-zanzibar">safari depuis Zanzibar</a> ; la plupart des hôtes choisissent le safari Mikumi de 2 jours ou celui de 3 jours (détails en anglais : <a href="/safaris/2-day-mikumi-safari">2 jours</a>, <a href="/safaris/3-day-mikumi-safari">3 jours</a>).
+      </p>
+
+      <h2 id="avion">Option 4 : en avion</h2>
+      <p>
+        Des vols charter peuvent se poser sur la piste de Mikumi. Des vols réguliers desservent Iringa (environ 3 h de route) et Dar es Salaam. Pour la plupart des voyageurs, le train reste plus rapide de porte à porte et bien moins cher.
+      </p>
+
+      <h2 id="sud">En venant du sud (Iringa, Ruaha, Mbeya)</h2>
+      <p>
+        Camp Lilac se trouve juste à côté de la route principale entre le sud et Dar es Salaam, ce qui en fait une étape naturelle après Ruaha ou Iringa. Arrivez en fin d’après-midi pour un game drive du soir et repartez après le petit-déjeuner.
+      </p>
+
+      <h2>Accueil à l’aéroport et à la gare</h2>
+      <p>
+        Nous venons vous chercher à l’aéroport international Julius Nyerere (Dar es Salaam) et à la gare SGR de Morogoro. Envoyez-nous votre numéro de vol ou de train au moment de la réservation et nous nous occupons du reste. Les transferts sont facturés{offersActive && <span data-offer>, à l’exception du transfert aller Morogoro → camp offert avec un safari de 2 jours ou plus commençant en novembre 2026</span>}.
+      </p>
+
+      <h2 id="questions">Les questions que l’on nous pose</h2>
+      <div class="faq">
+        {faqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      </div>
+    </article>
+
+    <aside class="aside">
+      <h3>Les transferts en un coup d’œil</h3>
+      <ul>
+        <li>Gare SGR de Morogoro ↔ camp : 2 h</li>
+        <li>Dar es Salaam ↔ camp : 5 à 6 h par la route</li>
+        <li>Accueil à l’aéroport et à la gare (facturé pour les séjours sans safari)</li>
+        {offersActive && <li data-offer>Novembre 2026 — safari de 2 jours : transfert aller Morogoro → Mikumi offert (valeur US$75)</li>}{offersActive && <li data-offer>Novembre 2026 — safari de 3 ou 4 jours : billets de train économiques Dar → Morogoro + transfert offerts (aller simple)</li>}<li><a href="/offers">{offersActive ? 'Voir les offres safari' : 'Pourquoi réserver en direct'}</a> (en anglais)</li>
+      </ul>
+      <a class="btn btn--fill" href={wa} rel="noopener">Demander un transfert sur WhatsApp</a>
+      <p style="margin-top:12px;font-size:0.9rem">ou <a href="/book">remplissez le formulaire de demande</a> (en anglais). Réponse en général sous {replyHours} heures dans la journée.</p>
+    </aside>
+  </div>
+
+  <section class="section on-dark band">
+    <div class="wrap">
+      <h2 class="rv">Un dîner face aux monts Mikumi. Puis seulement la brousse.</h2>
+      <p class="lead rv rv-d1">Dites-nous vos dates et qui vient. Nous répondons dans la journée avec les disponibilités, le prix total et une suggestion de safari.</p>
+      <div class="btn-row rv rv-d2">
+        <a class="btn btn--fill" href={wa} rel="noopener">WhatsApp {site.phoneDisplay}</a>
+        <a class="btn btn--light" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,171 @@
+---
+// German version of /safari-from-zanzibar. Hand-written; ask a German speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import Photo from '../../components/Photo.astro';
+import { safariBySlug } from '../../data/safaris';
+import { site } from '../../data/site';
+import { offersActive } from '../../data/offers';
+
+const title = 'Safari ab Sansibar: 2–3 Tage Mikumi | Camp Lilac';
+const description =
+  'Echte Safari ab Sansibar in 2–3 Tagen: Fähre oder Flug nach Dar es Salaam, SGR-Zug, unser Transfer, Luxuszelte vor den Mikumi-Bergen. Preise, Zeiten, Ablauf.';
+const crumbs = [{ name: 'Safaris', href: '/safaris' }, { name: 'Safari ab Sansibar', href: '/de/safari-ab-sansibar' }];
+const alternates = [
+  { lang: 'en', href: '/safari-from-zanzibar' },
+  { lang: 'it', href: '/it/safari-da-zanzibar' },
+  { lang: 'fr', href: '/fr/safari-depuis-zanzibar' },
+  { lang: 'de', href: '/de/safari-ab-sansibar' },
+  { lang: 'es', href: '/es/safari-desde-zanzibar' },
+];
+const s2 = safariBySlug('2-day-mikumi-safari')!, s3 = safariBySlug('3-day-mikumi-safari')!, s4 = safariBySlug('4-day-mikumi-udzungwa-safari')!;
+const wa = `${site.whatsapp}?text=${encodeURIComponent('Guten Tag, wir sind auf Sansibar und interessieren uns für eine Mikumi-Safari von 2 oder 3 Tagen. Wir sind ... Personen, Reisedaten: ...')}`;
+
+const faqs = [
+  { q: 'Brauchen wir ein neues Visum für die Fahrt von Sansibar aufs Festland?', a: 'Nein. Sansibar gehört zu Tansania, Ihr Einreisevisum gilt also auch für Dar es Salaam und Mikumi. Nehmen Sie den Reisepass mit: Sie brauchen ihn für die Fähre und am Parkeingang.' },
+  { q: 'Reichen zwei Tage?', a: 'Für eine erste Safari ja: eine Pirschfahrt am Nachmittag und eine im Morgengrauen auf der offenen Mkata-Ebene, wo Elefanten, Giraffen, Zebras und Löwen leicht zu finden sind. Mit einem dritten Tag haben Sie zusätzlich einen ganzen Tag im Park und ein deutlich ruhigeres Tempo. Das ist die Variante, die wir empfehlen.' },
+  { q: 'Sprechen Sie Deutsch?', a: 'Unser Team spricht Englisch und Swahili. Schreiben Sie uns gern auf Deutsch über WhatsApp; wir antworten in einfachem Englisch und, wenn nötig, mit Hilfe eines Übersetzers. Die Guides sprechen Englisch, und unsere deutschsprachigen Gäste kommen damit bestens zurecht.' },
+  { q: 'Wie viel Gepäck sollen wir mitnehmen?', a: 'Eine kleine Tasche. Lassen Sie den großen Koffer in Ihrem Hotel auf Sansibar (fast alle Hotels bewahren Gepäck kostenlos auf) und packen Sie Kleidung in gedeckten Farben, eine Fleecejacke für die kühlen Morgen zwischen Juni und August, Sonnenschutz und die Kamera ein. Alles andere finden Sie in den Luxuszelten.' },
+  { q: 'Ist Mikumi Malariagebiet?', a: 'Ja, wie Sansibar und die gesamte tansanische Küste. Die Prophylaxe, die Sie für Sansibar nehmen, deckt auch Mikumi ab. Die Luxuszelte haben Moskitonetze und Klimaanlage.' },
+  { q: 'Was, wenn unser Rückflug ab Dar es Salaam geht?', a: 'Dann beenden Sie den Urlaub mit der Safari: Sie kommen von Sansibar nach Mikumi, und am letzten Tag bringen wir Sie nach Dar es Salaam oder direkt zum Flughafen Julius Nyerere International, statt zurück auf die Insel.' },
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'de',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+
+<Base {title} {description} {schema} lang="de" {alternates} ogImage="/images/wild/elephants-plain-1600.jpg" breadcrumbs={crumbs} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src="/images/wild/elephants-plain-1600.webp" srcset="/images/wild/elephants-plain-800.webp 800w, /images/wild/elephants-plain-1200.webp 1200w, /images/wild/elephants-plain-1600.webp 1600w" sizes="100vw" alt="Elefanten auf der Mkata-Ebene im Mikumi-Nationalpark, im Hintergrund die Mikumi-Berge" width="1600" height="1067" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <Crumbs items={crumbs} />
+        <h1 style="max-width:17ch"><span class="w"><span>Safari ab Sansibar:&nbsp;</span></span><br /><span class="w"><em style="color:#e4d9f7">eine echte Safari in zwei Tagen</em></span></h1>
+        <p class="lead">Der Mikumi-Nationalpark ist der nächstgelegene große Safaripark ab Sansibar, den Sie ohne Charterflug erreichen: Fähre oder 20 Minuten Flug nach Dar es Salaam, 1,5 Stunden mit dem SGR-Zug, und unser Fahrer wartet am Bahnsteig. Am Nachmittag Elefanten, nachts ein Luxuszelt mit Blick auf die Mikumi-Berge.</p>
+      </div>
+      <div class="hero-side"><b>Ab US${s2.price}</b>pro Person, 2 Tage<br />ohne Fähre oder Flug</div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap split--aside" style="display:grid">
+      <article class="article">
+        <p class="meta"><a href="/safari-from-zanzibar">Diese Seite auf Englisch lesen</a> · Unsere anderen Seiten auf Deutsch: <a href="/de/mikumi-safaris">Mikumi-Safaris</a> · <a href="/de/zelte-und-cabins">Zelte und Cabins</a> · <a href="/de/anreise">Anreise</a></p>
+        <h2>Warum Mikumi die richtige Safari ab Sansibar ist</h2>
+        <p>
+          Fast alle Angebote für eine „Safari ab Sansibar“ sind Tagesausflüge: Wecker um vier, Flug zum Selous (Nyerere) oder nach Mikumi, ein paar Stunden im Fahrzeug und am selben Abend zurück. Anstrengend, teuer, und Sie verpassen die zwei besten Stunden jeder Safari: Morgen- und Abenddämmerung. Die Alternative ist eine kurze Auszeit auf dem Festland. Mikumi liegt an der Hauptbahnstrecke ab Dar es Salaam, seine offene Ebene macht die Tiere in kurzer Zeit gut sichtbar, die Parkgebühren gehören zu den niedrigsten Tansanias, und Camp Lilac liegt nur wenige Minuten vom Parkeingang entfernt. Sie schlafen im Busch, sind bei Tagesanbruch unterwegs und sitzen am nächsten Abend wieder in Ihrem Strandhotel. Oder am übernächsten, wenn Sie unserem Rat folgen und zwei Nächte bleiben.
+        </p>
+        <p>
+          Die Safari fahren wir selbst, mit unseren eigenen Guides und offenen Geländewagen, und wir organisieren die ganze Reise ab Ihrem Hotel auf Sansibar: Fähr- oder Flugtickets, Zug, Abholung am Bahnhof Morogoro und den Rücktransfer. Ein Gesamtpreis, eine WhatsApp-Nummer.
+        </p>
+
+        <h2 id="ablauf">So läuft es ab, Stunde für Stunde</h2>
+        <ol class="itinerary">
+          <li><h3>Morgen: von Sansibar nach Dar es Salaam</h3><p>Schnellfähre um 07:00 Uhr ab Stone Town (1,5–2 Stunden; je nach Klasse etwa US$35–70 pro Person und Strecke) oder ein 20-minütiger Flug (US$160–200 pro Person und Strecke, je nach Tag und Fluggesellschaft). Wir holen Sie am Fährterminal oder am Flughafen ab.</p></li>
+          <li><h3>Später Vormittag: der SGR-Zug nach Morogoro</h3><p>Wir bringen Sie zum SGR-Bahnhof in Dar es Salaam. Von dort sind es etwa 1,5 Stunden im modernen, klimatisierten Zug nach Morogoro. Die Economy-Klasse ist völlig ausreichend, die Business-Klasse hat etwas mehr Platz. Die Tickets kaufen wir für Sie.</p></li>
+          <li><h3>Früher Nachmittag: unser Fahrer am Bahnsteig</h3><p>Ihr Fahrer-Guide von Camp Lilac wartet in Morogoro mit einem Namensschild. Die zwei Stunden Fahrt nach Westen führen an den Uluguru-Bergen vorbei und auf der Hauptstraße mitten durch den Mikumi-Nationalpark. Die ersten Giraffen zeigen sich oft schon vor dem Check-in.</p></li>
+          <li><h3>Nachmittag: erste Pirschfahrt, dann Abendessen vor den Bergen</h3><p>Mittagessen im Camp, dann hinaus auf die Mkata-Ebene, sobald es kühler wird: Elefanten, Giraffen, Zebras, Büffel, die Flusspferd-Tümpel und mit etwas Glück Löwen in den Bäumen. Abendessen in unserem offenen Restaurant mit Blick auf den Bergkamm der Mikumi-Berge, die Nacht in einem Luxuszelt mit eigenem Bad und Klimaanlage.</p></li>
+          <li><h3>Tag 2: Pirschfahrt im Morgengrauen, dann zurück an die Küste (oder ein Tag mehr)</h3><p>Aufbruch bei Tagesanbruch, solange die Raubtiere noch unterwegs sind, zurück zu einem späten Frühstück. Bei der 2-Tage-Safari fahren wir Sie anschließend nach Morogoro zum Zug nach Dar es Salaam, wo Sie den Abendflug nach Sansibar oder die Fähre am nächsten Morgen nehmen. Bei der 3-Tage-Safari verbringen Sie diesen ganzen Tag im Park und reisen am dritten Tag zurück. Das ist die Variante, die wir empfehlen, wenn Sie die Zeit haben.</p></li>
+        </ol>
+        <p>Die genauen Zeiten hängen vom gewählten Zug ab und davon, ob Sie fliegen oder die Fähre nehmen. Sagen Sie uns, an welchem Tag Sie wieder am Strand sein möchten, und wir stimmen Zug, Fähre oder Flug aufeinander ab. Das ist unsere Aufgabe, nicht Ihre.</p>
+
+        <h2 id="pakete">Wählen Sie Ihre Safari</h2>
+        <table>
+          <thead><tr><th scope="col">Paket</th><th scope="col">Pro Person</th><th scope="col">Für wen</th></tr></thead>
+          <tbody>
+            <tr><th scope="row"><a href={`/safaris/${s2.slug}`}>Mikumi-Safari, 2 Tage, 1 Nacht</a></th><td>Ab US${s2.price}</td><td>Eine erste Safari in möglichst kurzer Zeit weg von der Insel</td></tr>
+            <tr><th scope="row"><a href={`/safaris/${s3.slug}`}>Mikumi-Safari, 3 Tage, 2 Nächte</a></th><td>Ab US${s3.price}</td><td>Unsere Empfehlung: ein ganzer Tag im Park, entspanntes Tempo, zwei Nächte im Busch</td></tr>
+            <tr><th scope="row"><a href={`/safaris/${s4.slug}`}>Mikumi und Udzungwa-Wasserfälle, 4 Tage, 3 Nächte</a></th><td>Ab US${s4.price}</td><td>Wildtiere plus die Wanderung zum Wasserfall im Regenwald der Udzungwa-Berge</td></tr>
+          </tbody>
+        </table>
+        <p>
+          Die Preise gelten pro Person ab zwei gemeinsam reisenden Personen und enthalten die Parkgebühren, einen privaten offenen Geländewagen mit unserem eigenen Guide, alle Mahlzeiten und die Nächte im Camp Lilac. Fähre oder Flug und der Zug sind nicht enthalten (wir buchen sie zum Selbstkostenpreis für Sie), ebenso wenig der Rücktransfer vom Camp zum Bahnhof Morogoro (US$75 pro Fahrzeug). Die Detailseiten der Safaris sind auf Englisch. Vor jeder Buchung schicken wir Ihnen einen genauen Gesamtbetrag.{offersActive && <span data-offer> Für Safaris ab zwei Tagen, die Sie direkt bei uns buchen und die im November 2026 beginnen, gilt außerdem: Bei der 2-Tage-Safari ist der Transfer vom Bahnhof Morogoro zum Camp kostenlos (im Wert von US$75); bei 3 oder 4 Tagen übernehmen wir zusätzlich die Economy-Tickets für den SGR-Zug von Dar es Salaam nach Morogoro. Jeweils nur für die Hinfahrt, die Rückfahrt wird berechnet.</span>}
+        </p>
+
+        <h3>Ein Rechenbeispiel: zwei Personen, zwei Tage</h3>
+        <ul>
+          <li>2-Tage-Safari: US${s2.price} pro Person, inklusive Parkgebühren, Pirschfahrten, einer Nacht, Mahlzeiten und Transfers in Dar es Salaam</li>
+          <li>Schnellfähre Sansibar ⇄ Dar es Salaam: etwa US$35–70 pro Person und Strecke</li>
+          <li>SGR-Zug Dar es Salaam ⇄ Morogoro: wenige US-Dollar pro Strecke in der Economy-Klasse</li>
+          <li>Rücktransfer Camp → Bahnhof Morogoro: US$75 pro Fahrzeug, also etwa US$38 pro Person zu zweit</li>
+        </ul>
+        <p>Insgesamt etwa US$520–600 pro Person für die zwei Tage mit der Fähre; rechnen Sie mit US$320–400 pro Person mehr, wenn Sie in beide Richtungen fliegen möchten.</p>
+
+        <h2 id="flug">Fähre oder Flug?</h2>
+        <p>
+          Die <strong>Fähre</strong> ist günstiger und zuverlässig, und die Abfahrt um 07:00 Uhr passt gut zu einem Zug am späten Vormittag. Der <strong>Flug</strong> spart pro Strecke etwa zwei Stunden, was vor allem auf dem Rückweg zählt: Mit einem Abendflug sind Sie von Dar es Salaam noch am selben Abend in Ihrem Hotel auf Sansibar, während die letzte Fähre meist schon weg ist, wenn der Nachmittagszug ankommt. Viele Gäste nehmen hin die Fähre und zurück das Flugzeug.
+        </p>
+
+        <h2 id="fuer-wen">Für wen sich die Safari eignet</h2>
+        <ul>
+          <li><strong>Paare und Hochzeitsreisende</strong>, die neben dem Strand ein unvergessliches Erlebnis suchen: Fragen Sie nach der Mountain View Cabin mit der Badewanne vor den Bergen.</li>
+          <li><strong>Familien</strong>: Kinder unter 4 Jahren übernachten kostenlos, von 4 bis 11 Jahren zahlen sie den halben Preis, ab 12 den Erwachsenenpreis. Das Luxury Family Tent bietet Platz für vier, und die offene Ebene bedeutet kurze Fahrten mit viel zu sehen. Kinder unter 2 Jahren können nicht an Pirschfahrten teilnehmen.</li>
+          <li><strong>Reisende mit Rückflug ab Dar es Salaam</strong>: Die Safari wird zum letzten Kapitel der Reise, und von Mikumi geht es direkt zum Flughafen.</li>
+        </ul>
+
+        <h2 id="fragen">Was deutschsprachige Gäste uns fragen</h2>
+        <div class="faq">
+          {faqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+        </div>
+        <p style="margin-top:28px">Auf Deutsch weiterlesen: <a href="/de/anreise">Anreise</a> · <a href="/de/mikumi-safaris">alle Mikumi-Safaris</a> · <a href="/de/zelte-und-cabins">Luxuszelte und Cabins</a>. Auf Englisch: <a href="/blog/dar-es-salaam-to-mikumi-by-sgr-train">der SGR-Zug Schritt für Schritt</a> · <a href="/blog/mikumi-safari-cost">was eine Mikumi-Safari kostet</a> · <a href="/mikumi-national-park">unser Führer zum Mikumi-Nationalpark</a>.</p>
+      </article>
+
+      <aside class="aside">
+        <p class="aside-price">Ab US${s2.price} <small>pro Person</small></p>
+        <ul>
+          <li>2 oder 3 Tage ab Sansibar</li>
+          <li>Fähre oder 20 Minuten Flug + 1,5 h Zug</li>
+          <li>Privater Geländewagen und eigener Guide</li>
+          <li>Luxuszelt · eigenes Bad · Klimaanlage</li>
+          <li>Wir buchen Fähren, Flüge und Züge</li>
+        </ul>
+        <a class="btn btn--fill" href={wa} rel="noopener">Schreiben Sie uns auf WhatsApp</a>
+        <p style="margin-top:12px;font-size:0.9rem">oder <a href={`/book?safari=${s2.slug}`}>füllen Sie das Anfrageformular aus</a> (auf Englisch)</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--sand section--tight">
+    <div class="wrap">
+      <div class="split" style="align-items:center">
+        <div class="rv">
+          <Photo src="/images/rooms/mv-cabin-1-1600.jpg" alt="Freistehende Badewanne in der Mountain View Cabin im Camp Lilac, durch das Fenster der Bergkamm der Mikumi-Berge" caption="Mountain View Cabin" ratio="landscape" zoom />
+        </div>
+        <div>
+          <h2 class="rv">Wo Sie schlafen</h2>
+          <p class="rv rv-d1">Camp Lilac ist ein Luxus-Zeltcamp knapp außerhalb des Mikumi-Nationalparks, 2 km von der Hauptstraße entfernt, mit Blick auf den Bergkamm der Mikumi-Berge. Luxuszelte aus Segeltuch und zwei reetgedeckte Cabins, jede Unterkunft mit eigenem Bad, Klimaanlage und privater Terrasse; ein Restaurant mit dem einzigen Bergblick in ganz Mikumi; Impalas und Warzenschweine, die durchs Camp spazieren. Sehen Sie sich <a href="/de/zelte-und-cabins">die Luxuszelte und Cabins</a> an.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <p class="label rv">Auf Ihren Pirschfahrten</p>
+      <h2 class="rv rv-d1" style="margin-bottom:32px">Was Sie in Mikumi sehen werden</h2>
+      <div class="wild-grid">
+        <div class="rv rv-d0"><Photo src="/images/wild/elephants-walk-1600.jpg" alt="Eine Elefantenfamilie zieht in einer Reihe durch Mikumi" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
+        <div class="rv rv-d1"><Photo src="/images/wild/giraffes-dusk-1600.jpg" alt="Giraffen in der Abenddämmerung im Mikumi-Nationalpark" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
+        <div class="rv rv-d2"><Photo src="/images/wild/lions-tree-1600.jpg" alt="Löwen schlafen unter einem Baum in Mikumi" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
+        <div class="rv rv-d3"><Photo src="/images/wild/zebras-hills-1600.jpg" alt="Zebras grasen vor den Hügeln von Mikumi" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
+        <div class="rv rv-d0"><Photo src="/images/wild/hippo-calf-1600.jpg" alt="Ein Flusspferdkalb ruht auf seiner Mutter in einem Tümpel in Mikumi" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
+        <div class="rv rv-d1"><Photo src="/images/wild/buffalo-herd-1600.jpg" alt="Eine Herde Kaffernbüffel in Mikumi" ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
+      </div>
+      <p class="meta" style="margin-top:14px;font-size:0.75rem">Tippen Sie auf ein Foto, um es in voller Größe zu sehen · <a href="/mikumi-national-park#photo-credits">Bildnachweise</a> (auf Englisch)</p>
+    </div>
+  </section>
+
+  <section class="section on-dark band">
+    <div class="wrap">
+      <h2 class="rv">Zwei Tage weg vom Strand. Fotos für ein Leben.</h2>
+      <p class="lead rv rv-d1">Nennen Sie uns Ihre Reisedaten und Ihr Hotel auf Sansibar. Wir antworten noch am selben Tag mit Zeiten, einem Gesamtpreis und Ihren Optionen für Fähre oder Flug.</p>
+      <div class="btn-row rv rv-d2">
+        <a class="btn btn--fill" href={wa} rel="noopener">WhatsApp {site.phoneDisplay}</a>
+        <a class="btn btn--light" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,137 @@
+---
+// German version of /rooms (tents & cabins overview). Hand-written; ask a German speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { rooms, cover } from '../../data/rooms';
+import { site } from '../../data/site';
+import { offersActive } from '../../data/offers';
+
+const title = 'Luxuszelte und Cabins bei Mikumi | Camp Lilac';
+const description =
+  'Fünf Unterkünfte knapp außerhalb des Mikumi-Nationalparks: Luxuszelte und Cabins mit eigenem Bad, Klimaanlage, Terrasse. Frühstück und Abendessen inklusive.';
+const crumbs = [{ name: 'Übernachten', href: '/rooms' }, { name: 'Zelte und Cabins', href: '/de/zelte-und-cabins' }];
+const alternates = [
+  { lang: 'en', href: '/rooms' },
+  { lang: 'it', href: '/it/tende-e-cabin' },
+  { lang: 'fr', href: '/fr/tentes-et-cabines' },
+  { lang: 'de', href: '/de/zelte-und-cabins' },
+  { lang: 'es', href: '/es/tiendas-y-cabanas' },
+];
+const wa = `${site.whatsapp}?text=${encodeURIComponent('Guten Tag, wir möchten im Camp Lilac übernachten. Wir sind ... Erwachsene und ... Kinder, Reisedaten: ...')}`;
+const replyHours = site.replyTime.match(/\d+/)?.[0] ?? '4';
+
+// German wording per room type; names stay in English as product names, prices and photos come from the data file.
+const de: Record<string, { gloss: string; summary: string; alt: string; caption: string }> = {
+  'mountain-view-cabin': {
+    gloss: 'Cabin mit Bergblick',
+    summary: 'Unsere beste Unterkunft: eine private, reetgedeckte Cabin mit Blick auf den Bergkamm der Mikumi-Berge, mit breiter Terrasse, Himmelbett in Kingsize und einer Badewanne mit Aussicht.',
+    alt: 'Freistehende Badewanne in der Mountain View Cabin im Camp Lilac, durch das Fenster der Bergkamm der Mikumi-Berge',
+    caption: 'Das Bad, 17:50 Uhr',
+  },
+  'luxury-mountain-view-tent': {
+    gloss: 'Luxuszelt mit Bergblick',
+    summary: 'Unsere neuesten Luxuszelte: dasselbe Segeltuchzelt wie die Luxury Jungle Tents, nur zu den Mikumi-Bergen hin ausgerichtet, mit dem schönsten Sonnenuntergang von Mikumi von der eigenen Terrasse aus.',
+    alt: 'Luxury Mountain View Tent im Camp Lilac mit Blick auf den Bergkamm der Mikumi-Berge',
+    caption: 'Mit Blick auf die Mikumi-Berge',
+  },
+  'jungle-cabin': {
+    gloss: 'Cabin zwischen den Bäumen',
+    summary: 'Eine private, reetgedeckte Cabin zwischen den Bäumen: eine lange umlaufende Terrasse, ein Himmelbett, ein Marmorbad und rundherum die Geräusche des Busches von Mikumi.',
+    alt: 'Die Jungle Cabin im Camp Lilac mit Reetdach und Holztreppe, zwischen Miombo-Bäumen',
+    caption: 'Vom Weg aus, 07:15 Uhr',
+  },
+  'luxury-jungle-tent': {
+    gloss: 'Luxuszelt zwischen den Bäumen',
+    summary: 'Der klassische Safari-Aufenthalt: ein Luxuszelt aus Segeltuch auf einer erhöhten Hartholzterrasse, mit Himmelbett, eigenem Bad, Klimaanlage und Wildtieren, die an der Treppe vorbeiziehen.',
+    alt: 'Luxuszelt im Camp Lilac auf einer erhöhten Holzterrasse unter Bäumen nahe dem Mikumi-Nationalpark',
+    caption: 'Zelt zwei, später Vormittag',
+  },
+  'luxury-family-tent': {
+    gloss: 'Luxuszelt für Familien',
+    summary: 'Ein geräumiges Luxuszelt für Familien: Platz für Eltern und zwei Kinder, eigenes Bad, Klimaanlage und private Terrasse. Kinder unter 4 Jahren übernachten kostenlos, von 4 bis 11 Jahren zum halben Preis.',
+    alt: 'Die private Terrasse eines Luxury Family Tent im Camp Lilac mit Blick in den Busch',
+    caption: 'Platz für vier',
+  },
+};
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Luxuszelte und Cabins im Camp Lilac',
+  inLanguage: 'de',
+  itemListElement: rooms.map((r, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}/rooms/${r.slug}`, name: r.name })),
+};
+---
+
+<Base {title} {description} {schema} lang="de" {alternates} ogImage="/images/rooms/jungle-tent-1-1600.jpg" breadcrumbs={crumbs} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src="/images/rooms/jungle-tent-1-1600.webp" srcset="/images/rooms/jungle-tent-1-800.webp 800w, /images/rooms/jungle-tent-1-1200.webp 1200w, /images/rooms/jungle-tent-1-1600.webp 1600w" sizes="100vw" alt="Ein Luxuszelt im Camp Lilac auf seiner erhöhten Holzterrasse" width="1600" height="1200" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <Crumbs items={crumbs} />
+        <h1 style="max-width:17ch"><span class="w"><span>Luxuszelte und Cabins&nbsp;</span></span><br /><span class="w"><em style="color:#e4d9f7">am Mikumi-Nationalpark</em></span></h1>
+        <p class="lead">Zwei reetgedeckte Cabins und acht Luxuszelte aus Segeltuch, knapp außerhalb des Parks. Jede Unterkunft mit eigenem Bad, Klimaanlage und privater Terrasse. Frühstück und Abendessen inklusive.</p>
+      </div>
+      <div class="hero-side"><b>Check-in {site.checkIn} Uhr</b>Check-out {site.checkOut} Uhr<br />Unter 4 Jahren kostenlos · 4–11 halber Preis</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="meta"><a href="/rooms">Diese Seite auf Englisch lesen</a> · Unsere anderen Seiten auf Deutsch: <a href="/de/mikumi-safaris">Mikumi-Safaris</a> · <a href="/de/safari-ab-sansibar">Safari ab Sansibar</a> · <a href="/de/anreise">Anreise</a></p>
+      <ul class="room-rows">
+        {rooms.map((r) => (
+          <li class="room-row">
+            <a class="room-row-media rv" href={`/rooms/${r.slug}`}>
+              <Photo src={cover(r)} alt={de[r.slug]?.alt ?? r.imageAlt} caption={de[r.slug]?.caption ?? r.caption} ratio="landscape" />
+            </a>
+            <div>
+              <span class="numeral rv">{r.numeral}</span>
+              <h2 class="rv rv-d1"><a href={`/rooms/${r.slug}`} style="color:inherit">{r.name}</a></h2>
+              <p class="meta rv rv-d1">{de[r.slug]?.gloss} · {r.units > 1 ? `${r.units} Einheiten` : 'Einzelstück'} · {r.sleeps.startsWith('2 adults +') ? '2 Erwachsene + 2 Kinder (bis 4 Gäste)' : '2 Erwachsene'} · {r.view === 'mountain' ? 'Blick auf den Bergkamm der Mikumi-Berge' : 'Zwischen den Bäumen'}</p>
+              <p class="price rv rv-d2">{r.price ? <span>Ab US${r.price} <small>pro Nacht</small></span> : <span>Preis auf Anfrage</span>}</p>
+              <p class="rv rv-d2">{de[r.slug]?.summary ?? r.summary}</p>
+              <a class="link rv rv-d3" href={`/rooms/${r.slug}`}>Details und Fotos (auf Englisch)</a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--sand section--tight">
+    <div class="wrap split--aside" style="display:grid">
+      <div class="article">
+        <h2 class="rv">Gut zu wissen</h2>
+        <ul class="rv rv-d1">
+          <li>Jeder direkt gebuchte Preis enthält Frühstück und Abendessen im Restaurant. Mittagessen oder jede weitere Mahlzeit kostet US$15 pro Person, Getränke sind extra. Bei Safaripaketen sind alle Mahlzeiten enthalten.</li>
+          <li>Kinder von 0 bis 3 Jahren übernachten kostenlos, von 4 bis 11 Jahren zahlen sie den halben Erwachsenenpreis, ab 12 Jahren den vollen Preis. Frühstück und Abendessen sind auch für Kinder inklusive; Kinder unter 4 Jahren essen kostenlos. Kinder unter 2 Jahren können nicht an Pirschfahrten teilnehmen.</li>
+          <li>Jede Unterkunft, auch die Luxuszelte, hat Klimaanlage, ein eigenes Bad und eine private Terrasse.</li>
+          <li>WLAN gibt es im Restaurant und an der Bar. Die Luxuszelte sind bewusst offline.</li>
+          <li>Abholungen am SGR-Bahnhof Morogoro, in Dar es Salaam und am Flughafen sind gegen Aufpreis möglich.{offersActive && <span data-offer> Der Transfer ab Morogoro ist nur dann kostenlos, wenn Sie bei uns eine Safari ab 2 Tagen direkt buchen, die im November 2026 beginnt; bei 3 oder 4 Tagen übernehmen wir zusätzlich die Economy-Tickets für den SGR-Zug von Dar es Salaam nach Morogoro. Jeweils nur die Hinfahrt, die Rückfahrt wird berechnet.</span>} Die Mahlzeiten werden im <a href="/restaurant">Restaurant</a> (auf Englisch) mit Blick auf den Bergkamm der Mikumi-Berge serviert.</li>
+          <li>Wir antworten tagsüber in der Regel innerhalb von {replyHours} Stunden. Schreiben Sie uns gern auf Deutsch; unser Team antwortet auf Englisch oder Swahili, bei Bedarf mit Übersetzer.</li>
+          <li>Sie möchten wissen, wie wir im Vergleich zu den Lodges im Park oder den Hotels in Mikumi-Stadt abschneiden? Lesen Sie <a href="/where-to-stay-in-mikumi">wo man in Mikumi übernachtet</a> (auf Englisch).</li>
+          <li>Keine Haustiere. Das Camp ist noch nicht barrierefrei.</li>
+        </ul>
+      </div>
+      <aside class="aside rv rv-d2">
+        <h3>Unsicher, welche Unterkunft?</h3>
+        <p>Paare nehmen meist die Mountain View Cabin oder ein Luxury Mountain View Tent. Familien ein Luxury Family Tent. Sagen Sie uns, wer mitkommt, und wir schlagen Ihnen das Passende vor.</p>
+        <a class="btn" href={wa} rel="noopener">Verfügbarkeit auf WhatsApp anfragen</a>
+        <p style="margin-top:12px;font-size:0.9rem">oder <a href="/book">Anfrageformular</a> (auf Englisch)</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section on-dark band">
+    <div class="wrap">
+      <h2 class="rv">Abendessen vor dem Bergkamm der Mikumi-Berge. Danach nur noch der Busch.</h2>
+      <p class="lead rv rv-d1">Nennen Sie uns Ihre Reisedaten und wer mitkommt. Wir antworten noch am selben Tag mit Verfügbarkeit, Gesamtpreis und einem Safari-Vorschlag.</p>
+      <div class="btn-row rv rv-d2">
+        <a class="btn btn--fill" href={wa} rel="noopener">WhatsApp {site.phoneDisplay}</a>
+        <a class="btn btn--light" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+    </div>
+  </section>
+</Base>
