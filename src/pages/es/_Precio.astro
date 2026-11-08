@@ -1,0 +1,6 @@
+---
+// Spanish version of components/Price.astro.
+interface Props { price: number | null; unit?: 'noche' | 'persona' }
+const { price, unit = 'noche' } = Astro.props;
+---
+{price ? <span>Desde US${price} <small>por {unit}</small></span> : <span>{unit === 'persona' ? 'Precio a consultar' : 'Tarifas a consultar'}</span>}

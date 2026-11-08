@@ -1,0 +1,19 @@
+---
+// Spanish version of components/Wildlife.astro (alt texts from src/data/i18n-es.ts).
+import Photo from '../../components/Photo.astro';
+import { wildAltOf, wildFull, EN } from '../../data/i18n-es';
+interface Props { pick: string[]; title?: string; label?: string }
+const { pick, title, label } = Astro.props;
+---
+<section class="section section--tight">
+  <div class="wrap">
+    {label && <p class="label rv">{label}</p>}
+    {title && <h2 class="rv rv-d1" style="margin-bottom:32px">{title}</h2>}
+    <div class="wild-grid">
+      {pick.map((k, i) => (
+        <div class={`rv rv-d${i % 4}`}><Photo src={`/images/wild/${k}-1600.jpg`} alt={wildAltOf(k)} ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" full={wildFull[k]} /></div>
+      ))}
+    </div>
+    <p class="meta" style="margin-top:14px;font-size:0.75rem">Toquen una foto para verla a tamaño completo · <a href="/mikumi-national-park#photo-credits">Créditos de las fotos</a> {EN}</p>
+  </div>
+</section>

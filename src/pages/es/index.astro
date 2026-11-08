@@ -1,0 +1,224 @@
+---
+// Spanish home page (/es), translation of src/pages/index.astro. Shared texts live in src/data/i18n-es.ts.
+// Hand-written; ask a native Spanish speaker to read it once.
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import Precio from './_Precio.astro';
+import Ofertas from './_Ofertas.astro';
+import Cta from './_Cta.astro';
+import { rooms, cover } from '../../data/rooms';
+import { safaris } from '../../data/safaris';
+import { reviews, reviewScore, sources } from '../../data/reviews';
+import { site } from '../../data/site';
+import { offersActive } from '../../data/offers';
+import { tRoom, tSafari, es, EN, replyTime, num, days, country, monthYear } from '../../data/i18n-es';
+
+const title = 'Camp Lilac Mikumi | Tiendas de lujo y safaris en Tanzania';
+const description =
+  'Tiendas de lujo y cabañas con baño privado y aire acondicionado, fuera del Parque Nacional de Mikumi y frente a sus montes. A 3,5 h de Dar es Salaam en tren.';
+
+const featured = ['mountain-view-cabin', 'luxury-mountain-view-tent', 'jungle-cabin'].map((s) => rooms.find((r) => r.slug === s)!);
+const by = (slug: string) => safaris.find((s) => s.slug === slug)!;
+const s1 = by('1-day-mikumi-safari'), s2 = by('2-day-mikumi-safari'), s3 = by('3-day-mikumi-safari'), s4 = by('4-day-mikumi-udzungwa-safari');
+const otherRooms = rooms.filter((r) => !featured.includes(r));
+const minRoom = Math.min(...rooms.map((r) => r.price ?? Infinity));
+
+const ribbon = [
+  ...(offersActive ? ['Noviembre: traslado gratis con safaris de 2 días o más'] : []),
+  'Desayuno y cena incluidos',
+  'Tiendas de lujo y cabañas con aire acondicionado',
+  'Nuestros propios guías y 4×4',
+  'La única vista a la cordillera de Mikumi',
+  'Tranquilo: a 2 km de la carretera',
+  'A minutos de la puerta del parque',
+  'Justo fuera del Parque Nacional de Mikumi',
+];
+
+// Same rule as the English home: no aggregateRating (self-compiled ratings count as self-serving for Google).
+const schema = [
+  { '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${site.url}/es#webpage`, url: `${site.url}/es`, name: title, description, inLanguage: 'es', isPartOf: { '@id': `${site.url}/#website` }, about: { '@id': `${site.url}/#camp` } },
+];
+const words = (s: string) => s.split(' ');
+---
+
+<Base {title} {description} {schema} lang="es" dark>
+  <section class="hero">
+    <div class="hero-media">
+      <img src="/images/rooms/restaurant-dusk-1600.webp" srcset="/images/rooms/restaurant-dusk-800.webp 800w, /images/rooms/restaurant-dusk-1200.webp 1200w, /images/rooms/restaurant-dusk-1600.webp 1600w, /images/rooms/restaurant-dusk-2000.webp 2000w" sizes="100vw" alt="El restaurante de Camp Lilac al anochecer, abierto a la cordillera de Mikumi bajo un cielo rosado" width="2000" height="1365" fetchpriority="high" />
+    </div>
+    <div class="wrap hero-content">
+      <div>
+        <p class="label">Parque Nacional de Mikumi · Tanzania</p>
+        <h1>
+          {words('El único campamento').map((w, i) => <span class="w"><span style={`transition-delay:${0.1 + i * 0.08}s`}>{w}&nbsp;</span></span>)}
+          <br />
+          {words('de tiendas de lujo').map((w, i) => <span class="w"><span style={`transition-delay:${0.26 + i * 0.08}s`}>{w}&nbsp;</span></span>)}
+          <span class="w"><em style="transition-delay:0.58s;color:#e4d9f7">de Mikumi</em></span>
+        </h1>
+        <p class="lead">Tiendas de lujo y cabañas al nivel del Serengeti, con baño privado y aire acondicionado, justo fuera del Parque Nacional de Mikumi: el único campamento frente a los montes Mikumi. A 3,5 horas de Dar es Salaam en tren y traslado, o a un vuelo corto de Zanzíbar.</p>
+      </div>
+    </div>
+    <div class="wrap hero-form-wrap">
+      <div class="hero-side hero-side--form">
+        <b>{num(reviewScore.score)} / 5</b>
+        <span class="hero-logos"><img src="/images/logo-google.png" alt="Google" /><img src="/images/logo-tripadvisor.png" alt="Tripadvisor" class="ta" /><img src="/images/logo-safaribookings.png" alt="SafariBookings" class="sb" />{reviewScore.count} opiniones</span><br />{site.units} tiendas de lujo y cabañas · Abierto todo el año
+      </div>
+
+      <form class="hero-form" id="hero-form" action={es('/book')} method="get">
+        <label>Entrada <input type="date" name="checkin" required /></label>
+        <label>Salida <input type="date" name="checkout" required /></label>
+        <label>Huéspedes <select name="adults"><option value="2">2 adultos</option><option value="1">1 adulto</option><option value="3">3 adultos</option><option value="4">4 adultos</option><option value="5">5 adultos o más</option></select></label>
+        <button class="btn btn--fill" type="submit">Pedir presupuesto gratis</button>
+        <small>Todavía no se paga nada. Respondemos {replyTime} con la disponibilidad y el precio total; después, un depósito asegura su alojamiento.</small>
+      </form>
+    </div>
+  </section>
+
+  <div class="ribbon" aria-hidden="true">
+    <div class="ribbon-track">
+      {[...ribbon, ...ribbon].map((t) => <span data-offer={t.startsWith('Noviembre') ? '' : undefined}>{t}</span>)}
+    </div>
+  </div>
+
+  {offersActive && <a class="deal-bar" href="/offers" data-offer>
+    <span class="wrap deal-bar-in">
+      <span class="deal-tag">Ofertas de safari de noviembre</span>
+      <span class="deal-text">Safari de 2 días: traslado gratis a Mikumi <b>(valor US$75)</b><span class="sep"> · </span>Safari de 3 o 4 días: billete de tren + traslado gratis</span>
+      <span class="deal-cta">Ver ofertas {EN} →</span>
+    </span>
+  </a>}
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="rv" style="margin-bottom:12px">Tres maneras de venir a <em>Camp Lilac</em></h2>
+      <p class="lead rv rv-d1" style="margin-bottom:40px">Elijan la que más se parezca a ustedes. Todos los paquetes incluyen las entradas al parque, un 4×4 abierto privado con un guía nuestro y las comidas.</p>
+      <div class="audience">
+        <div class="aud rv">
+          <span class="label">Desde Dar es Salaam</span>
+          <h3>Un fin de semana en la naturaleza, en tren SGR</h3>
+          <p class="from">Desde US${s2.price}<small>por persona</small></p>
+          <p>Salen de Dar en el tren de la mañana, safari esa misma tarde, noche en una tienda de lujo, recorrido al amanecer y en casa por la noche.{offersActive && <span data-offer> Reserven este safari de 2 días directamente para noviembre y el traslado de Morogoro a Mikumi es gratis.</span>} ¿Van con prisa? El <a href={es(`/safaris/${s1.slug}`)}>safari de 1 día</a> lo hace en una sola jornada larga.</p>
+          <div class="actions"><a class="btn" href={es(`/safaris/${s2.slug}`)}>Safari de 2 días</a><a class="link" href={es('/safari-from-dar-es-salaam')}>Cómo funciona</a></div>
+        </div>
+        <div class="aud rv rv-d1">
+          <span class="label">Desde Zanzíbar</span>
+          <h3>Un safari de verdad, no una excursión a las 4 de la mañana</h3>
+          <p class="from">Desde US${s2.price}<small>por persona, sin vuelos</small></p>
+          <p>Vuelo o ferry a Dar, tren a Morogoro, dos días de safari y una noche en una tienda de lujo frente a la cordillera de Mikumi. De vuelta en la playa a la noche siguiente. Los vuelos Zanzíbar–Dar cuestan US$160–200 por persona y trayecto, según el día y la aerolínea; podemos reservarlos por ustedes.</p>
+          <div class="actions"><a class="btn" href={es('/safari-from-zanzibar')}>Safari desde Zanzíbar</a><a class="link" href={site.whatsapp} rel="noopener">WhatsApp</a></div>
+        </div>
+        <div class="aud rv rv-d2">
+          <span class="label">Circuito sur</span>
+          <h3>Mikumi, las cascadas de Udzungwa y el sur tranquilo</h3>
+          <p class="from">Desde US${s3.price}<small>por persona</small></p>
+          <p>Tres o cuatro días: la llanura aluvial de Mikumi, las pozas de hipopótamos y la caminata a la cascada de Sanje en los montes Udzungwa.{offersActive && <span data-offer> Reserven el safari de 3 o 4 días directamente para noviembre y el billete de tren desde Dar y el traslado al campamento son gratis.</span>}</p>
+          <div class="actions"><a class="btn" href={es(`/safaris/${s4.slug}`)}>Safaris de 3 y 4 días</a><a class="link" href={site.whatsapp} rel="noopener">WhatsApp</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="wrap split">
+      <div>
+        <h2 class="rv">Casi todo Mikumi duerme junto a la carretera. <em>Nosotros no.</em></h2>
+        <p class="lead rv rv-d1">Camp Lilac está retirado, en plena sabana, frente a la cordillera de Mikumi. Tiendas de lujo de lona construidas con el mismo nivel que los mejores campamentos del Serengeti (baño privado, aire acondicionado y terraza privada), un restaurante que mira directamente a los montes y, por la noche, solo los sonidos de la sabana.</p>
+        <p class="rv rv-d2">Somos el único campamento de tiendas de lujo de Mikumi y el único con vista a la cordillera de Mikumi. Impalas, facoceros y monos pasean por el campamento. Nuestros propios guías hacen los recorridos de safari, y organizamos sus traslados desde la estación SGR de Morogoro o desde Dar es Salaam. ¿Están comparando opciones? Lean <a href="/where-to-stay-in-mikumi">dónde alojarse en Mikumi</a> {EN}.</p>
+        <a class="link rv rv-d3" href={es('/about')}>El campamento</a>
+      </div>
+      <div class="rv rv-d1">
+        <Photo src="/images/rooms/mv-cabin-2-1600.jpg" alt="Cama con dosel en la Mountain View Cabin de Camp Lilac, con vista a la cordillera de Mikumi" caption="Mountain View Cabin, 06:40" ratio="portrait" zoom />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:48px;flex-wrap:wrap">
+        <div><h2 class="rv" style="margin:0 0 6px">Tiendas de lujo y cabañas</h2><p class="rv rv-d1" style="margin:0">Desde US${minRoom} por noche, desayuno y cena incluidos. <a class="link" href={es('/rates')} style="margin-left:10px">Precios y temporadas</a></p></div>
+        <a class="link rv rv-d1" href={es('/rooms')}>Los cinco tipos de alojamiento</a>
+      </div>
+      <p class="rv" style="margin:0 0 28px;font-size:0.95rem">También: {otherRooms.map((r, i) => <>{i > 0 && ' y '}<a href={es(`/rooms/${r.slug}`)}>{r.name}</a> (desde US${r.price})</>)}.</p>
+      <div class="tiles">
+        {featured.map((r, i) => {
+          const t = tRoom(r);
+          return (
+            <a class={`tile rv rv-d${i}`} href={es(`/rooms/${r.slug}`)}>
+              <Photo src={cover(r)} alt={t.imageAlt} caption={r.numeral} />
+              <h3>{r.name}</h3>
+              <p><Precio price={r.price} /> · {t.sleeps}</p>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-dark">
+    <div class="wrap">
+      <div class="split" style="align-items:end;margin-bottom:56px">
+        <h2 class="rv">Safaris en Mikumi con <em>nuestros propios</em> guías</h2>
+        <p class="lead rv rv-d1">Elefantes, leones, jirafas, hipopótamos y las grandes manadas de la llanura aluvial del Mkata, a minutos de la entrada del campamento. Entradas al parque, 4×4 privado, guía y comidas incluidos en todos los paquetes.</p>
+      </div>
+      <div class="tiles tiles--3">
+        {[s2, s3, s4].map((s, i) => {
+          const t = tSafari(s);
+          return (
+            <div class={`tile rv rv-d${i}`}>
+              <a href={es(`/safaris/${s.slug}`)}><Photo src={s.image} alt={t.imageAlt} caption={days(s.days)} ratio="landscape" /></a>
+              <h3><a href={es(`/safaris/${s.slug}`)} style="color:inherit">{t.name}</a></h3>
+              <p><Precio price={s.price} unit="persona" /></p>
+              <div class="tile-actions"><a class="link" href={es(`/safaris/${s.slug}`)}>Itinerario</a><a class="link" href={site.whatsapp} rel="noopener">Escríbannos por WhatsApp</a></div>
+            </div>
+          );
+        })}
+      </div>
+      <div class="btn-row rv"><a class="btn btn--light" href={es('/safaris')}>Todos los paquetes de safari</a></div>
+    </div>
+  </section>
+
+  <Ofertas compact />
+
+  <section class="section">
+    <div class="wrap">
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:40px;flex-wrap:wrap">
+        <h2 class="rv" style="margin:0">Lo que dicen los huéspedes</h2>
+        <div class="rv rv-d1" style="display:flex;gap:22px;flex-wrap:wrap">{sources.filter((src) => src.logo).map((src) => <a class="badge badge--lg" href={src.url} rel="noopener" style="display:inline-flex"><img src={src.logo} alt={src.platform} class={src.platform === 'Tripadvisor' ? 'ta' : src.platform === 'SafariBookings' ? 'sb' : ''} /><span class="stars">★★★★★</span><b>{num(src.score)} / 5</b> · {src.count} opiniones</a>)}</div>
+      </div>
+      <p class="meta rv" style="margin:0 0 24px">Opiniones publicadas en inglés, tal como las escribieron los huéspedes.</p>
+      <div class="reviews">
+        {reviews.slice(0, 3).map((r, i) => (
+          <div class={`review rv rv-d${i}`} lang="en">
+            <div class="stars">★★★★★</div>
+            <h3>{r.title}</h3>
+            <p>“{r.text}”</p>
+            <div class="who" lang="es">{r.name}{r.country ? ` · ${country(r.country)}` : ''} · {monthYear(r.date)} · {r.platform}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap split">
+      <div class="rv">
+        <Photo src="/images/rooms/restaurant-dusk-1200.jpg" alt="Mesas preparadas en el restaurante abierto de Camp Lilac mientras el cielo se tiñe de rosa sobre la cordillera de Mikumi" caption="El restaurante, 18:40" ratio="landscape" zoom />
+      </div>
+      <div>
+        <h2 class="rv">Todas las comidas frente a <em>la cordillera de Mikumi</em></h2>
+        <p class="rv rv-d1">El desayuno, el almuerzo y la cena se sirven en nuestro restaurante abierto, el único comedor de Mikumi con vista a los montes. Al reservar directamente, el desayuno y la cena están incluidos (el almuerzo cuesta US$15), con cocina fresca tanzana e internacional, y al atardecer todo el mundo acaba en la terraza del bar.</p>
+        <a class="link rv rv-d2" href={es('/restaurant')}>El restaurante y el bar</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand section--tight">
+    <div class="wrap tiles tiles--3" style="align-items:start">
+      <a class="tile rv" href={es('/getting-here')}><h3>Cómo llegar</h3><p>Tren 1,5 h + carretera 2 h · desde Zanzíbar</p></a>
+      <a class="tile rv rv-d1" href="/mikumi-national-park"><h3>Guía del Parque Nacional de Mikumi {EN}</h3><p>Animales · mejor época · entradas</p></a>
+      <a class="tile rv rv-d2" href={es('/faq')}><h3>Preguntas frecuentes</h3><p>Costes · niños · qué está incluido</p></a>
+    </div>
+  </section>
+
+  <Cta />
+</Base>

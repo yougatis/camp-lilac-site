@@ -1,0 +1,143 @@
+---
+// Spanish safari detail pages: /es/safaris-mikumi/<English safari slug>, one per safari in src/data/safaris.ts.
+// Texts from src/data/i18n-es.ts (English fallback when a safari has no Spanish text yet); prices from safaris.ts.
+import Base from '../../../layouts/Base.astro';
+import Photo from '../../../components/Photo.astro';
+import Migas from '../_Migas.astro';
+import Precio from '../_Precio.astro';
+import Fauna from '../_Fauna.astro';
+import Cta from '../_Cta.astro';
+import { safaris } from '../../../data/safaris';
+import { site } from '../../../data/site';
+import { offersActive } from '../../../data/offers';
+import { tSafari, es, EN, offerMonth, withPrice, days } from '../../../data/i18n-es';
+
+export function getStaticPaths() {
+  return safaris.map((s) => ({ params: { slug: s.slug }, props: { safari: s } }));
+}
+const { safari: en } = Astro.props;
+const safari = tSafari(en);
+const others = safaris.filter((s) => s.slug !== en.slug).map(tSafari);
+const galleries: Record<number, string[]> = {
+  1: ['first-1', 'leopard-face', 'elephants-walk', 'giraffes-dusk', 'zebras-pair', 'buffalo-pair'],
+  2: ['first-2', 'lions-tree', 'elephants-plain', 'giraffe-face', 'plains-herds', 'road-sunset'],
+  3: ['first-3', 'cheetahs', 'elephants-storm', 'jeep-giraffes', 'wildebeest', 'own-giraffes'],
+  4: ['first-4', 'lion-track', 'sanje-waterfall', 'own-giraffe', 'zebras-hills', 'lion-pride'],
+};
+
+const title = safari.hasMeta && safari.metaTitle ? safari.metaTitle : `${safari.name} | Camp Lilac`.slice(0, 60);
+const description = withPrice(safari.hasMeta && safari.metaDescription ? safari.metaDescription : safari.summary, en.price, 'persona');
+const imgBase = en.image.replace(/-(1600|2000)\.jpg$/, '');
+const crumbs = [{ name: 'Safaris', href: es('/safaris') }, { name: safari.name, href: es(`/safaris/${en.slug}`) }];
+const offerId = en.days >= 3 ? 'free-train-and-transfer' : 'free-transfer';
+const book = `${es('/book')}?safari=${en.slug}`;
+const wa = `${site.whatsapp}?text=${encodeURIComponent(`Hola. Nos interesa el safari "${en.name}". Somos ... personas, fechas: ...`)}`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'TouristTrip',
+  name: safari.name,
+  description: safari.summary,
+  inLanguage: 'es',
+  image: new URL(en.image, site.url).href,
+  url: `${site.url}${es(`/safaris/${en.slug}`)}`,
+  touristType: ['Safari de fauna', 'Familias', 'Parejas'],
+  itinerary: {
+    '@type': 'ItemList',
+    itemListElement: safari.itinerary.map((d, i) => ({ '@type': 'ListItem', position: i + 1, name: d.title, description: d.text })),
+  },
+  provider: { '@id': `${site.url}/#camp` },
+  ...(en.price && { offers: { '@type': 'Offer', price: en.price, priceCurrency: 'USD', availability: 'https://schema.org/InStock', url: `${site.url}${book}`, priceSpecification: { '@type': 'UnitPriceSpecification', price: en.price, priceCurrency: 'USD', unitText: 'por persona, entradas al parque incluidas' } } }),
+};
+---
+
+<Base {title} {description} {schema} lang="es" ogImage={en.image} breadcrumbs={crumbs} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src={`${imgBase}-1600.webp`} srcset={`${imgBase}-800.webp 800w, ${imgBase}-1200.webp 1200w, ${imgBase}-1600.webp 1600w`} sizes="100vw" alt={safari.imageAlt} width="1600" height="1200" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <Migas items={crumbs} />
+        <p class="label">{days(en.days)} · {safari.bestFor}</p>
+        <h1><span class="w"><span>{safari.name}</span></span></h1>
+        <p class="lead">{safari.summary}</p>
+      </div>
+      <div class="hero-side"><b><Precio price={en.price} unit="persona" /></b>4×4 privado y guía<br />Empieza y termina en el campamento</div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap split--aside" style="display:grid">
+      <div class="article">
+        {offersActive && safari.offer && <p class="offer-note" data-offer><strong>Oferta de {offerMonth}:</strong> {safari.offer} <a href={`${book}&offer=${offerId}`}>Aprovechar esta oferta</a> · <a href="/offers">Cómo funcionan las ofertas</a> {EN}</p>}
+        {safari.variants && (
+          <>
+            <h2>Opciones</h2>
+            <ul>{safari.variants.map((v) => <li><strong>{v.name}</strong>{v.price && <>: {v.price}</>}<br />{v.text}</li>)}</ul>
+          </>
+        )}
+        <h2>Itinerario</h2>
+        <ol class="itinerary">
+          {safari.itinerary.map((d) => (
+            <li>
+              <h3>{d.title}</h3>
+              <p>{d.text}</p>
+              {(d.meals || d.stay) && <p class="meta">{d.meals && <span>Comidas: {d.meals}</span>}{d.meals && d.stay && <br />}{d.stay && <span>Alojamiento: {d.stay}</span>}</p>}
+            </li>
+          ))}
+        </ol>
+        {safari.tiers && (
+          <>
+            <h2>Precio por persona</h2>
+            <table>
+              <thead><tr><th scope="col">Tamaño del grupo</th><th scope="col">Precio</th></tr></thead>
+              <tbody>{safari.tiers.map((t) => <tr><th scope="row">{t.people}</th><td>US${t.price} por persona</td></tr>)}</tbody>
+            </table>
+            <p>Vehículo y guía privados, solo para su grupo. Las entradas al parque están incluidas.</p>
+          </>
+        )}
+        <h2>Incluido</h2>
+        <ul>{safari.included.map((i) => <li>{i}</li>)}</ul>
+        <h2>No incluido</h2>
+        <ul>{safari.excluded.map((i) => <li>{i}</li>)}</ul>
+        <p>
+          Los recorridos de safari se hacen en un 4×4 de techo abierto con uno de nuestros propios guías. Ajustamos los horarios a su tren o vuelo y a la estación del año. Los menores de 2 años no pueden participar en los recorridos de safari. Las fechas son flexibles: dígannos cuándo quieren venir.
+        </p>
+        <h2>Cómo llegar a Mikumi para este safari</h2>
+        <p>
+          Todos los safaris pueden empezar en Dar es Salaam o en Zanzíbar. La forma cómoda más rápida es el tren SGR de Dar es Salaam a Morogoro (alrededor de 1,5 horas) y nuestro traslado de 2 horas hasta el campamento; desde Zanzíbar se añade el ferry de la mañana o un vuelo corto a Dar es Salaam. Organizamos todo el viaje (billetes, recogidas, ferrys y vuelos): solo tienen que decirnos cómo quieren viajar.
+          Más información: <a href={es('/safari-from-dar-es-salaam')}>safari desde Dar es Salaam</a>, <a href={es('/safari-from-zanzibar')}>safari desde Zanzíbar</a>, la <a href="/blog/dar-es-salaam-to-mikumi-by-sgr-train">guía del tren SGR paso a paso</a> {EN} y <a href={es('/getting-here')}>todas las formas de llegar</a>.
+        </p>
+      </div>
+      <aside class="aside">
+        <p class="aside-price"><Precio price={en.price} unit="persona" /></p>
+        <ul>
+          <li>{days(en.days)}</li>
+          <li>Ideal para: {safari.bestFor}</li>
+          <li>Vehículo y guía privados</li>
+          <li>Salida: {safari.start}</li>
+        </ul>
+        <a class="btn btn--fill" href={book}>Solicitar este safari</a>
+        <p style="margin-top:12px;font-size:0.9rem">o <a href={wa}>escríbannos por WhatsApp</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <Fauna label="En sus recorridos de safari" title="Los animales de Mikumi" pick={galleries[en.days] ?? galleries[1]} />
+
+  <section class="section section--sand">
+    <div class="wrap">
+      <h2 class="rv" style="margin-bottom:40px">Otros safaris</h2>
+      <div class="tiles tiles--3">
+        {others.map((s, i) => (
+          <a class={`tile rv rv-d${i}`} href={es(`/safaris/${s.slug}`)}>
+            <Photo src={s.image} alt={s.imageAlt} caption={days(s.days)} />
+            <h3>{s.name}</h3>
+            <p>{s.bestFor}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Cta title={`Reserven el ${safari.name}`} />
+</Base>

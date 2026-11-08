@@ -1,0 +1,206 @@
+---
+// Spanish version of /book. Same form, field names, honeypot, API and option values as the English page.
+// The request is read by the English-speaking team, so the JSON sent to /api/booking carries the ENGLISH room and
+// safari names, the ENGLISH "arriving by" text (the option values below) and "[Spanish website] " in front of the
+// message; the WhatsApp fallback uses the same English labels as the English page.
+// Hand-written; ask a native Spanish speaker to read it once.
+import Base from '../../layouts/Base.astro';
+import Migas from './_Migas.astro';
+import { rooms } from '../../data/rooms';
+import { safaris } from '../../data/safaris';
+import { site } from '../../data/site';
+import { offersActive, OFFER_START, OFFER_END } from '../../data/offers';
+import { tSafari, es, EN, replyTime, offerMonth, offersEs } from '../../data/i18n-es';
+
+const title = 'Reservar una estancia o un safari en Camp Lilac, Mikumi';
+const description =
+  'Consulten la disponibilidad de tiendas de lujo y cabañas en Camp Lilac y un safari en Mikumi. Consultar es gratis y les enviamos un único precio total.';
+const crumbs = [{ name: 'Reservar', href: es('/book') }];
+const thanks = es('/thank-you');
+
+// Requests go to /api/booking (functions/api/booking.js), exactly like the English form.
+const BOOKING_API = '/api/booking';
+
+// English names for the team (looked up by slug in the browser).
+const names = {
+  room: { '': 'Let us suggest', ...Object.fromEntries(rooms.map((r) => [r.slug, r.name])) },
+  safari: { none: 'No safari, stay only', custom: 'Custom', ...Object.fromEntries(safaris.map((s) => [s.slug, s.name])) },
+};
+
+// "Arriving by": value = the English text of the English page (sent as is), label in Spanish.
+const arrivals = [
+  { en: 'From Dar es Salaam by SGR train (please collect me in Morogoro)', es: 'Desde Dar es Salaam en tren SGR (recójannos en Morogoro, por favor)' },
+  { en: 'From Dar es Salaam by car (please arrange it)', es: 'Desde Dar es Salaam por carretera (organícenlo ustedes, por favor)' },
+  { en: 'From Zanzibar by ferry, then train', es: 'Desde Zanzíbar en ferry y después en tren' },
+  { en: 'From Zanzibar by ferry, then car', es: 'Desde Zanzíbar en ferry y después por carretera' },
+  { en: 'From Zanzibar by plane (please book the flight)', es: 'Desde Zanzíbar en avión (resérvennos el vuelo, por favor)' },
+  { en: 'From the airport in Dar es Salaam', es: 'Desde el aeropuerto de Dar es Salaam' },
+  { en: 'Own car / self-drive', es: 'En coche propio' },
+  { en: 'Bus to Mikumi town', es: 'En autobús hasta el pueblo de Mikumi' },
+  { en: 'Not sure yet — please advise', es: 'Todavía no lo sabemos: aconséjennos, por favor' },
+];
+
+// Banner texts for the November deals (Spanish shown, English title sent in the "offer" field).
+const offerData = offersActive ? offersEs.map((o) => ({ title: o.title, text: o.text, en: o.en })) : [];
+const msgs = {
+  applied: 'Oferta aplicada:',
+  none: 'No hay oferta de safari para estas fechas',
+  noneText: `el traslado y el billete de tren gratis solo se aplican a safaris que empiecen en ${offerMonth}.`,
+  sending: 'Enviando…',
+  send: 'Enviar solicitud',
+  error: 'Lo sentimos, su solicitud no se ha enviado.',
+  errorLink: 'Envíenla por WhatsApp',
+  errorTail: ': ya está redactada.',
+};
+---
+
+<Base {title} {description} lang="es" breadcrumbs={crumbs} dark>
+  <section class="hero hero--inner">
+    <div class="hero-media"><img src="/images/rooms/mv-cabin-1-1600.webp" srcset="/images/rooms/mv-cabin-1-800.webp 800w, /images/rooms/mv-cabin-1-1200.webp 1200w, /images/rooms/mv-cabin-1-1600.webp 1600w" sizes="100vw" alt="La bañera de la Mountain View Cabin de Camp Lilac, con vista a la cordillera de Mikumi" width="1600" height="1200" fetchpriority="high" /></div>
+    <div class="wrap hero-content">
+      <div>
+        <Migas items={crumbs} />
+        <h1><span class="w"><span>Solicitar una reserva</span></span></h1>
+        <p class="lead">Todavía no se paga nada. Dígannos sus fechas y respondemos {replyTime} con la disponibilidad, un único precio total y una sugerencia de safari. Después, un depósito asegura su alojamiento.</p>
+      </div>
+      {offersActive ? (
+        <div class="hero-side" data-offer><b>Ofertas de safari de noviembre</b>Safari de 2 días: recogida gratis en Morogoro<br />Safari de 3–4 días: billete de tren + recogida gratis</div>
+      ) : (
+        <div class="hero-side"><b>Reserva directa</b>Desayuno y cena incluidos<br />Un único precio, sin comisiones</div>
+      )}
+    </div>
+  </section>
+
+  <div style="height:56px"></div>
+  <div class="wrap split" style="padding-bottom:var(--section)">
+    <form class="form" id="booking-form" method="post" action={thanks} data-api={BOOKING_API} data-thanks={thanks} data-whatsapp={site.whatsapp} data-offer-start={OFFER_START} data-offer-end={OFFER_END} data-offers={JSON.stringify(offerData)} data-names={JSON.stringify(names)} data-msgs={JSON.stringify(msgs)}>
+      <p class="offer-banner" id="offer-banner" hidden></p>
+      <input type="hidden" name="offer" value="" />
+      <div class="row">
+        <label>Nombre <input name="name" required autocomplete="name" /></label>
+        <label>Email <input name="email" type="email" required autocomplete="email" /></label>
+      </div>
+      <div class="row">
+        <label>Número de WhatsApp <input name="phone" type="tel" required autocomplete="tel" placeholder="+34 ..." pattern="[+]?[0-9 ()-]{7,20}" title="Incluyan el prefijo del país, por ejemplo +34 o +52" /></label>
+        <label>País <input name="country" required autocomplete="country-name" /></label>
+      </div>
+      <div class="row">
+        <label>Entrada <input name="checkin" type="date" required /></label>
+        <label>Salida <input name="checkout" type="date" required /></label>
+      </div>
+      <div class="row">
+        <label>Adultos <input name="adults" type="number" min="1" value="2" required /></label>
+        <label>Niños (edades) <input name="children" placeholder="p. ej., 2 (de 6 y 10 años)" /></label>
+      </div>
+      <label>Alojamiento
+        <select name="room">
+          <option value="">Sugiéranos uno</option>
+          {rooms.map((r) => <option value={r.slug}>{r.name}{r.price ? ` — desde US$${r.price}/noche` : ''}</option>)}
+        </select>
+      </label>
+      <label>Safari
+        <select name="safari">
+          <option value="none">Sin safari, solo alojamiento</option>
+          {safaris.map((s) => <option value={s.slug}>{tSafari(s).name}</option>)}
+          <option value="custom">A medida: lo describimos abajo</option>
+        </select>
+      </label>
+      <label>Llegamos
+        <select name="arrival">
+          {arrivals.map((a) => <option value={a.en}>{a.es}</option>)}
+        </select>
+      </label>
+      <label>¿Algo más que quieran que organicemos? <textarea name="message" placeholder="Lo que sea: una cena de cumpleaños, una noche en Zanzíbar, otra ruta, necesidades alimentarias, el viaje de después… Podemos organizarlo. Pueden escribir en español."></textarea></label>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
+      <button class="btn" type="submit">Enviar solicitud</button>
+      <p class="form-status" id="form-status" role="status" hidden></p>
+      <p class="meta">Gratis y sin compromiso. Respondemos {replyTime} con la disponibilidad y un único precio total. Solo usamos sus datos para responder a esta solicitud. Nuestro equipo habla inglés y suajili; les contestamos en inglés sencillo o con ayuda de un traductor.</p>
+    </form>
+
+    <aside class="aside">
+      <h3>¿Prefieren chatear?</h3>
+      <p><a href={site.whatsapp}>WhatsApp {site.phoneDisplay}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+      {offersActive && <div data-offer>
+        <h3>Ofertas de safari de noviembre</h3>
+        <ul>
+          <li>Safari de 2 días: traslado gratis estación SGR de Morogoro → Mikumi, un valor de US$75 (solo ida)</li>
+          <li>Safari de 3 o 4 días: billetes de tren en clase económica Dar → Morogoro gratis (un valor de US$10–20 para dos) + traslado (solo ida)</li>
+          <li>Para safaris que empiecen en {offerMonth}, reservados directamente. Las estancias de solo alojamiento no incluyen traslados gratuitos.</li>
+        </ul>
+        <p style="font-size:0.95rem"><a href="/offers" style="border-bottom:1px solid var(--lilac)">Cómo funcionan las ofertas</a> {EN}</p>
+      </div>}
+      <h3>Niños</h3>
+      <p style="font-size:0.95rem">Los menores de 4 años no pagan; de 4 a 11, la mitad. Los menores de 2 años no pueden participar en los recorridos de safari.</p>
+      <h3>Organizamos lo que sea</h3>
+      <p style="font-size:0.95rem">Tren, coche, ferry o vuelos desde Zanzíbar, noches extra, ocasiones especiales: no duden en pedirlo. Dígannos qué quieren y cómo quieren viajar, y nosotros lo organizamos.</p>
+    </aside>
+  </div>
+
+  <script>
+    const form = document.getElementById('booking-form') as HTMLFormElement;
+    const params = new URLSearchParams(location.search);
+    for (const key of ['room', 'safari', 'checkin', 'checkout', 'adults']) {
+      const v = params.get(key);
+      const el = form.elements.namedItem(key) as HTMLInputElement | HTMLSelectElement | null;
+      if (v && el) el.value = v;
+    }
+    const OFFERS = JSON.parse(form.dataset.offers || '[]') as { title: string; text: string; en: string }[];
+    const NAMES = JSON.parse(form.dataset.names || '{}') as { room: Record<string, string>; safari: Record<string, string> };
+    const M = JSON.parse(form.dataset.msgs || '{}') as Record<string, string>;
+    const thanks = form.dataset.thanks || '/es/gracias';
+    const banner = document.getElementById('offer-banner') as HTMLElement;
+    const offerField = form.elements.namedItem('offer') as HTMLInputElement;
+    const safariSel = form.elements.namedItem('safari') as HTMLSelectElement;
+    const daysOf = (slug: string) => parseInt(slug, 10) || 0;
+    const checkinEl = form.elements.namedItem('checkin') as HTMLInputElement;
+    const { offerStart = '', offerEnd = '' } = form.dataset;
+    const today = new Date().toISOString().slice(0, 10);
+    const showOffer = () => {
+      if (!OFFERS.length || today > offerEnd) { banner.hidden = true; offerField.value = ''; return; } // deals over: say nothing
+      const d = daysOf(safariSel.value);
+      const o = d >= 3 ? OFFERS[1] : d === 2 ? OFFERS[0] : null;
+      const ci = checkinEl.value;
+      const ok = !!o && today <= offerEnd && (!ci || (ci >= offerStart && ci <= offerEnd));
+      offerField.value = ok && o ? o.en : '';
+      banner.hidden = !o;
+      if (!o) return;
+      banner.innerHTML = ok
+        ? `<strong>${M.applied} ${o.title}</strong>. ${o.text}`
+        : `<strong>${M.none}</strong>: ${M.noneText}`;
+    };
+    safariSel.addEventListener('change', showOffer);
+    checkinEl.addEventListener('change', showOffer);
+    showOffer();
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const status = document.getElementById('form-status') as HTMLElement;
+    const value = (name: string) => (form.elements.namedItem(name) as HTMLSelectElement | null)?.value ?? '';
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+      if (data.website) { location.href = thanks; return; } // honeypot: bots get a fake success
+      const room = NAMES.room[value('room')] ?? value('room');
+      const safari = NAMES.safari[value('safari')] ?? value('safari');
+      const message = `[Spanish website] ${data.message || ''}`.trim();
+      const text = `Booking request from camp-lilac.com\nName: ${data.name}\nEmail: ${data.email}\nWhatsApp: ${data.phone || '-'}\nCountry: ${data.country || '-'}\nDates: ${data.checkin} to ${data.checkout}\nAdults: ${data.adults}, children: ${data.children || '0'}\nRoom: ${room}\nSafari: ${safari}\nSafari deal: ${data.offer || '-'}\nArriving by: ${data.arrival}\nNotes: ${message}`;
+      const wa = `${form.dataset.whatsapp}?text=${encodeURIComponent(text)}`;
+      try { sessionStorage.setItem('cl-wa-text', text); } catch {}
+      const api = form.dataset.api;
+      if (!api) { location.href = wa; return; }
+      btn.disabled = true; btn.textContent = M.sending; status.hidden = true;
+      try {
+        const res = await fetch(api, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...data, room, safari, message }),
+        });
+        const out = await res.json().catch(() => ({}));
+        if (!res.ok || !out.ok) throw new Error(out.error || String(res.status));
+        location.href = thanks;
+      } catch {
+        btn.disabled = false; btn.textContent = M.send;
+        status.hidden = false;
+        status.innerHTML = `${M.error} <a href="${wa}">${M.errorLink}</a>${M.errorTail}`;
+      }
+    });
+  </script>
+</Base>

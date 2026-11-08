@@ -1,0 +1,60 @@
+---
+// Spanish version of /contact. Hand-written; ask a native Spanish speaker to read it once.
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site';
+import { es, EN, replyTime } from '../../data/i18n-es';
+
+const title = 'Contacto Camp Lilac, Mikumi: WhatsApp, email y cómo llegar';
+const description =
+  `Contacten con Camp Lilac en Mikumi, Tanzania: WhatsApp ${site.phoneDisplay}, ${site.email}. Cómo llegar, mapa, GPS y horarios.`;
+const crumbs = [{ name: 'Contacto', href: es('/contact') }];
+const lat = site.geo.latitude, lng = site.geo.longitude;
+const mapEmbed = `https://maps.google.com/maps?q=${lat},${lng}&z=13&hl=es&output=embed`;
+// The street line in site.ts is English; translate the known value, fall back to the raw string if it changes.
+const street = site.address.streetAddress === '2 km off the Dar es Salaam–Mbeya highway, near the Mikumi National Park main gate'
+  ? 'A 2 km de la carretera Dar es Salaam–Mbeya, cerca de la puerta principal del Parque Nacional de Mikumi'
+  : site.address.streetAddress;
+const wa = `${site.whatsapp}?text=${encodeURIComponent('Hola, Camp Lilac. Les escribo desde su web en español.')}`;
+---
+<Base {title} {description} lang="es" breadcrumbs={crumbs}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/es">Inicio</a> / Contacto</p>
+    <h1>Contacto con Camp Lilac, Mikumi</h1>
+    <p class="lead">Lo más rápido es WhatsApp: durante el día solemos responder en menos de una hora, en inglés o en suajili. Pueden escribirnos en español; contestamos en inglés sencillo o con ayuda de un traductor.</p>
+  </div>
+  <div class="wrap split" style="padding-bottom:var(--section)">
+    <div class="article">
+      <h2>Hablen con nosotros</h2>
+      <p><a href={wa} rel="noopener">WhatsApp {site.phoneDisplay}</a><br /><a href={`tel:${site.phoneE164}`}>Llamar al {site.phoneDisplay}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+      <p><a href={site.instagram} rel="noopener">Instagram @camplilacmikumi</a> · <a href={site.facebook} rel="noopener">Facebook</a></p>
+      <p>Respondemos a las solicitudes de reserva {replyTime}, todos los días de la semana. Para dudas del mismo día (un tren que llega tarde, un vuelo que cambia), lo mejor es WhatsApp.</p>
+
+      <h2>Dónde estamos</h2>
+      <address style="font-style:normal">
+        <strong>Camp Lilac Mikumi</strong><br />
+        {street}<br />
+        Mikumi, región de Morogoro, Tanzania · código postal {site.address.postalCode}<br />
+        GPS {Math.abs(lat).toFixed(4).replace('.', ',')}° S, {lng.toFixed(4).replace('.', ',')}° E
+      </address>
+      <p><a class="btn" href={site.mapsSearchUrl} rel="noopener">Abrir en Google Maps</a></p>
+      <p>El campamento está a unos 2 km de la carretera Dar es Salaam–Mbeya, en plena sabana, frente a la cordillera de Mikumi, y fuera del Parque Nacional de Mikumi, a minutos de la puerta principal. Sigan nuestros carteles desde la carretera; el camino es transitable todo el año.</p>
+      <div class="map-embed">
+        <iframe src={mapEmbed} title="Mapa con la ubicación de Camp Lilac cerca del Parque Nacional de Mikumi" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+
+      <h2>Cómo llegar</h2>
+      <ul>
+        <li><strong>Desde Dar es Salaam:</strong> tren SGR a Morogoro (alrededor de 1,5 horas) y después nuestro traslado de 2 horas desde la estación: 3,5 horas en total. Por carretera son 5–6 horas. Vean <a href={es('/getting-here')}>cómo llegar</a> y la <a href="/blog/dar-es-salaam-to-mikumi-by-sgr-train">guía del tren paso a paso</a> {EN}.</li>
+        <li><strong>Desde Zanzíbar:</strong> ferry o vuelo a Dar es Salaam y después el tren. Organizamos todo el viaje: vean <a href={es('/safari-from-zanzibar')}>safari desde Zanzíbar</a>.</li>
+        <li><strong>Desde el sur</strong> (Iringa, Ruaha, Mbeya): estamos justo al lado de la carretera, una parada natural para pasar la noche. Los autobuses paran en el pueblo de Mikumi, donde podemos recogerlos.</li>
+      </ul>
+      <p>Entrada a partir de las {site.checkIn}, salida a las {site.checkOut}. Si llegan antes, pueden dejar el equipaje y almorzar mientras preparamos su alojamiento.</p>
+    </div>
+    <aside class="aside">
+      <h3>¿Quieren reservar?</h3>
+      <p>Usen el formulario de reserva y les respondemos con la disponibilidad, las tarifas y una sugerencia de safari.</p>
+      <a class="btn btn--fill" href={es('/book')}>Solicitar una reserva</a>
+      <p style="margin-top:18px;font-size:0.9rem">Agencias de viajes y touroperadores: escriban a <a href={`mailto:${site.email}`}>{site.email}</a> para tarifas profesionales y disponibilidad.</p>
+    </aside>
+  </div>
+</Base>
