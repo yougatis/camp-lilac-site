@@ -48,6 +48,8 @@ const all: Record<string, string> = {
   'leopard-face': 'Close portrait of a leopard',
   'sanje-waterfall': 'Sanje Waterfall falling down the cliffs of the Udzungwa Mountains',
 };
+// Photos whose grid tile is cropped: the photo viewer opens this uncropped file instead.
+const fullSize: Record<string, string> = { 'sanje-waterfall': '/images/wild/sanje-waterfall-full.webp' };
 const { pick = ['lion-pride', 'elephant', 'giraffe-sunset', 'zebras-impala'], title, label } = Astro.props;
 ---
 <section class="section section--tight">
@@ -56,7 +58,7 @@ const { pick = ['lion-pride', 'elephant', 'giraffe-sunset', 'zebras-impala'], ti
     {title && <h2 class="rv rv-d1" style="margin-bottom:32px">{title}</h2>}
     <div class="wild-grid">
       {pick.map((k, i) => (
-        <div class={`rv rv-d${i % 4}`}><Photo src={`/images/wild/${k}-1600.jpg`} alt={all[k]} ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" /></div>
+        <div class={`rv rv-d${i % 4}`}><Photo src={`/images/wild/${k}-1600.jpg`} alt={all[k]} ratio="landscape" sizes="(max-width: 760px) 100vw, 33vw" full={fullSize[k]} /></div>
       ))}
     </div>
     <p class="meta" style="margin-top:14px;font-size:0.75rem">Tap a photo to see it full size · <a href="/mikumi-national-park#photo-credits">Photo credits</a></p>

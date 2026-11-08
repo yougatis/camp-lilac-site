@@ -304,7 +304,7 @@ const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema
         const close = () => { lb.classList.remove('open'); document.documentElement.style.overflow = ''; (lastFocus as HTMLElement | null)?.focus?.(); };
         groups.forEach((g) => {
           const figs = [...g.querySelectorAll<HTMLElement>('figure.ph')];
-          const list = figs.map((f) => { const im = f.querySelector('img')!; return { src: im.getAttribute('src') || im.currentSrc, alt: im.alt }; });
+          const list = figs.map((f) => { const im = f.querySelector('img')!; return { src: im.dataset.full || im.getAttribute('src') || im.currentSrc, alt: im.alt }; });
           figs.forEach((f, i) => {
             f.classList.add('lb-trigger'); f.tabIndex = 0; f.setAttribute('role', 'button'); f.setAttribute('aria-label', `View photo ${i + 1} of ${figs.length} larger`);
             f.addEventListener('click', (e) => { if (e.defaultPrevented) return; open(list, i); });
