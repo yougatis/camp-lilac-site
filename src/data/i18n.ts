@@ -101,7 +101,7 @@ export const ui: Record<Lang, {
     cta: 'Anfragen', reviews: 'Bewertungen', skip: 'Zum Inhalt', menu: 'Menü', whatsappAria: 'Schreiben Sie uns auf WhatsApp', language: 'Sprache',
     footerTagline: 'Luxus-Zeltcamp knapp außerhalb des Mikumi-Nationalparks, Region Morogoro, Tansania.',
     footerStay: 'Unterkunft', footerMikumi: 'Mikumi', footerContact: 'Kontakt', footerReviews: 'Bewertungen', footerLangs: 'Sprachen',
-    links: { rooms: 'Luxuszelte und Cabins', rates: 'Preise', restaurant: 'Restaurant und Bar', about: 'Über uns', book: 'Verfügbarkeit anfragen', faq: 'Häufige Fragen', safaris: 'Safari-Pakete', fromDar: 'Safari ab Dar es Salaam', fromZanzibar: 'Safari ab Sansibar', park: 'Parkführer (auf Englisch)', whereToStay: 'Unterkünfte in Mikumi (auf Englisch)', gettingHere: 'Anreise', blog: 'Blog (auf Englisch)', offers: 'Safari-Angebote (auf Englisch)' },
+    links: { rooms: 'Luxuszelte und Cabins', rates: 'Preise', restaurant: 'Restaurant und Bar', about: 'Über uns', book: 'Verfügbarkeit anfragen', faq: 'Häufige Fragen', safaris: 'Safari-Pakete', fromDar: 'Safari ab Dar es Salaam', fromZanzibar: 'Safari von Sansibar', park: 'Parkführer (auf Englisch)', whereToStay: 'Unterkünfte in Mikumi (auf Englisch)', gettingHere: 'Anreise', blog: 'Blog (auf Englisch)', offers: 'Safari-Angebote (auf Englisch)' },
     checkIn: 'Check-in', checkOut: 'Check-out', englishOnly: 'Diese Seite gibt es nur auf Englisch.',
   },
   es: {
