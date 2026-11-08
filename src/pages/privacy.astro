@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const title = 'Privacy and Cookies | Camp Lilac Mikumi';
+const description =
+  'How Camp Lilac Mikumi uses the details you send us, which cookies the website uses for Google and Meta ads, and how to change your choice.';
+---
+<Base {title} {description} breadcrumbs={[{ name: 'Privacy', href: '/privacy' }]}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/">Home</a> / Privacy</p>
+    <h1>Privacy and cookies</h1>
+    <p class="lead">Short and plain: what we keep, why, and how to change your mind.</p>
+  </div>
+  <div class="wrap prose" style="max-width:760px;padding-bottom:var(--section)">
+    <h2>Who we are</h2>
+    <p>{site.legalName}, Mikumi, Morogoro Region, Tanzania. Questions about your data: <a href={`mailto:${site.email}`}>{site.email}</a> or WhatsApp {site.phoneDisplay}.</p>
+
+    <h2>What you send us</h2>
+    <p>When you use the booking form, we receive your name, email, WhatsApp number, country, dates, number of guests and your message. They are saved in our booking list (Google Workspace) and emailed to our team, and we use them only to answer your request and organise your stay or safari. If you message us on WhatsApp or by email, the same applies to those messages.</p>
+    <p>Card payments for deposits go through DPO Pay's secure payment page. We never see or store your full card number.</p>
+    <p>We keep booking details for as long as we need them for your stay and for our accounting and legal obligations. You can ask us at any time to see, correct or delete what we hold about you.</p>
+
+    <h2>Cookies and advertising</h2>
+    <p>We measure visits with Cloudflare Web Analytics, which uses no cookies and does not identify you.</p>
+    <p>We advertise on Google and on Meta (Facebook and Instagram). To see which ads bring guests, the website uses the Google tag and the Meta Pixel, which can set cookies, and sends a short notice to Meta when someone sends a booking request or taps WhatsApp. Visitors in the European Union, the EEA, the United Kingdom and Switzerland are asked first, and these tools stay off for them unless they accept.</p>
+    <p><button type="button" class="btn" id="cl-reset">Change my cookie choice</button></p>
+    <p>You can also limit ad personalisation in your <a href="https://adssettings.google.com" rel="noopener">Google ad settings</a> and your <a href="https://www.facebook.com/adpreferences" rel="noopener">Meta ad preferences</a>.</p>
+
+    <h2>Changes</h2>
+    <p>If we change how we use data, we update this page. Last updated: November 2026.</p>
+  </div>
+  <script is:inline>
+    document.getElementById('cl-reset').addEventListener('click', function () {
+      try { localStorage.removeItem('cl-consent'); } catch (e) {}
+      location.reload();
+    });
+  </script>
+</Base>

@@ -32,6 +32,14 @@ const isHome = cleanPath === '/';
 // language when it exists, otherwise to that language's home page; hreflang tags are generated from the same list.
 const L = (langs as readonly string[]).includes(lang) ? (lang as Lang) : 'en';
 const t = ui[L];
+// Cookie banner text (shown only to visitors in the EU/EEA, UK and Switzerland, who must opt in to ad cookies).
+const consentText = {
+  en: { msg: 'We use cookies from Google and Meta to see which of our ads bring guests. Is that OK with you?', yes: 'Accept', no: 'No thanks', more: 'Privacy' },
+  it: { msg: 'Usiamo cookie di Google e Meta per capire quali annunci ci portano ospiti. Va bene per voi?', yes: 'Accetto', no: 'No, grazie', more: 'Privacy (in inglese)' },
+  fr: { msg: 'Nous utilisons des cookies de Google et de Meta pour savoir quelles annonces nous amènent des voyageurs. Êtes-vous d’accord ?', yes: 'Accepter', no: 'Non merci', more: 'Confidentialité (en anglais)' },
+  de: { msg: 'Wir nutzen Cookies von Google und Meta, um zu sehen, welche Anzeigen uns Gäste bringen. Sind Sie einverstanden?', yes: 'Akzeptieren', no: 'Nein, danke', more: 'Datenschutz (auf Englisch)' },
+  es: { msg: 'Usamos cookies de Google y Meta para saber qué anuncios nos traen huéspedes. ¿Les parece bien?', yes: 'Aceptar', no: 'No, gracias', more: 'Privacidad (en inglés)' },
+}[L];
 const versions = versionsOf(cleanPath);
 const langLinks = langs.map((l) => ({ lang: l, name: langNames[l], href: versions ? versions[l] : localize('/', l), current: l === L }));
 const hreflangs = versions ? langs.map((l) => ({ lang: l, href: versions[l] })) : alternates;
@@ -81,6 +89,21 @@ const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Google tag (Google Ads, account 516-174-9111) with Consent Mode v2: visitors in the EU/EEA, UK and Switzerland
+         start with ad cookies off until they accept the banner; everyone else starts with them on. -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      window.CL_EU = ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'];
+      window.CL_DENY = { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied' };
+      window.CL_GRANT = { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' };
+      gtag('consent', 'default', Object.assign({ region: CL_EU, wait_for_update: 500 }, CL_DENY));
+      gtag('consent', 'default', CL_GRANT);
+      try { var clc = localStorage.getItem('cl-consent'); if (clc === 'granted') gtag('consent', 'update', CL_GRANT); else if (clc === 'denied') gtag('consent', 'update', CL_DENY); } catch (e) {}
+      gtag('js', new Date());
+      gtag('config', 'AW-18563595483');
+    </script>
+    <script is:inline async src="https://www.googletagmanager.com/gtm.js?id=GTM-TF6TD5H3"></script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
@@ -221,7 +244,7 @@ const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema
       </div>
       <div class="wrap footer-legal">
         <span>© {new Date().getFullYear()} {site.legalName}</span>
-        <span>{t.checkIn} {site.checkIn} · {t.checkOut} {site.checkOut}</span>
+        <span>{t.checkIn} {site.checkIn} · {t.checkOut} {site.checkOut} · <a href="/privacy">{consentText.more.replace(/ \(.*\)$/, '')}</a></span>
       </div>
     </footer>
 
@@ -345,9 +368,26 @@ const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema
         lb.addEventListener('touchend', (e) => { const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 40) show(idx + (dx < 0 ? 1 : -1)); });
       })();
     </script>
+    <div class="cl-consent" id="cl-consent" role="dialog" aria-live="polite" aria-label={consentText.more} hidden>
+      <p>{consentText.msg} <a href="/privacy">{consentText.more}</a></p>
+      <div><button type="button" class="btn" data-no>{consentText.no}</button><button type="button" class="btn btn--fill" data-yes>{consentText.yes}</button></div>
+    </div>
     <!-- Meta Pixel: PageView on every page, Lead on the thank-you page, Contact on any WhatsApp link. Loads after the page. -->
     <script is:inline>
       !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      // EU/EEA, UK and Swiss visitors: Meta stays off (and nothing goes to /api/meta) until they accept the banner.
+      var clMetaOff = false;
+      function clConsent(cb) {
+        var s = null;
+        try { s = localStorage.getItem('cl-consent'); } catch (e) {}
+        if (s) return cb(s);
+        fetch('/cdn-cgi/trace').then(function (r) { return r.text(); }).then(function (txt) {
+          var m = txt.match(/loc=([A-Z]{2})/);
+          cb(m && window.CL_EU.indexOf(m[1]) >= 0 ? 'ask' : 'granted');
+        }).catch(function () { cb('granted'); });
+      }
+      clConsent(function (state) {
+      if (state !== 'granted') { fbq('consent', 'revoke'); clMetaOff = true; }
       fbq('init', '1131227682887375');
       // Each event goes to the browser pixel and to our server (/api/meta -> Conversions API) with the same
       // eventID, so Meta counts it once but still sees it when the pixel is blocked.
@@ -363,14 +403,36 @@ const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema
           } catch (err) {}
         };
         // Short wait so the pixel has set its _fbp cookie, which lets Meta match the two copies.
+        if (clMetaOff) return;
         if (name === 'PageView') setTimeout(send, 600); else send();
       }
       track('PageView');
-      if (/^\/((it|fr|de|es)\/)?(thank-you|grazie|merci|danke|gracias)$/.test(location.pathname.replace(/\.html$/, ''))) track('Lead', { content_name: 'booking-request' });
+      if (/^\/((it|fr|de|es)\/)?(thank-you|grazie|merci|danke|gracias)$/.test(location.pathname.replace(/\.html$/, ''))) {
+        track('Lead', { content_name: 'booking-request' });
+        gtag('event', 'conversion', { send_to: 'AW-18563595483/DJ2pCN-zzLQdENv555NF' }); // Google Ads: Booking request (website form)
+      }
       document.addEventListener('click', function (e) {
         var a = e.target && e.target.closest ? e.target.closest('a[href*="wa.me"], a[href*="whatsapp"]') : null;
-        if (a) track('Contact', { content_name: 'whatsapp' });
+        if (a) {
+          track('Contact', { content_name: 'whatsapp' });
+          gtag('event', 'conversion', { send_to: 'AW-18563595483/hNMpCOKzzLQdENv555NF' }); // Google Ads: WhatsApp click
+        }
       }, true);
+      if (state === 'ask') {
+        var bar = document.getElementById('cl-consent');
+        if (bar) {
+          bar.hidden = false;
+          var decide = function (ok) {
+            try { localStorage.setItem('cl-consent', ok ? 'granted' : 'denied'); } catch (e) {}
+            gtag('consent', 'update', ok ? window.CL_GRANT : window.CL_DENY);
+            if (ok) { fbq('consent', 'grant'); clMetaOff = false; }
+            bar.hidden = true;
+          };
+          bar.querySelector('[data-yes]').addEventListener('click', function () { decide(true); });
+          bar.querySelector('[data-no]').addEventListener('click', function () { decide(false); });
+        }
+      }
+      });
     </script>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1131227682887375&ev=PageView&noscript=1" alt="" /></noscript>
     <!-- Cloudflare Web Analytics (privacy-friendly, no cookies). Token is public by design. -->
