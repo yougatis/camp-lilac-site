@@ -624,6 +624,9 @@ a .ph:hover img, .ph.zoom:hover img { transform: scale(1.04); }
 .footer-grid a[aria-current] { color: var(--lilac); }
 /* Header: logo and review badge keep their full width; the language switcher sits right after the badge */
 .site-header .brand, .site-header .badge { flex-shrink: 0; }
-.header-inner .lang-switch { margin-left: 0; margin-right: 0; }
+.header-inner .lang-switch { margin-left: 4px; margin-right: 0; }
+.header-inner .badge { margin-left: auto; margin-right: 0; }
 .header-inner .main-nav { margin-left: auto; }
+@media (min-width: 1481px) { .header-inner .main-nav { margin-left: 22px; } }
+@media (min-width: 1481px) and (max-width: 1560px) { .site-header .main-nav ul { gap: 16px; } .site-header .main-nav a { letter-spacing: 0.08em; } }
 @media (min-width: 1481px) { .site-header .main-nav ul { gap: 20px; } .site-header .main-nav a { letter-spacing: 0.1em; } .site-header .nav-cta a { padding: 10px 16px; } }

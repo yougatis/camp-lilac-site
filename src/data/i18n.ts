@@ -105,7 +105,7 @@ export const ui: Record<Lang, {
     checkIn: 'Check-in', checkOut: 'Check-out', englishOnly: 'Diese Seite gibt es nur auf Englisch.',
   },
   es: {
-    nav: { stay: 'Alojamiento', safaris: 'Safaris', rates: 'Precios', mikumi: 'Mikumi', gettingHere: 'Cómo llegar', contact: 'Contacto' },
+    nav: { stay: 'Estancia', safaris: 'Safaris', rates: 'Precios', mikumi: 'Mikumi', gettingHere: 'Cómo llegar', contact: 'Contacto' },
     cta: 'Reservar', reviews: 'opiniones', skip: 'Ir al contenido', menu: 'Menú', whatsappAria: 'Escríbanos por WhatsApp', language: 'Idioma',
     footerTagline: 'Campamento de tiendas de lujo justo fuera del Parque Nacional de Mikumi, región de Morogoro, Tanzania.',
     footerStay: 'Alojamiento', footerMikumi: 'Mikumi', footerContact: 'Contacto', footerReviews: 'Opiniones', footerLangs: 'Idiomas',
