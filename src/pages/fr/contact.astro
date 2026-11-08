@@ -1,0 +1,55 @@
+---
+// French version of /contact. Hand-written; ask a French speaker to read it once before promoting it.
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site';
+import { lf, EN, frReply } from '../../data/i18n-fr';
+
+const title = 'Contacter Camp Lilac, Mikumi : WhatsApp, e-mail, accès';
+const description =
+  `Contactez Camp Lilac à Mikumi : WhatsApp ${site.phoneDisplay}, ${site.email}. Accès depuis Dar es Salaam et la gare de Morogoro, carte, GPS, horaires.`;
+const crumbs = [{ name: 'Contact', href: lf('/contact') }];
+const lat = site.geo.latitude, lng = site.geo.longitude;
+const mapEmbed = `https://maps.google.com/maps?q=${lat},${lng}&z=13&hl=fr&output=embed`;
+---
+<Base {title} {description} lang="fr" breadcrumbs={crumbs}>
+  <div class="wrap page-head">
+    <p class="crumbs"><a href="/fr">Accueil</a> / Contact</p>
+    <h1>Contacter Camp Lilac, Mikumi</h1>
+    <p class="lead">Le plus rapide, c’est WhatsApp : en journée, nous répondons généralement dans l’heure, en anglais ou en swahili. Vous pouvez nous écrire en français ; nous vous répondrons en anglais simple ou à l’aide d’un traducteur.</p>
+  </div>
+  <div class="wrap split" style="padding-bottom:var(--section)">
+    <div class="article">
+      <h2>Nous écrire ou nous appeler</h2>
+      <p><a href={site.whatsapp} rel="noopener">WhatsApp {site.phoneDisplay}</a><br /><a href={`tel:${site.phoneE164}`}>Appeler le {site.phoneDisplay}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+      <p><a href={site.instagram} rel="noopener">Instagram @camplilacmikumi</a> · <a href={site.facebook} rel="noopener">Facebook</a></p>
+      <p>Nous répondons aux demandes de réservation {frReply(site.replyTime)}, tous les jours de la semaine. Pour une question le jour même (un train en retard, un vol modifié), WhatsApp reste le meilleur moyen.</p>
+
+      <h2>Nous trouver</h2>
+      <address style="font-style:normal">
+        <strong>Camp Lilac Mikumi</strong><br />
+        À 2 km de la route Dar es Salaam–Mbeya, près de la porte principale du parc national de Mikumi<br />
+        Mikumi, région de Morogoro, Tanzanie · code postal {site.address.postalCode}<br />
+        GPS {Math.abs(lat).toFixed(4)}° S, {lng.toFixed(4)}° E
+      </address>
+      <p><a class="btn" href={site.mapsSearchUrl} rel="noopener">Ouvrir dans Google Maps</a></p>
+      <p>Le camp se trouve à environ 2 km de la route Dar es Salaam–Mbeya, dans la brousse, face à la chaîne des monts Mikumi. Il est situé à l’extérieur du parc national de Mikumi, à quelques minutes de la porte principale. Suivez nos panneaux depuis la route principale ; la piste est praticable toute l’année.</p>
+      <div class="map-embed">
+        <iframe src={mapEmbed} title="Carte montrant l’emplacement de Camp Lilac près du parc national de Mikumi" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+
+      <h2>Comment nous rejoindre</h2>
+      <ul>
+        <li><strong>Depuis Dar es Salaam :</strong> train SGR jusqu’à Morogoro (environ 1,5 h), puis notre transfert de 2 h depuis la gare, soit 3,5 h en tout. Par la route, comptez 5 à 6 h. Voir <a href={lf('/getting-here')}>comment venir</a> et le <a href="/blog/dar-es-salaam-to-mikumi-by-sgr-train">guide du train SGR pas à pas</a>{EN}.</li>
+        <li><strong>Depuis Zanzibar :</strong> ferry ou vol jusqu’à Dar es Salaam, puis le train. Nous organisons tout le trajet : voir le <a href={lf('/safari-from-zanzibar')}>safari depuis Zanzibar</a>.</li>
+        <li><strong>Depuis le sud</strong> (Iringa, Ruaha, Mbeya) : nous sommes juste à côté de la route principale, une étape naturelle. Les bus s’arrêtent dans la ville de Mikumi, où nous pouvons venir vous chercher.</li>
+      </ul>
+      <p>Arrivée à partir de {site.checkIn}, départ à {site.checkOut}. Si vous arrivez tôt, vous pouvez déposer vos bagages et déjeuner pendant que nous préparons votre chambre.</p>
+    </div>
+    <aside class="aside">
+      <h3>Vous souhaitez réserver ?</h3>
+      <p>Remplissez le formulaire de demande : nous revenons vers vous avec les disponibilités, les tarifs et une suggestion de safari.</p>
+      <a class="btn btn--fill" href={lf('/book')}>Faire une demande de réservation</a>
+      <p style="margin-top:18px;font-size:0.9rem">Agences de voyages et tour-opérateurs : écrivez à <a href={`mailto:${site.email}`}>{site.email}</a> pour les tarifs professionnels et les disponibilités.</p>
+    </aside>
+  </div>
+</Base>

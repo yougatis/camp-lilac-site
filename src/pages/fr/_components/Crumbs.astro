@@ -1,0 +1,12 @@
+---
+// French breadcrumb trail (same markup and classes as src/components/Crumbs.astro, with "Accueil" → /fr).
+interface Props { items: { name: string; href: string }[]; class?: string }
+const { items, class: cls = 'label' } = Astro.props;
+const parents = items.slice(0, -1);
+const last = items[items.length - 1];
+---
+<nav aria-label="Fil d’Ariane" class={`crumbs-hero ${cls}`}>
+  <a href="/fr">Accueil</a>
+  {parents.map((b) => <> <span aria-hidden="true">/</span> <a href={b.href}>{b.name}</a></>)}
+  {last && <> <span aria-hidden="true">/</span> <span aria-current="page">{last.name}</span></>}
+</nav>
