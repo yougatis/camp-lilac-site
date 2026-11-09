@@ -31,7 +31,7 @@ export const offerById = (id: string | null) => offers.find((o) => o.id === id);
 
 // What booking direct always includes — shown instead of the deals once they expire.
 export const directBenefits = [
-  { title: 'Breakfast and dinner included', text: 'Every direct booking includes breakfast and a three-course dinner facing the Mikumi mountain ridge. Lunch is US$15 per person.' },
+  { title: 'Breakfast and dinner included', text: 'Every direct booking includes breakfast and dinner facing the Mikumi mountain ridge. Lunch is US$15 per person.' },
   { title: 'One total price, no booking fees', text: 'You get one price for the room, the safari and the transfers, and nothing to pay until you confirm. A deposit by secure card link holds the room.' },
   { title: 'The whole journey organised', text: 'Train tickets, Morogoro station pickup, ferries and flights from Zanzibar — tell us how you want to travel and we arrange it.' },
   { title: 'Our own guides and 4×4s', text: 'Game drives leave straight from the camp in a private open-roof jeep with a Camp Lilac guide, timed to your train or flight.' },

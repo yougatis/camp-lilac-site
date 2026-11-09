@@ -54,7 +54,7 @@ export const safaris: Safari[] = [
   {
     slug: '1-day-mikumi-safari',
     metaTitle: '1-Day Mikumi Safari from Morogoro or Dar es Salaam | Camp Lilac',
-    metaDescription: 'A full day in Mikumi National Park in a private open 4x4 with our own guide: morning game drive, hot bush lunch, hippo pools. From Morogoro, the camp or Dar.',
+    metaDescription: 'A full day in Mikumi National Park in a private open 4x4 with our own guide: morning game drive, hot lunch, hippo pools. From Morogoro, the camp or Dar.',
     name: '1-Day Mikumi Safari',
     days: 1,
     price: 214,
@@ -69,14 +69,14 @@ export const safaris: Safari[] = [
     image: '/images/wild/pkg-1-1600.jpg',
     imageAlt: 'Giraffes grazing near a safari jeep on the savannah',
     summary:
-      'A full day in Mikumi National Park in a private open jeep with our own guide: morning game drive, hot bush lunch, afternoon drive until 16:30. From Morogoro, from the camp, or as a same-day trip from Dar es Salaam by SGR train.',
+      'A full day in Mikumi National Park in a private open jeep with our own guide: morning game drive, hot lunch, afternoon drive until 16:30. From Morogoro, from the camp, or as a same-day trip from Dar es Salaam by SGR train.',
     bestFor: 'Day trips from Morogoro or Dar es Salaam, and guests staying one night',
     start: 'Morogoro, Camp Lilac, or Dar es Salaam SGR station',
     itinerary: [
       {
         title: 'Morning — pickup and first game drive',
         text: 'Our driver collects you from your hotel, the SGR station or the camp and drives you to the Mikumi main gate (about 2 hours from Morogoro). At the gate you board a private open-roof jeep with your guide and head onto the Mkata floodplain, where buffalo, giraffe, elephant, zebra, impala and — with luck — lions are easiest to find early in the day. Four of the Big Five live in Mikumi.',
-        meals: 'Hot bush lunch, water and soft drinks',
+        meals: 'Hot lunch, water and soft drinks',
       },
       {
         title: 'Afternoon — hippo pools and return',
@@ -153,8 +153,8 @@ export const safaris: Safari[] = [
       },
       {
         title: 'Day 2 — Full day on the Mikumi floodplain',
-        text: 'After breakfast at the camp your guide collects you for a full day exploring the Mkata floodplain and its baobab-dotted edges — over 400 bird species, big herds, and the best chance of leopard in the woodland. Picnic lunch at a viewpoint, then game driving until sunset.',
-        meals: 'Breakfast, picnic lunch and dinner, water and soft drinks',
+        text: 'After breakfast at the camp your guide collects you for a full day exploring the Mkata floodplain and its baobab-dotted edges — over 400 bird species, big herds, and the best chance of leopard in the woodland. Lunch, then game driving until sunset.',
+        meals: 'Breakfast, lunch and dinner, water and soft drinks',
         stay,
       },
       {
@@ -195,13 +195,13 @@ export const safaris: Safari[] = [
       {
         title: 'Day 2 — Full day in Mikumi National Park',
         text: 'Game drive from 06:30 until sunset: large herds of giraffe, buffalo and elephant on the floodplain, hundreds of bird species, and a good chance of lions and leopard.',
-        meals: 'Breakfast, picnic lunch and dinner, water',
+        meals: 'Breakfast, lunch and dinner, water',
         stay,
       },
       {
         title: 'Day 3 — Udzungwa Mountains and Sanje Waterfall',
-        text: 'Leave at 07:00 for the 60 km drive to Udzungwa Mountains National Park. After check-in at park headquarters, hike with a park ranger to Sanje Waterfall, which drops in four stages and is the highest in Tanzania’s national park system — about five hours round trip, with Udzungwa red colobus and Sanje crested mangabey monkeys in the forest. Picnic lunch on the trail, then back to the camp.',
-        meals: 'Breakfast, picnic lunch and dinner, water',
+        text: 'Leave at 07:00 for the 60 km drive to Udzungwa Mountains National Park. After check-in at park headquarters, hike with a park ranger to Sanje Waterfall, which drops in four stages and is the highest in Tanzania’s national park system — about five hours round trip, with Udzungwa red colobus and Sanje crested mangabey monkeys in the forest. Afterwards, back to the camp.',
+        meals: 'Breakfast, lunch and dinner, water',
         stay,
       },
       {

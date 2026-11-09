@@ -47,35 +47,35 @@ type RoomDe = {
 
 const meals = 'Frühstück und Abendessen inklusive, Mittagessen US$15 pro Person';
 const twoAdults = '2 Erwachsene';
-const kingBed = 'Himmelbett in Kingsize';
-const kingOrTwin = 'Himmelbett in Kingsize (auf Wunsch zwei Einzelbetten)';
+const kingBed = 'Kingsize-Bett';
+const kingOrTwin = 'Kingsize-Bett (auf Wunsch zwei Einzelbetten)';
 
 const roomsDe: Record<string, RoomDe> = {
   'mountain-view-cabin': {
     gloss: 'Cabin mit Bergblick',
     kind: 'Private Cabin',
-    summary: 'Unsere beste Unterkunft: eine private, reetgedeckte Cabin mit Blick auf den Bergkamm der Mikumi-Berge, mit breiter Terrasse, Himmelbett in Kingsize und einer Badewanne mit Aussicht.',
+    summary: 'Unsere beste Unterkunft: eine private, reetgedeckte Cabin mit Blick auf den Bergkamm der Mikumi-Berge, mit breiter Terrasse, Kingsize-Bett und einer Badewanne mit Aussicht.',
     description: [
       'Die Mountain View Cabin ist die luxuriöseste Unterkunft in Mikumi und in der ganzen Region Morogoro, in einer einzigartigen Lage mit freiem Blick auf die Mikumi-Berge. Sie wachen mit den Hügeln vor dem Fenster auf und beenden den Tag mit dem Sonnenuntergang, auf der Terrasse oder in der Badewanne.',
-      'Naturholz und große Fenster holen die Landschaft ins Innere. Unter dem Reetdach steht ein bequemes Himmelbett in Kingsize, dazu kommen eine moderne Klimaanlage und ein schön gestaltetes Bad mit freistehender Badewanne vor einem Fenster zum Busch. Von der Terrasse aus sehen Sie Impalas, Warzenschweine und Affen vorbeiziehen: Safari, ohne die Cabin zu verlassen.',
+      'Naturholz und große Fenster holen die Landschaft ins Innere. Unter dem Reetdach steht ein bequemes Kingsize-Bett, dazu kommen eine moderne Klimaanlage und ein schön gestaltetes Bad mit freistehender Badewanne vor einem Fenster zum Busch. Von der Terrasse aus sehen Sie Impalas, Warzenschweine und Affen vorbeiziehen: Safari, ohne die Cabin zu verlassen.',
       'Wildnis, Exklusivität und Genuss an einem Ort: für Paare, die den Komfort einer Lodge in der Umgebung eines Safaricamps suchen. Bei Direktbuchung sind Frühstück und Abendessen in unserem Restaurant inklusive, das denselben Blick auf den Bergkamm der Mikumi-Berge hat. Das Mittagessen kostet US$15 pro Person, Getränke sind extra.',
     ],
     highlights: [
       'Blick auf den Bergkamm der Mikumi-Berge',
       'Breite private Terrasse für den Sonnenuntergang',
       'Freistehende Badewanne mit Aussicht',
-      'Himmelbett in Kingsize, Klimaanlage, eigenes Bad',
+      'Kingsize-Bett, Klimaanlage, eigenes Bad',
       meals,
     ],
     alt: 'Freistehende Badewanne in der Mountain View Cabin im Camp Lilac, durch das Fenster der Bergkamm der Mikumi-Berge',
     caption: 'Das Bad, 17:50 Uhr',
     imageAlts: [
       'Freistehende Badewanne in der Mountain View Cabin im Camp Lilac, durch das Fenster der Bergkamm der Mikumi-Berge',
-      'Himmelbett in Kingsize mit Moskitonetz in der Mountain View Cabin, mit Blick auf die offene Terrasse und die Ebene von Mikumi',
+      'Kingsize-Bett mit Moskitonetz in der Mountain View Cabin, mit Blick auf die offene Terrasse und die Ebene von Mikumi',
       'Holztreppe hinauf zur reetgedeckten Mountain View Cabin im Camp Lilac, unter einem Baum bei Sonnenuntergang',
       'Die breite private Terrasse der Mountain View Cabin mit Blick über den Busch zu den Mikumi-Bergen',
       'Liegestühle auf der Terrasse der Mountain View Cabin im goldenen Abendlicht, am Horizont der Bergkamm der Mikumi-Berge',
-      'Morgenlicht auf dem Boden der Mountain View Cabin, mit dem Himmelbett und der Aussicht dahinter',
+      'Morgenlicht auf dem Boden der Mountain View Cabin, mit dem Kingsize-Bett und der Aussicht dahinter',
       'Offene Regale und Klimaanlage in der Mountain View Cabin im Camp Lilac',
       'In der Mountain View Cabin: Reetdach, Hartholzboden und Glastüren zur Terrasse',
       'Die Terrasse der Mountain View Cabin bei Sonnenuntergang, eingerahmt vom Reetdach, mit Blick zu den Mikumi-Bergen',
@@ -85,7 +85,7 @@ const roomsDe: Record<string, RoomDe> = {
     bed: kingBed,
     view: 'Blick auf den Bergkamm der Mikumi-Berge',
     metaTitle: 'Mountain View Cabin: Cabin mit Bergblick | Camp Lilac',
-    metaDescription: 'Unsere beste Unterkunft: private Cabin mit Reetdach vor den Mikumi-Bergen, breite Terrasse, Himmelbett und Badewanne mit Aussicht. Ab US${price} pro Nacht.',
+    metaDescription: 'Unsere beste Unterkunft: private Cabin mit Reetdach vor den Mikumi-Bergen, breite Terrasse, Kingsize-Bett und Badewanne mit Aussicht. Ab US${price} pro Nacht.',
   },
   'luxury-mountain-view-tent': {
     gloss: 'Luxuszelt mit Bergblick',
@@ -93,7 +93,7 @@ const roomsDe: Record<string, RoomDe> = {
     summary: 'Unsere neuesten Luxuszelte: dasselbe Luxuszelt aus Segeltuch wie die Luxury Jungle Tents, nur zu den Mikumi-Bergen hin ausgerichtet, mit dem schönsten Sonnenuntergang von Mikumi von der eigenen Terrasse aus.',
     description: [
       'Die Luxury Mountain View Tents wurden Ende 2026 eröffnet. Sie verbinden das Safarigefühl der Luxury Jungle Tents mit dem Blick auf den Bergkamm der Mikumi-Berge, den sonst die Mountain View Cabin hat.',
-      'Jedes Luxuszelt steht auf einer erhöhten Hartholzterrasse mit Blick auf die Berge, mit Himmelbett, vollwertigem eigenem Bad, Klimaanlage und sehr bequemen Betten. Am Abend färbt sich der Bergkamm der Mikumi-Berge erst golden, dann lila: der Anblick, nach dem das Camp benannt ist.',
+      'Jedes Luxuszelt steht auf einer erhöhten Hartholzterrasse mit Blick auf die Berge, mit Kingsize-Bett, vollwertigem eigenem Bad, Klimaanlage und sehr bequemen Betten. Am Abend färbt sich der Bergkamm der Mikumi-Berge erst golden, dann lila: der Anblick, nach dem das Camp benannt ist.',
       'Ideal für Paare, die das Safarigefühl eines Luxuszelts und die Landschaft der Berge möchten.',
     ],
     highlights: [
@@ -111,7 +111,7 @@ const roomsDe: Record<string, RoomDe> = {
       'Ein Luxury Mountain View Tent auf seiner erhöhten Holzplattform im Busch von Mikumi in der Abenddämmerung',
       'Holzstufen hinauf zur Terrasse eines Luxury Mountain View Tent im Camp Lilac',
       'Private Terrasse eines Luxury Mountain View Tent mit Blick über den Busch zum Bergkamm der Mikumi-Berge',
-      'Himmelbett unter dem Segeltuchdach in einem Luxury Mountain View Tent, mit Hartholzboden und Sesseln',
+      'Kingsize-Bett unter dem Segeltuchdach in einem Luxury Mountain View Tent, mit Hartholzboden und Sesseln',
       'Eingang zum eigenen Bad eines Luxury Mountain View Tent, mit Spiegel, Waschbecken und Sessel',
       'Eigenes Bad in einem Luxury Mountain View Tent: runder Spiegel, zwei Waschbecken und Klimaanlage',
       'Blick vom Bett eines Luxury Mountain View Tent zu den Mikumi-Bergen bei Sonnenaufgang',
@@ -122,34 +122,34 @@ const roomsDe: Record<string, RoomDe> = {
     bed: kingOrTwin,
     view: 'Blick auf den Bergkamm der Mikumi-Berge',
     metaTitle: 'Luxury Mountain View Tent: Luxuszelt in Mikumi',
-    metaDescription: 'Unsere neuesten Luxuszelte vor den Mikumi-Bergen: erhöhte Terrasse, Himmelbett, eigenes Bad, Klimaanlage und der schönste Sonnenuntergang. Ab US${price} pro Nacht.',
+    metaDescription: 'Unsere neuesten Luxuszelte vor den Mikumi-Bergen: erhöhte Terrasse, Kingsize-Bett, eigenes Bad, Klimaanlage und der schönste Sonnenuntergang. Ab US${price} pro Nacht.',
   },
   'jungle-cabin': {
     gloss: 'Cabin zwischen den Bäumen',
     kind: 'Private Cabin',
-    summary: 'Eine private, reetgedeckte Cabin zwischen den Bäumen: eine lange umlaufende Terrasse, ein Himmelbett, ein Marmorbad und rundherum die Geräusche des Busches von Mikumi.',
+    summary: 'Eine private, reetgedeckte Cabin zwischen den Bäumen: eine lange umlaufende Terrasse, ein Kingsize-Bett, ein Marmorbad und rundherum die Geräusche des Busches von Mikumi.',
     description: [
       'Die Jungle Cabin ist ein privates Luxushaus hoch zwischen den Bäumen, umgeben von grünem Wald. Eine geräumige umlaufende Terrasse mit Tisch und Stühlen führt rund um das Haus, mit Blick in die Baumkronen und auf den Busch, durch den am frühen Morgen Affen und Impalas ziehen.',
-      'Innen sorgen warme Holzböden, sichtbare Deckenbalken und ausgewählte Kunst für eine einladende, elegante Atmosphäre. Raumhohe Fenster und breite Glastüren lassen das Licht und die Geräusche des Waldes herein, sodass der Busch Teil des Wohnraums wird. Das große Schlafzimmer mit Himmelbett in Kingsize, weicher Bettwäsche und Klimaanlage öffnet sich direkt zur Terrasse, dem besten Platz für den Morgenkaffee oder den Sonnenuntergang. Das Bad aus Marmor und Holz hat eine ebenerdige Regendusche.',
+      'Innen sorgen warme Holzböden, sichtbare Deckenbalken und ausgewählte Kunst für eine einladende, elegante Atmosphäre. Raumhohe Fenster und breite Glastüren lassen das Licht und die Geräusche des Waldes herein, sodass der Busch Teil des Wohnraums wird. Das große Schlafzimmer mit Kingsize-Bett, weicher Bettwäsche und Klimaanlage öffnet sich direkt zur Terrasse, dem besten Platz für den Morgenkaffee oder den Sonnenuntergang. Das Bad aus Marmor und Holz hat eine ebenerdige Regendusche.',
       'Sie schlafen beim Zirpen der Grillen und fernen Tierrufen ein und beobachten tagsüber von der Türschwelle aus die Tiere, die vorbeikommen. Für Paare und für alle, die feste Wände dem Segeltuch vorziehen und den Busch trotzdem spüren möchten.',
     ],
     highlights: [
       'Private Cabin, umgeben von Bäumen',
       'Umlaufende Terrasse mit Tisch und Stühlen',
       'Marmorbad mit Regendusche',
-      'Himmelbett in Kingsize, Klimaanlage',
+      'Kingsize-Bett, Klimaanlage',
       meals,
     ],
     alt: 'Die Jungle Cabin im Camp Lilac mit Reetdach und Holztreppe, zwischen Miombo-Bäumen',
     caption: 'Vom Weg aus, 07:15 Uhr',
     imageAlts: [
-      'Himmelbett in der Jungle Cabin im Camp Lilac, die Türen offen zur umlaufenden Terrasse und zu den Bäumen',
-      'Himmelbett in Kingsize mit Moskitonetz in der Jungle Cabin, Morgenlicht durch die Fenster',
+      'Kingsize-Bett in der Jungle Cabin im Camp Lilac, die Türen offen zur umlaufenden Terrasse und zu den Bäumen',
+      'Kingsize-Bett mit Moskitonetz in der Jungle Cabin, Morgenlicht durch die Fenster',
       'Holztreppe hinauf zur reetgedeckten Jungle Cabin im Camp Lilac, zwischen Miombo-Bäumen',
       'Die umlaufende Terrasse der Jungle Cabin unter dem Reetdach, mit Blick in den Busch',
       'Tisch und Stühle auf der Terrasse der Jungle Cabin im Schatten des Reetdachs, dahinter die Bäume',
       'Das Reetdach und das Holzgeländer der Jungle Cabin im Camp Lilac, Mikumi',
-      'Blick von der Terrasse in die Jungle Cabin: Himmelbett, Hartholzboden und Glastüren',
+      'Blick von der Terrasse in die Jungle Cabin: Kingsize-Bett, Hartholzboden und Glastüren',
       'Flur in der Jungle Cabin mit dem Gemälde einer Giraffe, der zum Bad führt',
       'Marmorbad der Jungle Cabin mit Regendusche, zwei Waschbecken und beleuchtetem Spiegel',
       'Beleuchteter Spiegel und Waschbecken im Marmorbad der Jungle Cabin im Camp Lilac',
@@ -159,12 +159,12 @@ const roomsDe: Record<string, RoomDe> = {
     bed: kingBed,
     view: 'Zwischen den Bäumen',
     metaTitle: 'Jungle Cabin: private Cabin am Mikumi-Park | Camp Lilac',
-    metaDescription: 'Private Cabin mit Reetdach zwischen den Bäumen: umlaufende Terrasse, Himmelbett, Marmorbad mit Regendusche, die Geräusche des Busches. Ab US${price} pro Nacht.',
+    metaDescription: 'Private Cabin mit Reetdach zwischen den Bäumen: umlaufende Terrasse, Kingsize-Bett, Marmorbad mit Regendusche, die Geräusche des Busches. Ab US${price} pro Nacht.',
   },
   'luxury-jungle-tent': {
     gloss: 'Luxuszelt zwischen den Bäumen',
     kind: 'Luxus-Safarizelt',
-    summary: 'Der klassische Safari-Aufenthalt: ein Luxuszelt aus Segeltuch auf einer erhöhten Hartholzterrasse, mit Himmelbett, eigenem Bad, Klimaanlage und Wildtieren, die an der Treppe vorbeiziehen.',
+    summary: 'Der klassische Safari-Aufenthalt: ein Luxuszelt aus Segeltuch auf einer erhöhten Hartholzterrasse, mit Kingsize-Bett, eigenem Bad, Klimaanlage und Wildtieren, die an der Treppe vorbeiziehen.',
     description: [
       'Für die Luxury Jungle Tents ist Camp Lilac bekannt: geräumige Luxuszelte aus Segeltuch auf erhöhten, polierten Holzterrassen, mit einem Komfort, den die meisten Camps in Mikumi nicht bieten: ein eigenes Bad mit ebenerdiger Regendusche, Klimaanlage und die weichsten Betten der Region.',
       'Jedes Luxuszelt hat ein bequemes Kingsize-Bett unter einem Moskitonetz, große Gazefenster für die natürliche Brise, glatte Holzböden und warmes, gedämpftes Licht: rustikal und elegant zugleich. Auf der privaten Veranda stehen handgefertigte Stühle mit Blick in den Busch. Impalas, Warzenschweine und Affen kommen regelmäßig direkt vorbei, und nachts hören Sie nur die Tiere.',
@@ -180,7 +180,7 @@ const roomsDe: Record<string, RoomDe> = {
     alt: 'Luxuszelt im Camp Lilac auf einer erhöhten Holzterrasse unter Bäumen nahe dem Mikumi-Nationalpark',
     caption: 'Luxuszelt zwei, später Vormittag',
     imageAlts: [
-      'Himmelbett mit Moskitonetz in einem Luxury Jungle Tent im Camp Lilac, Hartholzboden und Terrasse dahinter',
+      'Kingsize-Bett mit Moskitonetz in einem Luxury Jungle Tent im Camp Lilac, Hartholzboden und Terrasse dahinter',
       'Ankleidebereich und Waschbecken in einem Luxury Jungle Tent, mit Wänden aus Segeltuch und Blick auf die Bäume',
       'Holzstufen hinauf zur Terrasse eines Luxury Jungle Tent auf seiner erhöhten Plattform im Busch von Mikumi',
       'Ein Luxury Jungle Tent im Camp Lilac, die Front aus Segeltuch offen zur Terrasse und zum Busch',
@@ -193,7 +193,7 @@ const roomsDe: Record<string, RoomDe> = {
     bed: kingOrTwin,
     view: 'Zwischen den Bäumen',
     metaTitle: 'Luxury Jungle Tent: Luxuszelt mit eigenem Bad, Mikumi',
-    metaDescription: 'Ein Luxuszelt aus Segeltuch auf erhöhter Terrasse nahe dem Mikumi-Nationalpark: Himmelbett, eigenes Bad, Klimaanlage, Wildtiere an der Treppe. Ab US${price}.',
+    metaDescription: 'Ein Luxuszelt aus Segeltuch auf erhöhter Terrasse nahe dem Mikumi-Nationalpark: Kingsize-Bett, eigenes Bad, Klimaanlage, Wildtiere an der Treppe. Ab US${price}.',
   },
   'luxury-family-tent': {
     gloss: 'Luxuszelt für Familien',
@@ -265,7 +265,7 @@ type SafariDe = {
 const safarisDe: Record<string, SafariDe> = {
   '1-day-mikumi-safari': {
     name: 'Tagessafari Mikumi',
-    summary: 'Ein ganzer Tag im Mikumi-Nationalpark im privaten offenen Geländewagen mit unserem eigenen Guide: Pirschfahrt am Morgen, warmes Mittagessen im Busch, Pirschfahrt am Nachmittag bis etwa 16:30 Uhr. Ab Morogoro, ab dem Camp oder als Tagesausflug ab Dar es Salaam mit dem SGR-Zug.',
+    summary: 'Ein ganzer Tag im Mikumi-Nationalpark im privaten offenen Geländewagen mit unserem eigenen Guide: Pirschfahrt am Morgen, warmes Mittagessen, Pirschfahrt am Nachmittag bis etwa 16:30 Uhr. Ab Morogoro, ab dem Camp oder als Tagesausflug ab Dar es Salaam mit dem SGR-Zug.',
     bestFor: 'Tagesausflüge ab Morogoro oder Dar es Salaam und Gäste, die eine Nacht bleiben',
     start: 'Morogoro, Camp Lilac oder SGR-Bahnhof Dar es Salaam',
     imageAlt: 'Giraffen grasen neben einem Safari-Geländewagen in der Savanne von Mikumi',
@@ -275,10 +275,10 @@ const safarisDe: Record<string, SafariDe> = {
     ],
     itinerary: [
       { title: 'Vormittag: Abholung und erste Pirschfahrt', text: 'Unser Fahrer holt Sie an Ihrem Hotel, am SGR-Bahnhof oder im Camp ab und bringt Sie zum Haupteingang des Mikumi-Nationalparks (etwa 2 Stunden ab Morogoro). Am Parkeingang steigen Sie mit Ihrem Guide in einen privaten Geländewagen mit offenem Dach und fahren hinaus auf die Mkata-Ebene, wo Büffel, Giraffen, Elefanten, Zebras, Impalas und mit etwas Glück Löwen früh am Tag am leichtesten zu finden sind. Vier der Big Five leben in Mikumi.' },
-      { title: 'Nachmittag: Flusspferd-Tümpel und Rückfahrt', text: 'Nach einem warmen Mittagessen im Busch geht die Pirschfahrt bis etwa 16:30 Uhr weiter, zu den Flusspferd-Tümpeln und den Wasserstellen. Danach bringt Ihr Guide Sie zurück zum Parkeingang und weiter nach Morogoro zum Abendzug nach Dar es Salaam, zu Ihrem Hotel oder ins Camp.' },
+      { title: 'Nachmittag: Flusspferd-Tümpel und Rückfahrt', text: 'Nach einem warmen Mittagessen geht die Pirschfahrt bis etwa 16:30 Uhr weiter, zu den Flusspferd-Tümpeln und den Wasserstellen. Danach bringt Ihr Guide Sie zurück zum Parkeingang und weiter nach Morogoro zum Abendzug nach Dar es Salaam, zu Ihrem Hotel oder ins Camp.' },
     ],
     metaTitle: 'Tagessafari Mikumi ab Morogoro und Dar es Salaam',
-    metaDescription: 'Ein ganzer Tag im Mikumi-Nationalpark im privaten offenen Geländewagen mit eigenem Guide: Pirschfahrt, warmes Mittagessen im Busch. Ab US${price} pro Person.',
+    metaDescription: 'Ein ganzer Tag im Mikumi-Nationalpark im privaten offenen Geländewagen mit eigenem Guide: Pirschfahrt, warmes Mittagessen. Ab US${price} pro Person.',
   },
   '2-day-mikumi-safari': {
     name: 'Mikumi-Safari, 2 Tage, 1 Nacht',
@@ -307,7 +307,7 @@ const safarisDe: Record<string, SafariDe> = {
     ],
     itinerary: [
       { title: 'Tag 1: Von Dar es Salaam in den Mikumi-Nationalpark', text: 'Morgens mit dem SGR-Zug von Dar es Salaam nach Morogoro (1,5 Stunden). Ihr Fahrer-Guide erwartet Sie am Bahnsteig für die 2 Stunden Fahrt nach Mikumi. Die Hauptstraße führt mitten durch den Park, halten Sie also die Kamera bereit für Paviane, Giraffen, Elefanten, Zebras und Büffel am Straßenrand. Mittagessen, dann eine Pirschfahrt über die Ebene zu den Flusspferd-Tümpeln, mit Löwen, Elefanten, Elenantilopen, Warzenschweinen, Flusspferden, Krokodilen und Wasservögeln, bis zum Sonnenuntergang; danach eine kurze Fahrt zum Camp.' },
-      { title: 'Tag 2: Ein ganzer Tag auf der Mkata-Ebene', text: 'Nach dem Frühstück im Camp holt Ihr Guide Sie zu einem ganzen Tag auf der Mkata-Ebene und an ihren von Baobabs gesäumten Rändern ab: über 400 Vogelarten, große Herden und im Waldland die besten Chancen auf einen Leoparden. Picknick an einem Aussichtspunkt, dann Pirschfahrt bis zum Sonnenuntergang.' },
+      { title: 'Tag 2: Ein ganzer Tag auf der Mkata-Ebene', text: 'Nach dem Frühstück im Camp holt Ihr Guide Sie zu einem ganzen Tag auf der Mkata-Ebene und an ihren von Baobabs gesäumten Rändern ab: über 400 Vogelarten, große Herden und im Waldland die besten Chancen auf einen Leoparden. Mittagessen, dann Pirschfahrt bis zum Sonnenuntergang.' },
       { title: 'Tag 3: Von Mikumi nach Dar es Salaam', text: 'Frühstück, Check-out und auf dem Weg hinaus noch eine Fahrt durch den Park. Mittagessen, dann die Fahrt nach Morogoro zum Nachmittagszug nach Dar es Salaam, wo wir Sie zu Ihrem Hotel, zur Fähre oder zum Flughafen bringen.' },
     ],
     metaTitle: 'Mikumi-Safari 3 Tage ab Dar es Salaam | Camp Lilac',
@@ -323,7 +323,7 @@ const safarisDe: Record<string, SafariDe> = {
     itinerary: [
       { title: 'Tag 1: Von Dar es Salaam nach Mikumi, Besuch eines Massai-Bomas', text: 'Morgens mit dem SGR-Zug nach Morogoro (1,5 Stunden), dann 2 Stunden mit unserem Geländewagen nach Mikumi, mit Mittagessen unterwegs. Nach der Ankunft besuchen Sie ein Massai-Boma in der Nähe des Parks, bevor Sie sich im Camp einrichten und zu Abend essen, mit Blick auf den Bergkamm der Mikumi-Berge.' },
       { title: 'Tag 2: Ein ganzer Tag im Mikumi-Nationalpark', text: 'Pirschfahrt von 06:30 Uhr bis zum Sonnenuntergang: große Herden von Giraffen, Büffeln und Elefanten auf der Ebene, Hunderte Vogelarten und gute Chancen auf Löwen und Leoparden.' },
-      { title: 'Tag 3: Udzungwa-Berge und Sanje-Wasserfall', text: 'Abfahrt um 07:00 Uhr zur 60 km langen Fahrt in den Udzungwa-Mountains-Nationalpark. Nach der Anmeldung am Hauptquartier des Parks wandern Sie mit einem Ranger zum Sanje-Wasserfall, der in vier Stufen herabstürzt und der höchste Wasserfall in Tansanias Nationalparks ist: rund fünf Stunden hin und zurück, mit Udzungwa-Stummelaffen und Sanje-Mangaben im Wald. Picknick am Weg, dann zurück ins Camp.' },
+      { title: 'Tag 3: Udzungwa-Berge und Sanje-Wasserfall', text: 'Abfahrt um 07:00 Uhr zur 60 km langen Fahrt in den Udzungwa-Mountains-Nationalpark. Nach der Anmeldung am Hauptquartier des Parks wandern Sie mit einem Ranger zum Sanje-Wasserfall, der in vier Stufen herabstürzt und der höchste Wasserfall in Tansanias Nationalparks ist: rund fünf Stunden hin und zurück, mit Udzungwa-Stummelaffen und Sanje-Mangaben im Wald. Danach zurück ins Camp.' },
       { title: 'Tag 4: Von Mikumi nach Dar es Salaam', text: 'Am Morgen geht es zurück durch den Mikumi-Nationalpark, mit einer letzten Chance, Tiere von der Straße aus zu sehen, dann nach Morogoro zum Nachmittagszug nach Dar es Salaam. Wir bringen Sie zur Fähre, zu Ihrem Hotel oder zum Flughafen.' },
     ],
     metaTitle: 'Mikumi und Udzungwa-Wasserfälle, 4 Tage | Camp Lilac',
@@ -359,12 +359,12 @@ const phrases: Record<string, string> = {
   'Dinner on day 2': 'Abendessen an Tag 2',
   'Dinner on day 3': 'Abendessen an Tag 3',
   'Dinner on day 4': 'Abendessen an Tag 4',
-  'Hot bush lunch, water and soft drinks': 'Warmes Mittagessen im Busch, Wasser und Softdrinks',
+  'Hot lunch, water and soft drinks': 'Warmes Mittagessen, Wasser und Softdrinks',
   'Lunch and dinner, water and soft drinks': 'Mittag- und Abendessen, Wasser und Softdrinks',
   'Breakfast and lunch, water and soft drinks': 'Frühstück und Mittagessen, Wasser und Softdrinks',
-  'Breakfast, picnic lunch and dinner, water and soft drinks': 'Frühstück, Picknick zu Mittag und Abendessen, Wasser und Softdrinks',
+  'Breakfast, lunch and dinner, water and soft drinks': 'Frühstück, Mittag- und Abendessen, Wasser und Softdrinks',
   'Lunch and dinner, water': 'Mittag- und Abendessen, Wasser',
-  'Breakfast, picnic lunch and dinner, water': 'Frühstück, Picknick zu Mittag und Abendessen, Wasser',
+  'Breakfast, lunch and dinner, water': 'Frühstück, Mittag- und Abendessen, Wasser',
   'Breakfast and lunch, water': 'Frühstück und Mittagessen, Wasser',
   'Camp Lilac — luxury tent or cabin, just outside the park': 'Camp Lilac: Luxuszelt oder Cabin, knapp außerhalb des Parks',
   '1 person': '1 Person',
@@ -435,7 +435,7 @@ const offersDeText: Record<string, { title: string; who: string; worth: string; 
 export const offersDe = offers.map((o) => ({ ...o, enTitle: o.title, ...(offersDeText[o.id] ?? {}) }));
 
 const benefitsDe: Record<string, { title: string; text: string }> = {
-  'Breakfast and dinner included': { title: 'Frühstück und Abendessen inklusive', text: 'Jede Direktbuchung enthält Frühstück und ein dreigängiges Abendessen mit Blick auf den Bergkamm der Mikumi-Berge. Das Mittagessen kostet US$15 pro Person.' },
+  'Breakfast and dinner included': { title: 'Frühstück und Abendessen inklusive', text: 'Jede Direktbuchung enthält Frühstück und Abendessen mit Blick auf den Bergkamm der Mikumi-Berge. Das Mittagessen kostet US$15 pro Person.' },
   'One total price, no booking fees': { title: 'Ein Gesamtpreis, keine Buchungsgebühren', text: 'Sie erhalten einen Preis für Unterkunft, Safari und Transfers und zahlen nichts, bevor Sie bestätigen. Eine Anzahlung über einen sicheren Kartenlink sichert Ihnen die Unterkunft.' },
   'The whole journey organised': { title: 'Die ganze Reise organisiert', text: 'Zugtickets, Abholung am Bahnhof Morogoro, Fähren und Flüge ab Sansibar: Sagen Sie uns, wie Sie reisen möchten, und wir organisieren es.' },
   'Our own guides and 4×4s': { title: 'Eigene Guides und Geländewagen', text: 'Die Pirschfahrten beginnen direkt am Camp, im privaten Geländewagen mit offenem Dach und einem Guide von Camp Lilac, abgestimmt auf Ihren Zug oder Flug.' },
