@@ -13,3 +13,6 @@
 /safaris/4-day-mikumi-safari      /safaris/4-day-mikumi-udzungwa-safari  301
 # Old sitemap address still registered in Search Console
 /sitemap.xml  /sitemap-index.xml  301
+# Earlier planned trade brochure links -> season 2026-27 files
+/trade/camp-lilac-trade-brochure-2026.pdf     /trade/camp-lilac-trade-brochure-2026-27.pdf     301
+/trade/camp-lilac-brochure-tanzania-2026.pdf  /trade/camp-lilac-brochure-tanzania-2026-27.pdf  301

@@ -11,6 +11,10 @@
   X-Robots-Tag: noindex, nofollow
 /thank-you
   X-Robots-Tag: noindex, nofollow
+# Trade brochures with net (STO) rates: unlisted, kept out of search engines
+/trade/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: public, max-age=3600
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
