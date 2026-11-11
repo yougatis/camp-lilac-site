@@ -346,7 +346,7 @@ export const safariFr: Record<string, SafariFr> = {
     name: 'Safari Mikumi 3 jours, 2 nuits',
     bestFor: 'Voyageurs qui veulent voir tout le parc sans se presser',
     summary: 'Trois jours, deux nuits : train SGR depuis Dar es Salaam, game drive au coucher du soleil le jour de l’arrivée, une journée entière sur la plaine de Mikumi, et une dernière traversée du parc sur le chemin du retour. Deux nuits en tente de luxe à Camp Lilac.',
-    imageAlt: 'Un guépard assis devant un 4×4 de safari',
+    imageAlt: 'Un 4×4 de safari de Camp Lilac à côté d’une troupe de lions au repos près d’un point d’eau',
     start: 'Gare SGR de Dar es Salaam, train du matin',
     offer: offer34,
     variants: [

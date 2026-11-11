@@ -283,7 +283,7 @@ const safariText: Record<string, SafariText> = {
     name: 'Safari en Mikumi de 3 días y 2 noches',
     metaTitle: 'Safari de 3 días en Mikumi desde Dar es Salaam | Camp Lilac',
     metaDescription: 'Tres días y dos noches: tren SGR desde Dar es Salaam, safari al atardecer al llegar, un día completo en la llanura de Mikumi y dos noches en tienda de lujo.',
-    imageAlt: 'Un guepardo sentado frente a un 4×4 de safari',
+    imageAlt: 'Un 4×4 de safari de Camp Lilac junto a una manada de leones que descansa en una charca',
     summary: 'Tres días y dos noches: tren SGR desde Dar es Salaam, safari al atardecer el día de llegada, una jornada completa en la llanura de Mikumi y un último recorrido por el parque de camino a casa. Dos noches en una tienda de lujo en Camp Lilac.',
     bestFor: 'Viajeros que quieren ver todo el parque sin prisas',
     offer: offer34,

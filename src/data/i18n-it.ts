@@ -349,7 +349,7 @@ const safarisIt: Record<string, SafariIt> = {
     bestFor: 'Chi vuole vedere tutto il parco senza fretta',
     summary:
       'Tre giorni e due notti: treno SGR da Dar es Salaam, game drive al tramonto il giorno dell’arrivo, una giornata intera sulla piana del Mkata e un ultimo giro nel parco sulla via del ritorno. Due notti in una tenda di lusso a Camp Lilac.',
-    imageAlt: 'Un ghepardo seduto davanti a una jeep da safari nel Parco Nazionale di Mikumi',
+    imageAlt: 'Una jeep da safari di Camp Lilac accanto a un branco di leoni a riposo vicino a una pozza d’acqua',
     start: 'Stazione SGR di Dar es Salaam, treno del mattino',
     offer: offerTrain,
     variants: [

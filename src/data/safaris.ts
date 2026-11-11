@@ -137,8 +137,8 @@ export const safaris: Safari[] = [
       { name: 'Classic', text: 'Two full days of game drives, two nights at Camp Lilac.' },
       { name: 'With a cultural visit', text: 'Swap part of day 2 for a visit to a Maasai boma or a nearby village with your guide. Same price — just tell us when you book.' },
     ],
-    image: '/images/wild/pkg-3-1600.jpg',
-    imageAlt: 'A cheetah sitting in front of a safari jeep',
+    image: '/images/wild/pkg-3-lions-1600.jpg',
+    imageAlt: 'A Camp Lilac safari jeep beside a pride of lions resting at a waterhole',
     summary:
       'Three days, two nights: SGR train from Dar es Salaam, a sunset game drive on arrival, a full day on the Mikumi floodplain, and a last drive through the park on the way home. Two nights in a luxury tent at Camp Lilac.',
     bestFor: 'Travellers who want to see the whole park without rushing',

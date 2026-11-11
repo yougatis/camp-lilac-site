@@ -300,7 +300,7 @@ const safarisDe: Record<string, SafariDe> = {
     bestFor: 'Reisende, die den ganzen Park sehen möchten, ohne zu hetzen',
     offer: 'Kostenlose Economy-Tickets für den SGR-Zug von Dar es Salaam nach Morogoro für Ihre Gruppe plus kostenloser Transfer nach Mikumi (im Wert von US$75), wenn Sie diese Safari direkt bei Camp Lilac buchen und sie im November 2026 beginnt. Nur die Hinfahrt, die Rückreise wird berechnet.',
     start: 'SGR-Bahnhof Dar es Salaam, Morgenzug',
-    imageAlt: 'Ein Gepard sitzt vor einem Safari-Geländewagen',
+    imageAlt: 'Ein Safari-Geländewagen von Camp Lilac neben einem Löwenrudel, das an einem Wasserloch ruht',
     variants: [
       { name: 'Klassisch', text: 'Zwei volle Tage Pirschfahrten, zwei Nächte im Camp Lilac.' },
       { name: 'Mit Kulturbesuch', text: 'Tauschen Sie einen Teil von Tag 2 gegen den Besuch eines Massai-Bomas oder eines Dorfes in der Nähe, zusammen mit Ihrem Guide. Gleicher Preis, sagen Sie es uns einfach bei der Buchung.' },
