@@ -83,6 +83,8 @@ const BOOKING_API = '/api/booking';
       </label>
       <label>Anything else you would like us to organise <textarea name="message" placeholder="Anything at all — a birthday dinner, a night in Zanzibar, a different route, dietary needs, onward travel… We can organise it."></textarea></label>
       <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
+      <input type="hidden" name="source" value="" />
+      <input type="hidden" name="source_detail" value="" />
       <button class="btn" type="submit">Send request</button>
       <p class="form-status" id="form-status" role="status" hidden></p>
       <p class="meta">Free, no obligation. We reply {site.replyTime} with availability and one total price. We only use your details to answer this request.</p>

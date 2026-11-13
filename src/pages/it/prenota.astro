@@ -93,6 +93,8 @@ const offersData = offersActive ? offersIt.map((o, i) => ({ en: offers[i].title,
       </label>
       <label>C’è altro che volete che organizziamo? <textarea name="message" placeholder="Qualsiasi cosa: una cena di compleanno, una notte a Zanzibar, un percorso diverso, esigenze alimentari, il viaggio successivo… Ci pensiamo noi. Potete scrivere in italiano."></textarea></label>
       <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
+      <input type="hidden" name="source" value="" />
+      <input type="hidden" name="source_detail" value="" />
       <button class="btn" type="submit">Inviate la richiesta</button>
       <p class="form-status" id="form-status" role="status" hidden></p>
       <p class="meta">Gratis e senza impegno. Rispondiamo {replyIt} con la disponibilità e un unico prezzo totale. Usiamo i vostri dati solo per rispondere a questa richiesta. Il team parla inglese e swahili: vi risponde in inglese semplice o con l’aiuto di un traduttore.</p>

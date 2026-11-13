@@ -386,7 +386,57 @@ const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema
           cb(m && window.CL_EU.indexOf(m[1]) >= 0 ? 'ask' : 'granted');
         }).catch(function () { cb('granted'); });
       }
+      // Where this visitor came from (Google Ads, Meta ads, Google search, Instagram, another website...). The booking
+      // forms send it as "source" and "source_detail", so every request in the sheet shows what brought it.
+      // Only a short label, the ad campaign/keyword and the landing page are kept, in this browser tab only
+      // (sessionStorage 'cl-src'), never click IDs. EU/EEA, UK and Swiss visitors: only after they accept the banner.
+      // Google Ads campaign ids (sent as utm_campaign={campaignid} by the campaigns' final URL suffix):
+      var CL_GADS = { '24446128013': 'Tanzania', '24451523231': 'Germany, Austria, Switzerland' };
+      function clSrcNow() {
+        var p = new URLSearchParams(location.search);
+        var g = function (k) { return (p.get(k) || '').trim().slice(0, 80); };
+        var us = g('utm_source').toLowerCase(), um = g('utm_medium').toLowerCase(), uc = g('utm_campaign'), ut = g('utm_term'), ux = g('utm_content');
+        var ref = '';
+        try { ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, '') : ''; } catch (e) {}
+        if (ref === location.hostname.replace(/^www\./, '') || /(^|\.)camp-lilac\.com$|(^|\.)camp-lilac-site\.pages\.dev$/.test(ref)) ref = '';
+        var paid = /^(cpc|ppc|paid|paidsocial|paid_social|ads?)$/.test(um);
+        var s = '';
+        if (g('gclid') || g('gbraid') || g('wbraid') || (us === 'google' && paid)) s = 'Google Ads' + (CL_GADS[uc] ? ' (' + CL_GADS[uc] + ')' : '');
+        else if (/^(meta|facebook|fb|instagram|ig)$/.test(us) && paid) s = 'Meta ads';
+        else if (us) s = 'Link tagged ' + us + (um ? ' / ' + um : '');
+        else if (ref) {
+          if (/(^|\.)(chatgpt\.com|openai\.com|perplexity\.ai|claude\.ai|gemini\.google\.com|copilot\.microsoft\.com)$/.test(ref)) s = 'AI assistant (' + ref + ')';
+          else if (/(^|\.)google\.[a-z.]+$/.test(ref)) s = 'Google search or Maps (free)';
+          else if (/(^|\.)(bing\.com|duckduckgo\.com|yahoo\.com|ecosia\.org|yandex\.[a-z]+|baidu\.com)$/.test(ref)) s = 'Other search engine (' + ref + ')';
+          else if (/(^|\.)instagram\.com$/.test(ref)) s = 'Instagram (not an ad)';
+          else if (/(^|\.)(facebook\.com|fb\.com|messenger\.com)$/.test(ref)) s = 'Facebook (not an ad)';
+          else if (/(^|\.)tripadvisor\.[a-z.]+$/.test(ref)) s = 'Tripadvisor';
+          else if (/(^|\.)safaribookings\.com$/.test(ref)) s = 'SafariBookings';
+          else if (/(^|\.)booking\.com$/.test(ref)) s = 'Booking.com';
+          else if (/(^|\.)tiktok\.com$/.test(ref)) s = 'TikTok';
+          else if (/(^|\.)(youtube\.com|youtu\.be)$/.test(ref)) s = 'YouTube';
+          else s = 'Other website (' + ref + ')';
+        } else if (g('fbclid')) s = 'Facebook or Instagram (not an ad)';
+        if (!s) return null;
+        var d = [];
+        if (uc && !CL_GADS[uc]) d.push('campaign ' + uc);
+        if (ut) d.push('keyword "' + ut + '"');
+        if (ux) d.push('ad ' + ux);
+        d.push('landed on ' + location.pathname);
+        return { s: s, d: d.join(', ') };
+      }
+      var clSrcPage = clSrcNow();
+      function clSrcSave(v) { if (v) { try { sessionStorage.setItem('cl-src', JSON.stringify(v)); } catch (e) {} } }
+      function clSrcFill(state) {
+        var v = clSrcPage;
+        if (!v) { try { v = JSON.parse(sessionStorage.getItem('cl-src') || 'null'); } catch (e) {} }
+        if (!v || !v.s) v = { s: state === 'granted' ? 'Direct or unknown' : 'Unknown (cookie banner not accepted)', d: 'form page ' + location.pathname };
+        document.querySelectorAll('input[name="source"]').forEach(function (i) { i.value = v.s; });
+        document.querySelectorAll('input[name="source_detail"]').forEach(function (i) { i.value = v.d || ''; });
+      }
       clConsent(function (state) {
+      if (state === 'granted') clSrcSave(clSrcPage);
+      clSrcFill(state);
       if (state !== 'granted') { fbq('consent', 'revoke'); clMetaOff = true; }
       fbq('init', '1131227682887375');
       // Each event goes to the browser pixel and to our server (/api/meta -> Conversions API) with the same
@@ -425,7 +475,7 @@ const schemas = [orgSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema
           var decide = function (ok) {
             try { localStorage.setItem('cl-consent', ok ? 'granted' : 'denied'); } catch (e) {}
             gtag('consent', 'update', ok ? window.CL_GRANT : window.CL_DENY);
-            if (ok) { fbq('consent', 'grant'); clMetaOff = false; }
+            if (ok) { fbq('consent', 'grant'); clMetaOff = false; clSrcSave(clSrcPage); clSrcFill('granted'); }
             bar.hidden = true;
           };
           bar.querySelector('[data-yes]').addEventListener('click', function () { decide(true); });

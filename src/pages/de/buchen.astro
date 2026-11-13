@@ -92,6 +92,8 @@ const offerData = offersActive ? offersDe.map((o) => ({ title: o.title, text: o.
       </label>
       <label>Was dürfen wir sonst noch für Sie organisieren? <textarea name="message" placeholder="Was immer Sie möchten: ein Geburtstagsessen, eine Nacht auf Sansibar, eine andere Route, besondere Ernährung, die Weiterreise … Wir organisieren es."></textarea></label>
       <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
+      <input type="hidden" name="source" value="" />
+      <input type="hidden" name="source_detail" value="" />
       <button class="btn" type="submit">Anfrage senden</button>
       <p class="form-status" id="form-status" role="status" hidden></p>
       <p class="meta">Kostenlos und unverbindlich. Wir antworten tagsüber in der Regel innerhalb von {replyHours} Stunden mit Verfügbarkeit und Gesamtpreis. Ihre Angaben verwenden wir nur, um diese Anfrage zu beantworten. Sie können gern auf Deutsch schreiben; unser Team antwortet auf Englisch.</p>

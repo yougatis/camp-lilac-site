@@ -93,6 +93,8 @@ const monthFr = OFFER_MONTH.replace('November', 'novembre');
       </label>
       <label>Autre chose à organiser pour vous ? <textarea name="message" placeholder="Tout ce que vous voulez : un dîner d’anniversaire, une nuit à Zanzibar, un autre itinéraire, un régime alimentaire, la suite du voyage… Nous pouvons l’organiser."></textarea></label>
       <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
+      <input type="hidden" name="source" value="" />
+      <input type="hidden" name="source_detail" value="" />
       <button class="btn" type="submit">Envoyer la demande</button>
       <p class="form-status" id="form-status" role="status" hidden></p>
       <p class="meta">Gratuit et sans engagement. Nous répondons {frReply(site.replyTime)} avec les disponibilités et un seul prix total. Nous n’utilisons vos coordonnées que pour répondre à cette demande. Vous pouvez écrire en français ; notre équipe répond en anglais simple ou à l’aide d’un traducteur.</p>

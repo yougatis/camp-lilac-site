@@ -1,7 +1,7 @@
 // Website booking requests -> Google Apps Script in the info@camp-lilac.com Google account.
 // The script saves each request as a row in the sheet "Camp Lilac - Website booking requests"
 // and emails it to info@camp-lilac.com. Its URL is kept in the Cloudflare variable BOOKING_SCRIPT_URL.
-const FIELDS = ['name', 'email', 'phone', 'country', 'checkin', 'checkout', 'adults', 'children', 'room', 'safari', 'offer', 'arrival', 'message'];
+const FIELDS = ['name', 'email', 'phone', 'country', 'checkin', 'checkout', 'adults', 'children', 'room', 'safari', 'offer', 'arrival', 'message', 'source', 'source_detail'];
 const json = (obj, status = 200) =>
   new Response(JSON.stringify(obj), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
 
